@@ -30,12 +30,12 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   return $theValue;
 }
 }
-
+/*
 mysql_select_db($database_otono2011, $otono2011);
 $query_media_articles = "SELECT id_article, title FROM media_articles ORDER BY date DESC LIMIT 0, 4";
 $media_articles = mysql_query($query_media_articles, $otono2011) or die(mysql_error());
 //$row_media_articles = mysql_fetch_assoc($media_articles);
-//$totalRows_media_articles = mysql_num_rows($media_articles);
+//$totalRows_media_articles = mysql_num_rows($media_articles);*/
 
 mysql_select_db($database_otono2011, $otono2011);
 $query_weekly_article = "SELECT * FROM weekly_articles ORDER BY `date` DESC LIMIT 0, 1";
