@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Twitter</title>
+<link href="css/jquery.tweet.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script language="javascript" src="js/jquery.tweet.js" type="text/javascript"></script>
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $(".tweet").tweet({
+            username: "DiplomadosIbero",
+            avatar_size: 20,
+            count: 5,
+            loading_text: "cargando tweets..."
+        });
+    });
+</script>
+
+</head>
+
+<body>
+
+<div id= "twitter">
+
+  <h2>@DiplomadosIbero</h2>
+  <div class="tweet"></div>
+  </div>
+</body>
+</html>

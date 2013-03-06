@@ -1,0 +1,42 @@
+/* -------------------- ID -------------------- */
+#slider 
+{
+	position: relative;
+	height: 75px;
+	overflow: hidden;
+	outline: none;
+	border: 0px;
+}
+
+#wrapper 
+{
+	width: 297px;
+	margin-left: 4px;
+	margin-right: 4px;
+	outline: none;
+	border: 0px;
+}
+/* -------------------- CLASS -------------------- */
+
+.slidercontent 
+{
+    position:absolute;
+}
+
+.subtitulos_s{
+	color:#900;
+	font-family:Helvetica, Arial, "Gill Sans";
+	font-weight: bold;
+	font-size:16px;
+}
+
+.subtitulos_inicio{
+	border-bottom:solid; 
+	border-bottom-color:#666;
+}
+
+.subtitulos_sec{
+	border-bottom:solid; 
+	border-bottom-color:#600;
+	border-bottom-width:thin;
+}

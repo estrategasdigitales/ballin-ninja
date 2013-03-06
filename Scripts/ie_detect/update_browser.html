@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="es-MX">
+<head>
+	<meta charset="UTF-8">
+	<title>Departamento de Dise&ntilde;o de la Universidad Iberoamericana</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<link href="http://www.dec-uia.com/otono_2011/Scripts/ie_detect/css/iestyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+
+	var lastHeight = 0;
+
+	function resizeHelperIframe()
+	{	
+		// Gets the new page height
+		var newHeight = document.body.offsetHeight; //document.body.scrollHeight;
+		
+		if(lastHeight != newHeight){
+			
+			// New height is going to the parent through the helperIframe.
+			var helperIframe = document.getElementById('helperIframe');
+			helperIframe.contentWindow.location.replace('http://www.diplomados.uia.mx/helper.html#' + newHeight);
+			
+			lastHeight = newHeight;
+		}
+	}
+	
+	window.onload = function(event) {
+		
+		resizeHelperIframe();
+		
+	}
+
+</script>	
+</head>
+<body>
+	<iframe id="helperIframe" src='http://www.diplomados.uia.mx/helper.html#1000' height='0' width='0' frameborder='0'></iframe>
+	<div id="container" class="containerIE">
+	<div>
+		<h2>La versión de tu navegador no es compatible con este sitio. <br /><span style="color:#666;display:block;margin-top:.3em;">Te sugerimos reemplazarla por alguna de las siguientes opciones:</span></h2>
+		<div id="grid">
+			<span class="grids">
+				<a href="https://www.google.com/intl/es/chrome/browser/?hl=es">
+					<img border="0" src="http://www.dec-uia.com/otono_2011/Scripts/ie_detect/images/chrome-logo.png" alt="Actualiza tu navegador con Google Chorme" title="Google Chorme"/>
+					<span>Descarga ahora</span>
+				</a>
+			</span>
+			<span class="grids">
+				<a href="http://www.mozilla.org/es-MX/firefox/new/">
+					<img border="0" src="http://www.dec-uia.com/otono_2011/Scripts/ie_detect/images/firefox-logo.png" alt="Actualiza tu navegador con Mozilla Firefox" title="Mozilla Firefox"/>
+					<span>Descarga ahora</span>
+				</a>
+			</span>
+			<span class="grids">
+				<a href="http://windows.microsoft.com/es-MX/internet-explorer/download-ie?os=win7&amp;arch=a&amp;browser=ie">
+					<img border="0" src="http://www.dec-uia.com/otono_2011/Scripts/ie_detect/images/ie-logo.png" alt="Actualiza tu navegador con Microsoft Internet Explorer" title="Microsoft Internet Explorer"/>
+					<span>Descarga ahora</span>
+				</a>
+			</span>
+			<span class="grids">
+				<a href="http://www.apple.com/safari/download">
+					<img border="0" src="http://www.dec-uia.com/otono_2011/Scripts/ie_detect/images/safari-logo.png" alt="Actualiza tu navegador con Safari" title="Safari"/>
+					<span>Descarga ahora</span>
+				</a>
+			</span>
+		</div>
+	</div>
+</div>
+</body>
+</html>
