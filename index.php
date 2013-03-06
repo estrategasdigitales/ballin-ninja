@@ -76,7 +76,8 @@ $ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
 $row_ad = mysql_fetch_assoc($ad);
 $totalRows_ad = mysql_num_rows($ad);
 */ 
-function WordLimiter($text,$limit,$word_count){
+function WordLimiter($text, $limit,$word_count){
+	echo $limit;
 	$limit = $limit - $word_count;
 	$explode = explode(' ',$text);
 	$string  = '';
