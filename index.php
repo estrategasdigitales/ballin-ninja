@@ -75,7 +75,7 @@ $query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
 $ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
 $row_ad = mysql_fetch_assoc($ad);
 $totalRows_ad = mysql_num_rows($ad);
-*/
+*/ 
 function WordLimiter($text,$limit,$word_count){
 	$limit = $limit - $word_count;
 	$explode = explode(' ',$text);
