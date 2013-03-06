@@ -77,7 +77,6 @@ $row_ad = mysql_fetch_assoc($ad);
 $totalRows_ad = mysql_num_rows($ad);
 */ 
 function WordLimiter($text, $limit,$word_count){
-	echo $limit;
 	$limit = $limit - $word_count;
 	$explode = explode(' ',$text);
 	$string  = '';
