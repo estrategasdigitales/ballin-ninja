@@ -102,8 +102,8 @@ $progs_cursos_i = mysql_query($query_progs_cursos_i, $otono2011) or die(mysql_er
 $row_progs_cursos_i = mysql_fetch_assoc($progs_cursos_i);
 $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);	
 
-//Query articulos
-if($_GET['id_article'] == NULL || $_GET['id_article'] == ''){
+//Query articulos 
+//if($_GET['id_article'] == NULL || $_GET['id_article'] == ''){
 	mysql_select_db($database_otono2011, $otono2011);
 	$query_pictures = "SELECT picture FROM discipline_articles WHERE id_discipline = ".$_GET['id_discipline']." ORDER BY date DESC LIMIT 0,1";
 	$pictures = mysql_query($query_pictures, $otono2011) or die(mysql_error());
@@ -115,7 +115,7 @@ if($_GET['id_article'] == NULL || $_GET['id_article'] == ''){
 	$disciplines = mysql_query($query_disciplines, $otono2011) or die(mysql_error());
 	$row_disciplines = mysql_fetch_assoc($disciplines);
 	$totalRows_disciplines = mysql_num_rows($disciplines);
-}else{
+/* }else{
 	mysql_select_db($database_otono2011, $otono2011);
 	$query_pictures = "SELECT picture FROM discipline_articles WHERE id_article = ".$_GET['id_article']." AND id_discipline = ".$_GET['id_discipline']." ORDER BY date DESC LIMIT 0,1";
 	$pictures = mysql_query($query_pictures, $otono2011) or die(mysql_error());
@@ -127,7 +127,7 @@ if($_GET['id_article'] == NULL || $_GET['id_article'] == ''){
 	$disciplines = mysql_query($query_disciplines, $otono2011) or die(mysql_error());
 	$row_disciplines = mysql_fetch_assoc($disciplines);
 	$totalRows_disciplines = mysql_num_rows($disciplines);
-}
+}*/
 
 mysql_select_db($database_otono2011, $otono2011);
 $query_temp = "SELECT discipline FROM disciplines WHERE id_discipline = ".$_GET['id_discipline'];
