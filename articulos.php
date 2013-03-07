@@ -135,13 +135,13 @@ $temp = mysql_query($query_temp, $otono2011) or die(mysql_error());
 $row_temp = mysql_fetch_assoc($temp);
 $totalRows_temp = mysql_num_rows($temp);
 
-
+/*
 mysql_select_db($database_otono2011, $otono2011);
 $query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
 $ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
 $row_ad = mysql_fetch_assoc($ad);
 $totalRows_ad = mysql_num_rows($ad);
-
+*/
 //CODIGO PARA QUE ASIGNE FORMATO LOCAL A LAS FECHAS
 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 //++++++++++++++++++++
