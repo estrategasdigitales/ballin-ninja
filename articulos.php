@@ -578,7 +578,7 @@ s.parentNode.insertBefore(ga, s);
               		<tr>
 
                 <?php
-						$enc = split(',', $row_prog_tipo['id_encargado']);
+						$enc = explode(',', $row_prog_tipo['id_encargado']);
 						$num = sizeof($enc);
 						for ($i=0; $i<$num; $i++)
 						{

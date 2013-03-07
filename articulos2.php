@@ -597,16 +597,12 @@ s.parentNode.insertBefore(ga, s);
           <table>
          	<tr>
 				<td width="17%" rowspan="2" valign="top">
-					<?php if($row_disciplines['source'] == "discipline_articles"){ ?>
 					<img src="imagenes/uploads/discipline_articles/thumbnails/<?php echo $row_disciplines['thumbnail'];?>" width="120" height="114" border="0" />
-					<?php } else { ?>
-					<img src="imagenes/uploads/discipline_articles/thumbnails/<?php echo $row_disciplines['thumbnail'];?>" width="120" height="114" border="0" />
-					<?php } ?>
 				</a></td>
 				<td width="2%" rowspan="2">&nbsp;</td>
 				<td colspan="2"><p class="contenido_diploRojo"><strong><span><?php echo $row_disciplines['title'];?></strong></span></p>
 					<p><strong><em><?php echo $row_disciplines['interviewee_name'];?></em></strong>
-				  <p><?php echo $tipo; ?>
+				  <p>
 				    <?php 
 				echo strftime("%d de %B de %Y", strtotime($row_disciplines['date']));
 				?>
@@ -661,7 +657,7 @@ s.parentNode.insertBefore(ga, s);
               		<tr>
 
                 <?php
-						$enc = split(',', $row_prog_tipo['id_encargado']);
+						$enc = explode(',', $row_prog_tipo['id_encargado']);
 						$num = sizeof($enc);
 						for ($i=0; $i<$num; $i++)
 						{
