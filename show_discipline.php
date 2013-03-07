@@ -2,7 +2,7 @@
 require_once('Connections/otono2011.php');
 
 $disciplina = $_POST['disciplina'];
-$programa = $_POST['programa'];
+
 $response = '';
 
 /// D I P L O M A D O S
