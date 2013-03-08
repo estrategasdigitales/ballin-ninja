@@ -178,12 +178,12 @@ $row_disciplines_names = mysql_fetch_assoc($disciplines_names);
 $query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_type DESC, program_name ASC";
 $programas = mysql_query($query_programas, $otono2011) or die(mysql_error());
 $row_programas = mysql_fetch_assoc($programas);
-
+/*
 //mysql_select_db($database_otono2011, $otono2011);
 $query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
 $ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
 $row_ad = mysql_fetch_assoc($ad);
-$totalRows_ad = mysql_num_rows($ad);
+$totalRows_ad = mysql_num_rows($ad);*/
 ?>
 <!DOCTYPE html>
 <html><!-- InstanceBegin template="/Templates/index.dwt.php" codeOutsideHTMLIsLocked="false" -->
@@ -347,113 +347,6 @@ s.parentNode.insertBefore(ga, s);
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <iframe id="helperIframe" src='http://www.diplomados.uia.mx/helper.html#1000' height='0' width='0' frameborder='0'></iframe>
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<?php switch($_GET['id_discipline']){
-		 case 1:
-		 $imagen = 'arquitectura';
-		 $header = 'verde';
-		 $descargable = 'arquitectura';
-		 break;
-		 case 2:
-		 $imagen = 'arte';
-		 $header = 'verde';
-		 $descargable = 'arte';
-		 break;
-		 case 3:
-		 $imagen = 'diseno';
-		 $header = 'verde';
-		 $descargable = 'diseno';
-		 break;
-		 case 4:
-		 $imagen = 'comunicacion';
-		 $header = 'gris';
-		 $descargable = 'comunicacion';
-		 break;
-		 case 5:
-		 $imagen = 'desarrollohumano';
-		 $header = 'gris';
-		 $descargable = 'dh';
-		 break;
-		 case 6:
-		 $imagen = 'salud';
-		 $header = 'gris';
-		 $descargable = 'salud';
-		 break;
-		 case 7:
-		 $imagen = 'politica';
-		 $header = 'gris';
-		 $descargable = 'politica';
-		 break;
-		 case 8:
-		 $imagen = 'negocios';
-		 $header = 'turquesa';
-		 $descargable = 'negocios';
-		 break;
-		 case 9:
-		 $imagen = 'tecnologia';
-		 $header = 'turquesa';
-		 $descargable = 'tecnologia';
-		 break;
-		 case 10:
-		 $imagen = 'humanidades';
-		 $header = 'morado';
-		 $descargable = 'humanidades';
-		 break;
-		 case 11:
-		 $imagen = 'gastronomia';
-		 $header = 'amarillo';
-		 $descargable = 'gastronomia';
-		 break;
-		 case 12:
-		 $imagen = 'prepaAbierta';
-		 $header = 'rojo';
-		 $descargable = 'prepa';
-		 break;
-		 case 13:
-		 $imagen = 'xochitla';
-		 $header = 'vc';
-		 $descargable = 'xochitla';
-		 break;
-		 case 14:
-		 $imagen = 'idiomas';
-		 $header = 'rosa';
-		 $descargable = 'idiomas';
-		 break;
-		 case 15:
-		 $imagen = 'online';
-		 $header = 'azul';
-		 $descargable = 'online';
-		 break;
-		 case 16:
-		 $imagen = 'atencionIntgralEmpresas';
-		 $header = 'vc';
-		 $descargable = 'empresas';
-		 break;
-		 case 17:
-		 $imagen = 'atencionSectorPub';
-		 $header = 'naranja';
-		 $descargable = 'sP';
-		 break;
-		 case 18:
-		 $imagen = 'creliogiosas';
-		 $header = 'morado';
-		 $descargable = 'cR';
-		 break;
-		 case 19:
-		 $imagen = 'casabarragan';
-		 $header = 'verde';
-		 $descargable = 'casa_barragan';
-		 break; 
-		  case 20:
-		 $imagen = 'lofft';
-		 $header = 'rojo';
-		 $descargable = 'casa_barragan';
-		 break;
-		 case 23:
-		 $imagen = 'harvard';
-		 $header = 'vino';
-		 $descargable = 'hv';
-		 break;
-	  }?>
 <div id="container">
   <div id="header" style="margin-top:16px">
     <div id="logos"> <a href="http://uia.mx/" target="_blank"><img src="imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'"><img src="imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></div>

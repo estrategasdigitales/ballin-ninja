@@ -359,12 +359,13 @@ $row_programas = mysql_fetch_assoc($programas);
 	$row_cursos_names_2 = mysql_fetch_assoc($cursos_names_2);
 	$totalRows_cursos_names_2 = mysql_num_rows($cursos_names_2);
 }*/
-
+/*
 mysql_select_db($database_otono2011, $otono2011);
 $query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
 $ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
 $row_ad = mysql_fetch_assoc($ad);
 $totalRows_ad = mysql_num_rows($ad);
+*/
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/secciones.dwt.php" codeOutsideHTMLIsLocked="false" -->

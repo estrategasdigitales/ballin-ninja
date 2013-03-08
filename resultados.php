@@ -51,13 +51,13 @@ $query_programas_izqb = "SELECT site_programs.id_discipline, site_programs.id_pr
 $programas_izqb = mysql_query($query_programas_izqb, $otono2011) or die(mysql_error());
 $row_programas_izqb = mysql_fetch_assoc($programas_izqb);
 $totalRows_programas_izqb = mysql_num_rows($programas_izqb);
-
+/*
 mysql_select_db($database_otono2011, $otono2011);
 $query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
 $ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
 $row_ad = mysql_fetch_assoc($ad);
 $totalRows_ad = mysql_num_rows($ad);
-
+*/
 function WordLimiter($text,$limit,$word_count){
 	$limit = $limit - $word_count;
 	$explode = explode(' ',$text);

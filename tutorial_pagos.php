@@ -123,109 +123,7 @@ s.parentNode.insertBefore(ga, s);
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <iframe id="helperIframe" src='http://www.diplomados.uia.mx/helper.html#1000' height='0' width='0' frameborder='0'></iframe>
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<?php switch($_GET['id_discipline']){
-		 case 1:
-		 $imagen = 'arquitectura';
-		 $header = 'verde';
-		 $descargable = 'arquitectura';
-		 break;
-		 case 2:
-		 $imagen = 'arte';
-		 $header = 'verde';
-		 $descargable = 'arte';
-		 break;
-		 case 3:
-		 $imagen = 'diseno';
-		 $header = 'verde';
-		 $descargable = 'diseno';
-		 break;
-		 case 4:
-		 $imagen = 'comunicacion';
-		 $header = 'gris';
-		 $descargable = 'comunicacion';
-		 break;
-		 case 5:
-		 $imagen = 'desarrollohumano';
-		 $header = 'gris';
-		 $descargable = 'dh';
-		 break;
-		 case 6:
-		 $imagen = 'salud';
-		 $header = 'gris';
-		 $descargable = 'salud';
-		 break;
-		 case 7:
-		 $imagen = 'politica';
-		 $header = 'gris';
-		 $descargable = 'politica';
-		 break;
-		 case 8:
-		 $imagen = 'negocios';
-		 $header = 'turquesa';
-		 $descargable = 'negocios';
-		 break;
-		 case 9:
-		 $imagen = 'tecnologia';
-		 $header = 'turquesa';
-		 $descargable = 'tecnologia';
-		 break;
-		 case 10:
-		 $imagen = 'humanidades';
-		 $header = 'morado';
-		 $descargable = 'humanidades';
-		 break;
-		 case 11:
-		 $imagen = 'gastronomia';
-		 $header = 'amarillo';
-		 $descargable = 'gastronomia';
-		 break;
-		 case 12:
-		 $imagen = 'prepaAbierta';
-		 $header = 'rojo';
-		 $descargable = 'prepa';
-		 break;
-		 case 13:
-		 $imagen = 'xochitla';
-		 $header = 'vc';
-		 $descargable = 'xochitla';
-		 break;
-		 case 14:
-		 $imagen = 'idiomas';
-		 $header = 'rosa';
-		 $descargable = 'idiomas';
-		 break;
-		 case 15:
-		 $imagen = 'online';
-		 $header = 'azul';
-		 $descargable = 'online';
-		 break;
-		 case 16:
-		 $imagen = 'atencionIntgralEmpresas';
-		 $header = 'vc';
-		 $descargable = 'empresas';
-		 break;
-		 case 17:
-		 $imagen = 'atencionSectorPub';
-		 $header = 'naranja';
-		 $descargable = 'sP';
-		 break;
-		 case 18:
-		 $imagen = 'creliogiosas';
-		 $header = 'morado';
-		 $descargable = 'cR';
-		 break;
-		 case 19:
-		 $imagen = 'casabarragan';
-		 $header = 'verde';
-		 $descargable = 'casa_barragan';
-		 break; 
-		 case 23:
-		 $imagen = 'harvard';
-		 $header = 'vino';
-		 $descargable = 'hv';
-		 break;
-	  }?>
-<div id="container">
+<div id="container">  
   <div id="header" style="margin-top:16px">
     <div id="logos"> <a href="http://uia.mx/" target="_blank"><img src="imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'"><img src="imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></div>
     <div id="primavera" style="margin-bottom:8px"></div>
@@ -308,11 +206,7 @@ s.parentNode.insertBefore(ga, s);
     </div>
   </div>
   <div id= "contenedor_irregular_index" >
-    <div id= "type4" class="cuadro_articulos_secciones" style="border:0px;width:816px;padding:0px">
-
-      <?php if($row_community_opinion_details['imagen']!=NULL) { ?>
-      <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/<?php echo $row_community_opinion_details['imagen']; ?>);margin-left:26px;position:relative; float:left; z-index:12;"></div><!-- InstanceBeginEditable name="header" -->
-       <?php } ?>       
+    <div id= "type4" class="cuadro_articulos_secciones" style="border:0px;width:816px;padding:0px">   
     
     <div style="margin-left:24px">
     <div style="width:69%;float:left;margin-left:0px">

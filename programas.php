@@ -122,13 +122,13 @@ $query_temp = "SELECT discipline FROM disciplines WHERE id_discipline = ".$_GET[
 $temp = mysql_query($query_temp, $otono2011) or die(mysql_error());
 $row_temp = mysql_fetch_assoc($temp);
 $totalRows_temp = mysql_num_rows($temp);
-
+/*
 mysql_select_db($database_otono2011, $otono2011);
 $query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
 $ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
 $row_ad = mysql_fetch_assoc($ad);
 $totalRows_ad = mysql_num_rows($ad);
-
+*/
 //CODIGO PARA QUE ASIGNE FORMATO LOCAL A LAS FECHAS
 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 //++++++++++++++++++++
@@ -528,28 +528,28 @@ s.parentNode.insertBefore(ga, s);
           		<?php if($_GET['id_program'] != 397){ ?>
                                	<tr>
                                              
-                        <td colspan="2" align="right" valign="top" class="contenido_diploRojo" <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> style="display:none;" <? } ?>>
+                        <td colspan="2" align="right" valign="top" class="contenido_diploRojo" <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> style="display:none;" <?php } ?>>
                         <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> <a href="#" onclick="parent.location='extras.php'"><img src=
             "imagenes/icono_insc.gif" width="30" height="30" border=
-            "0" /></a> <? }else{ ?>
+            "0" /></a> <?php }else{ ?>
             
                         <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'"><img src=
             "imagenes/icono_insc.gif" width="30" height="30" border=
             "0" /></a>
-            <? } ?>
+            <?php } ?>
 
             </td>
             
-                        <td width="20px" <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> style="display:none;" <? } ?>><? if($_GET['id_discipline']==21){ ?>
+                        <td width="20px" <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> style="display:none;" <?php } ?>><?php if($_GET['id_discipline']==21){ ?>
                           <a href="http://www.diplomados.uia.mx/preinscripcion.php">Formato de Preinscripci&oacute;n</a>
                           <?php }else if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
                            <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
-                          <? }else{ ?>
+                          <?php }else{ ?>
                           <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
-                          <? } ?></td>
+                          <?php } ?></td>
                           
                       </tr>
-                      <? } ?>
+                      <?php } ?>
                   </table>
 
          </td>
@@ -563,30 +563,30 @@ s.parentNode.insertBefore(ga, s);
                 
                 
                 				<td width="10%" align="left" valign="top" class="contenido_diploRojo">
-                        <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>  <? }else{ ?>
+                        <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>  <?php }else{ ?>
             
                         <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'"><img src=
             "imagenes/icono_insc.gif" width="30" height="30" border=
             "0" /></a>
-            <? } ?>
+            <?php } ?>
             </td>
-                        <td width="81%" align="left"><? if($_GET['id_discipline']==21){ ?>
+                        <td width="81%" align="left"><?php if($_GET['id_discipline']==21){ ?>
                           <a href="http://www.diplomados.uia.mx/preinscripcion.php">Formato de Preinscripci&oacute;n</a>
                           <?php }else if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
-                          <? }else{ ?>
+                          <?php }else{ ?>
                           <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
-                          <? } ?></td>
+                          <?php } ?></td>
                 
                 </tr></table></td></tr>
                 
-                <? } ?>
+                <?php } ?>
 
       		<tr>
       			<td colspan="2" valign="top">
 				
-				<? if($row_programa['description'] != NULL){ ?>
+				<?php if($row_programa['description'] != NULL){ ?>
       			  <h3>Rese&ntilde;a del Programa:</h3>
-				  <? } ?>
+				  <?php } ?>
     			    
       			  <p><?php echo $row_programa['description']; ?>
     				</p>
@@ -665,7 +665,7 @@ s.parentNode.insertBefore(ga, s);
 						} 
 					}?>
 					</p><p>
-                    <? if($row_programa['observaciones']!=NULL){echo '<p>'.$row_programa['observaciones'].'</p>';} ?>
+                    <?php if($row_programa['observaciones']!=NULL){echo '<p>'.$row_programa['observaciones'].'</p>';} ?>
                     </p>
 				  </td>
       			</tr>
@@ -677,7 +677,7 @@ s.parentNode.insertBefore(ga, s);
                         <?php if(($row_programa['program_colaboracion'] != NULL)&&($row_programa['program_colaboracion_img'] != NULL)){ ?>
                         <td width="29%" align="right" valign="top" class="contenido_diploRojo">En colaboraci&oacute;n</td>
                         <td width="2%" rowspan="10" class="linea_separadora_g"></td>
-                        <td width="70%"><? 
+                        <td width="70%"><?php 
 						if($row_programa['program_colaboracion_img'] != NULL){
 							echo '<img src="imagenes/colaboradores/'.$row_programa['program_colaboracion_img'].'" />';
 						} ?></td>
@@ -688,7 +688,7 @@ s.parentNode.insertBefore(ga, s);
                         <td align="right" valign="top" class="contenido_diploRojo">Inicio</td>
                         <?php if($row_programa['program_colaboracion'] == NULL || $row_programa['program_colaboracion_img'] == NULL){ ?>
                         <td width="2%" rowspan="9" class="linea_separadora_g"></td>
-                        <? } ?>
+                        <?php } ?>
                         <td><?php
 							$num_fechas = 0;
 							while($row_fecha_ini = mysql_fetch_assoc($fecha_ini)){
@@ -709,7 +709,7 @@ s.parentNode.insertBefore(ga, s);
                         <td align="right" valign="top" class="contenido_diploRojo">Duraci&oacute;n</td>
                         <td><?php echo $row_programa['duration'];?></td>
                       </tr>
-                      <? } 
+                      <?php } 
 					if($row_programa['costo_curso']!=NULL || $row_programa['cost_inscripcion']!=NULL || $row_programa['costo_modulo']!=NULL){?>
                       <tr>
                         <td align="right" valign="top" class="contenido_diploRojo">Costo</td>
@@ -792,8 +792,8 @@ s.parentNode.insertBefore(ga, s);
 
 
 					 <tr>
-                       <td width="22%" align="right" valign="top" class="contenido_diploRojo" <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> style="display:none;" <? } ?>>Informes</td>
-                        <td<?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> style="display:none;" <? } ?>><?php
+                       <td width="22%" align="right" valign="top" class="contenido_diploRojo" <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> style="display:none;" <?php } ?>>Informes</td>
+                        <td<?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> style="display:none;" <?php } ?>><?php
 							$array_encargado = explode(',',$row_programa['id_encargado']);
 							$array_size_2 = sizeof($array_encargado);
 							
@@ -818,7 +818,7 @@ s.parentNode.insertBefore(ga, s);
                    
             
 <?php if($row_programa['program_pdf'] != NULL){ 
-	header("Pragma: ");
+	//header("Pragma: ");
 	?>
                       <tr>
                       	<td></td>
@@ -1231,9 +1231,9 @@ s.parentNode.insertBefore(ga, s);
       
       <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
       <img class="img_seccion" src="imagenes/secciones/online_pjf.png" width="208" height="237" align="right" />
-      <? }else{ ?>
+      <?php }else{ ?>
       <img class="img_seccion" src="imagenes/secciones/<?php echo $imagen; ?>.png" width="198" height="237" align="right" /> 
-      <? } ?></div>
+      <?php } ?></div>
     
 
 <div style="width:25%; float:left; margin-left:22px; margin-top:18px">
