@@ -5,6 +5,8 @@ $disciplina = $_POST['disciplina'];
 
 $response = '';
 
+mysql_select_db($database_otono2011, $otono2011);
+
 /// D I P L O M A D O S
 
 $query_progs_diplos = "SELECT * FROM site_programs WHERE program_type = 'diplomado' AND cancelado = 0 AND (id_discipline  = ".$disciplina." OR id_discipline_alterna = ".$disciplina." OR id_discipline_alterna_2 = ".$disciplina.") AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-00-00' AND periodo = 'p') ORDER BY program_name ASC";
