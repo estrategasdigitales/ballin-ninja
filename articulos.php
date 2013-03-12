@@ -36,82 +36,25 @@ if (isset($_GET['id_discipline'])) {
   $colname_progs_diplos = $_GET['id_discipline'];
 }
 
-//DIPLOS
-mysql_select_db($database_otono2011, $otono2011);
-$query_progs_diplos = "SELECT * FROM site_programs WHERE program_type = 'diplomado' AND cancelado = 0 AND id_discipline  = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-00-00' AND periodo = 'p') ORDER BY program_name ASC";
-$progs_diplos = mysql_query($query_progs_diplos, $otono2011) or die(mysql_error());    
-$row_progs_diplos = mysql_fetch_assoc($progs_diplos);
-$totalRows_progs_diplos = mysql_num_rows($progs_diplos);
-
-mysql_select_db($database_otono2011, $otono2011);
-$query_progs_diplos_2 = "SELECT * FROM site_programs WHERE program_type = 'diplomado' AND cancelado = 0 AND id_discipline_alterna  = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-00-00' AND periodo = 'p') ORDER BY program_name ASC";
-$progs_diplos_2 = mysql_query($query_progs_diplos_2, $otono2011) or die(mysql_error());
-$row_progs_diplos_2 = mysql_fetch_assoc($progs_diplos_2);
-$totalRows_progs_diplos_2 = mysql_num_rows($progs_diplos_2);
-
-mysql_select_db($database_otono2011, $otono2011);
-$query_progs_diplos_3 = "SELECT * FROM site_programs WHERE program_type = 'diplomado' AND cancelado = 0 AND id_discipline_alterna_2  = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-00-00' AND periodo = 'p') ORDER BY program_name ASC";
-$progs_diplos_3 = mysql_query($query_progs_diplos_3, $otono2011) or die(mysql_error());
-$row_progs_diplos_3 = mysql_fetch_assoc($progs_diplos_3);
-$totalRows_progs_diplos_3 = mysql_num_rows($progs_diplos_3);
-
-//CURSOS
-mysql_select_db($database_otono2011, $otono2011);
-$query_progs_cursos = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND cancelado = 0 AND id_discipline = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2012-12-06' AND periodo = 'p') ORDER BY idioma ASC, program_name ASC";
-$progs_cursos = mysql_query($query_progs_cursos, $otono2011) or die(mysql_error());
-$row_progs_cursos = mysql_fetch_assoc($progs_cursos);
-$totalRows_progs_cursos = mysql_num_rows($progs_cursos);
-
-mysql_select_db($database_otono2011, $otono2011);
-$query_progs_cursos_2 = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND cancelado = 0 AND id_discipline_alterna  = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE  fecha >= '2012-12-06' AND periodo = 'p') ORDER BY idioma ASC, program_name ASC";
-$progs_cursos_2 = mysql_query($query_progs_cursos_2, $otono2011) or die(mysql_error());
-$row_progs_cursos_2 = mysql_fetch_assoc($progs_cursos_2);
-$totalRows_progs_cursos_2 = mysql_num_rows($progs_cursos_2);
-
-mysql_select_db($database_otono2011, $otono2011);
-$query_progs_cursos_3 = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND cancelado = 0 AND id_discipline_alterna_2  = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2012-12-06' AND periodo = 'p') ORDER BY idioma ASC, program_name ASC";
-$progs_cursos_3 = mysql_query($query_progs_cursos_3, $otono2011) or die(mysql_error());
-$row_progs_cursos_3 = mysql_fetch_assoc($progs_cursos_3);
-$totalRows_progs_cursos_3 = mysql_num_rows($progs_cursos_3);
-
-//PROGRAMAS HP
-mysql_select_db($database_otono2011, $otono2011);
-$query_progs_hp = "SELECT * FROM site_programs WHERE program_type = 'programahp'  AND cancelado = 0 AND id_discipline_alterna = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-00-00' AND periodo = 'p') ORDER BY idioma ASC, program_name ASC";
-$progs_hp = mysql_query($query_progs_hp, $otono2011) or die(mysql_error());
-$row_progs_hp = mysql_fetch_assoc($progs_hp);
-$totalRows_progs_hp = mysql_num_rows($progs_hp);
-
-//PROGRAMAS
-mysql_select_db($database_otono2011, $otono2011);
-$query_progs_progs = "SELECT * FROM site_programs WHERE program_type = 'programa' AND cancelado = 0 AND id_discipline = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2012-12-06' AND periodo = 'p') ORDER BY idioma ASC, program_name ASC";
-$progs_progs = mysql_query($query_progs_progs, $otono2011) or die(mysql_error());
-$row_progs_progs = mysql_fetch_assoc($progs_progs);
-$totalRows_progs_progs = mysql_num_rows($progs_progs);
+$id_discipline = mysql_real_escape_string($_GET['id_discipline']);
 
 //TALLERES
+/*
 mysql_select_db($database_otono2011, $otono2011);
 $query_progs_talleres = "SELECT * FROM site_programs WHERE program_type = 'taller' AND cancelado = 0 AND cancelado = 0 AND id_discipline = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'p') ORDER BY idioma ASC, program_name ASC";
 $progs_talleres = mysql_query($query_progs_talleres, $otono2011) or die(mysql_error());
 $row_progs_talleres = mysql_fetch_assoc($progs_talleres);
 $totalRows_progs_talleres = mysql_num_rows($progs_talleres);
-
-//IDIOMAS
-mysql_select_db($database_otono2011, $otono2011);
-$query_progs_cursos_i = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND idioma = 1 AND cancelado = 0 AND id_discipline = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_idiomas WHERE inicio >= '2013-00-00' AND periodo = 'p') ORDER BY idioma ASC, program_name ASC";
-$progs_cursos_i = mysql_query($query_progs_cursos_i, $otono2011) or die(mysql_error());
-$row_progs_cursos_i = mysql_fetch_assoc($progs_cursos_i);
-$totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);	
-
+*/
 //Query articulos 
 //if($_GET['id_article'] == NULL || $_GET['id_article'] == ''){
 	mysql_select_db($database_otono2011, $otono2011);
-	$query_pictures = "SELECT picture FROM discipline_articles WHERE id_discipline = ".$_GET['id_discipline']." ORDER BY date DESC LIMIT 0,1";
+	$query_pictures = "SELECT picture FROM discipline_articles WHERE id_discipline = ".$id_discipline." ORDER BY date DESC LIMIT 0,1";
 	$pictures = mysql_query($query_pictures, $otono2011) or die(mysql_error());
 	$row_pictures = mysql_fetch_assoc($pictures);
 	$totalRows_pictures = mysql_num_rows($pictures);
 	
-	mysql_select_db($database_otono2011, $otono2011);
-	$query_disciplines = "SELECT * FROM discipline_articles WHERE id_discipline = ".$_GET['id_discipline']." ORDER BY date DESC LIMIT 0,1";
+	$query_disciplines = "SELECT * FROM discipline_articles WHERE id_discipline = ".$id_discipline." ORDER BY date DESC LIMIT 0,1";
 	$disciplines = mysql_query($query_disciplines, $otono2011) or die(mysql_error());
 	$row_disciplines = mysql_fetch_assoc($disciplines);
 	$totalRows_disciplines = mysql_num_rows($disciplines);
@@ -129,19 +72,11 @@ $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
 	$totalRows_disciplines = mysql_num_rows($disciplines);
 }*/
 
-mysql_select_db($database_otono2011, $otono2011);
-$query_temp = "SELECT discipline FROM disciplines WHERE id_discipline = ".$_GET['id_discipline'];
+$query_temp = "SELECT discipline FROM disciplines WHERE id_discipline = ".$id_discipline;
 $temp = mysql_query($query_temp, $otono2011) or die(mysql_error());
 $row_temp = mysql_fetch_assoc($temp);
 $totalRows_temp = mysql_num_rows($temp);
 
-/*
-mysql_select_db($database_otono2011, $otono2011);
-$query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
-$ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
-$row_ad = mysql_fetch_assoc($ad);
-$totalRows_ad = mysql_num_rows($ad);
-*/
 //CODIGO PARA QUE ASIGNE FORMATO LOCAL A LAS FECHAS
 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 //++++++++++++++++++++
@@ -242,113 +177,6 @@ s.parentNode.insertBefore(ga, s);
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <iframe id="helperIframe" src='http://www.diplomados.uia.mx/helper.html#1000' height='0' width='0' frameborder='0'></iframe>
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<?php switch($_GET['id_discipline']){
-		 case 1:
-		 $imagen = 'arquitectura';
-		 $header = 'verde';
-		 $descargable = 'arquitectura';
-		 break;
-		 case 2:
-		 $imagen = 'arte';
-		 $header = 'verde';
-		 $descargable = 'arte';
-		 break;
-		 case 3:
-		 $imagen = 'diseno';
-		 $header = 'verde';
-		 $descargable = 'diseno';
-		 break;
-		 case 4:
-		 $imagen = 'comunicacion';
-		 $header = 'gris';
-		 $descargable = 'comunicacion';
-		 break;
-		 case 5:
-		 $imagen = 'desarrollohumano';
-		 $header = 'gris';
-		 $descargable = 'dh';
-		 break;
-		 case 6:
-		 $imagen = 'salud';
-		 $header = 'gris';
-		 $descargable = 'salud';
-		 break;
-		 case 7:
-		 $imagen = 'politica';
-		 $header = 'gris';
-		 $descargable = 'politica';
-		 break;
-		 case 8:
-		 $imagen = 'negocios';
-		 $header = 'turquesa';
-		 $descargable = 'negocios';
-		 break;
-		 case 9:
-		 $imagen = 'tecnologia';
-		 $header = 'turquesa';
-		 $descargable = 'tecnologia';
-		 break;
-		 case 10:
-		 $imagen = 'humanidades';
-		 $header = 'morado';
-		 $descargable = 'humanidades';
-		 break;
-		 case 11:
-		 $imagen = 'gastronomia';
-		 $header = 'amarillo';
-		 $descargable = 'gastronomia';
-		 break;
-		 case 12:
-		 $imagen = 'prepaAbierta';
-		 $header = 'rojo';
-		 $descargable = 'prepa';
-		 break;
-		 case 13:
-		 $imagen = 'xochitla';
-		 $header = 'vc';
-		 $descargable = 'xochitla';
-		 break;
-		 case 14:
-		 $imagen = 'idiomas';
-		 $header = 'rosa';
-		 $descargable = 'idiomas';
-		 break;
-		 case 15:
-		 $imagen = 'online';
-		 $header = 'azul';
-		 $descargable = 'online';
-		 break;
-		 case 16:
-		 $imagen = 'atencionIntgralEmpresas';
-		 $header = 'vc';
-		 $descargable = 'empresas';
-		 break;
-		 case 17:
-		 $imagen = 'atencionSectorPub';
-		 $header = 'naranja';
-		 $descargable = 'sP';
-		 break;
-		 case 18:
-		 $imagen = 'creliogiosas';
-		 $header = 'morado';
-		 $descargable = 'cR';
-		 break;
-		 case 19:
-		 $imagen = 'casabarragan';
-		 $header = 'verde';
-		 $descargable = 'casa_barragan';
-		 break; 
-		  case 20:
-		 $imagen = 'lofft';
-		 $header = 'rojo';
-		 $descargable = 'casa_barragan';
-		 break;
-		 case 23:
-		 $imagen = 'harvard';
-		 $header = 'vino';
-		 $descargable = 'hv';
-		 break;
-	  }?>
 <div id="container">
   <div id="header" style="margin-top:16px">
     <div id="logos"> <a href="http://uia.mx/" target="_blank"><img src="imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'"><img src="imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></div>
@@ -729,7 +557,6 @@ s.parentNode.insertBefore(ga, s);
 </body>
 <!-- InstanceEnd --></html>
 <?php
-mysql_free_result($progs_diplos);
 
 mysql_free_result($pictures);
 

@@ -30,52 +30,15 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   return $theValue;
 }
 }
-/*
-mysql_select_db($database_otono2011, $otono2011);
-$query_media_articles = "SELECT id_article, title FROM media_articles ORDER BY date DESC LIMIT 0, 4";
-$media_articles = mysql_query($query_media_articles, $otono2011) or die(mysql_error());
-//$row_media_articles = mysql_fetch_assoc($media_articles);
-//$totalRows_media_articles = mysql_num_rows($media_articles);
 
-mysql_select_db($database_otono2011, $otono2011);
-$query_weekly_article = "SELECT * FROM weekly_articles ORDER BY `date` DESC LIMIT 0, 1";
-$weekly_article = mysql_query($query_weekly_article, $otono2011) or die(mysql_error());
-$row_weekly_article = mysql_fetch_assoc($weekly_article);
-$totalRows_weekly_article = mysql_num_rows($weekly_article);
-*/
 $hoy = date('Ymd');
-
-
-mysql_select_db($database_otono2011, $otono2011);
-$query_programas_izq = "SELECT site_programs.id_discipline, site_programs.id_program, site_programs.imagen, site_programs.program_name AS programa, site_fechas_ini.fecha AS fecha_inicio FROM site_programs, site_fechas_ini WHERE site_programs.id_program=site_fechas_ini.id_program AND site_fechas_ini.publicado=1 ORDER BY RAND() LIMIT 2";
-$programas_izq = mysql_query($query_programas_izq, $otono2011) or die(mysql_error());
-$row_programas_izq = mysql_fetch_assoc($programas_izq);
-$totalRows_programas_izq = mysql_num_rows($programas_izq);
-
-mysql_select_db($database_otono2011, $otono2011);
-$query_programas_der = "SELECT site_fechas_idiomas.id_program AS id_program_idioma, site_fechas_idiomas.nivel, site_fechas_idiomas.inicio, (select site_programs.imagen FROM site_programs WHERE site_fechas_idiomas.id_program=site_programs.id_program) AS imagen_idioma FROM site_fechas_idiomas, site_programs WHERE site_fechas_idiomas.inicio > ".$hoy." ORDER BY RAND() LIMIT 2";
-$programas_der = mysql_query($query_programas_der, $otono2011) or die(mysql_error());
-$row_programas_der = mysql_fetch_assoc($programas_der);
-$totalRows_programas_der = mysql_num_rows($programas_der);
-
-mysql_select_db($database_otono2011, $otono2011);
-$query_programas_izqb = "SELECT site_programs.id_discipline, site_programs.id_program, site_programs.imagen, site_programs.program_name AS programa, site_fechas_ini.fecha AS fecha_inicio FROM site_programs, site_fechas_ini WHERE site_programs.id_program=site_fechas_ini.id_program AND site_fechas_ini.publicado=1 ORDER BY RAND() LIMIT 3";
-$programas_izqb = mysql_query($query_programas_izqb, $otono2011) or die(mysql_error());
-$row_programas_izqb = mysql_fetch_assoc($programas_izqb);
-$totalRows_programas_izqb = mysql_num_rows($programas_izqb);
 
 mysql_select_db($database_otono2011, $otono2011);
 $query_community_opinions_top3 = "SELECT * FROM community_opinions ORDER BY `date` DESC LIMIT 0, 5";
 $community_opinions_top3 = mysql_query($query_community_opinions_top3, $otono2011) or die(mysql_error());
 //$row_community_opinions_top3 = mysql_fetch_assoc($community_opinions_top3);
 //$totalRows_community_opinions_top3 = mysql_num_rows($community_opinions_top3);
-/*
-mysql_select_db($database_otono2011, $otono2011);
-$query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
-$ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
-$row_ad = mysql_fetch_assoc($ad);
-$totalRows_ad = mysql_num_rows($ad);
-*/ 
+
 function WordLimiter($text, $limit,$word_count){
 	$limit = $limit - $word_count;
 	$explode = explode(' ',$text);
@@ -334,113 +297,6 @@ a.prev span, a.next span {
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <iframe id="helperIframe" src='http://www.diplomados.uia.mx/helper.html#1000' height='0' width='0' frameborder='0'></iframe>
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<?php switch($_GET['id_discipline']){
-		 case 1:
-		 $imagen = 'arquitectura';
-		 $header = 'verde';
-		 $descargable = 'arquitectura';
-		 break;
-		 case 2:
-		 $imagen = 'arte';
-		 $header = 'verde';
-		 $descargable = 'arte';
-		 break;
-		 case 3:
-		 $imagen = 'diseno';
-		 $header = 'verde';
-		 $descargable = 'diseno';
-		 break;
-		 case 4:
-		 $imagen = 'comunicacion';
-		 $header = 'gris';
-		 $descargable = 'comunicacion';
-		 break;
-		 case 5:
-		 $imagen = 'desarrollohumano';
-		 $header = 'gris';
-		 $descargable = 'dh';
-		 break;
-		 case 6:
-		 $imagen = 'salud';
-		 $header = 'gris';
-		 $descargable = 'salud';
-		 break;
-		 case 7:
-		 $imagen = 'politica';
-		 $header = 'gris';
-		 $descargable = 'politica';
-		 break;
-		 case 8:
-		 $imagen = 'negocios';
-		 $header = 'turquesa';
-		 $descargable = 'negocios';
-		 break;
-		 case 9:
-		 $imagen = 'tecnologia';
-		 $header = 'turquesa';
-		 $descargable = 'tecnologia';
-		 break;
-		 case 10:
-		 $imagen = 'humanidades';
-		 $header = 'morado';
-		 $descargable = 'humanidades';
-		 break;
-		 case 11:
-		 $imagen = 'gastronomia';
-		 $header = 'amarillo';
-		 $descargable = 'gastronomia';
-		 break;
-		 case 12:
-		 $imagen = 'prepaAbierta';
-		 $header = 'rojo';
-		 $descargable = 'prepa';
-		 break;
-		 case 13:
-		 $imagen = 'xochitla';
-		 $header = 'vc';
-		 $descargable = 'xochitla';
-		 break;
-		 case 14:
-		 $imagen = 'idiomas';
-		 $header = 'rosa';
-		 $descargable = 'idiomas';
-		 break;
-		 case 15:
-		 $imagen = 'online';
-		 $header = 'azul';
-		 $descargable = 'online';
-		 break;
-		 case 16:
-		 $imagen = 'atencionIntgralEmpresas';
-		 $header = 'vc';
-		 $descargable = 'empresas';
-		 break;
-		 case 17:
-		 $imagen = 'atencionSectorPub';
-		 $header = 'naranja';
-		 $descargable = 'sP';
-		 break;
-		 case 18:
-		 $imagen = 'creliogiosas';
-		 $header = 'morado';
-		 $descargable = 'cR';
-		 break;
-		 case 19:
-		 $imagen = 'casabarragan';
-		 $header = 'verde';
-		 $descargable = 'casa_barragan';
-		 break; 
-		  case 20:
-		 $imagen = 'lofft';
-		 $header = 'rojo';
-		 $descargable = 'casa_barragan';
-		 break;
-		 case 23:
-		 $imagen = 'harvard';
-		 $header = 'vino';
-		 $descargable = 'hv';
-		 break;
-	  }?>
 <div id="container">
   <div id="header">
     <div id="logos"> <a href="http://uia.mx/" target="_blank"><img src="imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'"><img src="imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></div>
@@ -525,94 +381,6 @@ a.prev span, a.next span {
 </div>
   <div id= "contenedor_irregular_index">
     <div class="bannersuperior" style="margin-bottom:0px"><!-- InstanceBeginEditable name="weekly_articles" -->
-    <?php /*$random=rand(1,2); ?>
-    
-      <table width="100%" border="0" cellspacing="10" cellpadding="0">
-        <tr align="left"  valign="top" >        
-         <?php
-				if($random == 1){ ?>
-        
-        
-        
-          <td onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izq['id_discipline'];?>&id_program=<?php echo $row_programas_izq['id_program']; ?>'" valign="middle" style="background: url(imagenes/uploads/banner_prox/<?php echo $row_programas_izq['imagen']; ?>) no-repeat top left; cursor:pointer; width:155px; height:83px; padding-left:185px; margin-top:5px; padding-right:3px;"><h5><?php echo WordLimiter($row_programas_izq['programa'], 6); ?></h5>
-          <strong>Inicio</strong>: <?php echo strftime("%d de %B", strtotime($row_programas_izq['fecha_inicio'])); ?> </td>
-          
-       <?php } else{
-           if($row_programas_der != NULL){ ?>
-           
-          <td onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izq['id_discipline'];?>&id_program=<?php echo $row_programas_izq['id_program']; ?>'" valign="middle" style="background: url(imagenes/uploads/banner_prox/<?php echo $row_programas_der['imagen_idioma']; ?>) no-repeat top left; cursor:pointer; width:160px; height:83px; padding-left:181px; margin-top:5px; padding-right:3px;"><h5><?php echo ucfirst(strtolower($row_programas_der['nivel'])); ?></h5>
-          <strong>Inicio</strong>: <?php echo strftime("%d de %B", strtotime($row_programas_der['inicio'])); ?> </td>
-          
-           <?php }else{ ?>
-           
-           <td onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izq['id_discipline'];?>&id_program=<?php echo $row_programas_izq['id_program']; ?>'" valign="middle"  style="background: url(imagenes/uploads/banner_prox/<?php echo $row_programas_izq['imagen']; ?>) no-repeat top left; cursor:pointer; width:155px; height:83px; padding-left:185px; margin-top:5px; padding-right:3px;"><h5><?php echo WordLimiter($row_programas_izq['programa'], 6); ?></h5>
-          <strong>Inicio</strong>: <?php echo strftime("%d de %B", strtotime($row_programas_izq['fecha_inicio'])); ?> </td>
-          
-          <?php }} ?>	
-           
-          <?php if($random==1){
-						if($row_programas_der != NULL){
-						?>
-          
-         <td><h2>Próximos programas a iniciar</h2>
-             <ul>
-             <?php do { ?>
-              <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=14&id_program=<?php echo $row_programas_der['id_program_idioma']; ?>'"><?php echo ucfirst(strtolower($row_programas_der['nivel'])); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_der['inicio'])); ?></span></li>
-              <?php $row_programas_izq = mysql_fetch_assoc($programas_izq) ?>
-              <?php if ($row_programas_izq != NULL){?>
-              <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izq['id_discipline'];?>&id_program=<?php echo $row_programas_izq['id_program']; ?>'"><?php echo WordLimiter($row_programas_izq['programa'], 6); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_izq['fecha_inicio'])); ?></span><?php } ?></li>
-              
-              <?php } while ($row_programas_der = mysql_fetch_assoc($programas_der)); ?>
-             </ul></td>
-        </tr>
-      </table>
-      <?php }else{ ?>
-      
-      <td><h2>Próximos programas a iniciar</h2>
-             <ul>
-             <?php do { ?>
-             
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izqb['id_discipline'];?>&id_program=<?php echo $row_programas_izqb['id_program']; ?>'"><?php echo WordLimiter($row_programas_izqb['programa'], 6); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_izqb['fecha_inicio'])); ?></span></li>
-             
-              <!--a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=14&id_program=<?php echo $row_programas_izqb['id_program_idioma']; ?>'"><?php echo ucfirst(strtolower($row_programas_izqb['nivel'])); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_izqb['inicio'])); ?></span></li-->
-             
-              <?php } while ($row_programas_izqb = mysql_fetch_assoc($programas_izqb)); ?>
-             </ul></td>
-        </tr>
-      </table>
-      
-          <?php }}else{ 
-						if($row_programas_der != NULL){
-					?>
-          
-         <td><h2>Próximos programas a iniciar</h2>
-             <ul>
-             <?php do { ?>
-              <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izq['id_discipline'];?>&id_program=<?php echo $row_programas_izq['id_program']; ?>'"><?php echo WordLimiter($row_programas_izq['programa'], 6); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_izq['fecha_inicio'])); ?></span></li>
-              <?php $row_programas_der = mysql_fetch_assoc($programas_der) ?>
-              <?php if ($row_programas_der != NULL){?>
-                            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=14&id_program=<?php echo $row_programas_der['id_program_idioma']; ?>'"><?php echo ucfirst(strtolower($row_programas_der['nivel'])); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_der['inicio'])); ?></span><?php } ?></li>
-              
-              <?php } while ($row_programas_izq = mysql_fetch_assoc($programas_izq));
-							
-							}else{ 
-							?>
-              
-              <td><h2>Próximos programas a iniciar</h2>
-             <ul>
-             <?php do {
-							 ?>
-              <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izqb['id_discipline'];?>&id_program=<?php echo $row_programas_izqb['id_program']; ?>'"><?php echo WordLimiter($row_programas_izqb['programa'], 6); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_izqb['fecha_inicio'])); ?></span></li>
-                                          
-                            <?php } while ($row_programas_izqb = mysql_fetch_assoc($programas_izqb));
-							
-							}} ?>
-              
-             <!--li><span class="contenido_diploRojo">24 de marzo</span> / Espacio Público y Ciudades Seguras </li>
-             <li><span class="contenido_diploRojo">24 de marzo</span> / Espacio Público y Ciudades Seguras </li-->
-            </ul></td>
-        </tr>
-      </table> */ ?>
       <!-- InstanceEndEditable --> </div>
     <div id="slide_menu" style="display:none; width:190px; background: url(imagenes/sombrita_submenu.png) repeat-y; background-color:#D6D7D9; position:relative; left:-11px; z-index:1000; margin-bottom:-2000px; padding-bottom: 10px;">
 
