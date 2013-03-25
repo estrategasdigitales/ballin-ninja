@@ -47,6 +47,14 @@ mysql_select_db($database_otono2011, $otono2011);
  		padding: 5px 0px 5px 10px;
  	}
 
+  .contenedor_programas a{
+    cursor: pointer;
+    float:left;
+    font-size:12px;
+    color:#000;
+    padding: 5px 0px 5px 37px;
+  }
+
  	.inputs{
  		float:left;
  		font-size: 16px;
@@ -206,12 +214,20 @@ mysql_select_db($database_otono2011, $otono2011);
     <div class="contenedor_programas_result">
 
       <?php 
+
+      if($totalRows_programa > 0){
+
         while($row_programa = mysql_fetch_assoc($programa)){
 
           echo '<a href="programas_editar.php?id_program='.$id.'">'.$row_programa['program_name'].'</a>';
 
         }
 
+      }else{
+
+        echo "No se encontr&oacute; una coincidencia para tu b&uacute;squeda.";
+
+      }
 
       ?>
 
@@ -219,7 +235,14 @@ mysql_select_db($database_otono2011, $otono2011);
 
 
 
+
+
 <!-- InstanceEndEditable --></div>
+    <div class="contenedor_programas">
+
+      <a onclick="javascript:history.back(-1);"><< Regresar</a>
+
+    </div>    
   <div id="separador" style=" clear:both; height:20px;"></div>
   
 </div>

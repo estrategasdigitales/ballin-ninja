@@ -148,7 +148,7 @@ $queryString_fechas = sprintf("&totalRows_fechas=%d%s", $totalRows_fechas, $quer
 			$programa = mysql_query($query_programa, $otono2011) or die(mysql_error());
 			$row_programa = mysql_fetch_assoc($programa);
 			$totalRows_programa = mysql_num_rows($programa);
-			echo $row_programa['program_name'];
+			echo '<a href="fechas_editar.php?id_fecha='.$row_fechas["id_fecha"].'">'.$row_programa["program_name"].'</a>';
 			?>
 			</td>
 			<td>

@@ -55,7 +55,7 @@ $selectSQL = sprintf("SELECT * FROM users WHERE username=%s AND password=%s",Get
                 session_start();
                 $_SESSION['usuario'] = $_POST['username'];
 				 
-				$insertGoTo = "programas_home.php";
+				$insertGoTo = "home_programs.php";
 				 if (isset($_SERVER['QUERY_STRING'])) {
 					$insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
 					$insertGoTo .= $_SERVER['QUERY_STRING'];

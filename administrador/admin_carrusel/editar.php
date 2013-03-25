@@ -13,7 +13,7 @@ header("Location:admin_carrusel_home.php");
 
 }
 
-if($_GET['logout']){
+if(isset($_GET['logout'])){
 session_unset();
 session_destroy();
 
@@ -25,7 +25,7 @@ require_once('../../Connections/otono2011.php');
 
   if(isset($_POST['submitted'])){
 
-    $id=$_POST['id'];
+    $id=$_POST['id_banner'];
     $titulo = htmlentities( $_POST['titulo']);
     $texto = htmlentities($_POST['texto']); 
     $destino = htmlentities($_POST['destino']); 
@@ -38,7 +38,7 @@ require_once('../../Connections/otono2011.php');
     mysql_select_db($database_otono2011, $otono2011);
     $query = 'UPDATE carrusel_index SET titulo="'.$titulo.'", texto="'.$texto.'", destino="'.$destino.'", orden="'.$orden.'", visible="'.$visible.'" WHERE id_carrusel_index="'.$id.'"'; 
     $result = mysql_query($query, $otono2011) or die(mysql_error());
-    
+
       if($result){
         header("Location:admin_carrusel_home.php");
 
@@ -57,7 +57,7 @@ require_once('../../Connections/otono2011.php');
       $titulo=$row2["titulo"];
       $texto=$row2["texto"];
       $destino=$row2["destino"];
-      $orden=$row2["orden"];
+      $visible=$row2["visible"];
       $imagen=$row2["imagen_carrusel"];
       $orden=$row2["orden"];
 ?>
@@ -71,7 +71,7 @@ require_once('../../Connections/otono2011.php');
 </head>
 
 <body>
-<form action="editar.php?id=<?php echo $id; ?>" onsubmit="return checkFields();" method="post" name="form1" id="form1" enctype="multipart/form-data">
+<form action="editar.php" onsubmit="return checkFields();" method="post" name="form1" id="form1" enctype="multipart/form-data">
 <table align="center" width="70%">
     <tr>
       <td align="right">
@@ -115,14 +115,26 @@ require_once('../../Connections/otono2011.php');
        </tr>
        <tr>
          <td width="25%">Orden en el Carrusel:</td>
-         <td><span><?php echo $orden; ?></span></td>
+         <td><span><?php echo $orden; ?></span><input type="hidden" value="<?php echo $orden; ?>" name="orden"/></td>
        </tr>
        <tr>
         <td width="25%">Visible</td>
           <td>
                 <select name="visible" id="visible">
-                   <option value="NO">NO</option>
-                   <option value="SI">SI</option>
+                  <?php 
+
+                    if($row2['visible'] == "SI"){
+
+                  ?>
+                  <option selected="selected" value="SI">S&Iacute;</option>
+                  <option value="NO">NO</option>
+                   <?php 
+
+                   }elseif ($row2['visible'] == "NO") { ?>
+                    <option selected="selected" value="NO">NO</option>
+                    <option value="SI">S&Iacute;</option>
+                   <?php } ?>
+
                 </select>
           </td>
         </tr>
@@ -138,6 +150,7 @@ require_once('../../Connections/otono2011.php');
   </td></tr>
 </table>
   <input type="hidden" name="MM_insert" value="form1" />
+  <input type="hidden" name="id_banner" value="<?php echo $_POST['id']; ?>" />
 </form>
 
 <script>

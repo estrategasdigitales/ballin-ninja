@@ -56,11 +56,38 @@ $id_program = $_POST['id_program'];
 $fecha_registro = date('Y-m-d H:i:s');
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_diplos_names = "SELECT *, (SELECT discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS discipline, (SELECT id_discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS id_discipline FROM site_programs WHERE id_program = '".$id_program."'";
+//$query_diplos_names = "SELECT program_name, (SELECT discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS discipline, (SELECT id_discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS id_discipline FROM site_programs WHERE id_program = '".$id_program."'";
+$query_diplos_names = "SELECT site_programs.program_name, site_programs.id_discipline_alterna, site_programs.id_discipline, disciplines.discipline FROM site_programs, disciplines WHERE site_programs.id_discipline = disciplines.id_discipline AND site_programs.id_program = '".$id_program."'";
 $diplos_names = mysql_query($query_diplos_names, $otono2011) or die(mysql_error());
 $row_diplos_names = mysql_fetch_assoc($diplos_names);
 //$totalRows_diplos_names = mysql_num_rows($diplos_names);
 
+if(isset($row_diplos_names['id_discipline_alterna']) && $row_diplos_names['id_discipline_alterna'] != NULL){
+
+$disciplina_alterna = $row_diplos_names['id_discipline_alterna'];
+
+mysql_select_db($database_otono2011, $otono2011);
+$query_coord_alt_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $disciplina_alterna) AND id_access != 1 AND id_access !=2";
+$coord_alt_mails = mysql_query($query_coord_alt_mails, $otono2011) or die(mysql_error());
+$row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails);
+$totalRows_coord_alt_mails = mysql_num_rows($coord_alt_mails);
+$cont = 0;
+
+for($i=0;$i<=$totalRows_coord_alt_mails;$i++){
+	$correos_alt[$i] = $row_coord_alt_mails['email_b'];
+}
+
+for($i=0;$i<=$totalRows_coord_alt_mails;$i++){
+	echo $correos_alt[$i];
+}
+
+/*for($i=$cont; $i>0; $i--){
+	echo $correos_alt_.$i;
+}*/
+
+die;
+
+}
 
 $id_discipline = $row_diplos_names['id_discipline'];
 
@@ -735,113 +762,6 @@ s.parentNode.insertBefore(ga, s);
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <iframe id="helperIframe" src='http://www.diplomados.uia.mx/helper.html#1000' height='0' width='0' frameborder='0'></iframe>
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<?php switch($_GET['id_discipline']){
-		 case 1:
-		 $imagen = 'arquitectura';
-		 $header = 'verde';
-		 $descargable = 'arquitectura';
-		 break;
-		 case 2:
-		 $imagen = 'arte';
-		 $header = 'verde';
-		 $descargable = 'arte';
-		 break;
-		 case 3:
-		 $imagen = 'diseno';
-		 $header = 'verde';
-		 $descargable = 'diseno';
-		 break;
-		 case 4:
-		 $imagen = 'comunicacion';
-		 $header = 'gris';
-		 $descargable = 'comunicacion';
-		 break;
-		 case 5:
-		 $imagen = 'desarrollohumano';
-		 $header = 'gris';
-		 $descargable = 'dh';
-		 break;
-		 case 6:
-		 $imagen = 'salud';
-		 $header = 'gris';
-		 $descargable = 'salud';
-		 break;
-		 case 7:
-		 $imagen = 'politica';
-		 $header = 'gris';
-		 $descargable = 'politica';
-		 break;
-		 case 8:
-		 $imagen = 'negocios';
-		 $header = 'turquesa';
-		 $descargable = 'negocios';
-		 break;
-		 case 9:
-		 $imagen = 'tecnologia';
-		 $header = 'turquesa';
-		 $descargable = 'tecnologia';
-		 break;
-		 case 10:
-		 $imagen = 'humanidades';
-		 $header = 'morado';
-		 $descargable = 'humanidades';
-		 break;
-		 case 11:
-		 $imagen = 'gastronomia';
-		 $header = 'amarillo';
-		 $descargable = 'gastronomia';
-		 break;
-		 case 12:
-		 $imagen = 'prepaAbierta';
-		 $header = 'rojo';
-		 $descargable = 'prepa';
-		 break;
-		 case 13:
-		 $imagen = 'xochitla';
-		 $header = 'vc';
-		 $descargable = 'xochitla';
-		 break;
-		 case 14:
-		 $imagen = 'idiomas';
-		 $header = 'rosa';
-		 $descargable = 'idiomas';
-		 break;
-		 case 15:
-		 $imagen = 'online';
-		 $header = 'azul';
-		 $descargable = 'online';
-		 break;
-		 case 16:
-		 $imagen = 'atencionIntgralEmpresas';
-		 $header = 'vc';
-		 $descargable = 'empresas';
-		 break;
-		 case 17:
-		 $imagen = 'atencionSectorPub';
-		 $header = 'naranja';
-		 $descargable = 'sP';
-		 break;
-		 case 18:
-		 $imagen = 'creliogiosas';
-		 $header = 'morado';
-		 $descargable = 'cR';
-		 break;
-		 case 19:
-		 $imagen = 'casabarragan';
-		 $header = 'verde';
-		 $descargable = 'casa_barragan';
-		 break; 
-		  case 20:
-		 $imagen = 'lofft';
-		 $header = 'rojo';
-		 $descargable = 'casa_barragan';
-		 break;
-		 case 23:
-		 $imagen = 'harvard';
-		 $header = 'vino';
-		 $descargable = 'hv';
-		 break;
-	  }?>
 <div id="container">
   <div id="header" style="margin-top:16px">
     <div id="logos"> <a href="http://uia.mx/" target="_blank"><img src="imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'"><img src="imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></div>
@@ -1032,9 +952,9 @@ s.parentNode.insertBefore(ga, s);
 						<label for="id_discipline"></label>
 							<select onchange="load_programs(this.value);" name="id_discipline" id="id_discipline">
 								<option value="0" selected="selected">Selecciona un &aacute;rea</option>
-								<? do { ?>
-									<option value="<? echo $row_disciplines_names['id_discipline']; ?>"><? echo $row_disciplines_names['discipline']; ?></option>
-								<? } while($row_disciplines_names = mysql_fetch_assoc($disciplines_names)); ?>
+								<?php do { ?>
+									<option value="<?php echo $row_disciplines_names['id_discipline']; ?>"><?php echo $row_disciplines_names['discipline']; ?></option>
+								<?php } while($row_disciplines_names = mysql_fetch_assoc($disciplines_names)); ?>
 						</select></td>
 					</tr>
 				<tr>
@@ -1042,7 +962,7 @@ s.parentNode.insertBefore(ga, s);
 					
 						<select name="id_program" id="id_program" style="width:540px; max-width:540px;">
 							<option value="0" selected="selected" disabled="disabled">Selecciona un programa</option>
-							<? 
+							<?php 
 							$tipo_ant = 'diplomado';
 							do{
 								$tipo = $row_programas['program_type'];
@@ -1145,37 +1065,9 @@ el c&oacute;digo comienza con PSV-)</span></td>
 						<tr>
 							<td width="75" align="center"><select name="dia_nac" id="dia_nac" onchange="populate_month(this.value); unpopulate_rfc();">
 								<option selected="selected" disabled="disabled">- D&iacute;a -</option>
-								<option value="01">1</option>
-								<option value="02">2</option>
-								<option value="03">3</option>
-								<option value="04">4</option>
-								<option value="05">5</option>
-								<option value="06">6</option>
-								<option value="07">7</option>
-								<option value="08">8</option>
-								<option value="09">9</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-								<option value="13">13</option>
-								<option value="14">14</option>
-								<option value="15">15</option>
-								<option value="16">16</option>
-								<option value="17">17</option>
-								<option value="18">18</option>
-								<option value="19">19</option>
-								<option value="20">20</option>
-								<option value="21">21</option>
-								<option value="22">22</option>
-								<option value="23">23</option>
-								<option value="24">24</option>
-								<option value="25">25</option>
-								<option value="26">26</option>
-								<option value="27">27</option>
-								<option value="28">28</option>
-								<option value="29">29</option>
-								<option value="30">30</option>
-								<option value="31">31</option>
+								<?php for($i=1; $i<=31; $i++){?>
+								<option value="<?php if(strlen($i) == 1){echo '0'.$i;}else{echo $i;} ?>"><?php echo $i; ?></option>
+								<?php } ?>
 							</select></td>
 							<td width="67" align="center"><select name="mes_nac" id="mes_nac" onchange="populate_year(this.value); unpopulate_rfc();">
 							</select></td>
@@ -1606,7 +1498,7 @@ No</td>
             <td><!-- AddThis Button BEGIN -->
               
               <div class="addthis_toolbox addthis_default_style"
-						addthis:url="articulos.php?id_discipline=<? echo $_GET['id_discipline']; ?>"
+						addthis:url="articulos.php?id_discipline=<?php echo $_GET['id_discipline']; ?>"
 						addthis:title="<?php echo $row_temp['discipline'].' - '.$row_disciplines['title'];?>"> <a class="addthis_counter addthis_pill_style"></a> </div>
               <script type="text/javascript">
 					var addthis_config = {"data_track_clickback":true};

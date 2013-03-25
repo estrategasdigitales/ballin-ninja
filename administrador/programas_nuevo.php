@@ -196,6 +196,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		$id_maestro .= ', '.$_POST['id_maestro_4'];
 	}
 	
+
   $insertSQL = sprintf("INSERT INTO site_programs (id_program, id_discipline, id_discipline_alterna, program_type, program_name, program_colaboracion, program_colaboracion_img, program_new, `description`, imagen, observaciones, id_maestro, duration, costo_curso, cost_inscripcion, costo_modulo, id_encargado, banner, banner_url, program_pdf, cancelado, periodo, idioma) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                        GetSQLValueString($_POST['id_program'], "int"),
                        GetSQLValueString($_POST['id_discipline'], "int"),
@@ -206,7 +207,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($img_colaborador, "text"),
                        GetSQLValueString(isset($_POST['program_new']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString($_POST['description'], "text"),
-											 GetSQLValueString($banner_home, "text"),
+					   GetSQLValueString($banner_home, "text"),
                        GetSQLValueString($_POST['observaciones'], "text"),
                        GetSQLValueString($id_maestro, "text"),
                        GetSQLValueString($_POST['duration'], "text"),
@@ -253,41 +254,14 @@ $totalRows_encargado = mysql_num_rows($encargado);
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/temp_admin.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO 8859-1"
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"
         />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>Educación Continua</title>
+<title>Educaci&oacute;n Continua</title>
+<script src="../Scripts/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 <!-- TinyMCE -->
 <script language="javascript" type="text/javascript">
-	tinyMCE.init({
-		mode : "textareas",
-		elements : "description,observaciones",
-		theme : "advanced",
-		plugins : "media,searchreplace,contextmenu,paste",
-		theme_advanced_buttons1_add : "fontselect,fontsizeselect",
-		theme_advanced_buttons2_add : "separator,forecolor,backcolor",
-		theme_advanced_buttons2_add_before: "cut,copy,paste,separator,search,replace,separator",
-		theme_advanced_toolbar_location : "top",
-		theme_advanced_toolbar_align : "left",
-		theme_advanced_statusbar_location : "bottom",
-		content_css : "example_word.css",
-	    plugi2n_insertdate_dateFormat : "%Y-%m-%d",
-	    plugi2n_insertdate_timeFormat : "%H:%M:%S",
-		external_link_list_url : "example_link_list.js",
-		external_image_list_url : "example_image_list.js",
-		media_external_list_url : "example_media_list.js",
-		file_browser_callback : "fileBrowserCallBack",
-		paste_use_dialog : false,
-		theme_advanced_resizing : true,
-		theme_advanced_resize_horizontal : false,
-		theme_advanced_link_targets : "_something=My somthing;_something2=My somthing2;_something3=My somthing3;",
-		paste_auto_cleanup_on_paste : true,
-		paste_convert_headers_to_strong : false,
-		paste_strip_class_attributes : "all",
-		paste_remove_spans : false,
-		paste_remove_styles : false		
-	});
 
 	function fileBrowserCallBack(field_name, url, type, win) {
 		// This is where you insert your custom filebrowser logic
@@ -296,6 +270,15 @@ $totalRows_encargado = mysql_num_rows($encargado);
 		// Insert new URL, this would normaly be done in a popup
 		win.document.forms[0].elements[field_name].value = "someurl.htm";
 	}
+</script>
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+CKEDITOR.replace( 'observaciones' );
+CKEDITOR.replace( 'description' );
+
+})
 </script>
 <!-- InstanceEndEditable -->
 <link href="../css/estilos.css" rel="stylesheet"
@@ -331,12 +314,17 @@ $totalRows_encargado = mysql_num_rows($encargado);
             <li><a href="fechas_idiom_home.php">Fechas Idiomas</a> </li>
           </ul>
           <p>&nbsp;</p>
-          <h2>Artículos</h2>
+          <h2>Carrusel Index</h2>
+          <ul>
+            <li><a href="admin_carrusel_home.php">Banners</a></li>
+          </ul>
+          <p>&nbsp;</p>
+          <h2>Art&iacute;culos</h2>
           <ul>
             <li><a href="admin_discipline_articles.php?id_discipline=1">Disciplinas</a> </li>
+            <li><a href="admin_opinions.php">La Comunidad Ibero Opina</a> </li>            
+            <li><a href="admin_weekly_articles.php">Art&iacute;culos semanales</a> </li>
             <li><a href="admin_media_articles.php">La DEC en los Medios</a> </li>
-            <li><a href="admin_opinions.php">La Comunidad Ibero Opina</a> </li>
-            <li><a href="admin_weekly_articles.php">Artículos semanales</a> </li>
           </ul>
           <p>&nbsp;</p>
         </div>

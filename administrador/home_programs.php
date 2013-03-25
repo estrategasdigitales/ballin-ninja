@@ -70,6 +70,26 @@
  <script src="../Scripts/jquery.js"></script>
  <script>
 
+$(document).ready(function() {
+    $("#input_enviar").keydown(function(event) {
+        // Allow: backspace, delete, tab, escape, and enter
+        if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 || 
+             // Allow: Ctrl+A
+            (event.keyCode == 65 && event.ctrlKey === true) || 
+             // Allow: home, end, left, right
+            (event.keyCode >= 35 && event.keyCode <= 39)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        else {
+            // Ensure that it is a number and stop the keypress
+            if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
+                event.preventDefault(); 
+            }   
+        }
+    });
+});
+
  $(document).ready(function(){
 
   $('#input_enviar').focus(function(){
@@ -171,7 +191,7 @@
           <p>&nbsp;</p>
           <h2>Carrusel Index</h2>
           <ul>
-            <li><a href="#">Banners</a></li>
+            <li><a href="admin_carrusel_home.php">Banners</a></li>
           </ul>
           <p>&nbsp;</p>
           <h2>Art&iacute;culos</h2>

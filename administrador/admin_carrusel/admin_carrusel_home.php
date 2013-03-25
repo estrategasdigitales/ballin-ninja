@@ -13,7 +13,7 @@ header("Location:admin_carrusel_home.php");
 
 }
 
-if($_GET['logout']){
+if(isset($_GET['logout'])){
 session_unset();
 session_destroy();
 
@@ -130,7 +130,7 @@ else if(conf == false){
       <td align="center" width="5%">
         <form action="editar.php" method="post">
           <input type="submit" value="Editar"/>
-          <input type="hidden" name="id" value="<?php echo $row_Recordset1['id_carrusel_index'] ?>"/>
+          <input type="hidden" name="id" value="<?php echo $row_Recordset1['id_carrusel_index']; ?>"/>
         </form>
 
       <td align="center" width="5%">
