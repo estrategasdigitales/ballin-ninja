@@ -1,9 +1,10 @@
+
 <?php require_once('../Connections/otono2011.php');
 
 
 $name = $_GET['name_program'];
 mysql_select_db($database_otono2011, $otono2011);
-      $query_programa = "SELECT program_name, id_program FROM site_programs_dupl WHERE program_name LIKE '%".$name."%'"; 
+      $query_programa = "SELECT program_name, id_program FROM site_programs WHERE program_name LIKE '%".$name."%'"; 
       $programa = mysql_query($query_programa, $otono2011) or die(mysql_error());
       $totalRows_programa = mysql_num_rows($programa);
 
