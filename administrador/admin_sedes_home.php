@@ -1,5 +1,16 @@
 <?php require_once('../Connections/otono2011.php');
 
+if(!isset($_SESSION['usuario']))
+{
+  session_start();
+  
+  if(!isset($_SESSION['usuario']))
+  {
+    $goto="index.php";
+    header(sprintf("Location: %s", $goto));
+    exit;
+  }
+}
 
 $currentPage = $_SERVER["PHP_SELF"];
 

@@ -31,6 +31,13 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
+  session_start();
+  
+  if(!isset($_SESSION['usuario']) && ($_SESSION['usuario']) == NULL){
+    header('Location: index.php');
+  }
+
+
 $currentPage = $_SERVER["PHP_SELF"];
 
 $maxRows_fechas = 50;

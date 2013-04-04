@@ -31,6 +31,18 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
+if(!isset($_SESSION['usuario']))
+{
+  session_start();
+  
+  if(!isset($_SESSION['usuario']))
+  {
+    $goto="index.php";
+    header(sprintf("Location: %s", $goto));
+    exit;
+  }
+}
+
 $currentPage = $_SERVER["PHP_SELF"];
 
 $maxRows_programas = 20;
@@ -132,11 +144,11 @@ function eliminar_prog(id_programa){
             <li><a href="admin_carrusel/index.php">Banners</a></li>
           </ul>
           <p>&nbsp;</p>
-          <h2>Artículos</h2>
+          <h2>Art&iacute;culos</h2>
           <ul>
             <li><a href="admin_discipline_articles.php?id_discipline=1">Disciplinas</a> </li>
             <li><a href="admin_opinions.php">La Comunidad Ibero Opina</a> </li>            
-            <li><a href="admin_weekly_articles.php">Artículos semanales</a> </li>
+            <li><a href="admin_weekly_articles.php">Art&iacute;culos semanales</a> </li>
             <!--li><a href="admin_media_articles.php">La DEC en los Medios</a> </li-->
           </ul>
           <p>&nbsp;</p>

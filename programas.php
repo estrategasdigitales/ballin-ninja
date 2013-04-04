@@ -449,6 +449,7 @@ s.parentNode.insertBefore(ga, s);
       	<table width="100%" border="0" align="left" cellpadding="0" cellspacing="5">
       		<tr>
       			<td align="left" valign="top">
+      			  <?php echo '<h1>'.ucfirst($row_programa['program_type']).'</h1>'; ?>
       			  <?php echo '<h1>'.$row_programa['program_name'].'</h1>';
 				if($row_programa['program_colaboracion'] != NULL){
 					echo '<p>(En colaboración con '.$row_programa['program_colaboracion'].')</p>';
