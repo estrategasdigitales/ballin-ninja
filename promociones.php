@@ -277,16 +277,16 @@ s.parentNode.insertBefore(ga, s);
 
     <div id= "type4" class="rectangulo_abajo_secciones" style="border:1px">
       <div class="textos"><!-- InstanceBeginEditable name="contenido" -->
-		  <table width="95%" border="0" align="center" cellpadding="8" cellspacing="0">
+<table width="95%" border="0" align="center" cellpadding="8" cellspacing="0">
                 
                   
                   <tr>
-                    <td>
+                    <td align="center">
                       <script type="text/javascript">
 // Popup window code
 function newPopup(url) {
-	popupWindow = window.open(
-		url,'popUpWindow','height=450,width=550,left=10,top=10,resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no,status=yes')
+  popupWindow = window.open(
+    url,'popUpWindow','height=450,width=550,left=10,top=10,resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no,status=yes')
 }
                           </script>
                       <!-- aqu&iacute; va el url de la imagen .jpg del promocional -->                   <h1>Promociones
@@ -294,7 +294,12 @@ function newPopup(url) {
                       <p>Recuerda que tenemos los mejores descuentos pensados especialmente
                     para ti </p>
                       <p style="text-align:center">   
-                    <img src="imagenes/banners/descuentos.jpg" width="395" height="404" /></p></td>
+                    <!-- <a href="http://www.diplomados.uia.mx/extras.php"><img src="imagenes/banners/promociones.jpg" width="395" height="404" /></a></p></td></tr> -->
+                    <tr>
+                    <td align="center"><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=23&id_program=387&titulo=Social_Media_Strategies'"><img src="imagenes/banners/promo1.jpg" width="395" height="404" /></a></p></td>
+                  </tr>
+                    <tr>
+                    <td align="center"><img src="imagenes/banners/descuentos.jpg" width="395" height="404" /></p></td>
                   </tr>
                   <tr>
                     <td align="center" valign="top"><p>* Los descuentos no son acumulables

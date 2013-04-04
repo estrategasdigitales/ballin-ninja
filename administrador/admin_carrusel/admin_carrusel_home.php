@@ -67,7 +67,8 @@ $query_limit_Recordset1 = sprintf("%s LIMIT %d, %d", $query_Recordset1, $startRo
 $Recordset1 = mysql_query($query_limit_Recordset1, $otono2011) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 
-$orden1 = $row_Recordset1['orden'][0];
+$query_max_min_order = mysql_query("SELECT MAX(orden) AS maximo_orden, MIN(orden) AS minimo_orden FROM carrusel_index", $otono2011);
+$row_max_min_order = mysql_fetch_assoc($query_max_min_order);
 
 if (isset($_GET['totalRows_Recordset1'])) {
   $totalRows_Recordset1 = $_GET['totalRows_Recordset1'];
@@ -83,6 +84,7 @@ $totalPages_Recordset1 = ceil($totalRows_Recordset1/$maxRows_Recordset1)-1;
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="../../css/estilos.css" rel="stylesheet" type="text/css" />
 <title>Administrador Carrusel - Index</title>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>
 
 function confirmDeletion(){
@@ -96,6 +98,17 @@ else if(conf == false){
 	return false;
 	}
 }
+
+function order_change(order, id, direction){
+  
+  $.post("change_order.php", {orden : order, id: id, direction: direction}, function(data){
+    if(data == "success"){
+      location.reload();
+    } 
+   // 
+  })
+}
+
 </script>
 </head>
 
@@ -115,14 +128,14 @@ else if(conf == false){
   <tr class="titulo_tabla">
     <td width="3%">Orden</td>
     <td width="211">Imagen</td>
-    <td width="211">Titular</td> 
+    <td width="211">Titular</td>
     <td width="326">Destino</td>
     <td width="3%">Visible</td>
     <td width="10%" colspan="3"><input type="button" onclick="javascript:window.location='insert_carrusel.php'" value="Agregar Nuevo"/></td>
   </tr>
   <?php do{ ?>
     <tr>
-      <td align="center"><?php if($row_Recordset1['orden'] != $orden1){ ?><a href="#">^</a><?php } ?><br /><?php echo utf8_encode($row_Recordset1['orden']); ?><br /><a href="">v</a></td>
+      <td align="center"><?php if($row_Recordset1['orden'] != $row_max_min_order['minimo_orden']){ ?><a href="#" onclick="order_change(<?php echo $row_Recordset1['orden']; ?>, <?php echo $row_Recordset1['id_carrusel_index']; ?>, 0)">&#x25B2;</a><?php } ?><br /><?php echo $row_Recordset1['orden']; ?><br /><?php if($row_Recordset1['orden'] != $row_max_min_order['maximo_orden']){ ?><a href="#" onclick="order_change(<?php echo $row_Recordset1['orden']; ?>, <?php echo $row_Recordset1['id_carrusel_index']; ?>, 1)">&#x25BC;</a><?php } ?></td>
       <td width="25%"><img src="../../imagenes/carrusel/<?php echo $row_Recordset1['imagen_carrusel']; ?>" width="100%"/></td>
       <td><?php echo utf8_encode($row_Recordset1['titulo']); ?></td>
       <td><?php echo $row_Recordset1['destino']; ?></td>

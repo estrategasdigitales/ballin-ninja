@@ -290,46 +290,29 @@ a.prev span, a.next span {
 src='http://www.diplomados.uia.mx/helper.html#1000' height='0' width='0'
 frameborder='0'></iframe> <!--////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-////////////////--> <div id="container">   <div id="header" style="margin-
-top:16px">     <div id="logos"> <a href="http://uia.mx/" target="_blank"><img
-src="imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0"
-class="logo"/></a><a href="#"
-onclick="parent.location='http://www.diplomados.uia.mx/index.php'"><img
-src="imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0"
-/></a></div>     <div id="primavera" style="margin-bottom:8px"></div>     <div
-id="menu" style="float:none;width:1016px">     <a
-href="https://twitter.com/DiplomadosIbero" target="_blank"><div
-style="float:right;height:24px;width:33px;background-image:
-url(imagenes/twitter.png);border-left:3px;margin-left:11px;margin-
-right:13px"></div></a>     <a href="http://www.facebook.com/diplomados.uia"
-target="_blank"><div style="float:right; height:24px;width:12px;background-
-image: url(imagenes/facebook.png);margin-left:10px"></div></a>       <ul style
-="margin-left:187px">            <li ><a style="font-size:11px" href="#" oncli
-ck="parent.location='http://www.diplomados.uia.mx/index.php'">Inicio</a></li>
-<li>|</li>         <li><a style="font-size:11px" font-size='11px' href="#" onc
-lick="parent.location='http://www.diplomados.uia.mx/nosotros.php'">Nosotros</a
-></li>         <li>|</li>         <li><!--a
-href="http://enlinea.uia.mx/tes_dec/dec_login.cfm" target="_blank"--><a style
-="font-size:11px" href="#" id="servicios_en_linea">Servicios y Pagos en
-l&iacute;nea</a></li>         <li>|</li>         <li><a style="font-size:11px"
-font-size='11px' href="#" onclick="parent.location='http://www.diplomados.uia.
-mx/promociones.php'">Promociones</a></li>         <li>|</li>         <li><a
-style="font-size:11px" href="#" onclick="parent.location='http://www.diplomado
-s.uia.mx/preinscripcion.php'">Preinscripci&oacute;n</a></li>
-<li>|</li>         <li><a style="font-size:11px" href="#" onclick="parent.loca
-tion='http://www.diplomados.uia.mx/directorio.php'">Directorio</a></li>
-<li>|</li>         <li><a style="font-size:11px" href="#" onclick="parent.loca
-tion='http://www.diplomados.uia.mx/contacto.php'">Informes</a></li>
-</ul>      </div>     <div class="bannersuperior2" style="width:706px"></div>
-<br />     <div id="slide_menu" style="display:none; width:190px; background:
-url(imagenes/sombrita_submenu.png) repeat-y; background-color:#D6D7D9;
-position:relative; left:189px; top:18px; z-index:1000; margin-bottom:-1000px">
-
+////////////////--> <div id="container">     <div id="header">
+    <div id="logos"> <a href="http://uia.mx/" target="_blank"><img src="imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'"><img src="imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></div>
+    <div id="primavera" style="margin-bottom:8px"></div>
+    <div id="menu" style="float:none;width:1016px">
+   	<a href="https://twitter.com/DiplomadosIbero" target="_blank"><div style="float:right;height:24px;width:33px;background-image: url(imagenes/twitter.png);border-left:3px;margin-left:11px;margin-right:13px"></div></a>
+    <a href="http://www.facebook.com/diplomados.uia" target="_blank"><div style="float:right; height:24px;width:12px;background-image: url(imagenes/facebook.png);margin-left:10px"></div></a>
+      <ul style="margin-left:187px">
+        <li ><a style="font-size:11px" href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'">Inicio</a></li>
+        <li>|</li>
+        <li><a style="font-size:11px" font-size='11px' href="#" onclick="parent.location='http://www.diplomados.uia.mx/nosotros.php'">Nosotros</a></li>
+        <li>|</li>
+        <li><!--a href="http://enlinea.uia.mx/tes_dec/dec_login.cfm" target="_blank"--><a style="font-size:11px" href="#" id="servicios_en_linea">Servicios y Pagos en l&iacute;nea</a></li>
+        <li>|</li>
+        <li><a style="font-size:11px" font-size='11px' href="#" onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'">Promociones</a></li>
+        <li>|</li>
+        <li><a style="font-size:11px" href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Preinscripci&oacute;n</a></li>
+        <li>|</li>
+        <li><a style="font-size:11px" href="#" onclick="parent.location='http://www.diplomados.uia.mx/directorio.php'">Directorio</a></li>
+        <li>|</li>
+        <li><a style="font-size:11px" href="#" onclick="parent.location='http://www.diplomados.uia.mx/contacto.php'">Informes</a></li>
+      </ul>
      </div>
-
-
-
-
+    <div class="bannersuperior2" style="width:706px"></div>
   </div>
   <div id="separador"></div>
   <div id="slide_servicios" style="display: none; width:131px; height:140px; padding-top:10px; background-color: #FFF; z-index: 1007; margin-top:-162px; position:relative; top:148px; left:372px; border:solid 1px #EFEFEF; float:left;">
@@ -345,13 +328,12 @@ position:relative; left:189px; top:18px; z-index:1000; margin-bottom:-1000px">
     
       <!-- esquinas -->
         <div id="menu_desplega_index">
-        	<?php echo $_SERVER['SERVER_ADDR']; ?>
         <div id="menu_areas">
           <p class="header_disciplinas"></p>
           <ul>
             <li><a class="discipline_1" onclick="showMenu(1)">Arquitectura</a></li>
             <li><a class="discipline_2" onclick="showMenu(2)">Arte</a></li>
-            <li><a class="discipline_3" onclick="showMenu(3)">Diseño</a></li>
+            <li><a class="discipline_3" onclick="showMenu(3)">Dise&ntilde;o</a></li>
             <li><a class="discipline_7" onclick="showMenu(7)">Pol&iacute;tica y Derecho</a></li>
             <li><a class="discipline_5" onclick="showMenu(5)">Desarrollo Humano</a></li>
             <li><a class="discipline_6" onclick="showMenu(6)">Salud</a></li>     
@@ -367,7 +349,7 @@ position:relative; left:189px; top:18px; z-index:1000; margin-bottom:-1000px">
           <ul>
             <li><a class="discipline_23" onclick="showMenu(23)">Programas impartidos por Harvard University</a></li>
           </ul>
-          <h4>Centros de Atención Especializada</h4>
+          <h4>Centros de Atenci&oacute;n Especializada</h4>
           <ul>
             <li><a class="discipline_15" onclick="showMenu(15)">Ibero Online</a></li>
             <li><a class="discipline_16" onclick="showMenu(16)">Atenci&oacute;n Integral a Empresas</a></li>
@@ -448,7 +430,7 @@ position:relative; left:189px; top:18px; z-index:1000; margin-bottom:-1000px">
 						<option value="religiosas">Ciencias Religiosas</option>
 						<option value="comunicacion">Comunicaci&oacute;n</option>
 						<option value="desarrollo">Desarrollo Humano</option>
-						<option value="diseño">Diseño</option>
+						<option value="diseño">Dise&ntilde;o</option>
 						<option value="gastronomia">Gastronom&iacute;a</option>
 						<option value="humanidades">Humanidades</option>
 						<option value="ibero online">Ibero Online</option>

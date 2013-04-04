@@ -42,7 +42,7 @@ $totalRows_ad = mysql_num_rows($ad);*/
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>Untitled Document</title>
+<title>Direcci&oacute;n de Educaci&oacute;n Continua - Nosotros</title>
 <link rel="stylesheet" href="Scripts/jquery-ui.css" type="text/css" media="all" />
 <script type="text/javascript" src="Scripts/jquery.js"></script>
 <script type="text/javascript" src="Scripts/menu2.js"></script>
@@ -340,30 +340,30 @@ s.parentNode.insertBefore(ga, s);
 							<tr>
 								<td><table width="100%" border="0" cellspacing="0" cellpadding="5">
 									<tr>
-										<td width="33%" height="20" align="left" valign="top" id="td_area_1"><input type="checkbox" name="area_1" id="area_1" value="Arquitectura" onchange="show_field('input_1','td_area_1',0,this.id);" />Arquitectura<br /></td>
-										<td width="34%" align="left" valign="top" id="td_area_2"><input type="checkbox" name="area_2" id="area_2" value="Desarrollo Humano" onchange="show_field('input_2','td_area_2',0,this.id);" />Desarrollo Humano<br /></td>
-										<td width="33%" align="left" valign="top" id="td_area_3"><input type="checkbox" name="area_3" id="area_3" value="Humanidades" onchange="show_field('input_3','td_area_3',0,this.id);" />Humanidades<br /></td>
+										<td width="33%" height="20" align="left" valign="top" id="td_area_1"><input type="checkbox" name="area_1" id="area_1" value="Arquitectura" onchange="show_field('input_1','td_area_1',0,this.id);" /><label for="area_1">Arquitectura</label><br /></td>
+										<td width="34%" align="left" valign="top" id="td_area_2"><input type="checkbox" name="area_2" id="area_2" value="Desarrollo Humano" onchange="show_field('input_2','td_area_2',0,this.id);" /><label for="area_2">Desarrollo Humano</label><br /></td>
+										<td width="33%" align="left" valign="top" id="td_area_3"><input type="checkbox" name="area_3" id="area_3" value="Humanidades" onchange="show_field('input_3','td_area_3',0,this.id);" /><label for="area_3">Humanidades</label><br /></td>
 									</tr>
 									<tr>
-										<td height="20" align="left" valign="top" id="td_area_4"><input type="checkbox" name="area_4" id="area_4" value="Arte" onchange="show_field('input_4','td_area_4',0,this.id);" />Arte<br /></td>
-										<td align="left" valign="top" id="td_area_5"><input type="checkbox" name="area_5" id="area_5" value="Salud" onchange="show_field('input_5','td_area_5',0,this.id);" />Salud<br /></td>
-										<td align="left" valign="top" id="td_area_6"><input type="checkbox" name="area_6" id="area_6" value="Gastronomía" onchange="show_field('input_6','td_area_6',0,this.id);" />Gastronom&iacute;a<br /></td>
+										<td height="20" align="left" valign="top" id="td_area_4"><input type="checkbox" name="area_4" id="area_4" value="Arte" onchange="show_field('input_4','td_area_4',0,this.id);" /><label for="area_4">Arte</label><br /></td>
+										<td align="left" valign="top" id="td_area_5"><input type="checkbox" name="area_5" id="area_5" value="Salud" onchange="show_field('input_5','td_area_5',0,this.id);" /><label for="area_5">Salud</label><br /></td>
+										<td align="left" valign="top" id="td_area_6"><input type="checkbox" name="area_6" id="area_6" value="Gastronomía" onchange="show_field('input_6','td_area_6',0,this.id);" /><label for="area_6">Gastronom&iacute;a</label><br /></td>
 									</tr>
 									<tr>
-										<td height="20" align="left" valign="top" id="td_area_7"><input type="checkbox" name="area_7" id="area_7" value="Diseño" onchange="show_field('input_7','td_area_7',0,this.id);" />Dise&ntilde;o<br /></td>
-										<td align="left" valign="top" id="td_area_8"><input type="checkbox" name="area_8" id="area_8" value="Comunicación" onchange="show_field('input_8','td_area_8',0,this.id);" />Comunicaci&oacute;n<br /></td>
-										<td align="left" valign="top" id="td_area_9"><input type="checkbox" name="area_9" id="area_9" value="Idiomas" onchange="show_field('input_9','td_area_9',0,this.id);" />Idiomas<br /></td>
+										<td height="20" align="left" valign="top" id="td_area_7"><input type="checkbox" name="area_7" id="area_7" value="Diseño" onchange="show_field('input_7','td_area_7',0,this.id);" /><label for="area_7">Dise&ntilde;o</label><br /></td>
+										<td align="left" valign="top" id="td_area_8"><input type="checkbox" name="area_8" id="area_8" value="Comunicación" onchange="show_field('input_8','td_area_8',0,this.id);" /><label for="area_8">Comunicaci&oacute;n</label><br /></td>
+										<td align="left" valign="top" id="td_area_9"><input type="checkbox" name="area_9" id="area_9" value="Idiomas" onchange="show_field('input_9','td_area_9',0,this.id);" /><label for="area_9">Idiomas</label><br /></td>
 									</tr>
 									<tr>
-										<td height="20" align="left" valign="top" id="td_area_10"><input type="checkbox" name="area_10" id="area_10" value="Política" onchange="show_field('input_10','td_area_10',0,this.id);" />Pol&iacute;tica<br /></td>
-										<td align="left" valign="top" id="td_area_11"><input type="checkbox" name="area_11" id="area_11" value="Negocios" onchange="show_field('input_11','td_area_11',0,this.id);" />Negocios<br /></td>
-										<td align="left" valign="top" id="td_area_12"><input type="checkbox" name="area_12" id="area_12" value="Ibero Online" onchange="show_field('input_12','td_area_12',0,this.id);" />Ibero Online<br /></td>
+										<td height="20" align="left" valign="top" id="td_area_10"><input type="checkbox" name="area_10" id="area_10" value="Política" onchange="show_field('input_10','td_area_10',0,this.id);" /><label for="area_10">Pol&iacute;tica</label><br /></td>
+										<td align="left" valign="top" id="td_area_11"><input type="checkbox" name="area_11" id="area_11" value="Negocios" onchange="show_field('input_11','td_area_11',0,this.id);" /><label for="area_11">Negocios</label><br /></td>
+										<td align="left" valign="top" id="td_area_12"><input type="checkbox" name="area_12" id="area_12" value="Ibero Online" onchange="show_field('input_12','td_area_12',0,this.id);" /><label for="area_12">Ibero Online</label><br /></td>
 									</tr>
 									<tr>
-										<td height="20" align="left" valign="top" id="td_area_13"><input type="checkbox" name="area_13" id="area_13" value="Derecho" onchange="show_field('input_13','td_area_13',0,this.id);" />Derecho<br /></td>
-										<td align="left" valign="top" id="td_area_14"><input type="checkbox" name="area_14" id="area_14" value="Tecnología" onchange="show_field('input_14','td_area_14',0,this.id);" />Tecnolog&iacute;a<br /></td>
+										<td height="20" align="left" valign="top" id="td_area_13"><input type="checkbox" name="area_13" id="area_13" value="Derecho" onchange="show_field('input_13','td_area_13',0,this.id);" /><label for="area_13">Derecho</label><br /></td>
+										<td align="left" valign="top" id="td_area_14"><input type="checkbox" name="area_14" id="area_14" value="Tecnología" onchange="show_field('input_14','td_area_14',0,this.id);" /><label for="area_14">Tecnolog&iacute;a</label><br /></td>
 										<td align="left" valign="top" id="td_area_15"><input type="checkbox" name="area_15" id="area_15" value="Otros" onchange="show_field('input_15','td_area_15',0,this.id);" />
-											Otro											<br /></td>
+											<label for="area_15">Otro</label>											<br /></td>
 									</tr>
 								</table></td>
 							</tr>

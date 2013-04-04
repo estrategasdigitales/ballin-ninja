@@ -1,4 +1,4 @@
-<?php require_once('../Connections/otono2011.php'); 
+<?php require_once('../Connections/otono2011.php');
 
 mysql_select_db($database_otono2011, $otono2011);
 $query = "SELECT program_name FROM site_programs";

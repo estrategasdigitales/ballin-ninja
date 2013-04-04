@@ -60,6 +60,7 @@ function showMenu(discipline, program){
 			}
 
 			$('div#slide_menu').empty().append(data).show(0)
+			console.log(data);
 		})
 	}
 

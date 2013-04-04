@@ -396,90 +396,66 @@ a.prev span, a.next span {
 					<a class="next" id="foo5_next" href="#"><span>next</span></a>
 				</div>
 				<div id="foo5" class="foo5">
-					<!--div class="slide" id="parrafo1">
-						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/extras.php'">
-							<img src="imagenes/carrusel/carrusel_promo.png" alt="carousel 4" width="775" height="300" />
-							<div style="width:172px";>
-								<h4 align="center">Obt&eacute;n 40% de descuento si te inscribes con un amigo.</h4>
-								<hr id="linea1" style="margin-left:10px">
-								<p align="center">Aplica en cursos y diplomados</p>
-							</div>
-						</a>
-	       				
-					</div-->
-		 			<!-- <div class="slide">
-	       				<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=23&id_program=386'">
-							<img src="imagenes/carrusel/harvard_carrusel.png" alt="carousel 2" width="775" height="300" />
-							<div style="width:172px">
-								<h4 align="center">Convierte tus presentaciones en auténticos éxitos</h4>
-								<hr id="linea1" style="margin-left:10px">
-								<p align="center">Stengthening Business Presentation Techniques <br />22 y 23 de febrero <br />De 10-19 hrs.</p>
-							</div>
-						</a>
-					</div> -->
 					<div class="slide">
-						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=5'">
-							<img src="imagenes/carrusel/carrusel11.jpg" alt="carousel 4" width="775" height="300" />
+						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=23&id_program=387&titulo=Social_Media_Strategies'">
+							<img src="imagenes/carrusel/carrusel14.jpg" alt="carousel 4" width="775" height="300" />
 							<div style="width:172px">
-								<h4 align="center">¿Conoces la Psicolog&iacute;a existencial?</h4>
+								<h4 align="center">Harvard en la Ibero -40% Curso Estrategias Social Media</h4>
 								<hr id="linea1" style="margin-left:10px">
-								<p align="center">Una Psicoterapia novedosa en M&eacute;xico</p>
+								<p align="center">Descuento 25 al 31 de marzo.</p>
 							</div>
 						</a>
 					</div>
 					<div class="slide">
-						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=3'">
-							<img src="imagenes/carrusel/carrusel10.jpg" alt="carousel 4" width="775" height="300" />
+						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=10'">
+							<img src="imagenes/carrusel/carrusel_humanidades.jpg" alt="carousel 4" width="775" height="300" />
 							<div style="width:172px">
-								<h4 align="center">MODA HIPSTER</h4>
+								<h4 align="center">Recuerda y vuelve a vivir</h4>
 								<hr id="linea1" style="margin-left:10px">
-								<p align="center">Se&ntilde;ales esenciales que definen su estilo</p>
+								<p align="center">Taller de escritura autobiogr&aacute;fica</p>
 							</div>
 						</a>
 					</div>
 					<div class="slide">
-						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=14'">
-							<img src="imagenes/carrusel/carrusel9.jpg" alt="carousel 4" width="775" height="300" />
+						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=15'">
+							<img src="imagenes/carrusel/carrusel_online.jpg" alt="carousel 4" width="775" height="300" />
 							<div style="width:172px">
-								<h4 align="center">ALGO SOBRE EL NUSHU</h4>
+								<h4 align="center">&iquest;Conf&iacute;as en tu escritura?</h4>
 								<hr id="linea1" style="margin-left:10px">
-								<p align="center">Lengua exclusiva para mujeres</p>
-							</div>
-						</a>
-					</div>
-					<div class="slide">
-						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=2'">
-							<img src="imagenes/carrusel/carrusel2.jpg" alt="carousel 4" width="775" height="300" />
-							<div style="width:172px">
-								<h4 align="center">No hay imágenes inocentes</h4>
-								<hr id="linea1" style="margin-left:10px">
-								<p align="center">Curso Análisis y creación de la imagen pictórica</p>
+								<p align="center">Tips para mejorar tu ortograf&iacute;a</p>
 							</div>
 						</a>
 					</div>
 					 <div class="slide">
-	      			 	<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=20'">
-							<img src="imagenes/carrusel/banner_carrusel_lofft.png" alt="carousel 3" width="775" height="300" />
+	      			 	<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=11'">
+							<img src="imagenes/carrusel/carrusel_gastronomia.jpg" alt="carousel 3" width="775" height="300" />
 							<div style="width:172px">
-								<h4 align="center">&iquest;Ya conoces nuestra sede en el sur?</h4>
+								<h4 align="center">Chocolate</h4>
 								<hr id="linea1" style="margin-left:10px">
-								<p align="center">ESTUDIO LOFFT, otra forma de estudiar</p>
+								<p align="center">Sagrada herencia mexicana</p>
 							</div>
 						</a>
-					</div>
-					<!-- <div class="slide">
-	       				<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/extras.php'">
-							<img src="imagenes/carrusel/carrusel6.png" alt="carousel 1" width="775" height="300" />
+					</div>	
+					<div class="slide">
+	      			 	<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=9'">
+							<img src="imagenes/carrusel/carrusel_tecnologia.jpg" alt="carousel 3" width="775" height="300" />
 							<div style="width:172px">
-								<h4 align="center">Nos vemos en Estudio Lofft, nuestra sede sur.</h4>
+								<h4 align="center">Norma ISO 9000</h4>
 								<hr id="linea1" style="margin-left:10px">
-								<p align="center">27 de Febrero - 19 hrs. <br /> Cuauhtémoc 158 B-4, Col. Tizapán, San Ángel.</p>
+								<p align="center">&iquest;Por qu&eacute; certificarse?</p>
 							</div>
 						</a>
-					</div> -->
-	      			
-					
-					
+					</div>	
+					<div class="slide">
+	      			 	<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=10&id_program=359&titulo=Estados_Unidos:_Pol%26%2365533%3Btica,_econom%26%2365533%3Ba_y_sociedad'">
+							<img src="imagenes/carrusel/carrusel_eu.jpg" alt="carousel 3" width="775" height="300" />
+							<div style="width:172px">
+								<h4 align="center">Diplomado Estados Unidos</h4>
+								<hr id="linea1" style="margin-left:10px">
+								<p align="center">Pol&iacute;tica econom&iacute;a y sociedad</p>
+							</div>
+						</a>
+					</div>						
 				</div>
 				<div class="clearfix"></div>
             </div>
@@ -728,12 +704,8 @@ a.prev span, a.next span {
           <tr>
           	<td  align="right" valign="top" >&nbsp;</td>
           	</tr>
-          <tr>
-          	<td align="center"><a onclick="parent.location='http://www.ibero.mx/expoposgrados/'" target="_blank" href="#" ><img src="imagenes/banner_posgrados.jpg" width="181px" height="115" border="0" /></a></td>
-          
-           <tr>
 
-            <!-- <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/banner_newsletter.png) no-repeat bottom transparent; width:191px;">
+             <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/banner_newsletter.png) no-repeat bottom transparent; width:191px;">
             	<form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
                 <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">
                   <tbody><tr>
@@ -752,7 +724,7 @@ a.prev span, a.next span {
                     <td height="1"></td>
                   </tr>
                 </tbody></table>
-              </form></td> -->
+              </form></td>
           </tr>
               
               <!--table width="80%" border="0" cellspacing="0" cellpadding="0">

@@ -546,16 +546,16 @@ s.parentNode.insertBefore(ga, s);
 			<td colspan="2" valign="top"><label for="id_discipline"></label>
 				<select onchange="load_programs(this.value);" name="id_discipline" id="id_discipline">
 					<option value="0" selected="selected">Todas las &aacute;reas</option>
-					<? do { ?>
+					<?php do { ?>
 					<option value="<? echo $row_disciplines_names['id_discipline']; ?>"8><? echo $row_disciplines_names['discipline']; ?></option>
-					<? } while($row_disciplines_names = mysql_fetch_assoc($disciplines_names)); ?>
+					<?php } while($row_disciplines_names = mysql_fetch_assoc($disciplines_names)); ?>
 				</select></td>
 		</tr>
 		<tr>
 			<td colspan="2" valign="top" id="td_programas"><select name="id_program" id="id_program" style="width:540px; max-width:540px;">
 				<option value="0" selected="selected" disabled="disabled">Selecciona un programa</option>
 				<option disabled="disabled">-----DIPLOMADOS---</option>
-				<? 
+				<?php 
 							$tipo_ant = 'diplomado';
 							do{
 								$tipo = $row_programas['program_type'];
@@ -620,7 +620,7 @@ s.parentNode.insertBefore(ga, s);
             <td><!-- AddThis Button BEGIN -->
               
               <div class="addthis_toolbox addthis_default_style"
-						addthis:url="articulos.php?id_discipline=<? echo $_GET['id_discipline']; ?>"
+						addthis:url="articulos.php?id_discipline=<?php echo $_GET['id_discipline']; ?>"
 						addthis:title="<?php echo $row_temp['discipline'].' - '.$row_disciplines['title'];?>"> <a class="addthis_counter addthis_pill_style"></a> </div>
               <script type="text/javascript">
 					var addthis_config = {"data_track_clickback":true};

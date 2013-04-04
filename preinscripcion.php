@@ -1,4 +1,4 @@
-<?php require_once('Connections/otono2011.php'); ?>
+	<?php require_once('Connections/otono2011.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -55,39 +55,16 @@ if($_POST['horario_idioma']!=NULL){
 $id_program = $_POST['id_program'];
 $fecha_registro = date('Y-m-d H:i:s');
 
+//Informacion del curso seleccionado
+
+
+
 mysql_select_db($database_otono2011, $otono2011);
 //$query_diplos_names = "SELECT program_name, (SELECT discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS discipline, (SELECT id_discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS id_discipline FROM site_programs WHERE id_program = '".$id_program."'";
 $query_diplos_names = "SELECT site_programs.program_name, site_programs.id_discipline_alterna, site_programs.id_discipline, disciplines.discipline FROM site_programs, disciplines WHERE site_programs.id_discipline = disciplines.id_discipline AND site_programs.id_program = '".$id_program."'";
 $diplos_names = mysql_query($query_diplos_names, $otono2011) or die(mysql_error());
 $row_diplos_names = mysql_fetch_assoc($diplos_names);
 //$totalRows_diplos_names = mysql_num_rows($diplos_names);
-
-if(isset($row_diplos_names['id_discipline_alterna']) && $row_diplos_names['id_discipline_alterna'] != NULL){
-
-$disciplina_alterna = $row_diplos_names['id_discipline_alterna'];
-
-mysql_select_db($database_otono2011, $otono2011);
-$query_coord_alt_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $disciplina_alterna) AND id_access != 1 AND id_access !=2";
-$coord_alt_mails = mysql_query($query_coord_alt_mails, $otono2011) or die(mysql_error());
-$row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails);
-$totalRows_coord_alt_mails = mysql_num_rows($coord_alt_mails);
-$cont = 0;
-
-for($i=0;$i<=$totalRows_coord_alt_mails;$i++){
-	$correos_alt[$i] = $row_coord_alt_mails['email_b'];
-}
-
-for($i=0;$i<=$totalRows_coord_alt_mails;$i++){
-	echo $correos_alt[$i];
-}
-
-/*for($i=$cont; $i>0; $i--){
-	echo $correos_alt_.$i;
-}*/
-
-die;
-
-}
 
 $id_discipline = $row_diplos_names['id_discipline'];
 
@@ -96,8 +73,6 @@ $query_coord_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FRO
 $coord_mails = mysql_query($query_coord_mails, $otono2011) or die(mysql_error());
 $row_coord_mails = mysql_fetch_assoc($coord_mails);
 $totalRows_coord_mails = mysql_num_rows($coord_mails);
-
-//Informacion del curso seleccionado
 
 $nombre_area = $row_diplos_names['discipline'];
 $nombre_programa = $row_diplos_names['program_type']." - ".$row_diplos_names['program_name'];
@@ -304,6 +279,55 @@ do {
 	
 }while($row_coord_mails = mysql_fetch_assoc($coord_mails));
 
+if(isset($row_diplos_names['id_discipline_alterna']) && $row_diplos_names['id_discipline_alterna'] != NULL){
+
+$disciplina_alterna = $row_diplos_names['id_discipline_alterna'];
+
+mysql_select_db($database_otono2011, $otono2011);
+$query_coord_alt_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $disciplina_alterna) AND id_access != 1 AND id_access !=2";
+$coord_alt_mails = mysql_query($query_coord_alt_mails, $otono2011) or die(mysql_error());
+$row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails);
+$totalRows_coord_alt_mails = mysql_num_rows($coord_alt_mails);
+
+
+do {
+	//$to_coord = $row_coord_mails['email'];
+	$to_coord_b_alt = $row_coord_alt_mails['email_b'];
+	$mensaje_coord .= "<br /><br />";
+	$mensaje_coord = "Tienes un nuevo preinscrito en el <strong>".$nombre_programa."</strong>";
+	$mensaje_coord .= "<br /><br />";
+	$mensaje_coord .= "Para darle seguimiento visita la siguiente liga:";
+	$mensaje_coord .= "<br /><br />";
+	$mensaje_coord .= "<a href='http://www.dec-uia.com/s_preiniscritos/' target='_blank'>http://www.dec-uia.com/s_preiniscritos/</a>";
+	$mensaje_coord .= "<br /><br />donde podr&acute;s llevar paso a paso el proceso de inscripci&oacute;n y tener un f&acute;cil acceso a la informaci&oacute;n del usuario.";
+	$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord_alt_mails['username']."</strong>";
+	$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_alt_mails['password']."</strong>";
+	//mail($to_coord, $mail_title, $mensaje_coord, $headers);
+	mail($to_coord_b_alt, $mail_title, $mensaje_coord, $headers);
+	
+}while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));
+
+/*
+do{
+	echo $row_coord_alt_mails['email'].'<br/>'.$row_coord_alt_mails['username'].'<br/>'.$row_coord_alt_mails['password'].'<br/><br/>';
+}while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));*/
+/*
+for($i=0;$i<=$totalRows_coord_alt_mails;$i++){
+	$correos_alt[$i] = $row_coord_alt_mails['email_b'];
+}
+
+for($i=0;$i<=$totalRows_coord_alt_mails;$i++){
+	echo $correos_alt[$i];
+}*/
+
+/*for($i=$cont; $i>0; $i--){
+	echo $correos_alt_.$i;
+}*/
+
+die;
+
+}
+
 //mail('pvazquezdiaz@gmail.com', $mail_title, $mensaje_coord, $headers);
 
 $mensaje_user = 'Tu preinscripción al '.$nombre_programa.' ha sido recibida';
@@ -432,14 +456,14 @@ function populate_rfc_name(){
 	var nom = $('input#nombre').val().substr(0,1);
 	var rfc_siglas = pat.toUpperCase()+mat.toUpperCase()+nom.toUpperCase();
 	
-	//alert(rfc_siglas);
+	//console.log(rfc_siglas);
 	
-	rfc_siglas = rfc_siglas.replace('Á', 'A');
-	rfc_siglas = rfc_siglas.replace('É', 'E');
-	rfc_siglas = rfc_siglas.replace('Í', 'I');
-	rfc_siglas = rfc_siglas.replace('Ó', 'O');
-	rfc_siglas = rfc_siglas.replace('Ú', 'U');
-	rfc_siglas = rfc_siglas.replace('Ñ', 'N');
+	rfc_siglas = rfc_siglas.replace('\u00C1', 'A');
+	rfc_siglas = rfc_siglas.replace('\u00C9', 'E');
+	rfc_siglas = rfc_siglas.replace('\u00CD', 'I');
+	rfc_siglas = rfc_siglas.replace('\u00D3', 'O');
+	rfc_siglas = rfc_siglas.replace('\u00DA', 'U');
+	rfc_siglas = rfc_siglas.replace('\u00D1', 'N');
 	//alert(rfc_siglas);
 	$('input#rfc').attr('value',rfc_siglas);
 }

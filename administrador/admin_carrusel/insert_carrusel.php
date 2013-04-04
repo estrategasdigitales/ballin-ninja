@@ -1,6 +1,9 @@
 <?php 
 require_once('../../Connections/otono2011.php');
 
+$query_orden = mysql_query("SELECT MAX(orden+1) AS maximo_orden FROM carrusel_index");
+$row_query = mysql_fetch_assoc($query_orden);
+
 if((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == 'form1')){
 
   include('SimpleImage.php');
@@ -75,7 +78,7 @@ if((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == 'form1')){
        <tr>
        		<td width="25%">* Destino:</td>
             <td><input type="text" name="destino" size="80" placeholder="Ej: http://www.diplomados.uia.mx/programas.php?id_discipline=4&id_program=392"/></td>
-            <input type="hidden" name="orden" value="0">
+            <input type="hidden" name="orden" value="<?php echo $row_query['maximo_orden']; ?>">
             <input type="hidden" name="visible" value="NO">
        </tr>
      

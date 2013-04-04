@@ -41,7 +41,7 @@ if (isset($_GET['pageNum_programas'])) {
 $startRow_programas = $pageNum_programas * $maxRows_programas;
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_programas = "SELECT site_programs.id_program, site_programs.program_name, site_programs.program_type, site_programs.program_new, site_programs.cancelado, site_programs.id_discipline, site_programs.id_discipline_alterna, disciplines.discipline, disciplines.id_discipline FROM site_programs, disciplines WHERE site_programs.id_discipline = disciplines.id_discipline ORDER BY id_program DESC";
+$query_programas = "SELECT * FROM site_maestros ORDER BY id_maestro DESC";
 $query_limit_programas = sprintf("%s LIMIT %d, %d", $query_programas, $startRow_programas, $maxRows_programas);
 $programas = mysql_query($query_limit_programas, $otono2011) or die(mysql_error());
 $row_programas = mysql_fetch_assoc($programas);
@@ -76,7 +76,7 @@ $queryString_programas = sprintf("&totalRows_programas=%d%s", $totalRows_program
 <meta http-equiv="Content-Type" content="text/html; charset=ISO 8859-1"
         />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>Educación Continua</title>
+<title>Educaci&oacute;n Continua</title>
 <!-- InstanceEndEditable -->
 <link href="../css/estilos.css" rel="stylesheet"
         type="text/css" />
@@ -86,9 +86,9 @@ $queryString_programas = sprintf("&totalRows_programas=%d%s", $totalRows_program
 <script>
 
 function eliminar_prog(id_programa){
-  var r = confirm('¿Estás seguro que deseas eliminar este programa?');
+  var r = confirm('\u00BFEst\u00E1s seguro que deseas eliminar este programa?');
   if(r == true){
-    window.location="programas_eliminar.php?id_program="+id_programa;
+    window.location="delete_maestro.php?id_maestro="+id_programa;
   }if(r == false){
     //
   }
@@ -132,11 +132,11 @@ function eliminar_prog(id_programa){
             <li><a href="admin_carrusel/index.php">Banners</a></li>
           </ul>
           <p>&nbsp;</p>
-          <h2>Artículos</h2>
+          <h2>Art&iacute;culos</h2>
           <ul>
             <li><a href="admin_discipline_articles.php?id_discipline=1">Disciplinas</a> </li>
             <li><a href="admin_opinions.php">La Comunidad Ibero Opina</a> </li>            
-            <li><a href="admin_weekly_articles.php">Artículos semanales</a> </li>
+            <li><a href="admin_weekly_articles.php">Art&iacute;culos semanales</a> </li>
             <!--li><a href="admin_media_articles.php">La DEC en los Medios</a> </li-->
           </ul>
           <p>&nbsp;</p>
@@ -156,35 +156,31 @@ function eliminar_prog(id_programa){
   </div>
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
 
- <h1> Programas </h1>
+ <h1> Directorio DEC </h1>
 <table  border="0" cellpadding="5" cellspacing="0" class="tablas">
 	<tr class="titulo_tabla">
-		<td>Programa</td>
-		<td>Disciplina</td>
-		<td>Disciplina alterna</td>
-		<td>Tipo</td>
-		<td>Nuevo</td>
-		<td>Cancelado</td>
+		<td>Nombre</td>
+		<td>Tel&eacute;fono</td>
+		<td>CV</td>
+		<td>Correo</td>
 		<td colspan="2">
-        <input type="button" value="Nuevo Programa" onclick="javascript:window.location='programas_nuevo.php'">
+        <input type="button" value="Nuevo Maestro" onclick="javascript:window.location='nuevo_maestro.php'">
         </td>
 	  </tr>
 	<?php $cont = 0; do { $cont++; ?>
 		<tr>
-			<td><a href="programas_editar.php?id_program=<?php echo $row_programas['id_program']; ?>"><?php echo $row_programas['program_name']; ?></a></td>
-			<td><?php echo $row_programas['discipline']; ?></td>
-			<td><?php echo $row_programas['id_discipline_alterna']; ?></td>
-			<td><?php echo $row_programas['program_type']; ?></td>
-			<td><?php if($row_programas['program_new'] == 1){ echo 'S&iacute;';}else{echo 'No'; } ?></td>
-			<td><?php if($row_programas['cancelado'] == 1){ echo "S&iacute;";}else{echo "No";} ?></td>
-			<td><a href="programas_editar.php?id_program=<?php echo $row_programas['id_program']; ?>">Editar</a></td>
-			<td><a onclick="eliminar_prog(<?php echo $row_programas['id_program']; ?>);" href="#">Eliminar</a></td>
+			<td><?php echo $row_programas['titulo_maestro'].' '.$row_programas['nombre_maestro']; ?></a></td>
+			<td><?php echo $row_programas['telefono']; ?></td>
+			<td><?php echo substr($row_programas['cv'], 0, 140); if(str_word_count($row_programas['cv']) > 20){echo '...';} ?></td>
+			<td><?php echo $row_programas['mail']; ?></td>
+			<td><a href="editar_maestro.php?id_maestro=<?php echo $row_programas['id_maestro']; ?>">Editar</a></td>
+			<td><a onclick="eliminar_prog(<?php echo $row_programas['id_maestro']; ?>);" href="#">Eliminar</a></td>
 		</tr>
 		<?php } while ($row_programas = mysql_fetch_assoc($programas)); ?>
 </table>
 <table border="0" align="center">
 	<tr>
-    <td><?php echo "Del programa ".($startRow_programas + 1)." al ".($startRow_programas + $cont); ?></td>
+    <td><?php echo "Del encargado ".($startRow_programas + 1)." al ".($startRow_programas + $cont); ?></td>
 		<td><?php if ($pageNum_programas > 0) { // Show if not first page ?>
 				<a href="<?php printf("%s?pageNum_programas=%d%s", $currentPage, 0, $queryString_programas); ?>"><img src="First.gif" border="0" /></a>
 		<?php } // Show if not first page ?></td>
@@ -200,7 +196,7 @@ function eliminar_prog(id_programa){
 	</tr>
 </table>
 <!-- InstanceEndEditable --></div>
-  <div id="separador" style=" clear:both; height:20px;"></div>
+  <div id="separador" stydle=" clear:both; height:20px;"></div>
   
 </div>
 </body>

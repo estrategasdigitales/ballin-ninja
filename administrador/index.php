@@ -1,5 +1,12 @@
-<?php require_once('../Connections/otono2011.php'); ?>
-<?php
+<?php require_once('../Connections/otono2011.php'); 
+
+session_start();
+
+if(isset($_SESSION['usuario'])){
+
+  header('Location: home_programs.php');
+
+}
 
 if(!isset($noingreso)){
 
@@ -52,7 +59,6 @@ $selectSQL = sprintf("SELECT * FROM users WHERE username=%s AND password=%s",Get
         $totalRows_user = mysql_num_rows($Result1);
         if($totalRows_user > 0)
         {
-                session_start();
                 $_SESSION['usuario'] = $_POST['username'];
 				 
 				$insertGoTo = "home_programs.php";
@@ -113,6 +119,7 @@ else
   </div>
   <div id="separador"></div>
   <div id="separador"></div>
+  <?php if(isset($_SESSION['usuario'])){?>
   <div id="menu_generos_interior_index">
     <div class="roundedBox_interior_index" id="type1"> 
       <!-- esquinas -->
@@ -142,6 +149,7 @@ else
       </div>
     </div>
   </div>
+  <?php } ?>
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
         <form method="post" action="index.php">
           <table width="50%" border="0" align="center">

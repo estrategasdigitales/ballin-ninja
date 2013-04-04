@@ -71,6 +71,13 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		
 		$img_colaborador = $_POST['program_colaboracion_img_old'];
 	}
+
+	if(isset($_POST['eliminar_img_col']) && ($_POST['eliminar_img_col'] == 1)){
+
+		unlink('../imagenes/colaboradores/'.$_POST['program_colaboracion_img_old']);
+		$img_colaborador = '';
+
+	}
 	
 	//Insertar codiguin pa subir archivo.
     $DOC_FILE2 = $_FILES['program_pdf']['tmp_name'];
@@ -349,6 +356,8 @@ CKEDITOR.replace( 'description' );
       <h1><a href="http://uia.mx/" target="_blank"><img src="../imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'"><img src="../imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></h1>
     </div>
     <h1 style="float:left; margin:15px; color:#666;"> Administrador de Contenidos</h1>
+    <a href="index.php"><img width="20px" height="20px" src="imagenes/home.png" style="float:left; clear:both; margin-left: 206px; margin-top:-13px;"></img></a>
+    <div class="bannersuperior2" style="margin-left: 4px; width: 790px;"></div>
   </div>
   <div id="separador"></div>
   <div id="separador"></div>
@@ -379,7 +388,7 @@ CKEDITOR.replace( 'description' );
             <li><a href="admin_discipline_articles.php?id_discipline=1">Disciplinas</a> </li>
             <li><a href="admin_opinions.php">La Comunidad Ibero Opina</a> </li>            
             <li><a href="admin_weekly_articles.php">Art&iacute;culos semanales</a> </li>
-            <li><a href="admin_media_articles.php">La DEC en los Medios</a> </li>
+            <!--li><a href="admin_media_articles.php">La DEC en los Medios</a> </li-->
           </ul>
           <p>&nbsp;</p>
         </div>
@@ -496,6 +505,23 @@ CKEDITOR.replace( 'description' );
 			</table></td>
 		</tr>
 		<tr valign="baseline">
+			<td nowrap="nowrap" align="right"><strong>Periodo:</strong></td>
+			<td colspan="3" valign="baseline"><table>
+				<tr>
+					<td><input type="radio" name="periodo" value="p" <?php if (!(strcmp($row_programa['periodo'],"p"))) {echo "checked=\"checked\"";} ?> />
+						Primavera</td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="periodo" value="v" <?php if (!(strcmp($row_programa['periodo'],"v"))) {echo "checked=\"checked\"";} ?> />
+						Verano</td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="periodo" value="o" <?php if (!(strcmp($row_programa['periodo'],"o"))) {echo "checked=\"checked\"";} ?> />
+						Oto&ntilde;o</td>
+				</tr>
+			</table></td>
+		</tr>
+		<tr valign="baseline">
 			<td nowrap="nowrap" align="right"><strong>Nombre:</strong></td>
 			<td colspan="3"><input type="text" name="program_name" value="<?php echo $row_programa['program_name']; ?>" size="32" /></td>
 		</tr>
@@ -509,15 +535,20 @@ CKEDITOR.replace( 'description' );
 			<input type="file" name="program_colaboracion_img" value="<?php echo $row_programa['program_colaboracion_img']; ?>" size="32" /><br />
 			<?php echo $row_programa['program_colaboracion_img']; ?><input type="hidden" name="program_colaboracion_img_old" value="<?php echo $row_programa['program_colaboracion_img']; ?>"  /></td>
 		</tr>
+		<tr>
+        	<td align="right" valign="top" nowrap="nowrap"><strong>Eliminar imagen colaborador:</strong></td>
+        	<td colspan="2"><input type="checkbox" value="1" name="eliminar_img_col"></td>
+        	<input type="hidden" value="<?php echo $row_programa['program_colaboracion_img']; ?>" name="imagen_actual_colab"/>
+        </tr>
 		<tr valign="baseline">
 			<td nowrap="nowrap" align="right"><strong>Nuevo:</strong></td>
 			<td colspan="3"><input type="checkbox" name="program_new" value=""  <?php if (!(strcmp($row_programa['program_new'],1))) {echo "checked=\"checked\"";} ?> /></td>
 		</tr>
-		<tr valign="baseline">
+		<tr valign="top">
 			<td nowrap="nowrap" align="right"><strong>Descripci&oacute;n:</strong></td>
 			<td colspan="3"><textarea name="description" id="description" cols="50" rows="50"><?php echo $row_programa['description']; ?></textarea></td>
 		</tr>
-		<tr valign="baseline">
+		<tr valign="top">
 			<td nowrap="nowrap" align="right"><strong>Observaciones:</strong></td>
 			<td colspan="3"><textarea name="observaciones" id="observaciones" cols="50" rows="50"><?php echo $row_programa['observaciones']; ?></textarea><!--input type="text" name="observaciones" value="<?php echo $row_programa['observaciones']; ?>" size="32" /--></td>
 		</tr>
@@ -605,7 +636,7 @@ CKEDITOR.replace( 'description' );
 			<td colspan="3"><input type="text" name="cost_inscripcion" value="<?php echo $row_programa['cost_inscripcion']; ?>" size="32" /></td>
 		</tr>
 		<tr valign="baseline">
-			<td nowrap="nowrap" align="right"><strong>Costo modulo:</strong></td>
+			<td nowrap="nowrap" align="right"><strong>Costo m&oacute;dulo:</strong></td>
 			<td colspan="3"><input type="text" name="costo_modulo" value="<?php echo $row_programa['costo_modulo']; ?>" size="32" /></td>
 		</tr>
 		<tr valign="baseline">
@@ -677,7 +708,7 @@ CKEDITOR.replace( 'description' );
 			</select>
 			</td>
 		</tr>
-		<tr valign="baseline">
+		<!--tr valign="baseline">
 			<td nowrap="nowrap" align="right"><strong>Banner:</strong></td>
 			<td colspan="3"><input type="file" name="banner" value="<?php echo $row_programa['banner']; ?>" size="32" />
 			<input type="hidden" name="banner_old" value="<?php echo $row_programa['banner']; ?>"  /></td>
@@ -690,7 +721,7 @@ CKEDITOR.replace( 'description' );
 		  <td align="right" valign="top" nowrap="nowrap"><strong>Banner en Home:</strong></td>
 		  <td colspan="3"><input type="file" name="banner_home" value="<?php echo $row_programa['imagen']; ?>" size="32" /><br /><?php echo $row_programa['imagen']; ?>
       <input type="hidden" name="banner_home_old" value="<?php echo $row_programa['imagen']; ?>" size="32" /></td>
-		  </tr>
+		  </tr-->
 		<tr valign="baseline">
 			<td nowrap="nowrap" align="right"><strong>Programa PDF:</strong></td>
 			<td colspan="3"><input type="file" name="program_pdf" value="<?php echo $row_programa['program_pdf']; ?>" size="32" /><br /><?php echo $row_programa['program_pdf']; ?>
@@ -699,24 +730,6 @@ CKEDITOR.replace( 'description' );
 		<tr valign="baseline">
 			<td nowrap="nowrap" align="right"><strong>Cancelado:</strong></td>
 			<td colspan="3"><input type="checkbox" name="cancelado" value=""  <?php if (!(strcmp($row_programa['cancelado'],1))) {echo "checked=\"checked\"";} ?> /></td>
-		</tr>
-		
-		<tr valign="baseline">
-			<td nowrap="nowrap" align="right"><strong>Periodo:</strong></td>
-			<td colspan="3" valign="baseline"><table>
-				<tr>
-					<td><input type="radio" name="periodo" value="p" <?php if (!(strcmp($row_programa['periodo'],"p"))) {echo "checked=\"checked\"";} ?> />
-						Primavera</td>
-				</tr>
-				<tr>
-					<td><input type="radio" name="periodo" value="v" <?php if (!(strcmp($row_programa['periodo'],"v"))) {echo "checked=\"checked\"";} ?> />
-						Verano</td>
-				</tr>
-				<tr>
-					<td><input type="radio" name="periodo" value="o" <?php if (!(strcmp($row_programa['periodo'],"o"))) {echo "checked=\"checked\"";} ?> />
-						Oto&ntilde;o</td>
-				</tr>
-			</table></td>
 		</tr>
 		<tr valign="baseline">
 			<td align="right" nowrap="nowrap"><strong>Idioma:</strong></td>

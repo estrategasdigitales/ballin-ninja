@@ -107,6 +107,8 @@ function change(frm)
       <h1><a href="http://uia.mx/" target="_blank"><img src="../imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'"><img src="../imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></h1>
     </div>
     <h1 style="float:left; margin:15px; color:#666;"> Administrador de Contenidos</h1>
+    <a href="index.php"><img width="20px" height="20px" src="imagenes/home.png" style="float:left; clear:both; margin-left: 206px; margin-top:-13px;"></img></a>
+    <div class="bannersuperior2" style="margin-left: 4px; width: 790px;"></div>
   </div>
   <div id="separador"></div>
   <div id="separador"></div>
@@ -129,7 +131,7 @@ function change(frm)
           <p>&nbsp;</p>
           <h2>Carrusel Index</h2>
           <ul>
-            <li><a href="#">Banners</a></li>
+            <li><a href="admin_carrusel/index.php">Banners</a></li>
           </ul>
           <p>&nbsp;</p>
           <h2>Art&iacute;culos</h2>
@@ -137,7 +139,7 @@ function change(frm)
             <li><a href="admin_discipline_articles.php?id_discipline=1">Disciplinas</a> </li>
             <li><a href="admin_opinions.php">La Comunidad Ibero Opina</a> </li>            
             <li><a href="admin_weekly_articles.php">Art&iacute;culos semanales</a> </li>
-            <li><a href="admin_media_articles.php">La DEC en los Medios</a> </li>
+            <!--li><a href="admin_media_articles.php">La DEC en los Medios</a> </li-->
           </ul>
           <p>&nbsp;</p>
         </div>

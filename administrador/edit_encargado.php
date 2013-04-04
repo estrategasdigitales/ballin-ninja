@@ -31,65 +31,46 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-if(!isset($_SESSION))
-{
-	session_start();
-	
-	if(!isset($_SESSION['usuario']))
-	{
-		$goto ="index.php";
-		header(sprintf("Location: %s", $goto));
-		exit;
-	}
+$editFormAction = $_SERVER['PHP_SELF'];
+if (isset($_SERVER['QUERY_STRING'])) {
+  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
-//Para llenar lista de artículos semanales
-	mysql_select_db($database_otono2011, $otono2011);
-	$query_weekly = "SELECT * FROM weekly_articles ORDER BY date DESC";
-	$weekly = mysql_query($query_weekly, $otono2011) or die(mysql_error());
+
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
+  $insertSQL = sprintf("UPDATE site_directory SET nombre='".$_POST['nombre']."', telefono='".$_POST['telefono']."', extension='".$_POST['extension']."', correo='".$_POST['correo']."' WHERE id_encargado=".$_POST['id_encargado']);
+
+  mysql_select_db($database_otono2011, $otono2011);
+  $Result1 = mysql_query($insertSQL, $otono2011) or die(mysql_error());
+
+  $insertGoTo = "admin_dir_dec.php";
+  if (isset($_SERVER['QUERY_STRING'])) {
+    $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
+    $insertGoTo .= $_SERVER['QUERY_STRING'];
+  }
+  header(sprintf("Location: %s", $insertGoTo));
+}
+
+mysql_select_db($database_otono2011, $otono2011);
+$sql = mysql_query("SELECT * FROM site_directory WHERE id_encargado=".$_GET['id_encargado'], $otono2011);
+$row_sql = mysql_fetch_assoc($sql);
+
 
 ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/temp_admin.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO 8859-1"
         />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>Educación Continua / Administrador</title>
-<style type="text/css">
-<!--
-.titulos {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 16px;
-	color:#961616;
-	text-decoration: underline;
-}
-.contenido {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	color:#999;
-	padding-left:5px;
-}
-.titulo_tablas{
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 13px;
-	color:#333;
-	padding-left:5px;
-}
--->
-</style>
-<script type="text/javascript"> 
-<!-- 
-function change(frm)
-{
-	window.location="admin_discipline_articles.php?id_discipline=" + frm["id_discipline"].value;
-}
-// -->
-</script>
+<title>Educaci&oacute;n Continua</title>
 <!-- InstanceEndEditable -->
 <link href="../css/estilos.css" rel="stylesheet"
         type="text/css" />
 <!-- InstanceBeginEditable name="head" -->
+
+
+<link rel="stylesheet" href="tigra_calendar/calendar.css" type="text/css">
+<script language="JavaScript" src="tigra_calendar/calendar_db.js" type="text/javascript"></script>
 <!-- InstanceEndEditable -->
 </head>
 
@@ -100,8 +81,6 @@ function change(frm)
       <h1><a href="http://uia.mx/" target="_blank"><img src="../imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'"><img src="../imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></h1>
     </div>
     <h1 style="float:left; margin:15px; color:#666;"> Administrador de Contenidos</h1>
-    <a href="index.php"><img width="20px" height="20px" src="imagenes/home.png" style="float:left; clear:both; margin-left: 206px; margin-top:-13px;"></img></a>
-    <div class="bannersuperior2" style="margin-left: 4px; width: 790px;"></div>
   </div>
   <div id="separador"></div>
   <div id="separador"></div>
@@ -122,17 +101,12 @@ function change(frm)
             <li><a href="fechas_idiom_home.php">Fechas Idiomas</a> </li>
           </ul>
           <p>&nbsp;</p>
-          <h2>Carrusel Index</h2>
-          <ul>
-            <li><a href="admin_carrusel/index.php">Banners</a></li>
-          </ul>
-          <p>&nbsp;</p>
-          <h2>Art&iacute;culos</h2>
+          <h2>ArtÃ­culos</h2>
           <ul>
             <li><a href="admin_discipline_articles.php?id_discipline=1">Disciplinas</a> </li>
-            <li><a href="admin_opinions.php">La Comunidad Ibero Opina</a> </li>            
-            <li><a href="admin_weekly_articles.php">Art&iacute;culos semanales</a> </li>
-            <!--li><a href="admin_media_articles.php">La DEC en los Medios</a> </li-->
+            <li><a href="admin_media_articles.php">La DEC en los Medios</a> </li>
+            <li><a href="admin_opinions.php">La Comunidad Ibero Opina</a> </li>
+            <li><a href="admin_weekly_articles.php">ArtÃ­culos semanales</a> </li>
           </ul>
           <p>&nbsp;</p>
         </div>
@@ -140,25 +114,36 @@ function change(frm)
     </div>
   </div>
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
-            <h1>Artículos semanales
-            </h1>
-            <form name="form_weekly" id="form_weekly" method="get">
-              <table width="800"  border="0" align="left" cellpadding="5" cellspacing="0" class="tablas">
-      <tr class="titulo_tabla">
-            <td width="79%" align="center">Título</td>
-            <td colspan="2" align="center"><input name="agrega" type="button" value="Agregar Nuevo" title="Agregar Nuevo" onclick="window.location='insert_weekly.php'"/></td>
-            </tr>
-  		<?php while($row_weekly= mysql_fetch_assoc($weekly)){ ?>
-  		<tr>
-   			<td><?php echo $row_weekly['title'];?></td>
-   			<td width="8%" align="center"><input name="edita" type="button" value="Editar"  onclick="window.location='update_weekly.php?id_article=<?php echo $row_weekly['id_article'];?>'"/></td>
-    		<td width="13%" align="center">&nbsp;
-            <input name="elimina" type="button" value="Eliminar"   onclick="window.location='delete_weekly.php?id_article=<?php echo $row_weekly['id_article'];?>'"/></td>
-  		</tr>
-  		<?php }?>
-		</table>
-        </form>
-        <!-- InstanceEndEditable --></div>
+            <h1>Nuevo Encargado </h1>
+            <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
+	<table border="0" align="left" cellpadding="5" cellspacing="0">
+		<tr valign="baseline">
+			<td nowrap="nowrap" align="right"><strong>Nombre:</strong></td>
+			<td colspan="2"><input type="text" name="nombre" value="<?php echo $row_sql['nombre']; ?>" size="32"/>
+		</tr>
+    <tr valign="baseline">
+      <td nowrap="nowrap" align="right"><strong>Tel&eacute;fono:</strong></td>
+      <td colspan="2"><input type="text" name="telefono" value="<?php echo $row_sql['telefono']; ?>" size="32"/>
+    </tr>
+    <tr valign="baseline">
+      <td nowrap="nowrap" align="right"><strong>Extensi&oacute;n:</strong></td>
+      <td colspan="2"><input type="text" name="extension" value="<?php echo $row_sql['extension']; ?>" size="32"/>
+    </tr>
+    <tr valign="baseline">
+      <td nowrap="nowrap" align="right"><strong>Correo:</strong></td>
+      <td colspan="2"><input type="text" name="correo" value="<?php echo $row_sql['correo']; ?>" size="32"/>
+        <input type="hidden" name="id_encargado" value="<?php echo $_GET['id_encargado']; ?>" />
+    </tr>
+    <tr align="center">
+      <td colspan="3"><input type="button" value="Cancelar" onclick="javascript:window.location='admin_dir_dec.php'"/><input type="submit" value="Enviar"/></td>
+    </tr>
+	</table>
+
+	<input type="hidden" name="id_fecha" value="" />
+	<input type="hidden" name="MM_insert" value="form1" />
+</form>
+<p>&nbsp;</p>
+<!-- InstanceEndEditable --></div>
   <div id="separador" style=" clear:both; height:20px;"></div>
   
 </div>

@@ -33,7 +33,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 $currentPage = $_SERVER["PHP_SELF"];
 
-$maxRows_opinions = 6;
+$maxRows_opinions = 20;
 $pageNum_opinions = 0;
 if (isset($_GET['pageNum_opinions'])) {
   $pageNum_opinions = $_GET['pageNum_opinions'];
@@ -114,6 +114,8 @@ $queryString_opinions = sprintf("&totalRows_opinions=%d%s", $totalRows_opinions,
       <h1><a href="http://uia.mx/" target="_blank"><img src="../imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'"><img src="../imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></h1>
     </div>
     <h1 style="float:left; margin:15px; color:#666;"> Administrador de Contenidos</h1>
+    <a href="index.php"><img width="20px" height="20px" src="imagenes/home.png" style="float:left; clear:both; margin-left: 206px; margin-top:-13px;"></img></a>
+    <div class="bannersuperior2" style="margin-left: 4px; width: 790px;"></div>
   </div>
   <div id="separador"></div>
   <div id="separador"></div>
@@ -136,7 +138,7 @@ $queryString_opinions = sprintf("&totalRows_opinions=%d%s", $totalRows_opinions,
           <p>&nbsp;</p>
           <h2>Carrusel Index</h2>
           <ul>
-            <li><a href="#">Banners</a></li>
+            <li><a href="admin_carrusel/index.php">Banners</a></li>
           </ul>
           <p>&nbsp;</p>
           <h2>Art&iacute;culos</h2>
@@ -144,7 +146,7 @@ $queryString_opinions = sprintf("&totalRows_opinions=%d%s", $totalRows_opinions,
             <li><a href="admin_discipline_articles.php?id_discipline=1">Disciplinas</a> </li>
             <li><a href="admin_opinions.php">La Comunidad Ibero Opina</a> </li>            
             <li><a href="admin_weekly_articles.php">Art&iacute;culos semanales</a> </li>
-            <li><a href="admin_media_articles.php">La DEC en los Medios</a> </li>
+            <!--li><a href="admin_media_articles.php">La DEC en los Medios</a> </li-->
           </ul>
           <p>&nbsp;</p>
         </div>
@@ -160,7 +162,7 @@ $queryString_opinions = sprintf("&totalRows_opinions=%d%s", $totalRows_opinions,
           <td colspan="2" align="center"> Opiniones <?php echo ($startRow_opinions + 1) ?> - <?php echo min($startRow_opinions + $maxRows_opinions, $totalRows_opinions) ?> de <?php echo $totalRows_opinions ?></td>
           <td colspan="2" align="center"><input name="agrega" type="button" value="Agregar Nuevo" title="Agregar Nuevo"  onclick="window.location='insert_opinion.php'"/></td>
           </tr>
-        <?php do { ?>
+        <?php $cont = 0; do { $cont++; ?>
           <tr>
     <td width="83" height="70" align="center" valign="middle"><img src="../imagenes/uploads/community_opinions/thumbnails/<?php echo $row_opinions['thumbnail'];?>" width="60" /></td>
     <td width="510"><?php echo $row_opinions['full_name'];?><br />
@@ -181,6 +183,7 @@ $queryString_opinions = sprintf("&totalRows_opinions=%d%s", $totalRows_opinions,
                   <td>&nbsp;</td>
                 </tr>
                 <tr>
+                  <td><?php echo 'Del '.($startRow_opinions+1).' al '.($startRow_opinions+$cont).' de '.$totalRows_opinions; ?></td>
                   <td><?php if ($pageNum_opinions > 0) { // Show if not first page ?>
                       <a href="<?php printf("%s?pageNum_opinions=%d%s", $currentPage, 0, $queryString_opinions); ?>"><img src="First.gif" border="0" /></a>
                   <?php } // Show if not first page ?></td>

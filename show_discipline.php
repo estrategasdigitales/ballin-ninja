@@ -45,7 +45,7 @@ $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
 
 	$response = '<p class="header_programas">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="close_slider_menu" style="cursor:pointer;"><img style="border:none;" src="imagenes/cerrar_slidemenu.png"></a></p>';
 	
-	$response .= '<p style="padding-left:10px;"><a href=# onclick=parent.location="http://www.diplomados.uia.mx/articulos.php?id_discipline='.$disciplina.'" style="font-size:16px; font-weight:bold; color: #666666;">Entrevista</a></p>';
+	$response .= '<p style="padding-left:10px;"><a href="#" onclick=parent.location="http://www.diplomados.uia.mx/articulos.php?id_discipline='.$disciplina.'" style="font-size:16px; font-weight:bold; color: #666666;">Entrevista</a></p>';
    
 
 	/// Listado de diplomados
@@ -69,7 +69,7 @@ $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
 					$no_o = str_replace('ó', 'o', $no_i);
 					$no_u = str_replace('ú', 'u', $no_o);
 					$titulo = str_replace(' ', '_', $no_u); 
-	 $response .=  "<li style='padding:3px 15px 3px 0px;'><a href=# onclick=parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=".$disciplina."&amp;id_program=".$row_progs_diplos['id_program']."&titulo=".$titulo."'>".utf8_encode($row_progs_diplos['program_name']);
+	 $response .=  "<li style='padding:3px 15px 3px 0px;'><a href='#' onclick=parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=".$disciplina."&amp;id_program=".$row_progs_diplos['id_program']."'>".utf8_encode($row_progs_diplos['program_name']);
 
 	 	if($row_progs_diplos['program_new']==1){
 
@@ -100,7 +100,7 @@ $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
 							$no_o = str_replace('ó', 'o', $no_i);
 							$no_u = str_replace('ú', 'u', $no_o);
 							$titulo = str_replace(' ', '_', $no_u); 
-							$response .= '<li style="padding:3px 15px 3px 0px;"><a href=# onclick=parent.location="http://www.diplomados.uia.mx/programas.php?id_discipline='.$disciplina.'&amp;id_program='.$row_progs_progs["id_program"].'&titulo='.$titulo.'">'.utf8_encode($row_progs_progs["program_name"]);
+							$response .= '<li style="padding:3px 15px 3px 0px;"><a href="#" onclick=parent.location="http://www.diplomados.uia.mx/programas.php?id_discipline='.$disciplina.'&amp;id_program='.$row_progs_progs["id_program"].'">'.utf8_encode($row_progs_progs["program_name"]);
            				 	if($row_progs_progs['program_new']==1){
 
 						 		$response .= '<span class="contenido_diploRojo"> Nuevo </span> ';
@@ -128,7 +128,7 @@ $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
 		
 		do { 
                   
-           		 $response .=  '<li style="padding:3px 15px 3px 0px;"><a href=# onclick=parent.location="http://www.diplomados.uia.mx/programas.php?id_discipline='.$disciplina.'&id_program='.$row_progs_cursos['id_program'].'">'.utf8_encode($row_progs_cursos['program_name']);
+           		 $response .=  '<li style="padding:3px 15px 3px 0px;"><a href="#" onclick=parent.location="http://www.diplomados.uia.mx/programas.php?id_discipline='.$disciplina.'&id_program='.$row_progs_cursos['id_program'].'">'.utf8_encode($row_progs_cursos['program_name']);
 
 	             if($row_progs_cursos['program_new']==1){
 
@@ -162,7 +162,7 @@ $response .= '<p><img src="imagenes/linea_submenu.png"><p style="font-size:16px;
 							$no_o = str_replace('ó', 'o', $no_i);
 							$no_u = str_replace('ú', 'u', $no_o);
 							$titulo = str_replace(' ', '_', $no_u); 
-							$response .= '<li style="padding:3px 15px 3px 0px;"><a href=# onclick=parent.location="http://www.diplomados.uia.mx/programas.php?id_discipline='.$disciplina.'&amp;id_program='.$row_progs_hp['id_program'].'&titulo='.$titulo.'">'.utf8_encode($row_progs_hp['program_name']);
+							$response .= '<li style="padding:3px 15px 3px 0px;"><a href="#" onclick=parent.location="http://www.diplomados.uia.mx/programas.php?id_discipline='.$disciplina.'&amp;id_program='.$row_progs_hp['id_program'].'">'.utf8_encode($row_progs_hp['program_name']);
 
 						 	if($row_progs_hp['program_new']==1){
 
@@ -196,7 +196,7 @@ $response .= '<p><img src="imagenes/linea_submenu.png"><p style="font-size:16px;
 							$no_o = str_replace('ó', 'o', $no_i);
 							$no_u = str_replace('ú', 'u', $no_o);
 							$titulo = str_replace(' ', '_', $no_u); 
-							$response .= '<li style="padding:3px 15px 3px 0px;"><a href=# onclick=parent.location="http://www.diplomados.uia.mx/programas.php?id_discipline='.$disciplina.'&amp;id_program='.$row_progs_cursos_i['id_program'].'&titulo='.$titulo.'">'.utf8_encode($row_progs_cursos_i['program_name']);
+							$response .= '<li style="padding:3px 15px 3px 0px;"><a href="#" onclick=parent.location="http://www.diplomados.uia.mx/programas.php?id_discipline='.$disciplina.'&amp;id_program='.$row_progs_cursos_i['id_program'].'">'.utf8_encode($row_progs_cursos_i['program_name']);
              
 
 						 	if($row_progs_cursos_i['program_new']==1){

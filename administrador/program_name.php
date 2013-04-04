@@ -1,14 +1,12 @@
-
 <?php require_once('../Connections/otono2011.php');
-
 
 $name = $_GET['name_program'];
 mysql_select_db($database_otono2011, $otono2011);
-      $query_programa = "SELECT program_name, id_program FROM site_programs WHERE program_name LIKE '%".$name."%'"; 
+      $query_programa = "SELECT program_name, id_program FROM site_programs WHERE program_name LIKE '%".$name."%' ORDER BY program_name ASC"; 
       $programa = mysql_query($query_programa, $otono2011) or die(mysql_error());
       $totalRows_programa = mysql_num_rows($programa);
 
- ?>
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/temp_admin.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>

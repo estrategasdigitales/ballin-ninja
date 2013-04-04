@@ -513,7 +513,17 @@ s.parentNode.insertBefore(ga, s);
                 </tr></table></td></tr>
                 
                 <?php } ?>
-
+                <?php if($row_programa['program_pdf'] != NULL){ 
+	//header("Pragma: ");
+	?>
+                      <tr>
+                      	<table width="100%">
+                      		<tr>
+                        <td colspan="2" width="85%" align="right" valign="bottom" class="contenido_diploRojo"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank"> <img src="imagenes/icono_temario.gif" width="30" height="30" border="0" /></a>
+                        <td  width="15%" align="left"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar<br>Temario</a></td></td>
+                      		</tr>
+                      </tr>
+                         <?php } ?>
       		<tr>
       			<td colspan="2" valign="top">
 				
@@ -750,15 +760,7 @@ s.parentNode.insertBefore(ga, s);
                         <?php } ?>
                    
             
-<?php if($row_programa['program_pdf'] != NULL){ 
-	//header("Pragma: ");
-	?>
-                      <tr>
-                      	<td></td>
-                        <td align="left" valign="top" class="contenido_diploRojo"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank"> <img src="imagenes/icono_temario.gif" width="30" height="30" border="0" /></a>
-                        <a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar Temario</a></td>
-                      </tr>
-                         <?php } ?>
+
 <tr>
 
                       	
@@ -766,7 +768,9 @@ s.parentNode.insertBefore(ga, s);
                       	    <?php if($_GET['id_discipline'] != 10 && $_GET['id_program'] != 397){ ?>
       				 <td></td><td><!-- AddThis Button BEGIN -->
               
-                <a href="http://www.diplomados.uia.mx/preinscripcion.php"><font color="red"><b>Formato de Preinscripci&oacute;n</a></b></font>   
+                <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'"><img src=
+            "imagenes/icono_insc.gif" width="30" height="30" border=
+            "0" /></a> <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a></b></font>   
               <!-- AddThis Button END --></td></tr>
               <?php } ?>
           
