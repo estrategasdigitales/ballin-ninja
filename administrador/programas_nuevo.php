@@ -454,6 +454,23 @@ CKEDITOR.replace( 'description' );
             </table></td>
         </tr>
         <tr valign="baseline">
+          <td align="right" valign="top" nowrap="nowrap"><strong>Periodo:</strong></td>
+          <td colspan="2" valign="baseline"><table>
+              <tr>
+                <td><input type="radio" name="periodo" value="p" />
+                  Primavera</td>
+              </tr>
+              <tr>
+                <td><input type="radio" name="periodo" value="v" />
+                  Verano</td>
+              </tr>
+              <tr>
+                <td><input type="radio" name="periodo" value="o" />
+                  Oto&ntilde;o</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr valign="baseline">
           <td align="right" valign="top" nowrap="nowrap"><strong>Nombre:</strong></td>
           <td colspan="2"><input type="text" name="program_name" value="" size="32" /></td>
         </tr>
@@ -655,23 +672,6 @@ CKEDITOR.replace( 'description' );
         <tr valign="baseline">
           <td align="right" valign="top" nowrap="nowrap"><strong>Cancelado:</strong></td>
           <td colspan="2"><input type="checkbox" name="cancelado" value="" /></td>
-        </tr>
-        <tr valign="baseline">
-          <td align="right" valign="top" nowrap="nowrap"><strong>Periodo:</strong></td>
-          <td colspan="2" valign="baseline"><table>
-              <tr>
-                <td><input type="radio" name="periodo" value="p" />
-                  Primavera</td>
-              </tr>
-              <tr>
-                <td><input type="radio" name="periodo" value="v" />
-                  Verano</td>
-              </tr>
-              <tr>
-                <td><input type="radio" name="periodo" value="o" />
-                  Oto&ntilde;o</td>
-              </tr>
-            </table></td>
         </tr>
         <tr valign="baseline">
           <td align="right" valign="top" nowrap="nowrap"><strong>Idioma:</strong></td>

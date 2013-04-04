@@ -43,8 +43,7 @@ if(!isset($_SESSION['usuario']))
   }
 }
 
-$currentPage = $_SERVER["PHP_SELF"];
-
+$currentPage = "programas_home.php";
 $maxRows_programas = 20;
 $pageNum_programas = 0;
 if (isset($_GET['pageNum_programas'])) {

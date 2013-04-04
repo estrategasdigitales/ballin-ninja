@@ -98,7 +98,7 @@ $queryString_programas = sprintf("&totalRows_programas=%d%s", $totalRows_program
 <script>
 
 function eliminar_prog(id_programa){
-  var r = confirm('\u00BFEst\u00E1s seguro que deseas eliminar este programa?');
+  var r = confirm('\u00BFEst\u00E1s seguro que deseas eliminar a este profesor?');
   if(r == true){
     window.location="delete_maestro.php?id_maestro="+id_programa;
   }if(r == false){
