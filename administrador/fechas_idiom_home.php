@@ -43,7 +43,7 @@ if(!isset($_SESSION['usuario']))
   }
 }
 
-$currentPage = $_SERVER["PHP_SELF"];
+$currentPage = "fechas_idiom_home.php";
 
 $maxRows_fecha_idioma = 20;
 $pageNum_fecha_idioma = 0;

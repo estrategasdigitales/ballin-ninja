@@ -12,7 +12,7 @@ if(!isset($_SESSION['usuario']))
   }
 }
 
-$currentPage = $_SERVER["PHP_SELF"];
+$currentPage = "propuestas_progr_home.php";
 
 $maxRows_programas = 20;
 $pageNum_programas = 0;

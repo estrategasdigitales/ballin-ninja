@@ -31,7 +31,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-$currentPage = $_SERVER["PHP_SELF"];
+$currentPage = "admin_opinions2.php";
 
 $maxRows_opinions = 6;
 $pageNum_opinions = 0;

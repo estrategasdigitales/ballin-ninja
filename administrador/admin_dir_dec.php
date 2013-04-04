@@ -43,7 +43,7 @@ if(!isset($_SESSION['usuario']))
   }
 }
 
-$currentPage = $_SERVER["PHP_SELF"];
+$currentPage = "admin_dir_dec.php";
 
 $maxRows_programas = 20;
 $pageNum_programas = 0;

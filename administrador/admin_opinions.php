@@ -43,7 +43,7 @@ if(!isset($_SESSION['usuario']))
   }
 }
 
-$currentPage = $_SERVER["PHP_SELF"];
+$currentPage = "admin_opinions.php";
 
 $maxRows_opinions = 20;
 $pageNum_opinions = 0;

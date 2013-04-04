@@ -38,7 +38,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   }
 
 
-$currentPage = $_SERVER["PHP_SELF"];
+$currentPage = "fechas_home.php";
 
 $maxRows_fechas = 50;
 $pageNum_fechas = 0;
