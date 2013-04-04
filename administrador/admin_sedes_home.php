@@ -84,6 +84,16 @@ function eliminar_prog(id_programa){
             <!--li><a href="admin_media_articles.php">La DEC en los Medios</a> </li-->
           </ul>
           <p>&nbsp;</p>
+          <h2>Sedes</h2>
+          <ul>
+            <li><a href="admin_sedes_home.php">Sedes</a></li>
+          </ul>
+          <p>&nbsp;</p>
+          <h2>Directorio</h2>
+          <ul>
+            <li><a href="admin_dir_dec.php">DEC</a></li>
+            <li><a href="admin_dir_maestros.php">Maestros</a></li>
+          </ul>
         </div>
       </div>
     </div>
