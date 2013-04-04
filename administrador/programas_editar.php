@@ -408,7 +408,7 @@ CKEDITOR.replace( 'description' );
   </div>
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
                <h1>Editar Programa </h1>
-<form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1" enctype="multipart/form-data">
+<form action="programas_editar.php" method="post" name="form1" id="form1" enctype="multipart/form-data">
 	<table border="0" align="left" cellpadding="5" cellspacing="0">
 		<tr valign="baseline">
 			<td width="120" align="right" nowrap="nowrap"><strong>Disciplina:</strong></td>

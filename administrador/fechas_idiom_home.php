@@ -182,7 +182,7 @@ function eliminar_fecha(id_fecha){
         <td><?php echo $row_fecha_idioma['inicio']; ?></td>
         <td><?php echo $row_fecha_idioma['duracion']; ?></td>
         <td><?php echo $row_fecha_idioma['horario']; ?></td>
-        <td>Editar</td>
+        <!--td>Editar</td-->
         <td><a onclick="eliminar_fecha(<?php echo $row_fecha_idioma['id_fecha_idioma']; ?>);" href="#">Eliminar</a></td>
       </tr>
       <?php } while ($row_fecha_idioma = mysql_fetch_assoc($fecha_idioma)); 
