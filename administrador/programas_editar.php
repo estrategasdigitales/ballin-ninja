@@ -417,7 +417,7 @@ CKEDITOR.replace( 'description' );
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_discipline['id_discipline'];?>" <? if($row_discipline['id_discipline']==$row_programa['id_discipline']){echo ' selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
+					<option value="<?php echo $row_discipline['id_discipline'];?>" <?php if($row_discipline['id_discipline']==$row_programa['id_discipline']){echo ' selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
 					<?php
 					} while ($row_discipline = mysql_fetch_assoc($discipline));
 					  $rows = mysql_num_rows($discipline);
@@ -438,7 +438,7 @@ CKEDITOR.replace( 'description' );
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_discipline['id_discipline'];?>" <? if($row_discipline['id_discipline'] == $disc_alter_array[0]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
+					<option value="<?php echo $row_discipline['id_discipline'];?>" <?php if($row_discipline['id_discipline'] == $disc_alter_array[0]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
 					<?php
 					} while ($row_discipline = mysql_fetch_assoc($discipline));
 					  $rows = mysql_num_rows($discipline);
@@ -454,7 +454,7 @@ CKEDITOR.replace( 'description' );
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_discipline['id_discipline'];?>" <? if($row_discipline['id_discipline'] == $disc_alter_array[1]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
+					<option value="<?php echo $row_discipline['id_discipline'];?>" <?php if($row_discipline['id_discipline'] == $disc_alter_array[1]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
 					<?php
 					} while ($row_discipline = mysql_fetch_assoc($discipline));
 					  $rows = mysql_num_rows($discipline);
@@ -470,7 +470,7 @@ CKEDITOR.replace( 'description' );
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_discipline['id_discipline'];?>" <? if($row_discipline['id_discipline'] == $disc_alter_array[2]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
+					<option value="<?php echo $row_discipline['id_discipline'];?>" <?php if($row_discipline['id_discipline'] == $disc_alter_array[2]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
 					<?php
 					} while ($row_discipline = mysql_fetch_assoc($discipline));
 					  $rows = mysql_num_rows($discipline);
@@ -574,7 +574,7 @@ CKEDITOR.replace( 'description' );
 					do { 
 					echo $row_maestros['id_maestro'].'-'.$row_programa['id_maestro']; 
 					?>
-					<option value="<?php echo $row_maestros['id_maestro'];?>" <? if($row_maestros['id_maestro'] == $maestros_array[0]){echo 'selected="selected"'; }?>><?php echo $row_maestros['nombre_maestro']?></option>
+					<option value="<?php echo $row_maestros['id_maestro'];?>" <?php if($row_maestros['id_maestro'] == $maestros_array[0]){echo 'selected="selected"'; }?>><?php echo $row_maestros['nombre_maestro']?></option>
 					<?php
 					} while ($row_maestros = mysql_fetch_assoc($maestros));
 					  $rows = mysql_num_rows($maestros);
@@ -590,7 +590,7 @@ CKEDITOR.replace( 'description' );
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_maestros['id_maestro']?>" <? if($row_maestros['id_maestro'] == $maestros_array[1]){echo 'selected="selected"'; }?>><?php echo $row_maestros['nombre_maestro']?></option>
+					<option value="<?php echo $row_maestros['id_maestro']?>" <?php if($row_maestros['id_maestro'] == $maestros_array[1]){echo 'selected="selected"'; }?>><?php echo $row_maestros['nombre_maestro']?></option>
 					<?php
 					} while ($row_maestros = mysql_fetch_assoc($maestros));
 					  $rows = mysql_num_rows($maestros);
@@ -606,7 +606,7 @@ CKEDITOR.replace( 'description' );
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_maestros['id_maestro']?>" <? if($row_maestros['id_maestro'] == $maestros_array[2]){echo 'selected="selected"'; }?>><?php echo $row_maestros['nombre_maestro']?></option>
+					<option value="<?php echo $row_maestros['id_maestro']?>" <?php if($row_maestros['id_maestro'] == $maestros_array[2]){echo 'selected="selected"'; }?>><?php echo $row_maestros['nombre_maestro']?></option>
 					<?php
 					} while ($row_maestros = mysql_fetch_assoc($maestros));
 					  $rows = mysql_num_rows($maestros);
@@ -622,7 +622,7 @@ CKEDITOR.replace( 'description' );
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_maestros['id_maestro']?>" <? if($row_maestros['id_maestro'] == $maestros_array[3]){echo 'selected="selected"'; }?>><?php echo $row_maestros['nombre_maestro']?></option>
+					<option value="<?php echo $row_maestros['id_maestro']?>" <?php if($row_maestros['id_maestro'] == $maestros_array[3]){echo 'selected="selected"'; }?>><?php echo $row_maestros['nombre_maestro']?></option>
 					<?php
 					} while ($row_maestros = mysql_fetch_assoc($maestros));
 					  $rows = mysql_num_rows($maestros);
@@ -653,13 +653,15 @@ CKEDITOR.replace( 'description' );
 		<tr valign="baseline">
 			<td nowrap="nowrap" align="right"><strong>Encargado:</strong></td>
 			<td colspan="3">
-			<?php $ecargados_array = explode(',', $row_programa['id_encargado']); ?>
+			<?php $ecargados_array = explode(',', $row_programa['id_encargado']); 
+			?>
+
 			(1)
 				<select name="id_encargado_1" id="id_encargado_1">
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_encargado['id_encargado'];?>" <? if($row_encargado['id_encargado'] == $ecargados_array[0]){echo ' selected="selected"';}?>><?php echo $row_encargado['nombre']?></option>
+					<option value="<?php echo $row_encargado['id_encargado'];?>" <?php if($row_encargado['id_encargado'] == $ecargados_array[0]){echo ' selected="selected"';}?>><?php echo $row_encargado['nombre']?></option>
 					<?php
 					} while ($row_encargado = mysql_fetch_assoc($encargado));
 					  $rows = mysql_num_rows($encargado);
@@ -675,7 +677,7 @@ CKEDITOR.replace( 'description' );
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_encargado['id_encargado']?>" <? if($row_encargado['id_encargado'] == $ecargados_array[1]){echo ' selected="selected"';}?>><?php echo $row_encargado['nombre']?></option>
+					<option value="<?php echo $row_encargado['id_encargado']?>" <?php if($row_encargado['id_encargado'] == $ecargados_array[1]){echo ' selected="selected"';}?>><?php echo $row_encargado['nombre']?></option>
 					<?php
 					} while ($row_encargado = mysql_fetch_assoc($encargado));
 					  $rows = mysql_num_rows($encargado);
@@ -691,7 +693,7 @@ CKEDITOR.replace( 'description' );
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_encargado['id_encargado']?>" <? if($row_encargado['id_encargado'] == $ecargados_array[2]){echo ' selected="selected"';}?>><?php echo $row_encargado['nombre']?></option>
+					<option value="<?php echo $row_encargado['id_encargado']?>" <?php if($row_encargado['id_encargado'] == $ecargados_array[2]){echo ' selected="selected"';}?>><?php echo $row_encargado['nombre']?></option>
 					<?php
 					} while ($row_encargado = mysql_fetch_assoc($encargado));
 					  $rows = mysql_num_rows($encargado);
@@ -707,7 +709,7 @@ CKEDITOR.replace( 'description' );
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_encargado['id_encargado']?>" <? if($row_encargado['id_encargado'] == $ecargados_array[3]){echo ' selected="selected"';}?>><?php echo $row_encargado['nombre']?></option>
+					<option value="<?php echo $row_encargado['id_encargado']?>" <?php if($row_encargado['id_encargado'] == $ecargados_array[3]){echo ' selected="selected"';}?>><?php echo $row_encargado['nombre']?></option>
 					<?php
 					} while ($row_encargado = mysql_fetch_assoc($encargado));
 					  $rows = mysql_num_rows($encargado);
@@ -757,33 +759,33 @@ CKEDITOR.replace( 'description' );
 			<td align="right" nowrap="nowrap">&nbsp;</td>
 			<td colspan="3">&nbsp;</td>
 		</tr>
-		<? 
+		<?php 
 		$cont = 1;
 		do { ?>
 		<tr valign="baseline">
-			<td align="right" nowrap="nowrap"><strong>Fecha <? echo $cont; ?>:</strong></td>
-			<td width="192"><input type="text" name="fecha<? echo $cont; ?>" value="<?php echo $row_fechas['fecha']; ?>" size="32" /></td>
-			<td width="156">Banner Publicado en Home:</td>
-			<td width="20"><input type="checkbox" name="banner_home_publ<? echo $cont; ?>" value="" <?php if (!(strcmp($row_fechas['publicado'],1))) {echo "checked=\"checked\"";} ?> /></td>
+			<td align="right" nowrap="nowrap"><strong>Fecha <?php echo $cont; ?>:</strong></td>
+			<td width="192"><input type="text" name="fecha<?php echo $cont; ?>" value="<?php echo $row_fechas['fecha']; ?>" size="32" /></td>
+			<!--td width="156">Banner Publicado en Home:</td>
+			<td width="20"><input type="checkbox" name="banner_home_publ<? echo $cont; ?>" value="" <?php if (!(strcmp($row_fechas['publicado'],1))) {echo "checked=\"checked\"";} ?> /></td-->
 		</tr>
 		<tr valign="baseline">
-			<td align="right" nowrap="nowrap"><strong>Horario  <? echo $cont; ?>:</strong></td>
-			<td colspan="3"><input type="text" name="horario<? echo $cont; ?>" value="<?php echo $row_fechas['horario']; ?>" size="32" /></td>
+			<td align="right" nowrap="nowrap"><strong>Horario  <?php echo $cont; ?>:</strong></td>
+			<td colspan="3"><input type="text" name="horario<?php echo $cont; ?>" value="<?php echo $row_fechas['horario']; ?>" size="32" /></td>
 		</tr>
 		<tr valign="baseline">
 		  <td align="right" nowrap="nowrap"><strong>Sede</strong></td>
 		  <td colspan="3">&nbsp;</td>
 		  </tr>
 		<tr valign="baseline">
-			<td align="right" nowrap="nowrap"><strong>Fecha  <? echo $cont; ?> Cancelada:</strong></td>
-			<td colspan="3"><input type="checkbox" name="cancelado_fecha<? echo $cont; ?>" value=""  <?php if (!(strcmp($row_fechas['cancelado'],1))) {echo "checked=\"checked\"";} ?> /></td>
+			<td align="right" nowrap="nowrap"><strong>Fecha  <?php echo $cont; ?> Cancelada:</strong></td>
+			<td colspan="3"><input type="checkbox" name="cancelado_fecha<?php echo $cont; ?>" value=""  <?php if (!(strcmp($row_fechas['cancelado'],1))) {echo "checked=\"checked\"";} ?> /></td>
 		</tr>
 		<tr valign="baseline">
 			<td align="right" nowrap="nowrap">&nbsp;</td>
 			<td colspan="3">&nbsp;</td>
 		</tr>
-		<input type="hidden" name="id_fecha<? echo $cont; ?>" value="<?php echo $row_fechas['id_fecha']; ?>" />
-		<? $cont++; } while($row_fechas = mysql_fetch_assoc($fechas)); ?>
+		<input type="hidden" name="id_fecha<?php echo $cont; ?>" value="<?php echo $row_fechas['id_fecha']; ?>" />
+		<?php $cont++; } while($row_fechas = mysql_fetch_assoc($fechas)); ?>
 		<input type="hidden" name="fechas_cont" value="<?php echo $cont; ?>" />
 		<tr valign="baseline">
 			<td align="right" nowrap="nowrap">&nbsp;</td>
