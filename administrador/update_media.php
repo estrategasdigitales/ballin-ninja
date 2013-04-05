@@ -247,7 +247,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
     <td align="center">&nbsp;</td>
     </tr>
 </table>
-            <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1" enctype="multipart/form-data">
+            <form action="update_media.php" method="post" name="form1" id="form1" enctype="multipart/form-data">
               <table width="456" align="center">
                 <tr valign="baseline">
                   <td width="105" align="left" nowrap="nowrap">Fecha:</td>

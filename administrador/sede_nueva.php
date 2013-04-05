@@ -136,7 +136,7 @@ CKEDITOR.replace( 'sede' );
   </div>
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
             <h1>Nueva Sede </h1>
-  <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
+  <form action="sede_nueva.php" method="post" name="form1" id="form1">
 	<table border="0" align="left" cellpadding="5" cellspacing="0">
 		<tr valign="baseline">
 			<td nowrap="nowrap" align="right" valign="top"><strong>Sede:</strong></td>

@@ -282,7 +282,7 @@ function block(frm)
             <h1>Nuevo artículo - Disciplina
               
             </h1>
-            <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1" enctype="multipart/form-data">
+            <form action="insert_discipline.php" method="post" name="form1" id="form1" enctype="multipart/form-data">
           <table border="0" align="left" cellpadding="5" cellspacing="0">
             <tr valign="baseline">
               <td align="right" nowrap="nowrap"><strong>Fecha: </strong></td>

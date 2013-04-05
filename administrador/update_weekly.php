@@ -341,7 +341,7 @@ function block(frm)
             <td align="center">&nbsp;</td>
             </tr>
         </table>
-            <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1" enctype="multipart/form-data">
+            <form action="update_weekly.php" method="post" name="form1" id="form1" enctype="multipart/form-data">
               <table width="578" align="center">
                 <tr valign="baseline">
                   <td align="left" nowrap="nowrap">Fecha:</td>

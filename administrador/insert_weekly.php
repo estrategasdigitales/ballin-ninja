@@ -323,7 +323,7 @@ function block(frm)
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
             <h1>Nuevo artículo semanal
               </h1>
-            <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1" enctype="multipart/form-data">
+            <form action="insert_weekly.php" method="post" name="form1" id="form1" enctype="multipart/form-data">
               <table width="578" border="0" align="left" cellpadding="5" cellspacing="0">
                 <tr valign="baseline">
                   <td align="right" nowrap="nowrap"><strong>Fecha:</strong></td>

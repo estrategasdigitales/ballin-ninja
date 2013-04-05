@@ -131,7 +131,7 @@ $row_sql = mysql_fetch_assoc($sql);
   </div>
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
             <h1>Nuevo Encargado </h1>
-            <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
+            <form action="edit_encargado.php" method="post" name="form1" id="form1">
 	<table border="0" align="left" cellpadding="5" cellspacing="0">
 		<tr valign="baseline">
 			<td nowrap="nowrap" align="right"><strong>Nombre:</strong></td>

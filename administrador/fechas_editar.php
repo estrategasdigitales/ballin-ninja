@@ -135,7 +135,7 @@ $totalRows_fechas = mysql_num_rows($fechas);
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
               <h1>Editar Fechas
 			</h1>
-              <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
+              <form action="fechas_editar.php" method="post" name="form1" id="form1">
 			  <table border="0" align="left" cellpadding="5" cellspacing="0">
 						<tr valign="baseline">
 							<td align="right" valign="middle" nowrap="nowrap"><strong>Fecha:</strong></td>

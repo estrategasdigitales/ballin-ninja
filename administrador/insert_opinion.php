@@ -241,7 +241,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
             <h1>Nuevo artículo - La comunidad Ibero opina
             </h1>
             
-            <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1" enctype="multipart/form-data">
+            <form action="insert_opinion.php" method="post" name="form1" id="form1" enctype="multipart/form-data">
               <table border="0" align="left" cellpadding="5" cellspacing="0">
                 <tr valign="baseline">
                   <td width="100" align="right" nowrap="nowrap"><strong>Fecha:</strong></td>

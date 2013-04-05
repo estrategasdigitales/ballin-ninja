@@ -141,7 +141,7 @@ CKEDITOR.replace( 'cv' );
   </div>
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
             <h1>Nuevo Maestro </h1>
-            <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
+            <form action="nuevo_maestro.php" method="post" name="form1" id="form1">
 	<table border="0" align="left" cellpadding="5" cellspacing="0">
 		<tr valign="baseline">
 			<td nowrap="nowrap" align="right"><strong>Nombre Maestro:</strong></td>

@@ -196,7 +196,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "insert_form")) {
             <td align="center">&nbsp;</td>
             </tr>
         </table>
-        <form name="insert_form" action="<?php echo $editFormAction; ?>" method="post"> 
+        <form name="insert_form" action="insert_ads.php" method="post"> 
         <table width="100%" border="0">
           <tr>
             <td width="29%">&nbsp;</td>

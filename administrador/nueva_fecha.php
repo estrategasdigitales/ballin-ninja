@@ -143,7 +143,7 @@ $totalRows_sede = mysql_num_rows($sede);
   </div>
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
             <h1>Nueva Fecha </h1>
-            <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
+            <form action="nueva_fecha.php" method="post" name="form1" id="form1">
 	<table border="0" align="left" cellpadding="5" cellspacing="0">
 		<tr valign="baseline">
 			<td nowrap="nowrap" align="right"><strong>Fecha:</strong></td>

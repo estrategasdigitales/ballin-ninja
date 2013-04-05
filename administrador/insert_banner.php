@@ -83,7 +83,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 
 <body>
 
-<form action="<?php echo $editFormAction; ?>" onsubmit="return checkFields();" method="post" name="form1" id="form1" enctype="multipart/form-data">
+<form action="insert_banner.php" onsubmit="return checkFields();" method="post" name="form1" id="form1" enctype="multipart/form-data">
 <table border="0" align="center" cellpadding="5" cellspacing="0">
        <tr>
             <td colspan="3" align="center" class="titulo_interno"><strong>Nuevo Banner</strong></td>

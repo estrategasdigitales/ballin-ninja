@@ -219,7 +219,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
             <h1>Nuevo artículo - La DEC en los Medios  
             </h1>
-            <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1" enctype="multipart/form-data">
+            <form action="insert_media.php" method="post" name="form1" id="form1" enctype="multipart/form-data">
               <table width="456" border="0" align="left" cellpadding="5" cellspacing="0">
                 <tr valign="baseline">
                   <td width="105" align="right" nowrap="nowrap"><strong>Fecha:</strong></td>
