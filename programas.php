@@ -328,7 +328,7 @@ s.parentNode.insertBefore(ga, s);
           <ul>
             <li><a class="discipline_1" onclick="showMenu(1)">Arquitectura</a></li>
             <li><a class="discipline_2" onclick="showMenu(2)">Arte</a></li>
-            <li><a class="discipline_3" onclick="showMenu(3)">Diseño</a></li>
+            <li><a class="discipline_3" onclick="showMenu(3)">DiseÃ±o</a></li>
             <li><a class="discipline_7" onclick="showMenu(7)">Pol&iacute;tica y Derecho</a></li>
             <li><a class="discipline_5" onclick="showMenu(5)">Desarrollo Humano</a></li>
             <li><a class="discipline_6" onclick="showMenu(6)">Salud</a></li>     
@@ -344,7 +344,7 @@ s.parentNode.insertBefore(ga, s);
           <ul>
             <li><a class="discipline_23" onclick="showMenu(23)">Programas impartidos por Harvard University</a></li>
           </ul>
-          <h4>Centros de Atención Especializada</h4>
+          <h4>Centros de Atenci&oacute;n Especializada</h4>
           <ul>
             <li><a class="discipline_15" onclick="showMenu(15)">Ibero Online</a></li>
             <li><a class="discipline_16" onclick="showMenu(16)">Atenci&oacute;n Integral a Empresas</a></li>
@@ -369,19 +369,19 @@ s.parentNode.insertBefore(ga, s);
 				<form name="buscador" action="resultados.php" method="post">
 					<label for="buscar"></label>
 				    <img src="imagenes/piquito_rojo_buscador.png">
-				    <input name="buscar" placeholder="¿Qué tema buscas?" type="text" id="buscar" style="margin:0 0 0 14px; width:150px; height:11px; padding:1px; border:1px solid #999999; font-size:11px;"  />
+				    <input name="buscar" placeholder="Â¿QuÃ© tema buscas?" type="text" id="buscar" style="margin:0 0 0 14px; width:150px; height:11px; padding:1px; border:1px solid #999999; font-size:11px;"  />
 				    <input name="search" type="submit" id="search" value="n" style="color:#D1D1D1; font-size:1px; width:49px; height:16px; background:url(imagenes/boton_buscar.jpg) top center no-repeat; border:none; margin: 10px 0px 0px 129px;" />
 				    <br />
 					<table width="180" border="0" cellspacing="0" cellpadding="0" style="margin:10px 0 0 12px;">
 				    	<thead>
 				    		<tr colspan="3" style="text-align:left; height:20px;font-size:11px;">
-				    			<th width="20px" colspan="3">Búsqueda Avanzada (opcional)</th>
+				    			<th width="20px" colspan="3">BÃºsqueda Avanzada (opcional)</th>
 				    		</tr>
 				    	</thead>
 				    	<tr>
 				        	<td colspan="3">
 				        		 <select name="sArea" id="sArea" style="margin:0px; width:167px; height:15px; border:1px solid #999999; line-height:0; font-size:11px;">
-									<option disabled="disabled" value="0" selected="selected" >¿Qu&eacute; &aacute;rea te interesa?</option>
+									<option disabled="disabled" value="0" selected="selected" >Â¿Qu&eacute; &aacute;rea te interesa?</option>
 									<option value="arquitectura">Arquitectura</option>
 									<option value="arte">Arte</option>
 									<option value="asuncion">Asunci&oacute;on Quer&eacute;taro</option>
@@ -392,7 +392,7 @@ s.parentNode.insertBefore(ga, s);
 									<option value="religiosas">Ciencias Religiosas</option>
 									<option value="comunicacion">Comunicaci&oacute;n</option>
 									<option value="desarrollo">Desarrollo Humano</option>
-									<option value="diseño">Diseño</option>
+									<option value="diseÃ±o">Dise&ntilde;o</option>
 									<option value="gastronomia">Gastronom&iacute;a</option>
 									<option value="humanidades">Humanidades</option>
 									<option value="ibero online">Ibero Online</option>
@@ -410,7 +410,7 @@ s.parentNode.insertBefore(ga, s);
 				        </tr>
 				        <tr>
 				        	<td colspan="3" height="30px" valign="bottom">
-					        	¿Cu&aacute;ndo quieres comenzar?
+					        	Â¿Cu&aacute;ndo quieres comenzar?
 					        </td>
 				        </tr>
 				        <tr>
@@ -449,10 +449,10 @@ s.parentNode.insertBefore(ga, s);
       	<table width="100%" border="0" align="left" cellpadding="0" cellspacing="5">
       		<tr>
       			<td align="left" valign="top">
-      			  <?php echo '<h1>'.ucfirst($row_programa['program_type']).'</h1>'; ?>
+      			  <?php echo '<h1>'.ucfirst($row_programa['program_type'])	.'</h1>'; ?>
       			  <?php echo '<h1>'.$row_programa['program_name'].'</h1>';
 				if($row_programa['program_colaboracion'] != NULL){
-					echo '<p>(En colaboración con '.$row_programa['program_colaboracion'].')</p>';
+					echo '<p>(En colaboraci&oacute;n con '.$row_programa['program_colaboracion'].')</p>';
 				} 
 				?>      			  <!-- - <a style="cursor:pointer; font-size:12px;" onclick="setActiveStyleSheet('img_templ_princ'); return false;">A</a> <a style="cursor:pointer; font-size:14px;" onclick="setActiveStyleSheet('img_templ_princ2'); return false;">A</a> <a style="cursor:pointer; font-size:16px;" onclick="setActiveStyleSheet('img_templ_princ3'); return false;">A</a> + --></td>
       			
@@ -490,7 +490,7 @@ s.parentNode.insertBefore(ga, s);
       			</tr>
                                  <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
                 <tr><td><table border="0">
-                <tr><td colspan="2"><p><span style="color: red; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 16px">(Exclusivo para  servidores públicos del Poder Judicial de la Federación)</span></p></td></tr>
+                <tr><td colspan="2"><p><span style="color: red; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 16px">(Exclusivo para  servidores pÃºblicos del Poder Judicial de la FederaciÃ³n)</span></p></td></tr>
                 
 
                 <tr>
@@ -646,6 +646,12 @@ s.parentNode.insertBefore(ga, s);
 								}
 							}
 							mysql_data_seek($fecha_ini, 0);?></td>
+							<?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 110){
+
+							?><td align="left">
+									<a onclick="parent.location='http://www.e-femxa.com/main.self'"><img src='imagenes/icons/image.jpeg' style="margin: 0px 80px -13px 0px;"></a>
+							</td>
+							<?php } ?>
                       </tr>
                       <?php  } 
 					if($row_programa['duration'] != NULL) {?>
@@ -665,8 +671,8 @@ s.parentNode.insertBefore(ga, s);
 								if($row_programa['cost_inscripcion']==NULL){
 									echo $row_programa['costo_curso'];
 								}else{
-									echo 'Inscripción: '.$row_programa['cost_inscripcion'].'</br>';
-									echo 'Por módulo: '.$row_programa['costo_modulo'].'';
+									echo 'InscripciÃ³n: '.$row_programa['cost_inscripcion'].'</br>';
+									echo 'Por mÃ³dulo: '.$row_programa['costo_modulo'].'';
 								}
 							}
 						}else{
@@ -1237,11 +1243,11 @@ s.parentNode.insertBefore(ga, s);
          </tr>
       <tr align="center" valign="middle">
         <td><p><strong>&copy; Universidad Iberoamericana Ciudad
-            de México. </strong><br>
+            de MÃ©xico. </strong><br>
           </p>
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
-          Lomas de Santa Fe, México, C.P. 01219, Distrito Federal. <br>
+          Lomas de Santa Fe, MÃ©xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
           </address></td>
