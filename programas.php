@@ -1,7 +1,7 @@
 <?php require_once('Connections/otono2011.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
@@ -12,7 +12,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -122,26 +122,26 @@ s.parentNode.insertBefore(ga, s);
 	var lastHeight = 0;
 
 	function resizeHelperIframe()
-	{	
+	{
 		// Gets the new page height
 		var newHeight = document.body.offsetHeight; //document.body.scrollHeight;
-		
+
 		if(lastHeight != newHeight){
-			
+
 			// New height is going to the parent through the helperIframe.
 			var helperIframe = document.getElementById('helperIframe');
 			helperIframe.contentWindow.location.replace('http://www.diplomados.uia.mx/helper.html#' + newHeight);
-			
+
 			lastHeight = newHeight;
 		}
 	}
-	
+
 	window.onload = function(event) {
-		
+
 		resizeHelperIframe();
-		
+
 	}
-		
+
 </script>
 
 <script type='text/javascript'>
@@ -263,7 +263,7 @@ s.parentNode.insertBefore(ga, s);
 		 $imagen = 'casabarragan';
 		 $header = 'verde';
 		 $descargable = 'casa_barragan';
-		 break; 
+		 break;
 		  case 20:
 		 $imagen = 'lofft';
 		 $header = 'rojo';
@@ -315,7 +315,7 @@ s.parentNode.insertBefore(ga, s);
 	<li style="padding-bottom:10px;"><a href="tutorial_pagos.php">Tutorial pagos en l&iacute;nea</a></li></ul>
   </div>
   <div id="menu_generos_interior_index">
-    <div class="roundedBox_interior_index" id="type1"> 
+    <div class="roundedBox_interior_index" id="type1">
       <!-- esquinas -->
       <div class="corner topLeft"></div>
       <div class="corner topRight"></div>
@@ -331,7 +331,7 @@ s.parentNode.insertBefore(ga, s);
             <li><a class="discipline_3" onclick="showMenu(3)">Diseño</a></li>
             <li><a class="discipline_7" onclick="showMenu(7)">Pol&iacute;tica y Derecho</a></li>
             <li><a class="discipline_5" onclick="showMenu(5)">Desarrollo Humano</a></li>
-            <li><a class="discipline_6" onclick="showMenu(6)">Salud</a></li>     
+            <li><a class="discipline_6" onclick="showMenu(6)">Salud</a></li>
             <li><a class="discipline_8" onclick="showMenu(8)">Negocios</a></li>
             <li><a class="discipline_9" onclick="showMenu(9)">Tecnolog&iacute;a</a></li>
             <li><a class="discipline_10" onclick="showMenu(10)">Humanidades</a></li>
@@ -418,10 +418,10 @@ s.parentNode.insertBefore(ga, s);
 					        	Escoge una fecha precisa o un periodo
 					        </td>
 				        </tr>
-				        
+
 				        <tr style="margin-top:10px;"valign="middle">
 				        	<td width="75px">
-				        		<input type="text" id="datepickerI" name="datepickerI" style="margin:0px; width:55px; height:11px; padding:1px; border:1px solid #999999; line-height:0; font-size:11px;"/>	
+				        		<input type="text" id="datepickerI" name="datepickerI" style="margin:0px; width:55px; height:11px; padding:1px; border:1px solid #999999; line-height:0; font-size:11px;"/>
 				        		<img src="imagenes/calendario.jpg">
 				        	</td>
 				            <td  width="75px">
@@ -445,7 +445,7 @@ s.parentNode.insertBefore(ga, s);
         <table width="100%" border="0" align="left" cellpadding="5" cellspacing="10">
           <tr>
             <td><!-- InstanceBeginEditable name="contenido" -->
-      	
+
       	<table width="100%" border="0" align="left" cellpadding="0" cellspacing="5">
       		<tr>
       			<td align="left" valign="top">
@@ -453,27 +453,27 @@ s.parentNode.insertBefore(ga, s);
       			  <?php echo '<h1>'.$row_programa['program_name'].'</h1>';
 				if($row_programa['program_colaboracion'] != NULL){
 					echo '<p>(En colaboraci&oacute;n con '.$row_programa['program_colaboracion'].')</p>';
-				} 
+				}
 				?>      			  <!-- - <a style="cursor:pointer; font-size:12px;" onclick="setActiveStyleSheet('img_templ_princ'); return false;">A</a> <a style="cursor:pointer; font-size:14px;" onclick="setActiveStyleSheet('img_templ_princ2'); return false;">A</a> <a style="cursor:pointer; font-size:16px;" onclick="setActiveStyleSheet('img_templ_princ3'); return false;">A</a> + --></td>
-      			
+
 
           <td align="right">
           	<table border="0">
           		<?php if($_GET['id_program'] != 397){ ?>
                                	<tr>
-                                             
+
                         <td colspan="2" align="right" valign="top" class="contenido_diploRojo" <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> style="display:none;" <?php } ?>>
                         <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> <a href="#" onclick="parent.location='extras.php'"><img src=
             "imagenes/icono_insc.gif" width="30" height="30" border=
             "0" /></a> <?php }else{ ?>
-            
+
                         <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'"><img src=
             "imagenes/icono_insc.gif" width="30" height="30" border=
             "0" /></a>
             <?php } ?>
 
             </td>
-            
+
                         <td width="20px" <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> style="display:none;" <?php } ?>><?php if($_GET['id_discipline']==21){ ?>
                           <a href="http://www.diplomados.uia.mx/preinscripcion.php">Formato de Preinscripci&oacute;n</a>
                           <?php }else if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
@@ -481,7 +481,7 @@ s.parentNode.insertBefore(ga, s);
                           <?php }else{ ?>
                           <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
                           <?php } ?></td>
-                          
+
                       </tr>
                       <?php } ?>
                   </table>
@@ -491,14 +491,14 @@ s.parentNode.insertBefore(ga, s);
                                  <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
                 <tr><td><table border="0">
                 <tr><td colspan="2"><p><span style="color: red; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 16px">(Exclusivo para  servidores públicos del Poder Judicial de la Federación)</span></p></td></tr>
-                
+
 
                 <tr>
-                
-                
+
+
                 				<td width="10%" align="left" valign="top" class="contenido_diploRojo">
                         <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>  <?php }else{ ?>
-            
+
                         <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'"><img src=
             "imagenes/icono_insc.gif" width="30" height="30" border=
             "0" /></a>
@@ -510,28 +510,28 @@ s.parentNode.insertBefore(ga, s);
                           <?php }else{ ?>
                           <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
                           <?php } ?></td>
-                
+
                 </tr></table></td></tr>
-                
+
                 <?php } ?>
-                <?php if($row_programa['program_pdf'] != NULL){ 
+                <?php if($row_programa['program_pdf'] != NULL){
 	//header("Pragma: ");
 	?>
                       <tr>
-                      	<table width="100%">
-                      		<tr>
-                        <td colspan="2" width="85%" align="right" valign="bottom" class="contenido_diploRojo"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank"> <img src="imagenes/icono_temario.gif" width="30" height="30" border="0" /></a>
-                        <td  width="15%" align="left"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar<br>Temario</a></td></td>
-                      		</tr>
+                      	<table width="100%" border="0">
+                      		<!--<tr>
+                        <td colspan="2" width="85%" align="right" valign="bottom" class="contenido_diploRojo">
+                        <td  width="15%" align="left"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank"> <img src="imagenes/icono_temario.gif" width="30" height="30" border="0" /></a><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar<br>Temario</a></td></td>
+                      		</tr>-->
                       </tr>
                          <?php } ?>
       		<tr>
       			<td colspan="2" valign="top">
-				
+
 				<?php if($row_programa['description'] != NULL){ ?>
       			  <h3>Rese&ntilde;a del Programa:</h3>
 				  <?php } ?>
-    			    
+
       			  <p><?php echo $row_programa['description']; ?>
     				</p>
 					<?php
@@ -541,14 +541,14 @@ s.parentNode.insertBefore(ga, s);
 					$titulo = 'Expositor';
 					if($row_programa['program_type'] == 'programahp'){$titulo = 'Coordinador';} else {
 					if($row_programa['program_type'] == 'diplomado'){$titulo = 'Coordinador';}else{$titulo = 'Expositor';}}
-					
+
 					if($array_size==1){
-												
+
 						mysql_select_db($database_otono2011, $otono2011);
 						$query_maestro = "SELECT * FROM site_maestros WHERE id_maestro = ".$row_programa['id_maestro'];
 						$maestro = mysql_query($query_maestro, $otono2011) or die(mysql_error());
 						$row_maestro = mysql_fetch_assoc($maestro);
-						$totalRows_maestro = mysql_num_rows($maestro); 
+						$totalRows_maestro = mysql_num_rows($maestro);
 						?>
 						<h3>
 						  <?php if($row_maestro['sexo']=='F'){$titulo.='a:';}else{$titulo.=':';} echo $titulo;?>
@@ -562,37 +562,37 @@ s.parentNode.insertBefore(ga, s);
 							<h3>Curr&iacute;culum <?php if($row_maestro['sexo']=='F'){echo 'de la ';}else{echo 'del ';} echo $titulo;?></h3>
 					<p><?php echo $row_maestro['cv']; ?></p>
 						<?php } ?>
-						
-					<?php }else if($array_size>1){ 
-					
+
+					<?php }else if($array_size>1){
+
 						$null_count = 0;
-					
-						$titulo.= 'es:'; 
-						
+
+						$titulo.= 'es:';
+
 						$cv_maestros = ''; ?>
-						
+
 						<p><?php echo $titulo; ?></p>
-					
+
 						<p>
 						  <?php for($i= 0; $i< $array_size; $i++){
-						
+
 							mysql_select_db($database_otono2011, $otono2011);
 							$query_maestro = "SELECT * FROM site_maestros WHERE id_maestro = ".$array_maestro[$i];
 							$maestro = mysql_query($query_maestro, $otono2011) or die(mysql_error());
 							$row_maestro = mysql_fetch_assoc($maestro);
 							$totalRows_maestro = mysql_num_rows($maestro); ?>
-						  
+
 			        </p>
 						<p>
 						  <?php if($row_maestro['titulo_maestro']!=NULL){echo $row_maestro['titulo_maestro'].'&nbsp;';} echo $row_maestro['nombre_maestro']; ?><br />
-							
+
 					<?php if($row_maestro['telefono']!=NULL){
 								echo 'Tel. '.$row_maestro['telefono'].'<br />';
 							}
 							if($row_maestro['mail']!=NULL){
 								echo '<a href="mailto:'.$row_maestro['mail'].'">'.$row_maestro['mail'].'</a>';
 							} ?></p>
-									
+
 							<p>
 								<?php if($row_maestro['cv'] != NULL){
 									$cv_maestros .= '<p><em>'.$row_maestro['nombre_maestro'].'</em> .- '.$row_maestro['cv'].'</p><p>&nbsp;</p>';
@@ -600,28 +600,30 @@ s.parentNode.insertBefore(ga, s);
 									$null_count++;
 								}
 							}
-						
+
 							if($null_count != $array_size){
 								echo '<p><strong>Curr&iacute;culum de los '.$titulo.'</strong></p>';
 								echo $cv_maestros;
 							}
-						
-						} 
+
+						}
 					}?>
 					</p><p>
                     <?php if($row_programa['observaciones']!=NULL){echo '<p>'.$row_programa['observaciones'].'</p>';} ?>
                     </p>
 				  </td>
+				                          <td  width="22%" align="left" valign="top"><div style="margin-top: -25px;"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" style="float:left"> <img src="imagenes/icono_temario.gif" width="30" height="30" border="0" / ></a><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar<br>Temario</a></div></td></td>
+
       			</tr>
       		</table>
       		<table width="100%" border="0" cellpadding="5" cellspacing="0">
-      	
-      			      		<?php if($_GET['id_program'] != 397){ ?>			
+
+      			      		<?php if($_GET['id_program'] != 397){ ?>
                       <tr>
                         <?php if(($row_programa['program_colaboracion'] != NULL)&&($row_programa['program_colaboracion_img'] != NULL)){ ?>
                         <td width="29%" align="right" valign="top" class="contenido_diploRojo">En colaboraci&oacute;n</td>
                         <td width="2%" rowspan="10" class="linea_separadora_g"></td>
-                        <td width="70%"><?php 
+                        <td width="70%"><?php
 						if($row_programa['program_colaboracion_img'] != NULL){
 							echo '<img src="imagenes/colaboradores/'.$row_programa['program_colaboracion_img'].'" />';
 						} ?></td>
@@ -653,17 +655,17 @@ s.parentNode.insertBefore(ga, s);
 							</td>
 							<?php } ?>
                       </tr>
-                      <?php  } 
+                      <?php  }
 					if($row_programa['duration'] != NULL) {?>
                       <tr>
                         <td align="right" valign="top" class="contenido_diploRojo">Duraci&oacute;n</td>
                         <td><?php echo $row_programa['duration'];?></td>
                       </tr>
-                      <?php } 
+                      <?php }
 					if($row_programa['costo_curso']!=NULL || $row_programa['cost_inscripcion']!=NULL || $row_programa['costo_modulo']!=NULL){?>
                       <tr>
                         <td align="right" valign="top" class="contenido_diploRojo">Costo</td>
-                        <td><?php 
+                        <td><?php
 						if($totalRows_fecha_ini != 0){
 							if($row_programa['program_type']=='curso'){
 								echo $row_programa['costo_curso'];
@@ -680,7 +682,7 @@ s.parentNode.insertBefore(ga, s);
 						}
 					}?></td>
                       </tr>
-                      <?php if($totalRows_fecha_ini != 0){ 
+                      <?php if($totalRows_fecha_ini != 0){
 					$row_fecha_ini = mysql_fetch_assoc($fecha_ini);
 					if($row_fecha_ini['horario'] != NULL){ ?>
                       <tr>
@@ -706,11 +708,11 @@ s.parentNode.insertBefore(ga, s);
 						}
 						mysql_data_seek($fecha_ini, 0);
 						if($sede_not_null != 0){
-						
-					
+
+
 						if($totalRows_fecha_ini != 0){
 							$row_fecha_ini = mysql_fetch_assoc($fecha_ini);
-							$num_sedes = 0; 
+							$num_sedes = 0;
 							if($totalRows_fecha_ini > 0){?>
                       <tr>
                         <td align="right" valign="top" class="contenido_diploRojo">Sede</td>
@@ -731,14 +733,14 @@ s.parentNode.insertBefore(ga, s);
 								}
 							} while($row_fecha_ini = mysql_fetch_assoc($fecha_ini));
 							mysql_data_seek($fecha_ini, 0);
-						
+
 						?></td>
                       </tr>
                       <?php } ?>
-                    
+
                         <?php }}
-						} 
-					} ?> 
+						}
+					} ?>
 
 
 					 <tr>
@@ -746,14 +748,14 @@ s.parentNode.insertBefore(ga, s);
                         <td<?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> style="display:none;" <?php } ?>><?php
 							$array_encargado = explode(',',$row_programa['id_encargado']);
 							$array_size_2 = sizeof($array_encargado);
-							
+
 							for($k = 0; $k < $array_size_2; $k++){
 								mysql_select_db($database_otono2011, $otono2011);
 								$query_encargado = "SELECT * FROM site_directory WHERE id_encargado = ".$array_encargado[$k];
 								$encargado = mysql_query($query_encargado, $otono2011) or die(mysql_error());
 								$row_encargado = mysql_fetch_assoc($encargado);
 								$totalRows_encargado = mysql_num_rows($encargado);
-								
+
 								echo ''.$row_encargado['nombre'].'<br />';
 								echo 'Tel. '.$row_encargado['telefono'];
 								if ($row_encargado['extension']!=NULL) { echo ', Ext. '.$row_encargado['extension'].''; }
@@ -762,25 +764,53 @@ s.parentNode.insertBefore(ga, s);
 							?></td>
                       </tr>
                       <?php if($row_programa['program_pdf'] != NULL){ ?>
-                     
-                      
+
+
                         <?php } ?>
-                   
-            
+
+
 
 <tr>
 
-                      	
-                     	
+
+
                       	    <?php if($_GET['id_discipline'] != 10 && $_GET['id_program'] != 397){ ?>
-      				 <td></td><td><!-- AddThis Button BEGIN -->
-              
-                <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'"><img src=
-            "imagenes/icono_insc.gif" width="30" height="30" border=
-            "0" /></a> <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a></b></font>   
-              <!-- AddThis Button END --></td></tr>
+      				 <td valign="top"></td>
+      				 <!-- AddThis Button BEGIN -->
+      				 <td valign="top">
+		                <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'" style="float:left">
+		                	<img src="imagenes/icono_insc.gif" width="30" height="30" border="0" />
+		            	</a>
+		            	<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'" >
+		            			Formato de <br>Preinscripci&oacute;n
+		            	</a>
+		            	<br>
+		            	</b>
+            			</font>
+            			<div style="margin-top: -31px;">
+	            			<a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" style="margin-left:95px; float:left"> 
+	              			<img src="imagenes/icono_temario.gif" width="30" height="30" border="0" />
+	              			</a>
+	              			<a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" >Descargar<br>Temario</a>
+	              		</div>
+            		</td>
+            	<!-- -->
+            	<!--<td colspan="2" width="85%" align="left" valign="bottom" class="contenido_diploRojo">
+	              	<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">
+	              		<img src="imagenes/icono_insc.gif" width="30" height="30" border="0" />
+	              	</a>
+	                <td  width="15%" align="left"><a href="#" target="_blank" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'" style="margin-left:-198px">Formato de <br>Preinscripci&oacute;n</a>
+	                </td>
+            	</td>-->
+              <!-- AddThis Bu 																		ºtton END -->
+            <!--<td colspan="2" width="85%" align="left" valign="bottom" class="contenido_diploRojo">
+              	
+                <!--<td  width="15%" align="left"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar<br>Temario</a>
+                </td>--
+            </td>-->
+          </tr>
               <?php } ?>
-          
+
 
                       <tr>
                       	<td>
@@ -788,16 +818,16 @@ s.parentNode.insertBefore(ga, s);
 
                       	</td>
       				 <td><!-- AddThis Button BEGIN -->
-              
+
               <div class="addthis_toolbox addthis_default_style "> <a class="addthis_counter addthis_pill_style"></a> </div>
-              <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script> 
-              <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=pvazquezdiaz"></script> 
+              <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+              <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=pvazquezdiaz"></script>
               <!-- AddThis Button END --></td>
           </tr>
-                
 
 
-      			
+
+
 	</table>
       <!-- InstanceEndEditable --></td>
           </tr>
@@ -805,8 +835,8 @@ s.parentNode.insertBefore(ga, s);
 
 
 
-<!---Consulta de Subcategorias de los Idiomas de Ingles-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 101){ 
+<!---Consulta de Subcategorias de los Idiomas de Ingles-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 101){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -830,8 +860,8 @@ s.parentNode.insertBefore(ga, s);
                       	</tr>
                       	<?php } ?>
 
-<!---Consulta de Subcategorias de los Idiomas de Arabe-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 179){ 
+<!---Consulta de Subcategorias de los Idiomas de Arabe-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 179){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -855,8 +885,8 @@ s.parentNode.insertBefore(ga, s);
                       	</tr>
                       	<?php } ?>
 
-<!---Consulta de Subcategorias de los Idiomas de Chino Mandarin-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 174){ 
+<!---Consulta de Subcategorias de los Idiomas de Chino Mandarin-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 174){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -880,9 +910,9 @@ s.parentNode.insertBefore(ga, s);
                       	</tr>
                       	<?php } ?>
 
-                      	
-<!---Consulta de Subcategorias de los Idiomas de Espanol-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 201){ 
+
+<!---Consulta de Subcategorias de los Idiomas de Espanol-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 201){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -906,8 +936,8 @@ s.parentNode.insertBefore(ga, s);
                       	</tr>
                       	<?php } ?>
 
-<!---Consulta de Subcategorias de los Idiomas de Espanol Extranjeros-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 202){ 
+<!---Consulta de Subcategorias de los Idiomas de Espanol Extranjeros-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 202){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -931,8 +961,8 @@ s.parentNode.insertBefore(ga, s);
                       	</tr>
                       	<?php } ?>
 
-<!---Consulta de Subcategorias de los Idiomas de Frances-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 177){ 
+<!---Consulta de Subcategorias de los Idiomas de Frances-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 177){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -954,10 +984,10 @@ s.parentNode.insertBefore(ga, s);
 							?>
 
                       	</tr>
-                      	<?php } ?>        
+                      	<?php } ?>
 
-<!---Consulta de Subcategorias de los Idiomas de Hebreo-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 180){ 
+<!---Consulta de Subcategorias de los Idiomas de Hebreo-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 180){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -979,10 +1009,10 @@ s.parentNode.insertBefore(ga, s);
 							?>
 
                       	</tr>
-                      	<?php } ?>  
+                      	<?php } ?>
 
-<!---Consulta de Subcategorias de los Idiomas de Hindu-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 181){ 
+<!---Consulta de Subcategorias de los Idiomas de Hindu-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 181){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -1004,10 +1034,10 @@ s.parentNode.insertBefore(ga, s);
 							?>
 
                       	</tr>
-                      	<?php } ?>             	
+                      	<?php } ?>
 
-<!---Consulta de Subcategorias de los Idiomas de Intensivos Ingles-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 173){ 
+<!---Consulta de Subcategorias de los Idiomas de Intensivos Ingles-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 173){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -1029,10 +1059,10 @@ s.parentNode.insertBefore(ga, s);
 							?>
 
                       	</tr>
-                      	<?php } ?>      
+                      	<?php } ?>
 
-<!---Consulta de Subcategorias de los Idiomas de Italiano-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 176){ 
+<!---Consulta de Subcategorias de los Idiomas de Italiano-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 176){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -1054,10 +1084,10 @@ s.parentNode.insertBefore(ga, s);
 							?>
 
                       	</tr>
-                      	<?php } ?>      
+                      	<?php } ?>
 
-<!---Consulta de Subcategorias de los Idiomas de Japones-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 182){ 
+<!---Consulta de Subcategorias de los Idiomas de Japones-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 182){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -1079,10 +1109,10 @@ s.parentNode.insertBefore(ga, s);
 							?>
 
                       	</tr>
-                      	<?php } ?>      
+                      	<?php } ?>
 
-<!---Consulta de Subcategorias de los Idiomas de Tlahuac-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 183){ 
+<!---Consulta de Subcategorias de los Idiomas de Tlahuac-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 183){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -1104,10 +1134,10 @@ s.parentNode.insertBefore(ga, s);
 							?>
 
                       	</tr>
-                      	<?php } ?>      
+                      	<?php } ?>
 
-<!---Consulta de Subcategorias de los Idiomas de Portugues-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 178){ 
+<!---Consulta de Subcategorias de los Idiomas de Portugues-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 178){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -1129,12 +1159,12 @@ s.parentNode.insertBefore(ga, s);
 							?>
 
                       	</tr>
-                      	<?php } ?>      
+                      	<?php } ?>
 
 
 
-                      	<!---Consulta de Subcategorias de los Idiomas de Turco-->                      
-						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 184){ 
+                      	<!---Consulta de Subcategorias de los Idiomas de Turco-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 184){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
 						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
@@ -1156,34 +1186,34 @@ s.parentNode.insertBefore(ga, s);
 							?>
 
                       	</tr>
-                      	<?php } ?>      
+                      	<?php } ?>
 
 
 
 </td></tr>
         </table>
-        	
 
-	        
+
+
 
 
       </div>
-      
+
     </div>
     <div id= "type4" class="rectangulo_irregular" style="margin-left:17px;">
-      
-      
+
+
       <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
       <img class="img_seccion" src="imagenes/secciones/online_pjf.png" width="208" height="237" align="right" />
       <?php }else{ ?>
-      <img class="img_seccion" src="imagenes/secciones/<?php echo $imagen; ?>.png" width="198" height="237" align="right" /> 
+      <img class="img_seccion" src="imagenes/secciones/<?php echo $imagen; ?>.png" width="198" height="237" align="right" />
       <?php } ?></div>
-    
+
 
 <div style="width:25%; float:left; margin-left:22px; margin-top:18px">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
-          <tr>          
+          <tr>
           <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
           </tr>
           <tr>
@@ -1192,7 +1222,7 @@ s.parentNode.insertBefore(ga, s);
           <tr>
             <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/banner_solicitalo.png" width="181px" height="115" border="0" /></a></td>
           </tr>
-          
+
            <tr>
             <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/banner_newsletter.png) no-repeat bottom transparent; width:191px;">
               <form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
@@ -1203,7 +1233,7 @@ s.parentNode.insertBefore(ga, s);
                   </tr>
                   <tr>
                     <td align="right"><!-- begin subscription_form_widget.tmpl -->
-                      
+
                       <input type="hidden" name="list" value="newsDEC">
                       <input type="hidden" name="f" id="f_s" value="subscribe" checked="checked">
                       <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email" background="none"></td>
@@ -1215,7 +1245,7 @@ s.parentNode.insertBefore(ga, s);
                 </tbody></table>
               </form></td>
           </tr>
-              
+
               <!--table width="80%" border="0" cellspacing="0" cellpadding="0">
         <tr>
           <td>
@@ -1226,14 +1256,14 @@ s.parentNode.insertBefore(ga, s);
         <input type="hidden" name="f" id="f_s" value="subscribe" checked="checked" />
         <input type="hidden" name="f"  id="f_u"  value="unsubscribe"  />
       <input type="submit" value="Aceptar" class="processing" />
-      </form> 
+      </form>
           </td>
         </tr>
       </table--></td>
           </tr>
         </tbody>
       </table>
-   
+
 </div>
 </div>
   <div id="footer" style="float:left">

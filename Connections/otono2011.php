@@ -2,7 +2,7 @@
 # FileName="Connection_php_mysql.htm"
 # Type="MYSQL"
 # HTTP="true"
-$hostname_otono2011 = "127.0.0.1";
+$hostname_otono2011 = "localhost";
 $database_otono2011 = "decuiaco_site";
 $username_otono2011 = "decuiaco";
 $password_otono2011 = "DEC2010";
