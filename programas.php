@@ -612,7 +612,7 @@ s.parentNode.insertBefore(ga, s);
                     <?php if($row_programa['observaciones']!=NULL){echo '<p>'.$row_programa['observaciones'].'</p>';} ?>
                     </p>
 				  </td>
-				                          <td  width="22%" align="left" valign="top"><div style="margin-top: -25px;"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" style="float:left"> <img src="imagenes/icono_temario.gif" width="30" height="30" border="0" / ></a><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar<br>Temario</a></div></td></td>
+				                          <td  width="22%" align="left" valign="top"><div style="margin-top: -25px;"><?php if($row_programa['program_pdf']!=""){?><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" style="float:left"> <img src="imagenes/icono_temario.gif" width="30" height="30" border="0" / ></a><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar<br>Temario</a><?php }?></div></td></td>
 
       			</tr>
       		</table>
