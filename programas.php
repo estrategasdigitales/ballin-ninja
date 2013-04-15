@@ -673,8 +673,8 @@ s.parentNode.insertBefore(ga, s);
 								if($row_programa['cost_inscripcion']==NULL){
 									echo $row_programa['costo_curso'];
 								}else{
-									echo 'Inscripción: '.$row_programa['cost_inscripcion'].'</br>';
-									echo 'Por módulo: '.$row_programa['costo_modulo'].'';
+									echo 'Inscripci&oacute;n: '.$row_programa['cost_inscripcion'].'</br>';
+									echo 'Por m&oacute;dulo: '.$row_programa['costo_modulo'].'';
 								}
 							}
 						}else{
