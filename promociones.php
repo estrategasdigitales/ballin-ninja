@@ -184,6 +184,7 @@ s.parentNode.insertBefore(ga, s);
           <ul>
             <li><a class="discipline_20" onclick="showMenu(20)">Sede sur: Estudio Lofft</a></li>
             <li><a class="discipline_13" onclick="showMenu(13)">Xochitla</a></li>
+            <li><a class="discipline_24 " onclick="showMenu(24)">Sede CICEANA</a></li>
           </ul>
           <h4 style="padding-top: 0px;"></h4>
           <p id="search_on" style="padding:5px"><a onclick="show_search()" style="color:#EF353C; font-weight:bold;">Busca tu programa de inter&eacute;s </p></a>
@@ -195,7 +196,7 @@ s.parentNode.insertBefore(ga, s);
   </div>
   <div id= "contenedor_irregular_index" >
     <div id= "type4" class="cuadro_articulos_secciones" style="border:0px;width:819px;padding:0px">
-      <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/banner_promociones.png);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
+      <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/m_promociones.jpg);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
     				      
     </div>
   <div style="margin-left:24px">
@@ -295,11 +296,9 @@ function newPopup(url) {
                     para ti </p>
                       <p style="text-align:center">   
                     <!-- <a href="http://www.diplomados.uia.mx/extras.php"><img src="imagenes/banners/promociones.jpg" width="395" height="404" /></a></p></td></tr> -->
+                    
                     <tr>
-                    <td align="center"><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=23&id_program=387&titulo=Social_Media_Strategies'"><img src="imagenes/banners/promo1.jpg" width="395" height="404" /></a></p></td>
-                  </tr>
-                    <tr>
-                    <td align="center"><img src="imagenes/banners/descuentos.jpg" width="395" height="404" /></p></td>
+                    <td align="center"><img src="imagenes/banners/descuentos_13.jpg" width="395" height="404" /></p></td>
                   </tr>
                   <tr>
                     <td align="center" valign="top"><p>* Los descuentos no son acumulables

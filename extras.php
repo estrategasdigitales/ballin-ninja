@@ -31,13 +31,18 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
+mysql_select_db($database_otono2011, $otono2011);
+$query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
+$ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
+$row_ad = mysql_fetch_assoc($ad);
+$totalRows_ad = mysql_num_rows($ad);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/secciones.dwt.php" codeOutsideHTMLIsLocked="false" -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>Untitled Document</title>
+<title>Direcci&oacute;n de Educaci&oacute;n Continua</title>
 <!-- InstanceEndEditable -->
 <link href="css/estilos_dan.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="Scripts/jquery-ui.css" type="text/css" media="all" />
@@ -46,6 +51,8 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 <script src="Scripts/jquery-ui.js"></script>
 <!------ Google Analytics ------>
 <script type="text/javascript">
+
+
 
  var _gaq = _gaq || [];
  _gaq.push(['_setAccount', 'UA-24531403-1']);
@@ -100,6 +107,29 @@ s.parentNode.insertBefore(ga, s);
 <!-- InstanceBeginEditable name="head" -->
 <script src="Scripts/swfobject_modified.js" type="text/javascript"></script>
 <!-- InstanceEndEditable -->
+<script languaje="javascript">
+  function validar(){
+    if(document.Formulario.Nombre.value==''){
+      alert('El campo Nombre esta Vacio');
+      document.Formulario.Nombre.focus();
+      return false;
+    }
+    if(document.Formulario.Apellido.value==''){
+      alert('El campo Apellido esta Vacio');
+      document.Formulario.Apellido.focus();
+      return false;
+    }
+    var email = document.getElementById('email').value;
+    var formato = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    var v_email = formato.test(email);
+    if((v_email != true)||(email == "")){
+      alert('E-mail no Valido');
+      document.Formulario.email.focus();
+      return false;
+    }
+
+  }
+</script>
 </head>
 <body>
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
@@ -259,7 +289,7 @@ s.parentNode.insertBefore(ga, s);
           <ul>
             <li><a class="discipline_1" onclick="showMenu(1)">Arquitectura</a></li>
             <li><a class="discipline_2" onclick="showMenu(2)">Arte</a></li>
-            <li><a class="discipline_3" onclick="showMenu(3)">Diseño</a></li>
+            <li><a class="discipline_3" onclick="showMenu(3)">Dise&ntilde;o</a></li>
             <li><a class="discipline_7" onclick="showMenu(7)">Pol&iacute;tica y Derecho</a></li>
             <li><a class="discipline_5" onclick="showMenu(5)">Desarrollo Humano</a></li>
             <li><a class="discipline_6" onclick="showMenu(6)">Salud</a></li>     
@@ -275,7 +305,7 @@ s.parentNode.insertBefore(ga, s);
           <ul>
             <li><a class="discipline_23" onclick="showMenu(23)">Programas impartidos por Harvard University</a></li>
           </ul>
-          <h4>Centros de Atención Especializada</h4>
+          <h4>Centros de Atenci&oacute;n Especializada</h4>
           <ul>
             <li><a class="discipline_15" onclick="showMenu(15)">Ibero Online</a></li>
             <li><a class="discipline_16" onclick="showMenu(16)">Atenci&oacute;n Integral a Empresas</a></li>
@@ -296,7 +326,7 @@ s.parentNode.insertBefore(ga, s);
   </div>
   <div id= "contenedor_irregular_index" >
     <div id= "type4" class="cuadro_articulos_secciones" style="border:0px;width:819px;padding:0px">
-      <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/banner_promociones.png);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
+      <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(m_clausura_extras.jpg);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
     				      
     </div>
   <div style="margin-left:24px">
@@ -328,7 +358,7 @@ s.parentNode.insertBefore(ga, s);
               <option value="religiosas">Ciencias Religiosas</option>
               <option value="comunicacion">Comunicaci&oacute;n</option>
               <option value="desarrollo">Desarrollo Humano</option>
-              <option value="diseño">Diseño</option>
+              <option value="diseño">Dise&ntilde;o</option>
               <option value="gastronomia">Gastronom&iacute;a</option>
               <option value="humanidades">Humanidades</option>
               <option value="ibero online">Ibero Online</option>
@@ -378,20 +408,77 @@ s.parentNode.insertBefore(ga, s);
 
     <div id= "type4" class="rectangulo_abajo_secciones" style="border:1px">
       <div class="textos"><!-- InstanceBeginEditable name="contenido" -->
-		  <table width="95%" border="0" align="center" cellpadding="8" cellspacing="0">
-                
-                  
+        <br>
+        <p><strong>&quot;N</strong><strong>O VIVIR APRISA&quot;</strong></p>
+
+<p><strong>Ceremonia de Clausura, Primavera 2013</strong></p>
+
+<p>&nbsp;</p>
+
+<p>Tras un semestre lleno de &eacute;xitos y experiencias enriquecedoras, el pasado viernes 31 de mayo celebramos la Ceremonia de Clausura del periodo Primavera 2013.</p>
+
+<p>El Auditorio Jos&eacute; S&aacute;nchez Villase&ntilde;or luci&oacute; pleno de rostros de satisfacci&oacute;n que no eran m&aacute;s que la muestra de que la determinaci&oacute;n y el empe&ntilde;o son una buena alianza para continuar el camino hacia la realizaci&oacute;n.</p>
+
+<p>&nbsp;</p>
+
+<p>Durante la ceremonia, el Arq. Jos&eacute; Luis Cort&eacute;s, Director de Educaci&oacute;n Continua invit&oacute; a los presentes a &ldquo;no vivir aprisa&rdquo;, concluyendo su discurso con un aforismo del escritor jesuita Baltasar Graci&aacute;n que comparti&oacute; a manera de felicitaci&oacute;n: &ldquo;El saber repartir las cosas es saberlas gozar. A muchos les sobra la vida y se les acaba la felicidad; malogran los contentos, que no los gozan, y querr&iacute;an despu&eacute;s volver atr&aacute;s cuando se hallan tan delante&rdquo;.</p>
+
+<p>&nbsp;</p>
+
+<p>En el pres&iacute;dium tambi&eacute;n participaron el Dr. Javier Prado Gal&aacute;n, Vicerrector acad&eacute;mico, &nbsp;Arq. Luis de Villafranca Andrade, Subdirector acad&eacute;mico de Educaci&oacute;n Continua y como invitado de honor el Mtro. Jos&eacute; Antonio Ib&aacute;&ntilde;ez, Coordinador del Programa en Derechos Humanos.</p>
+
+<p>&nbsp;</p>
+
+<p>&ldquo;Es mucho el saber y poco el vivir, y no se vive si no se sabe&rdquo;, de este modo el Dr. Prado Gal&aacute;n concluy&oacute; la ceremonia.</p>
+<br />
+<br />
+<p style="margin:25px 0px 0px 256px;" ><a style="color: #EF353C; font-weight: bold;" target="_blank" href="https://www.facebook.com/media/set/?set=a.10151948746509829.1073741829.281228424828&type=1&l=12252eaac7">Ver Fotos</a></p>
+
+        
+       <!-- <form action="guardar2.php" method="post" width="175px" name="Formulario" onsubmit="return validar();">
+		    <table width="95%" border="0" align="center" cellpadding="8" cellspacing="0">
                   <tr>
-                    <td>
-                      <br>
-                      <br>                 
-                      <p style="text-align:center">   
-                    <img src="imagenes/banners/cata.jpg" width="395" height="404" /></p></td>
+                    <td align="center" colspan="3">
+                    <span style="color:red;font-weight: bold;font-size: 14px;">Reg&iacute;strate para asegurar tu lugar en la promoci&oacute;n </span> 
+                    </td>
                   </tr>
                   <tr>
-                    
-              </table>
-		  	
+                    <td>*Nombre(s):</td>
+                    <td>*Apellido Paterno:</td>
+                    <td>*E-mail:</td>
+                  </tr>
+                  <tr>
+                    <td><input type="text" name="Nombre" size="20" required></td>
+                    <td><input type="text" name="Apellido" size="20" required></td>
+                    <td><input class="campo" type="email" size="20" required name="email" id="email"></td>
+                  </tr>      
+                  <tr>
+                    <td align="right" colspan="3"><input type="submit" name="nombre" value="Finaliza tu Registro"></td>
+                  </tr>
+        </table>
+        <br>
+        <table>
+          <tr>
+            <td>
+              &nbsp;&nbsp;&nbsp;<b>BASES  DE LA PROMOCI&Oacute;N</b>
+              <ul>
+              <li>Descuento no acumulable con otras promociones. </li>
+              <li>Promoci&oacute;n v&aacute;lida del 12 al 15 de marzo de 2013.  </li>
+              <li>No aplica descuento para quienes ya est&eacute;n inscritos . </li>
+              <li>Aplica sobre el costo total del programa. </li>
+              <li>V&aacute;lido para todos los programas primavera 2013. </li>
+            </td>
+          </tr>
+        </table>
+        <br>
+        <table width="95%">
+          <tr>
+            <td align="center">
+              <span>No olvides leer el <a style="color:red" href="http://www.dec-uia.com/otono_2011/politicas_privacidad.php">Aviso de Privacidad</a></span>
+            </td>
+          </tr>
+        </table>
+		  	</form> -->
 		  <!-- InstanceEndEditable -->
        <table width="93%" border="0" align="center" cellpadding="5" cellspacing="10">
           <tr>

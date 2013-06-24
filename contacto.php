@@ -420,6 +420,7 @@ s.parentNode.insertBefore(ga, s);
           <ul>
             <li><a class="discipline_20" onclick="showMenu(20)">Sede sur: Estudio Lofft</a></li>
             <li><a class="discipline_13" onclick="showMenu(13)">Xochitla</a></li>
+            <li><a class="discipline_24	" onclick="showMenu(24)">Sede CICEANA</a></li>
           </ul>
           <h4 style="padding-top: 0px;"></h4>
           <p id="search_on" style="padding:5px"><a onclick="show_search()" style="color:#EF353C; font-weight:bold;">Busca tu programa de inter&eacute;s </p></a>
@@ -431,7 +432,7 @@ s.parentNode.insertBefore(ga, s);
   </div>
   <div id= "contenedor_irregular_index" >
     <div id= "type4" class="cuadro_articulos_secciones" style="border:0px;width:816px;padding:0px">
-      <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/banner_informes.png);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
+      <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/m_informes.jpg);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
     				      
     </div>
     <div style="margin-left:24px">

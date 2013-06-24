@@ -1,4 +1,4 @@
-	<?php require_once('Connections/otono2011.php'); ?>
+<?php require_once('Connections/otono2011.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -67,13 +67,14 @@ $row_diplos_names = mysql_fetch_assoc($diplos_names);
 //$totalRows_diplos_names = mysql_num_rows($diplos_names);
 
 $id_discipline = $row_diplos_names['id_discipline'];
-
 mysql_select_db($database_otono2011, $otono2011);
 $query_coord_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $id_discipline) AND id_access = 3";
 $coord_mails = mysql_query($query_coord_mails, $otono2011) or die(mysql_error());
 $row_coord_mails = mysql_fetch_assoc($coord_mails);
 $totalRows_coord_mails = mysql_num_rows($coord_mails);
 
+echo $row_coord_mails['email_b'];
+die;
 $nombre_area = $row_diplos_names['discipline'];
 $nombre_programa = $row_diplos_names['program_type']." - ".$row_diplos_names['program_name'];
 
@@ -456,7 +457,7 @@ function populate_rfc_name(){
 	var nom = $('input#nombre').val().substr(0,1);
 	var rfc_siglas = pat.toUpperCase()+mat.toUpperCase()+nom.toUpperCase();
 	
-	//console.log(rfc_siglas);
+	//alert(rfc_siglas);
 	
 	rfc_siglas = rfc_siglas.replace('\u00C1', 'A');
 	rfc_siglas = rfc_siglas.replace('\u00C9', 'E');
@@ -859,6 +860,7 @@ s.parentNode.insertBefore(ga, s);
           <ul>
             <li><a class="discipline_20" onclick="showMenu(20)">Sede sur: Estudio Lofft</a></li>
             <li><a class="discipline_13" onclick="showMenu(13)">Xochitla</a></li>
+            <li><a class="discipline_24	" onclick="showMenu(24)">Sede CICEANA</a></li>
           </ul>
           <h4 style="padding-top: 0px;"></h4>
           <p id="search_on" style="padding:5px"><a onclick="show_search()" style="color:#EF353C; font-weight:bold;">Busca tu programa de inter&eacute;s </p></a>
@@ -871,7 +873,7 @@ s.parentNode.insertBefore(ga, s);
   <div id= "contenedor_irregular_index" >
     <div id= "type4" class="cuadro_articulos_secciones" style="border:0px;width:816px;padding:0px">
     
-    <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/banner_preinscripcion.png);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
+    <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/m_preincripcion.jpg);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
     				      
     </div>
     <div style="margin-left:24px">

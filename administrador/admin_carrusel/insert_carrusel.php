@@ -1,7 +1,8 @@
 <?php 
 require_once('../../Connections/otono2011.php');
 
-$query_orden = mysql_query("SELECT MAX(orden+1) AS maximo_orden FROM carrusel_index");
+mysql_select_db($database_otono2011, $otono2011);
+$query_orden = mysql_query("SELECT COUNT(orden)+1 AS maximo_orden FROM carrusel_index");
 $row_query = mysql_fetch_assoc($query_orden);
 
 if((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == 'form1')){
@@ -13,7 +14,7 @@ if((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == 'form1')){
   
   if($IMAGE_FILE != NULL)
   {
-  	$photosDir="../../imagenes/carrusel";
+  	$photosDir="../../otono_2011/imagenes/carrusel";
 	$img_filename = str_replace(" ","_",$IMAGE_FILE_NAME);
 	$photo = new SimpleImage();
 	$photo->load($IMAGE_FILE);
@@ -24,7 +25,7 @@ if((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == 'form1')){
   $insertSQL = sprintf("INSERT INTO carrusel_index(imagen_carrusel, titulo, texto, destino, orden, visible) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
                       mysql_real_escape_string($img_filename),
                       mysql_real_escape_string(utf8_decode($_POST['titulo'])),
-                      mysql_real_escape_string(utf8_decode($_POST['texto'])),
+                      mysql_real_escape_string($_POST['texto']),
                       mysql_real_escape_string($_POST['destino']),
                       mysql_real_escape_string($_POST['orden']),
                       mysql_real_escape_string($_POST['visible']));
@@ -44,6 +45,13 @@ if((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == 'form1')){
 <link href="../../css/estilos.css" rel="stylesheet" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <title>Administrador Carrusel - Nueva Imagen</title>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+CKEDITOR.replace( 'texto' );
+})
+</script>
 </head>
 
 <body>
@@ -63,20 +71,20 @@ if((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == 'form1')){
             <td colspan="3" align="center" class="titulo_interno"><strong>Nueva Imagen Carrusel Home</strong></td>
        </tr>
        <tr>
-      		 <td width="25%">* Imagen:</td>
+      		 <td width="35%">* Imagen:</td>
              <td><input type="file" name="imagen" id="imagen" /></td>
        </tr>
         <tr>
-       		<td width="25%">* T&iacute;tulo:</td>
-            <td><input type="text" name="titulo" size="80" maxlength="60" placeholder="Maximo 60 Caracteres"/></td>
+       		<td width="35%">* T&iacute;tulo:</td>
+            <td><input type="text" name="titulo" size="80"/></td>
        </tr>
        <tr>
-       		<td width="25%">* Texto:</td>
-            <td><input type="text" name="texto" size="80" maxlength="140" placeholder="Maximo 140 Caracteres"></textarea>
+       		<td width="35%">* Texto:</td>
+            <td><textarea name="texto" id="texto"></textarea>
             	<!--input type="text" name="destino" size="60" placeholder="Ej: http://www.diplomados.uia.mx/programas.php?id_discipline=4&id_program=392"/--></td>
        </tr>
        <tr>
-       		<td width="25%">* Destino:</td>
+       		<td width="35%">* Destino:</td>
             <td><input type="text" name="destino" size="80" placeholder="Ej: http://www.diplomados.uia.mx/programas.php?id_discipline=4&id_program=392"/></td>
             <input type="hidden" name="orden" value="<?php echo $row_query['maximo_orden']; ?>">
             <input type="hidden" name="visible" value="NO">

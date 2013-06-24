@@ -379,7 +379,7 @@ s.parentNode.insertBefore(ga, s);
   </div>
   <div id= "contenedor_irregular_index" >
     <div id= "type4" class="cuadro_articulos_secciones" style="border:0px;width:816px;padding:0px">
-      <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/banner_entrevistas.png);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
+      <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/m_comunidad_ibero.jpg);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
                   
     </div>
     <div style="margin-left:24px">

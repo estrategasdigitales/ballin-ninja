@@ -202,6 +202,16 @@ $totalRows_programas = mysql_num_rows($programas);
 			<td align="right" valign="top" nowrap="nowrap"><strong>Costo:</strong></td>
 			<td colspan="2"><input type="text" name="costo" value="" size="32" /></td>
 		</tr>
+    <tr valign="baseline">
+      <td align="right" valign="top" nowrap="nowrap"><strong>Periodo:</strong></td>
+      <td colspan="2">
+        <select name="periodo">
+          <option value="p">Primavera</option>
+          <option value="v">Verano</option>
+          <option value="o">Oto&oacute;no</option>
+        </select>
+      </td>
+    </tr>
 		<tr valign="baseline">
 			<td align="right" valign="top" nowrap="nowrap">&nbsp;</td>
 			<td><input name="Button" type="button" value="Cancelar" onclick="javascript:history.back();" /></td>

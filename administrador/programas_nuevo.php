@@ -47,7 +47,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		$DOC_FILE_TYPE1 = $_FILES['program_colaboracion_img']['type'];
 		$DOC_FILE_SIZE1 = $_FILES['program_colaboracion_img']['size'];
 		
-		$target_path1 = "../imagenes/colaboradores/";
+		$target_path1 = "../otono_2011/imagenes/colaboradores/";
 		
 		// Create the new directory
 		if(!file_exists($target_path1)){
@@ -74,7 +74,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		$DOC_FILE_TYPE2 = $_FILES['program_pdf']['type'];
 		$DOC_FILE_SIZE2 = $_FILES['program_pdf']['size'];
 		
-		$target_path2 = "../temarios/";
+		$target_path2 = "../otono_2011/temarios/";
 		
 		// Create the new directory
 		if(!file_exists($target_path2)){
@@ -102,7 +102,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		$DOC_FILE_TYPE3 = $_FILES['banner']['type'];
 		$DOC_FILE_SIZE3 = $_FILES['banner']['size'];
 		
-		$target_path3 = "../imagenes/banners/programas_banners/";
+		$target_path3 = "../otono_2011/imagenes/banners/programas_banners/";
 		
 		// Create the new directory
 		if(!file_exists($target_path3)){
@@ -131,7 +131,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		$DOC_FILE_TYPE4 = $_FILES['banner_home']['type'];
 		$DOC_FILE_SIZE4 = $_FILES['banner_home']['size'];
 		
-		$target_path4 = "../imagenes/uploads/banner_prox/";
+		$target_path4 = "../otono_2011/imagenes/uploads/banner_prox/";
 		
 		// Create the new directory
 		if(!file_exists($target_path4)){
@@ -279,6 +279,43 @@ CKEDITOR.replace( 'observaciones' );
 CKEDITOR.replace( 'description' );
 
 })
+
+function check_fields(){
+
+	var empty_fields = true;
+	var message = "Los siguientes campos son obligatorios:\n\n"
+	
+
+	if($('input[name="program_name"]').val() == ""){
+		message += "Nombre\n";
+		empty_fields = 0;
+	}
+	if(!$('input[name="program_type"]').is(':checked')){
+		message += "Tipo\n";
+		empty_fields = 0;
+	}
+	if(!$('input[name="periodo"]').is(':checked')){
+		message += "Periodo\n";
+		empty_fields = 0;
+	}
+	if($('select[name="id_maestro_1"]').val() == ""){
+		message += "Maestro\n";
+    	empty_fields = 0;
+	}
+	if(!$.trim($(document).find('#description').val())){
+    	message += "Descripci\u00F3n\n";
+    	empty_fields = 0;
+	}
+
+	if(empty_fields != 0){
+		return true;
+	}else if(empty_fields == 0){
+		alert(message);
+		return false;
+	}
+
+}
+
 </script>
 <!-- InstanceEndEditable -->
 <link href="../css/estilos.css" rel="stylesheet"
@@ -346,7 +383,7 @@ CKEDITOR.replace( 'description' );
   </div>
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
     <h1>Nuevo Programa </h1>
-    <form action="programas_nuevo.php" method="post" name="form1" id="form1" enctype="multipart/form-data">
+    <form action="programas_nuevo.php" onsubmit="return check_fields();" method="post" name="form1" id="form1" enctype="multipart/form-data">
       <table border="0" align="left" cellpadding="5" cellspacing="0">
         <tr valign="baseline">
           <td align="right" valign="top" nowrap="nowrap"><strong>Disciplina:</strong></td>

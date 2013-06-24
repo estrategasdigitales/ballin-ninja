@@ -359,6 +359,7 @@ frameborder='0'></iframe> <!--////////////////////////////////////////////////
           <ul>
             <li><a class="discipline_20" onclick="showMenu(20)">Sede sur: Estudio Lofft</a></li>
             <li><a class="discipline_13" onclick="showMenu(13)">Xochitla</a></li>
+            <li><a class="discipline_24	" onclick="showMenu(24)">Sede CICEANA</a></li>
           </ul>
           <h4 style="padding-top: 0px;"></h4>
           <p id="search_on" style="padding:5px"><a onclick="show_search()" style="color:#EF353C; font-weight:bold;">Busca tu programa de inter&eacute;s </p></a>
@@ -374,6 +375,8 @@ frameborder='0'></iframe> <!--////////////////////////////////////////////////
   <div id= "contenedor_irregular_index" >
     <div id= "type4" class="cuadro_articulos_secciones" style="border:0px;padding:0px;width:828px">
       <div style="position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
+
+      	
 		<div style="margin-left:29px">
 	   		<div class="textos" style="margin-left:0px;top:0px;height:277px;margin-bottom:9px;float:left">
 				<div class="html_carousel" style="float:left;margin-left:0px;">
@@ -381,16 +384,16 @@ frameborder='0'></iframe> <!--////////////////////////////////////////////////
 					
 					<div id="foo5" class="foo5">
 		       			<div class="slide" id="parrafo1">
-							<img src="http://www.dec-uia.com/otono_2011/imagenes/carrusel1/carrusel1.png" alt="carousel 2" width="788" height="265" />
+							<img src="http://www.dec-uia.com/otono_2011/imagenes/m_descuentos.jpg" alt="carousel 2" width="788" height="265" />
 						</div>
 		      			 <div class="slide">
-							<img src="http://www.dec-uia.com/otono_2011/imagenes/carrusel1/carrusel2.png" alt="carousel 2" width="788" height="265" />
+							<img src="http://www.dec-uia.com/otono_2011/imagenes/m_promociones.jpg" alt="carousel 2" width="788" height="265" />
 						</div>
 						<div class="slide">
-							<img src="http://www.dec-uia.com/otono_2011/imagenes/carrusel1/carrusel3.png" alt="carousel 3" width="788" height="265" />
+							<img src="http://www.dec-uia.com/otono_2011/imagenes/m_directorio.jpg" alt="carousel 3" width="788" height="265" />
 						</div>
 						<div class="slide">
-							<img src="http://www.dec-uia.com/otono_2011/imagenes/carrusel1/carrusel4.png" alt="carousel 4" width="788" height="265" />
+							<img src="http://www.dec-uia.com/otono_2011/imagenes/m_informes.jpg" alt="carousel 4" width="788" height="265" />
 						</div>
 					</div>
 					<div class="clearfix"></div>

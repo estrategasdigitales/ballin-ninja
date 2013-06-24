@@ -48,7 +48,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		$DOC_FILE_TYPE1 = $_FILES['program_colaboracion_img']['type'];
 		$DOC_FILE_SIZE1 = $_FILES['program_colaboracion_img']['size'];
 		
-		$target_path1 = "../imagenes/colaboradores/";
+		$target_path1 = "../otono_2011/imagenes/colaboradores/";
 		
 		// Create the new directory
 		if(!file_exists($target_path1)){
@@ -59,7 +59,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		
 		if($_POST['program_colaboracion_img_old'] != ''){
 		
-			unlink('../imagenes/colaboradores/'.$_POST['program_colaboracion_img_old']);
+			unlink('../otono_2011/imagenes/colaboradores/'.$_POST['program_colaboracion_img_old']);
 		
 		}
 		
@@ -74,7 +74,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 
 	if(isset($_POST['eliminar_img_col']) && ($_POST['eliminar_img_col'] == 1)){
 
-		unlink('../imagenes/colaboradores/'.$_POST['program_colaboracion_img_old']);
+		unlink('../otono_2011/imagenes/colaboradores/'.$_POST['program_colaboracion_img_old']);
 		$img_colaborador = '';
 
 	}
@@ -89,7 +89,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		$DOC_FILE_TYPE2 = $_FILES['program_pdf']['type'];
 		$DOC_FILE_SIZE2 = $_FILES['program_pdf']['size'];
 		
-		$target_path2 = "../temarios/";
+		$target_path2 = "../otono_2011/temarios/";
 		
 		// Create the new directory
 		if(!file_exists($target_path2)){
@@ -100,7 +100,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		
 		if($_POST['program_pdf_old'] != ''){
 		
-			unlink('../temarios/'.$_POST['program_pdf_old']);
+			unlink('../otono_2011/temarios/'.$_POST['program_pdf_old']);
 		
 		}
 		
@@ -124,7 +124,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		$DOC_FILE_TYPE3 = $_FILES['banner']['type'];
 		$DOC_FILE_SIZE3 = $_FILES['banner']['size'];
 		
-		$target_path3 = "../imagenes/banners/programas_banners/";
+		$target_path3 = "../otono_2011/imagenes/banners/programas_banners/";
 		
 		// Create the new directory
 		if(!file_exists($target_path3)){
@@ -135,7 +135,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		
 		if($_POST['banner_old'] != NULL){
 		
-			unlink('../imagenes/banners/programas_banners/'.$_POST['banner_old']);
+			unlink('../otono_2011/imagenes/banners/programas_banners/'.$_POST['banner_old']);
 		
 		}
 		
@@ -159,7 +159,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		$DOC_FILE_TYPE4 = $_FILES['banner_home']['type'];
 		$DOC_FILE_SIZE4 = $_FILES['banner_home']['size'];
 		
-		$target_path4 = "../imagenes/uploads/banner_prox/";
+		$target_path4 = "../otono_2011/imagenes/uploads/banner_prox/";
 		
 		// Create the new directory
 		if(!file_exists($target_path4)){
@@ -170,7 +170,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		
 		if($_POST['banner_home_old'] != NULL){
 		
-			unlink('../imagenes/uploads/banner_prox/'.$_POST['banner_home_old']);
+			unlink('../otono_2011/imagenes/uploads/banner_prox/'.$_POST['banner_home_old']);
 		
 		}
 		
@@ -254,12 +254,11 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 
   mysql_select_db($database_otono2011, $otono2011);
   $Result1 = mysql_query($updateSQL, $otono2011) or die(mysql_error());
-  
   for($i=1;$i<=$_POST['fechas_cont'];$i++){
 	  $update_fechaSQL = sprintf("UPDATE site_fechas_ini SET fecha=%s, horario=%s, publicado=%s, cancelado=%s, cont_cancelaciones=%s, cont_cambio_fecha=%s WHERE id_fecha=%s",
 						   GetSQLValueString($_POST['fecha'.$i], "date"),
 						   GetSQLValueString($_POST['horario'.$i], "text"),
-							 GetSQLValueString(isset($_POST['banner_home_publ'.$i]) ? "true" : "", "defined","1","0"),							 
+						   GetSQLValueString(isset($_POST['banner_home_publ'.$i]) ? "true" : "", "defined","1","0"),							 
 						   GetSQLValueString(isset($_POST['cancelado_fecha'.$i]) ? "true" : "", "defined","1","0"),
 						   GetSQLValueString($_POST['cont_cancelaciones'], "int"),
 						   GetSQLValueString($_POST['cont_cambio_fecha'], "int"),
@@ -267,6 +266,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 	
 	  mysql_select_db($database_otono2011, $otono2011);
 	  $Result_fecha = mysql_query($update_fechaSQL, $otono2011) or die(mysql_error());
+
   }
 
   $updateGoTo = "programas_home.php";
@@ -287,7 +287,6 @@ $programa = mysql_query($query_programa, $otono2011) or die(mysql_error());
 $row_programa = mysql_fetch_assoc($programa);
 $totalRows_programa = mysql_num_rows($programa);
 
-
 mysql_select_db($database_otono2011, $otono2011);
 $query_discipline = "SELECT * FROM disciplines ORDER BY id_discipline ASC";
 $discipline = mysql_query($query_discipline, $otono2011) or die(mysql_error());
@@ -307,7 +306,7 @@ $row_encargado = mysql_fetch_assoc($encargado);
 $totalRows_encargado = mysql_num_rows($encargado);
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_fechas = "SELECT * FROM site_fechas_ini WHERE id_program = ".$row_programa['id_program'];
+$query_fechas = "SELECT * FROM site_fechas_ini WHERE id_program = ".$_GET['id_program'];
 $fechas = mysql_query($query_fechas, $otono2011) or die(mysql_error());
 $row_fechas = mysql_fetch_assoc($fechas);
 $totalRows_fechas = mysql_num_rows($fechas);
@@ -341,6 +340,41 @@ CKEDITOR.replace( 'description' );
 
 })
 
+function check_fields(){
+
+	var empty_fields = true;
+	var message = "Los siguientes campos son obligatorios:\n\n"
+	
+
+	if($('input[name="program_name"]').val() == ""){
+		message += "Nombre\n";
+		empty_fields = 0;
+	}
+	if(!$('input[name="program_type"]').is(':checked')){
+		message += "Tipo\n";
+		empty_fields = 0;
+	}
+	if(!$('input[name="periodo"]').is(':checked')){
+		message += "Periodo\n";
+		empty_fields = 0;
+	}
+	if($('select[name="id_maestro_1"]').val() == ""){
+		message += "Maestro\n";
+    	empty_fields = 0;
+	}
+	if(!$.trim($(document).find('#description').val())){
+    	message += "Descripci\u00F3n\n";
+    	empty_fields = 0;
+	}
+	
+	if(empty_fields != 0){
+		return true;
+	}else if(empty_fields == 0){
+		alert(message);
+		return false;
+	}
+
+}
 </script>
 <!-- InstanceEndEditable -->
 <link href="../css/estilos.css" rel="stylesheet"
@@ -408,7 +442,7 @@ CKEDITOR.replace( 'description' );
   </div>
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
                <h1>Editar Programa </h1>
-<form action="programas_editar.php" method="post" name="form1" id="form1" enctype="multipart/form-data">
+<form action="programas_editar.php" onsubmit="return check_fields();" method="post" name="form1" id="form1" enctype="multipart/form-data">
 	<table border="0" align="left" cellpadding="5" cellspacing="0">
 		<tr valign="baseline">
 			<td width="120" align="right" nowrap="nowrap"><strong>Disciplina:</strong></td>
@@ -486,7 +520,7 @@ CKEDITOR.replace( 'description' );
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_discipline['id_discipline'];?>" <? if($row_discipline['id_discipline'] == $disc_alter_array[3]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
+					<option value="<?php echo $row_discipline['id_discipline'];?>" <?php if($row_discipline['id_discipline'] == $disc_alter_array[3]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
 					<?php
 					} while ($row_discipline = mysql_fetch_assoc($discipline));
 					  $rows = mysql_num_rows($discipline);
@@ -511,7 +545,7 @@ CKEDITOR.replace( 'description' );
 					<td><input type="radio" name="program_type" value="diplomado" <?php if (!(strcmp($row_programa['program_type'],"diplomado"))) {echo "checked=\"checked\"";} ?> />
 						diplomado</td>
 					<td>&nbsp;</td>
-					<td>&nbsp;</td>
+					<td><input type="radio" name="program_type" value="programahp" <?php if (!(strcmp($row_programa['program_type'],"programahp"))) {echo "checked=\"checked\"";} ?> />programa hp</td>
 				</tr>
 			</table></td>
 		</tr>

@@ -328,7 +328,8 @@ s.parentNode.insertBefore(ga, s);
           <ul>
             <li><a class="discipline_1" onclick="showMenu(1)">Arquitectura</a></li>
             <li><a class="discipline_2" onclick="showMenu(2)">Arte</a></li>
-            <li><a class="discipline_3" onclick="showMenu(3)">Diseño</a></li>
+            <li><a class="discipline_3" onclick="showMenu(3)">Dise&ntilde;o</a></li>
+            <li><a class="discipline_4" onclick="showMenu(4)">Comunicaci&oacute;n</a></li>
             <li><a class="discipline_7" onclick="showMenu(7)">Pol&iacute;tica y Derecho</a></li>
             <li><a class="discipline_5" onclick="showMenu(5)">Desarrollo Humano</a></li>
             <li><a class="discipline_6" onclick="showMenu(6)">Salud</a></li>
@@ -354,6 +355,7 @@ s.parentNode.insertBefore(ga, s);
           <ul>
             <li><a class="discipline_20" onclick="showMenu(20)">Sede sur: Estudio Lofft</a></li>
             <li><a class="discipline_13" onclick="showMenu(13)">Xochitla</a></li>
+            <li><a class="discipline_24	" onclick="showMenu(24)">Sede CICEANA</a></li>
           </ul>
           <h4 style="padding-top: 0px;"></h4>
           <p id="search_on" style="padding:5px"><a onclick="show_search()" style="color:#EF353C; font-weight:bold;">Busca tu programa de inter&eacute;s </p></a>
@@ -449,9 +451,9 @@ s.parentNode.insertBefore(ga, s);
       	<table width="100%" border="0" align="left" cellpadding="0" cellspacing="5">
       		<tr>
       			<td align="left" valign="top" colspan="2" height="74">
-      			  <?php echo '<h1 style="font-size:24px">'.ucfirst($row_programa['program_type'])	.'</h1>'; ?>
+      			  <?php if($row_programa['program_type'] == 'programahp'){ echo '<h1>Programa HP</h1>'; }else{echo '<h1>'.ucfirst($row_programa['program_type'])	.'</h1>';} ?>
       			  <?php echo '<h1>'.$row_programa['program_name'].'</h1>';
-				if($row_programa['program_colaboracion'] != NULL){
+				if($row_programa['program_colaboracion'] != NULL && $row_programa['program_colaboracion'] != "Estudio Lofft"){
 					echo '<p>(En colaboraci&oacute;n con '.$row_programa['program_colaboracion'].')</p>';
 				}
 				?>      			  <!-- - <a style="cursor:pointer; font-size:12px;" onclick="setActiveStyleSheet('img_templ_princ'); return false;">A</a> <a style="cursor:pointer; font-size:14px;" onclick="setActiveStyleSheet('img_templ_princ2'); return false;">A</a> <a style="cursor:pointer; font-size:16px;" onclick="setActiveStyleSheet('img_templ_princ3'); return false;">A</a> + --></td>
@@ -527,6 +529,8 @@ s.parentNode.insertBefore(ga, s);
                          <?php } ?>
       		<tr>
       			<td colspan="2" valign="top">
+
+
 
 				<?php if($row_programa['description'] != NULL){ ?>
       			  <h3>Rese&ntilde;a del Programa:</h3>
@@ -612,8 +616,16 @@ s.parentNode.insertBefore(ga, s);
                     <?php if($row_programa['observaciones']!=NULL){echo '<p>'.$row_programa['observaciones'].'</p>';} ?>
                     </p>
 				  </td>
+<<<<<<< .merge_file_a03728
+				                          <td  width="22%" align="left" valign="top">
+=======
 				                          <td  width="22%" align="left" valign="top"><div style="margin-top: -25px;"><?php if($row_programa['program_pdf']!=""){?><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" style="float:left"> <img src="imagenes/icono_temario.gif" width="30" height="30" border="0" / ></a><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar<br>Temario</a><?php }?></div></td></td>
+>>>>>>> .merge_file_a04376
 
+				                          		<?php if($_GET['id_program'] == 452){ ?> <table><tr><td valign="top"><div style="margin-bottom: 35px;"><a target="_blank" href="temarios/HEmpresa_PlanDiplomado7Def.pdf" style="float:left;"><img src="imagenes/icono_temario.gif" width="30" height="30" border="0" / ></a> <a href="temarios/HEmpresa_PlanDiplomado7Def.pdf" target="_blank"> Programa Detallado</a></div></td></tr></table><div style="margin-top: -114px;"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" style="float:left"> <img src="imagenes/icono_temario.gif" width="30" height="30" border="0" / ></a><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar<br>Temario</a></div><?php }else{ ?>
+
+				                          	<div style="margin-top: -25px;"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" style="float:left"> <img src="imagenes/icono_temario.gif" width="30" height="30" border="0" / ></a><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar<br>Temario</a></div></td></td>
+				                          	<?php } ?>
       			</tr>
       		</table>
       		<table width="100%" border="0" cellpadding="5" cellspacing="0">
@@ -648,10 +660,10 @@ s.parentNode.insertBefore(ga, s);
 								}
 							}
 							mysql_data_seek($fecha_ini, 0);?></td>
-							<?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 110){
+							<?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 110 || $_GET['id_program'] == 120){
 
 							?><td align="left">
-									<a onclick="parent.location='http://www.e-femxa.com/main.self'"><img src='imagenes/icons/image.jpeg' style="margin: 0px 80px -13px 0px;"></a>
+									<a style="cursor:pointer;" onclick="parent.location='http://www.e-femxa.com/uiacampusvirtual'"><img src='imagenes/icons/image.jpeg' style="margin: 0px 80px -13px 0px;"></a>
 							</td>
 							<?php } ?>
                       </tr>
@@ -674,7 +686,11 @@ s.parentNode.insertBefore(ga, s);
 									echo $row_programa['costo_curso'];
 								}else{
 									echo 'Inscripci&oacute;n: '.$row_programa['cost_inscripcion'].'</br>';
+<<<<<<< .merge_file_a03728
+									if($_GET['id_program'] != 229){ echo 'Por m&oacute;dulo: '.$row_programa['costo_modulo'].'';}else{ echo 'y 9 pagos de $3,800';}
+=======
 									echo 'Por m&oacute;dulo: '.$row_programa['costo_modulo'].'';
+>>>>>>> .merge_file_a04376
 								}
 							}
 						}else{
@@ -724,7 +740,7 @@ s.parentNode.insertBefore(ga, s);
 								if($row_fecha_ini['id_sede'] == NULL){
 									echo 'Ibero</p>';
 								}else{
-									mysql_select_db($database_otono2011, $otono2011);
+									mysql_select_db($database_otono2011, $otono2011); 	
 									$query_sede = "SELECT nombre_sede FROM site_sedes WHERE id_sede = ".$row_fecha_ini['id_sede'];
 									$sede = mysql_query($query_sede, $otono2011) or die(mysql_error());
 									$row_sede = mysql_fetch_assoc($sede);
@@ -844,7 +860,7 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 101){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{
@@ -869,7 +885,7 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 179){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{
@@ -894,7 +910,7 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 174){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{
@@ -920,7 +936,7 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 201){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{
@@ -945,7 +961,7 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 202){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{
@@ -970,7 +986,7 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 177){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{
@@ -995,7 +1011,7 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 180){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{
@@ -1020,7 +1036,7 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 181){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{
@@ -1045,7 +1061,32 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 173){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
+						while($row1=mysql_fetch_array($fecha_idioma1))
+							{
+				              $nivel=$row1["nivel"];
+				              $subnivel=$row1["subnivel"];
+				              $inicio=$row1["inicio"];
+				              $duracion=$row1["duracion"];
+				              $horario = $row1["horario"];
+								echo "<table border=0 width=60% align=center>";
+								echo "<tr><td colspan=2 class=contenido_diploRojo><b>$nivel</b></td></tr>";
+								echo "<tr><td colspan=2><b>$subnivel</b></td></tr>";
+								echo "<tr><td><b>Inicio</b></td><td>$inicio</td></tr>";
+								echo "<tr><td>Duraci&oacute;n</td><td>$duracion</td></tr>";
+								echo "<tr><td>Horario</td><td>$horario</td></tr></table><br>";
+							}
+							?>
+
+                      	</tr>
+                      	<?php } ?>
+
+<!---Consulta de Subcategorias de los Idiomas de Intensivos Aleman-->
+						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 175){
+							?> <tr align="center"> <?php
+						mysql_select_db($database_otono2011, $otono2011);
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{
@@ -1070,7 +1111,7 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 176){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{
@@ -1095,7 +1136,7 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 182){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{
@@ -1120,7 +1161,7 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 183){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{
@@ -1145,7 +1186,7 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 178){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{
@@ -1172,7 +1213,7 @@ s.parentNode.insertBefore(ga, s);
 						<?php if($_GET['id_discipline'] == 14 && $_GET['id_program'] == 184){
 							?> <tr align="center"> <?php
 						mysql_select_db($database_otono2011, $otono2011);
-						$query1= "SELECT * FROM site_fechas_idiomas WHERE periodo = 'p' AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
+						$query1= "SELECT * FROM site_fechas_idiomas WHERE (periodo = 'v' OR periodo = 'o') AND inicio >= '2013-01-01' AND id_program = ".$_GET['id_program'];
 						$fecha_idioma1 = mysql_query($query1, $otono2011) or die(mysql_error());
 						while($row1=mysql_fetch_array($fecha_idioma1))
 							{

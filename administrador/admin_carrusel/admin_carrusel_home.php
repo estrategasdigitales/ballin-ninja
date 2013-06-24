@@ -54,7 +54,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-$maxRows_Recordset1 = 10;
+$maxRows_Recordset1 = 100;
 $pageNum_Recordset1 = 0;
 if (isset($_GET['pageNum_Recordset1'])) {
   $pageNum_Recordset1 = $_GET['pageNum_Recordset1'];
@@ -65,7 +65,6 @@ mysql_select_db($database_otono2011, $otono2011);
 $query_Recordset1 = "SELECT * FROM carrusel_index ORDER BY orden ASC";
 $query_limit_Recordset1 = sprintf("%s LIMIT %d, %d", $query_Recordset1, $startRow_Recordset1, $maxRows_Recordset1);
 $Recordset1 = mysql_query($query_limit_Recordset1, $otono2011) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
 
 $query_max_min_order = mysql_query("SELECT MAX(orden) AS maximo_orden, MIN(orden) AS minimo_orden FROM carrusel_index", $otono2011);
 $row_max_min_order = mysql_fetch_assoc($query_max_min_order);
@@ -133,12 +132,12 @@ function order_change(order, id, direction){
     <td width="3%">Visible</td>
     <td width="10%" colspan="3"><input type="button" onclick="javascript:window.location='insert_carrusel.php'" value="Agregar Nuevo"/></td>
   </tr>
-  <?php do{ ?>
+  <?php while($row_Recordset1 = mysql_fetch_assoc($Recordset1)){ ?>
     <tr>
       <td align="center"><?php if($row_Recordset1['orden'] != $row_max_min_order['minimo_orden']){ ?><a href="#" onclick="order_change(<?php echo $row_Recordset1['orden']; ?>, <?php echo $row_Recordset1['id_carrusel_index']; ?>, 0)">&#x25B2;</a><?php } ?><br /><?php echo $row_Recordset1['orden']; ?><br /><?php if($row_Recordset1['orden'] != $row_max_min_order['maximo_orden']){ ?><a href="#" onclick="order_change(<?php echo $row_Recordset1['orden']; ?>, <?php echo $row_Recordset1['id_carrusel_index']; ?>, 1)">&#x25BC;</a><?php } ?></td>
-      <td width="25%"><img src="../../imagenes/carrusel/<?php echo $row_Recordset1['imagen_carrusel']; ?>" width="100%"/></td>
+      <td width="25%"><img src="../../otono_2011/imagenes/carrusel/<?php echo $row_Recordset1['imagen_carrusel']; ?>" width="100%"/></td>
       <td><?php echo utf8_encode($row_Recordset1['titulo']); ?></td>
-      <td><?php echo $row_Recordset1['destino']; ?></td>
+      <td><a href="<?php echo $row_Recordset1['destino']; ?>" target="_blank"><?php echo $row_Recordset1['destino']; ?></a></td>
       <td align="center"><font color="red"><b><?php echo $row_Recordset1['visible']; ?></b></font></td>
       <td align="center" width="5%">
         <form action="editar.php" method="post">
@@ -155,7 +154,7 @@ function order_change(order, id, direction){
       </td>
       
     </tr>
-    <?php }while($row_Recordset1 = mysql_fetch_assoc($Recordset1));?>
+    <?php }?>
 </table>
 </body>
 </html>

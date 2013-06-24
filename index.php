@@ -1,4 +1,4 @@
- <?php require_once('Connections/otono2011.php'); ?>
+<?php require_once('Connections/otono2011.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -31,15 +31,76 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
+
+
+	$comentarios=$_GET["tipo"];
+	if($comentarios==1){
+		registro_red($comentarios);
+	}
+
+	function registro_red($comentarios){
+		$fecha=date("Y-m-d H:i:s");
+		$base_datos="decuiaco_site";
+		$servidor="localhost";
+		$usuario="decuiaco";
+		$password="aiOS..2x";
+		$conex=mysql_connect($servidor, $usuario, $password) or die(mysql_error());
+		mysql_select_db($base_datos, $conex);
+		$sql="INSERT INTO landing_mailing (fecha) VALUES ('".$fecha."')";
+		$result=mysql_query($sql);
+		header('Location: http://www.diplomados.uia.mx/index.php');
+	}
+/*
+mysql_select_db($database_otono2011, $otono2011);
+$query_media_articles = "SELECT id_article, title FROM media_articles ORDER BY date DESC LIMIT 0, 4";
+$media_articles = mysql_query($query_media_articles, $otono2011) or die(mysql_error());
+//$row_media_articles = mysql_fetch_assoc($media_articles);
+//$totalRows_media_articles = mysql_num_rows($media_articles);
+*/
+mysql_select_db($database_otono2011, $otono2011);
+$query_weekly_article = "SELECT * FROM weekly_articles ORDER BY `date` DESC LIMIT 0, 1";
+$weekly_article = mysql_query($query_weekly_article, $otono2011) or die(mysql_error());
+$row_weekly_article = mysql_fetch_assoc($weekly_article);
+$totalRows_weekly_article = mysql_num_rows($weekly_article);
+
 $hoy = date('Ymd');
+
+
+mysql_select_db($database_otono2011, $otono2011);
+$query_programas_izq = "SELECT site_programs.id_discipline, site_programs.id_program, site_programs.imagen, site_programs.program_name AS programa, site_fechas_ini.fecha AS fecha_inicio FROM site_programs, site_fechas_ini WHERE site_programs.id_program=site_fechas_ini.id_program AND site_fechas_ini.publicado=1 ORDER BY RAND() LIMIT 2";
+$programas_izq = mysql_query($query_programas_izq, $otono2011) or die(mysql_error());
+$row_programas_izq = mysql_fetch_assoc($programas_izq);
+$totalRows_programas_izq = mysql_num_rows($programas_izq);
+
+mysql_select_db($database_otono2011, $otono2011);
+$query_programas_der = "SELECT site_fechas_idiomas.id_program AS id_program_idioma, site_fechas_idiomas.nivel, site_fechas_idiomas.inicio, (select site_programs.imagen FROM site_programs WHERE site_fechas_idiomas.id_program=site_programs.id_program) AS imagen_idioma FROM site_fechas_idiomas, site_programs WHERE site_fechas_idiomas.inicio > ".$hoy." ORDER BY RAND() LIMIT 2";
+$programas_der = mysql_query($query_programas_der, $otono2011) or die(mysql_error());
+$row_programas_der = mysql_fetch_assoc($programas_der);
+$totalRows_programas_der = mysql_num_rows($programas_der);
+
+mysql_select_db($database_otono2011, $otono2011);
+$query_programas_izqb = "SELECT site_programs.id_discipline, site_programs.id_program, site_programs.imagen, site_programs.program_name AS programa, site_fechas_ini.fecha AS fecha_inicio FROM site_programs, site_fechas_ini WHERE site_programs.id_program=site_fechas_ini.id_program AND site_fechas_ini.publicado=1 ORDER BY RAND() LIMIT 3";
+$programas_izqb = mysql_query($query_programas_izqb, $otono2011) or die(mysql_error());
+$row_programas_izqb = mysql_fetch_assoc($programas_izqb);
+$totalRows_programas_izqb = mysql_num_rows($programas_izqb);
+
+mysql_select_db($database_otono2011, $otono2011);
+$query_carrusel = "SELECT * FROM carrusel_index WHERE `visible`='SI' ORDER BY `orden` ASC";
+$carrusel = mysql_query($query_carrusel, $otono2011) or die(mysql_error());
 
 mysql_select_db($database_otono2011, $otono2011);
 $query_community_opinions_top3 = "SELECT * FROM community_opinions ORDER BY `date` DESC LIMIT 0, 5";
 $community_opinions_top3 = mysql_query($query_community_opinions_top3, $otono2011) or die(mysql_error());
 //$row_community_opinions_top3 = mysql_fetch_assoc($community_opinions_top3);
 //$totalRows_community_opinions_top3 = mysql_num_rows($community_opinions_top3);
-
-function WordLimiter($text, $limit,$word_count){
+/*
+mysql_select_db($database_otono2011, $otono2011);
+$query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
+$ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
+$row_ad = mysql_fetch_assoc($ad);
+$totalRows_ad = mysql_num_rows($ad);
+*/
+function WordLimiter($text,$limit,$word_count){
 	$limit = $limit - $word_count;
 	$explode = explode(' ',$text);
 	$string  = '';
@@ -342,13 +403,14 @@ a.prev span, a.next span {
             <li><a class="discipline_1" onclick="showMenu(1)">Arquitectura</a></li>
             <li><a class="discipline_2" onclick="showMenu(2)">Arte</a></li>
             <li><a class="discipline_3" onclick="showMenu(3)">Diseño</a></li>
+            <li><a class="discipline_4" onclick="showMenu(4)">Comunicaci&oacute;n</a></li>
             <li><a class="discipline_7" onclick="showMenu(7)">Pol&iacute;tica y Derecho</a></li>
             <li><a class="discipline_5" onclick="showMenu(5)">Desarrollo Humano</a></li>
             <li><a class="discipline_6" onclick="showMenu(6)">Salud</a></li>     
             <li><a class="discipline_8" onclick="showMenu(8)">Negocios</a></li>
             <li><a class="discipline_9" onclick="showMenu(9)">Tecnolog&iacute;a</a></li>
             <li><a class="discipline_10" onclick="showMenu(10)">Humanidades</a></li>
-            <li><a href="programas.php?id_discipline=18&id_program=323">Ciencias Religiosas</a></li>
+            <li><a onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=18&id_program=323'">Ciencias Religiosas</a></li>
             <li><a class="discipline_11" onclick="showMenu(11)">Gastronom&iacute;a</a></li>
             <li><a class="discipline_12" onclick="showMenu(12)">Preparatoria Abierta</a></li>
             <li><a class="discipline_14" onclick="showMenu(14)">Idiomas</a></li>
@@ -367,11 +429,13 @@ a.prev span, a.next span {
           <ul>
             <li><a class="discipline_20" onclick="showMenu(20)">Sede sur: Estudio Lofft</a></li>
             <li><a class="discipline_13" onclick="showMenu(13)">Xochitla</a></li>
+            <li><a class="discipline_24	" onclick="showMenu(24)">Sede CICEANA</a></li>
+
           </ul>
           <h4 style="padding-top: 0px;"></h4>
           <p id="search_on" style="padding:5px"><a onclick="show_search()" style="color:#EF353C; font-weight:bold;">Busca tu programa de inter&eacute;s </p></a>
           <h4 style="padding-top: 0px;"></h4>
-          <p style="padding:0px 5px 5px 5px;"><a href="catalogo.php"style="color:#EF353C; font-weight:bold;">Consulta cat&aacute;logo oferta primavera 2013</a></p>
+          <p style="padding:0px 5px 5px 5px;"><a href="catalogo.php"style="color:#EF353C; font-weight:bold;">Consulta cat&aacute;logo oferta oto&ntilde;o 2013</a></p>
         </div>
       </div>
     </div>
@@ -381,6 +445,94 @@ a.prev span, a.next span {
 </div>
   <div id= "contenedor_irregular_index">
     <div class="bannersuperior" style="margin-bottom:0px"><!-- InstanceBeginEditable name="weekly_articles" -->
+    <?php /*$random=rand(1,2); ?>
+    
+      <table width="100%" border="0" cellspacing="10" cellpadding="0">
+        <tr align="left"  valign="top" >        
+         <?php
+				if($random == 1){ ?>
+        
+        
+        
+          <td onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izq['id_discipline'];?>&id_program=<?php echo $row_programas_izq['id_program']; ?>'" valign="middle" style="background: url(imagenes/uploads/banner_prox/<?php echo $row_programas_izq['imagen']; ?>) no-repeat top left; cursor:pointer; width:155px; height:83px; padding-left:185px; margin-top:5px; padding-right:3px;"><h5><?php echo WordLimiter($row_programas_izq['programa'], 6); ?></h5>
+          <strong>Inicio</strong>: <?php echo strftime("%d de %B", strtotime($row_programas_izq['fecha_inicio'])); ?> </td>
+          
+       <?php } else{
+           if($row_programas_der != NULL){ ?>
+           
+          <td onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izq['id_discipline'];?>&id_program=<?php echo $row_programas_izq['id_program']; ?>'" valign="middle" style="background: url(imagenes/uploads/banner_prox/<?php echo $row_programas_der['imagen_idioma']; ?>) no-repeat top left; cursor:pointer; width:160px; height:83px; padding-left:181px; margin-top:5px; padding-right:3px;"><h5><?php echo ucfirst(strtolower($row_programas_der['nivel'])); ?></h5>
+          <strong>Inicio</strong>: <?php echo strftime("%d de %B", strtotime($row_programas_der['inicio'])); ?> </td>
+          
+           <?php }else{ ?>
+           
+           <td onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izq['id_discipline'];?>&id_program=<?php echo $row_programas_izq['id_program']; ?>'" valign="middle"  style="background: url(imagenes/uploads/banner_prox/<?php echo $row_programas_izq['imagen']; ?>) no-repeat top left; cursor:pointer; width:155px; height:83px; padding-left:185px; margin-top:5px; padding-right:3px;"><h5><?php echo WordLimiter($row_programas_izq['programa'], 6); ?></h5>
+          <strong>Inicio</strong>: <?php echo strftime("%d de %B", strtotime($row_programas_izq['fecha_inicio'])); ?> </td>
+          
+          <?php }} ?>	
+           
+          <?php if($random==1){
+						if($row_programas_der != NULL){
+						?>
+          
+         <td><h2>Próximos programas a iniciar</h2>
+             <ul>
+             <?php do { ?>
+              <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=14&id_program=<?php echo $row_programas_der['id_program_idioma']; ?>'"><?php echo ucfirst(strtolower($row_programas_der['nivel'])); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_der['inicio'])); ?></span></li>
+              <?php $row_programas_izq = mysql_fetch_assoc($programas_izq) ?>
+              <?php if ($row_programas_izq != NULL){?>
+              <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izq['id_discipline'];?>&id_program=<?php echo $row_programas_izq['id_program']; ?>'"><?php echo WordLimiter($row_programas_izq['programa'], 6); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_izq['fecha_inicio'])); ?></span><?php } ?></li>
+              
+              <?php } while ($row_programas_der = mysql_fetch_assoc($programas_der)); ?>
+             </ul></td>
+        </tr>
+      </table>
+      <?php }else{ ?>
+      
+      <td><h2>Próximos programas a iniciar</h2>
+             <ul>
+             <?php do { ?>
+             
+            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izqb['id_discipline'];?>&id_program=<?php echo $row_programas_izqb['id_program']; ?>'"><?php echo WordLimiter($row_programas_izqb['programa'], 6); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_izqb['fecha_inicio'])); ?></span></li>
+             
+              <!--a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=14&id_program=<?php echo $row_programas_izqb['id_program_idioma']; ?>'"><?php echo ucfirst(strtolower($row_programas_izqb['nivel'])); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_izqb['inicio'])); ?></span></li-->
+             
+              <?php } while ($row_programas_izqb = mysql_fetch_assoc($programas_izqb)); ?>
+             </ul></td>
+        </tr>
+      </table>
+      
+          <?php }}else{ 
+						if($row_programas_der != NULL){
+					?>
+          
+         <td><h2>Próximos programas a iniciar</h2>
+             <ul>
+             <?php do { ?>
+              <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izq['id_discipline'];?>&id_program=<?php echo $row_programas_izq['id_program']; ?>'"><?php echo WordLimiter($row_programas_izq['programa'], 6); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_izq['fecha_inicio'])); ?></span></li>
+              <?php $row_programas_der = mysql_fetch_assoc($programas_der) ?>
+              <?php if ($row_programas_der != NULL){?>
+                            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=14&id_program=<?php echo $row_programas_der['id_program_idioma']; ?>'"><?php echo ucfirst(strtolower($row_programas_der['nivel'])); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_der['inicio'])); ?></span><?php } ?></li>
+              
+              <?php } while ($row_programas_izq = mysql_fetch_assoc($programas_izq));
+							
+							}else{ 
+							?>
+              
+              <td><h2>Próximos programas a iniciar</h2>
+             <ul>
+             <?php do {
+							 ?>
+              <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izqb['id_discipline'];?>&id_program=<?php echo $row_programas_izqb['id_program']; ?>'"><?php echo WordLimiter($row_programas_izqb['programa'], 6); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_izqb['fecha_inicio'])); ?></span></li>
+                                          
+                            <?php } while ($row_programas_izqb = mysql_fetch_assoc($programas_izqb));
+							
+							}} ?>
+              
+             <!--li><span class="contenido_diploRojo">24 de marzo</span> / Espacio Público y Ciudades Seguras </li>
+             <li><span class="contenido_diploRojo">24 de marzo</span> / Espacio Público y Ciudades Seguras </li-->
+            </ul></td>
+        </tr>
+      </table> */ ?>
       <!-- InstanceEndEditable --> </div>
     <div id="slide_menu" style="display:none; width:190px; background: url(imagenes/sombrita_submenu.png) repeat-y; background-color:#D6D7D9; position:relative; left:-11px; z-index:1000; margin-bottom:-2000px; padding-bottom: 10px;">
 
@@ -396,67 +548,49 @@ a.prev span, a.next span {
 					<a class="next" id="foo5_next" href="#"><span>next</span></a>
 				</div>
 				<div id="foo5" class="foo5">
-					<div class="slide">
-						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=23&id_program=387&titulo=Social_Media_Strategies'">
-							<img src="imagenes/carrusel/carrusel14.jpg" alt="carousel 4" width="775" height="300" />
-							<div style="width:172px">
-								<h4 align="center">Harvard en la Ibero -40% Curso Estrategias Social Media</h4>
+					<!--div class="slide" id="parrafo1">
+						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/extras.php'">
+							<img src="imagenes/carrusel/carrusel_promo.png" alt="carousel 4" width="775" height="300" />
+							<div style="width:172px";>
+								<h4 align="center">Obt&eacute;n 40% de descuento si te inscribes con un amigo.</h4>
 								<hr id="linea1" style="margin-left:10px">
-								<p align="center">Descuento 25 al 31 de marzo.</p>
+								<p align="center">Aplica en cursos y diplomados</p>
+							</div>
+						</a>
+	       				
+					</div-->
+					<?php while($row_carrusel = mysql_fetch_assoc($carrusel)){?>
+	       			<div class="slide">
+	       				<a href="#" onclick="parent.location='<?php echo $row_carrusel['destino']; ?>'">
+							<img src="imagenes/carrusel/<?php echo $row_carrusel['imagen_carrusel']; ?>" alt="carousel 1" width="775" height="300" />
+							<div style="width:172px">
+								<h4 align="center"><?php echo $row_carrusel['titulo']; ?></h4>
+								<hr id="linea1" style="margin-left:10px">
+								<p align="center"><?php echo $row_carrusel['texto']; ?></p>
+							</div>
+						</a>
+					</div>
+					<?php } ?>
+	      			 <!--div class="slide">
+	      			 	<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=20'">
+							<img src="imagenes/carrusel/banner_carrusel_lofft.png" alt="carousel 2" width="775" height="300" />
+							<div style="width:172px">
+								<h4 align="center">&iquest;Ya conoces nuestra sede en el sur?</h4>
+								<hr id="linea1" style="margin-left:10px">
+								<p align="center">ESTUDIO LOFFT, otra forma de estudiar</p>
 							</div>
 						</a>
 					</div>
 					<div class="slide">
-						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=10'">
-							<img src="imagenes/carrusel/carrusel_humanidades.jpg" alt="carousel 4" width="775" height="300" />
+						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=2&id_program=415'">
+							<img src="imagenes/carrusel/carrusel2.jpg" alt="carousel 3" width="775" height="300" />
 							<div style="width:172px">
-								<h4 align="center">Recuerda y vuelve a vivir</h4>
+								<h4 align="center">No hay imágenes inocentes</h4>
 								<hr id="linea1" style="margin-left:10px">
-								<p align="center">Taller de escritura autobiogr&aacute;fica</p>
-							</div>
+								<p align="center">Curso Análisis y creación de la imagen pictórica</p>
+							</div-->
 						</a>
 					</div>
-					<div class="slide">
-						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=15'">
-							<img src="imagenes/carrusel/carrusel_online.jpg" alt="carousel 4" width="775" height="300" />
-							<div style="width:172px">
-								<h4 align="center">&iquest;Conf&iacute;as en tu escritura?</h4>
-								<hr id="linea1" style="margin-left:10px">
-								<p align="center">Tips para mejorar tu ortograf&iacute;a</p>
-							</div>
-						</a>
-					</div>
-					 <div class="slide">
-	      			 	<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=11'">
-							<img src="imagenes/carrusel/carrusel_gastronomia.jpg" alt="carousel 3" width="775" height="300" />
-							<div style="width:172px">
-								<h4 align="center">Chocolate</h4>
-								<hr id="linea1" style="margin-left:10px">
-								<p align="center">Sagrada herencia mexicana</p>
-							</div>
-						</a>
-					</div>	
-					<div class="slide">
-	      			 	<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=9'">
-							<img src="imagenes/carrusel/carrusel_tecnologia.jpg" alt="carousel 3" width="775" height="300" />
-							<div style="width:172px">
-								<h4 align="center">Norma ISO 9000</h4>
-								<hr id="linea1" style="margin-left:10px">
-								<p align="center">&iquest;Por qu&eacute; certificarse?</p>
-							</div>
-						</a>
-					</div>	
-					<div class="slide">
-	      			 	<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=10&id_program=359&titulo=Estados_Unidos:_Pol%26%2365533%3Btica,_econom%26%2365533%3Ba_y_sociedad'">
-							<img src="imagenes/carrusel/carrusel_eu.jpg" alt="carousel 3" width="775" height="300" />
-							<div style="width:172px">
-								<h4 align="center">Diplomado Estados Unidos</h4>
-								<hr id="linea1" style="margin-left:10px">
-								<p align="center">Pol&iacute;tica econom&iacute;a y sociedad</p>
-							</div>
-						</a>
-					</div>						
-				</div>
 				<div class="clearfix"></div>
             </div>
 		</div>
@@ -535,14 +669,14 @@ a.prev span, a.next span {
 			    </form>
 			  </div>
             <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                <tr>
+                <!--tr>
              		<td height="55" align="left" valign="bottom">
                 		<img style="outline:none; border:none;" valign="bottom" src="imagenes/comunidad_ibero_opina.png" usemap="#planetmap">
-                  		<!--<img src="imagenes/comunidad_ibero_participa.png" border="0" style="margin-bottom:4px; margin-right:15px; cursor:pointer;" onclick="parent.location='http://www.diplomados.uia.mx/participa.php';" /></td>-->	
+                  		<<img src="imagenes/comunidad_ibero_participa.png" border="0" style="margin-bottom:4px; margin-right:15px; cursor:pointer;" onclick="parent.location='http://www.diplomados.uia.mx/participa.php';" /></td>	
                 		<map name="planetmap">
 							<area shape="rect" coords="452,13,535,30" href="participa.php" alt="Sun">
 						</map>
-				</tr>
+				</tr-->
                 <tr>
                 	<td>&nbsp;</td>
                 </tr>
@@ -701,11 +835,9 @@ a.prev span, a.next span {
           <tr>
             <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/banner_solicitalo.png" width="181px" height="115" border="0" /></a></td>
           </tr>
-          <tr>
-          	<td  align="right" valign="top" >&nbsp;</td>
-          	</tr>
-
-             <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/banner_newsletter.png) no-repeat bottom transparent; width:191px;">
+          
+           <tr>
+            <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/banner_newsletter.png) no-repeat bottom transparent; width:191px;">
             	<form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
                 <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">
                   <tbody><tr>
@@ -713,7 +845,7 @@ a.prev span, a.next span {
                     <td width="38%">&nbsp;</td>
                   </tr>
                   <tr>
-                    <td align="right">
+                    <td align="right"><!-- begin subscription_form_widget.tmpl -->
                       
                       <input type="hidden" name="list" value="newsDEC">
                       <input type="hidden" name="f" id="f_s" value="subscribe" checked="checked">

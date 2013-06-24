@@ -61,6 +61,9 @@ function showMenu(discipline, program){
 				case 23: 
 					$('div#slide_menu').css('top', '270px')
 				break;
+				case 24: 
+					$('div#slide_menu').css('top', '480px')
+				break;
 				default: 
 					$('div#slide_menu').css('top', '-1px')
 			}

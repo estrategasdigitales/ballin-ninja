@@ -9,40 +9,42 @@ mysql_select_db($database_otono2011, $otono2011);
 
 /// D I P L O M A D O S
 
-$query_progs_diplos = "SELECT * FROM site_programs WHERE program_type = 'diplomado' AND cancelado = 0 AND (id_discipline  = ".$disciplina." OR id_discipline_alterna = ".$disciplina." OR id_discipline_alterna_2 = ".$disciplina.") AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-00-00' AND periodo = 'p') ORDER BY program_name ASC";
+$query_progs_diplos = "SELECT * FROM site_programs WHERE program_type = 'diplomado' AND cancelado = 0 AND (id_discipline  = ".$disciplina." OR id_discipline_alterna = ".$disciplina." OR id_discipline_alterna_2 = ".$disciplina.") AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01') ORDER BY program_name ASC";
 $progs_diplos = mysql_query($query_progs_diplos, $otono2011) or die(mysql_error());    
 $row_progs_diplos = mysql_fetch_assoc($progs_diplos);
 $totalRows_progs_diplos = mysql_num_rows($progs_diplos);
 
 /// C U R S O S
 
-$query_progs_cursos = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND cancelado = 0 AND (id_discipline = ".$disciplina." OR id_discipline_alterna  = ".$disciplina." OR id_discipline_alterna_2  = ".$disciplina.") AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2012-12-06' AND periodo = 'p') ORDER BY idioma ASC, program_name ASC";
+$query_progs_cursos = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND cancelado = 0 AND (id_discipline = ".$disciplina." OR id_discipline_alterna  = ".$disciplina." OR id_discipline_alterna_2  = ".$disciplina.") AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01') ORDER BY idioma ASC, program_name ASC";
 $progs_cursos = mysql_query($query_progs_cursos, $otono2011) or die(mysql_error());
 $row_progs_cursos = mysql_fetch_assoc($progs_cursos);
 $totalRows_progs_cursos = mysql_num_rows($progs_cursos);
 
 /// P R O G R A M A S
 
-$query_progs_progs = "SELECT * FROM site_programs WHERE program_type = 'programa' AND cancelado = 0 AND id_discipline = ".$disciplina." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2012-12-06' AND periodo = 'p') ORDER BY idioma ASC, program_name ASC";
+$query_progs_progs = "SELECT * FROM site_programs WHERE program_type = 'programa' AND cancelado = 0 AND periodo = 'o' AND id_discipline = ".$disciplina." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01') ORDER BY idioma ASC, program_name ASC";
 $progs_progs = mysql_query($query_progs_progs, $otono2011) or die(mysql_error());
 $row_progs_progs = mysql_fetch_assoc($progs_progs);
 $totalRows_progs_progs = mysql_num_rows($progs_progs);
 
 /// P R O G R A M A S   H P
 
-$query_progs_hp = "SELECT * FROM site_programs WHERE program_type = 'programahp'  AND cancelado = 0 AND id_discipline = ".$disciplina." OR id_discipline_alterna = ".$disciplina." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-00-00' AND periodo = 'p') ORDER BY idioma ASC, program_name ASC";
+$query_progs_hp = "SELECT * FROM site_programs WHERE program_type = 'programahp'  AND cancelado = 0 AND id_discipline = ".$disciplina." OR id_discipline_alterna = ".$disciplina." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01') ORDER BY idioma ASC, program_name ASC";
 $progs_hp = mysql_query($query_progs_hp, $otono2011) or die(mysql_error());
 $row_progs_hp = mysql_fetch_assoc($progs_hp);
 $totalRows_progs_hp = mysql_num_rows($progs_hp);
 
 /// I D I O M A S 
 
-$query_progs_cursos_i = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND idioma = 1 AND cancelado = 0 AND id_discipline = ".$disciplina." AND id_program IN (SELECT id_program FROM site_fechas_idiomas WHERE inicio >= '2013-00-00' AND periodo = 'p') ORDER BY idioma ASC, program_name ASC";
+$query_progs_cursos_i = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND idioma = 1 AND cancelado = 0 AND id_discipline = ".$disciplina." AND id_program IN (SELECT id_program FROM site_fechas_idiomas WHERE inicio >= '2013-06-01' AND periodo = 'o') ORDER BY idioma ASC, program_name ASC";
 $progs_cursos_i = mysql_query($query_progs_cursos_i, $otono2011) or die(mysql_error());
 $row_progs_cursos_i = mysql_fetch_assoc($progs_cursos_i);
 $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
 
+//echo $query_progs_cursos_i;die;
 
+	
 	$response = '<p class="header_programas">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="close_slider_menu" style="cursor:pointer;"><img style="border:none;" src="imagenes/cerrar_slidemenu.png"></a></p>';
 	
 	$response .= '<p style="padding-left:10px;"><a href="#" onclick=parent.location="http://www.diplomados.uia.mx/articulos.php?id_discipline='.$disciplina.'" style="font-size:16px; font-weight:bold; color: #666666;">Entrevista</a></p>';
@@ -54,7 +56,7 @@ $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
 
 	 	$response .= '<p style="padding-left:10px"><img src="imagenes/linea_submenu.png"><p style="font-size:16px; font-weight:bold; padding-left:10px;">Diplomados</p><p style="padding-left:10px;"><img src="imagenes/linea_submenu.png"></p><ul style="list-style-type:none; margin-left:-29px;">';
 
-	 }elseif($totalRows_progs_progs != 0){
+	 }elseif($totalRows_progs_progs != 0 ){
 
 		$response .= '<img src="imagenes/linea_submenu.png">';
 

@@ -202,7 +202,7 @@ s.parentNode.insertBefore(ga, s);
      </div>
     <div class="bannersuperior2" style="width:706px"></div>
     <br />
-    <div id="slide_menu" style="display:none; width:190px; background: url(imagenes/sombrita_submenu.png) repeat-y; background-color:#D6D7D9; position:relative; left:189px; top:19px; z-index:1000; margin-bottom:-1000px">
+    <div id="slide_menu" style="display:none; width:190px; background: url(imagenes/sombrita_submenu.png) repeat-y; background-color:#D6D7D9; position:relative; left:189px; top:19px; z-index:10; margin-bottom:-1000px">
 
    </div>
   </div>
@@ -229,6 +229,7 @@ s.parentNode.insertBefore(ga, s);
             <li><a class="discipline_1" onclick="showMenu(1)">Arquitectura</a></li>
             <li><a class="discipline_2" onclick="showMenu(2)">Arte</a></li>
             <li><a class="discipline_3" onclick="showMenu(3)">Diseño</a></li>
+            <li><a class="discipline_4" onclick="showMenu(4)">Comunicaci&oacute;n</a></li>
             <li><a class="discipline_7" onclick="showMenu(7)">Pol&iacute;tica y Derecho</a></li>
             <li><a class="discipline_5" onclick="showMenu(5)">Desarrollo Humano</a></li>
             <li><a class="discipline_6" onclick="showMenu(6)">Salud</a></li>     
@@ -254,6 +255,7 @@ s.parentNode.insertBefore(ga, s);
           <ul>
             <li><a class="discipline_20" onclick="showMenu(20)">Sede sur: Estudio Lofft</a></li>
             <li><a class="discipline_13" onclick="showMenu(13)">Xochitla</a></li>
+            <li><a class="discipline_24 " onclick="showMenu(24)">Sede CICEANA</a></li>
           </ul>
           <h4 style="padding-top: 0px;"></h4>
           <p id="search_on" style="padding:5px"><a onclick="show_search()" style="color:#EF353C; font-weight:bold;">Busca tu programa de inter&eacute;s </p></a>
@@ -342,7 +344,7 @@ s.parentNode.insertBefore(ga, s);
 </div>
 
   <div id= "contenedor_irregular" style="float:left; margin-left:36px; width:795px" >
-    <div id= "type4" class="cuadro_articulos"> <img class="articulos_img" src="imagenes/uploads/discipline_articles/<?php echo $row_pictures['picture']; ?>" width="790" height="266" /> 
+    <div id= "type4" class="cuadro_articulos"> <img class="articulos_img" src="../imagenes/uploads/discipline_articles/<?php echo $row_pictures['picture']; ?>" width="790" height="266" /> 
     </div>
     <div id= "type4" class="rectangulo_abajo">
     	      <div class="textos"><!-- InstanceBeginEditable name="contenido" -->

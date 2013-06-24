@@ -299,20 +299,20 @@ body {
             <td align="center">
             <div>
                 <object style="width:780px;height:500px" >
-                  <param name="movie" value="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf?mode=mini&amp;embedBackground=%23000000&amp;backgroundColor=%23222222&amp;documentId=121220213727-ada96b7e7e44478292fc472706be4faa" />
+                  <param name="movie" value="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf?mode=mini&amp;embedBackground=%23000000&amp;backgroundColor=%23222222&amp;documentId=130603185935-e1300bc8dc275df97a69f4fba05c78ae" />
                   <param name="allowfullscreen" value="true"/>
                   <param name="menu" value="false"/>
                   <param name="wmode" value="transparent"/>
-                  <embed src="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf" type="application/x-shockwave-flash" allowfullscreen="true" menu="false" wmode="transparent" style="width:780px;height:500px" flashvars="mode=mini&amp;backgroundColor=%23222222&amp;documentId=121220213727-ada96b7e7e44478292fc472706be4faa" />
+                  <embed src="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf" type="application/x-shockwave-flash" allowfullscreen="true" menu="false" wmode="transparent" style="width:780px;height:500px" flashvars="mode=mini&amp;backgroundColor=%23222222&amp;documentId=130603185935-e1300bc8dc275df97a69f4fba05c78ae" />
                 </object>  
                 <div style="width:780px;text-align:left;">
-                  <h2 style="text-align:center;"><a href="http://issuu.com/diplomados-ibero/docs/oferta-prim2013?mode=window&amp;backgroundColor=%23222222" target="_blank">Abrir publicación</a></h2>
+                  <h2 style="text-align:center;"><a href="http://issuu.com/diplomados-ibero/docs/catalogo_por_pagina/1?e=3466234/2950957" target="_blank">Abrir publicación</a></h2>
                 </div>
               </div>
               </td>
           </tr>
           <tr>
-            <td align="center"><a href="temarios/primavera_2013.pdf" target="_blank"><img src="imagenes/descargar_catalogo.png" alt="Descargar c&aacute;talogo" width="204" height="48" border="0" /></a></td>
+            <td align="center"><a href="temarios/otono_2013.pdf" target="_blank"><img src="imagenes/descargar_catalogo.png" alt="Descargar c&aacute;talogo" width="204" height="48" border="0" /></a></td>
            </tr>
         </table>
         <!-- InstanceEndEditable --> </div>

@@ -184,6 +184,7 @@ s.parentNode.insertBefore(ga, s);
           <ul>
             <li><a class="discipline_20" onclick="showMenu(20)">Sede sur: Estudio Lofft</a></li>
             <li><a class="discipline_13" onclick="showMenu(13)">Xochitla</a></li>
+            <li><a class="discipline_24	" onclick="showMenu(24)">Sede CICEANA</a></li>
           </ul>
           <h4 style="padding-top: 0px;"></h4>
           <p id="search_on" style="padding:5px"><a onclick="show_search()" style="color:#EF353C; font-weight:bold;">Busca tu programa de inter&eacute;s </p></a>
@@ -195,7 +196,7 @@ s.parentNode.insertBefore(ga, s);
   </div>
   <div id= "contenedor_irregular_index" >
     <div id= "type4" class="cuadro_articulos_secciones" style="border:0px;width:816px;padding:0px">
-    <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/banner_directorio.png);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
+    <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/m_directorio.jpg);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
     				      
     </div>
     
@@ -351,11 +352,10 @@ s.parentNode.insertBefore(ga, s);
 		  				Tel. 59.50.40.00 <br />
 		  				Ext. 7602&nbsp;&nbsp; <a href="mailto:monica.reyes@ibero.mx"><br />
 			      monica.reyes@ibero.mx</a></p></td>
-		  			<td width="35%" height="30" valign="top"><p>Julio A. Mart&iacute;nez Castillo<br />
+		  			<td width="35%" height="30" valign="top"><p>Alger Huitr&oacute;n S&aacute;nchez<br />
 		  			  Tel. 59.50.40.00<br />
-		  			  E
-		  			  xt. 7249, 7614, 7602<br />
-<a href="mailto:julio.martinez@ibero.mx">julio.martinez@ibero.mx</a></p></td>
+		  			  Ext. 7614<br />
+<a href="mailto:alger.huitron@ibero.mx">alger.huitron@ibero.mx</a></p></td>
 	  			</tr>
 		  		<tr>
 		  			<td width="28%" align="right" valign="top"><p><strong>Negocios y Tecnolog&iacute;a</strong></p></td>
@@ -374,11 +374,10 @@ s.parentNode.insertBefore(ga, s);
 		  				Tel. 59.50.40.00 <br />
 		  				Ext. 7602&nbsp;&nbsp; <a href="mailto:monica.reyes@ibero.mx"><br />
 			      monica.reyes@ibero.mx</a></p></td>
-		  			<td width="35%" height="30" valign="top"><p>Julio A. Mart&iacute;nez Castillo<br />
+		  			<td width="35%" height="30" valign="top"><p>Alger Huitr&oacute;n S&aacute;nchez<br />
 		  			  Tel. 59.50.40.00<br />
-		  			  E
-		  			  xt. 7249, 7614, 7602<br />
-<a href="mailto:julio.martinez@ibero.mx">julio.martinez@ibero.mx</a></p></td>
+		  			  Ext. 7614<br />
+<a href="mailto:alger.huitron@ibero.mx">alger.huitron@ibero.mx</a></p></td>
 	  			</tr>
 		  		<!-- <tr>
 		  			<td width="28%" align="right" valign="top"><p><strong>Humanidades</strong></p></td>

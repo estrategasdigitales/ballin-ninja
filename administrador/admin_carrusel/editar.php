@@ -26,10 +26,10 @@ require_once('../../Connections/otono2011.php');
   if(isset($_POST['submitted'])){
 
     $id=$_POST['id_banner'];
-    $titulo = htmlentities( $_POST['titulo']);
-    $texto = htmlentities($_POST['texto']); 
-    $destino = htmlentities($_POST['destino']); 
-    $orden = htmlentities($_POST['orden']); 
+    $titulo =  $_POST['titulo'];
+    $texto = $_POST['texto']; 
+    $destino = $_POST['destino']; 
+    $orden = $_POST['orden']; 
     $visible= $_POST['visible'];
 
     
@@ -68,6 +68,13 @@ require_once('../../Connections/otono2011.php');
 <link href="../../css/estilos.css" rel="stylesheet" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <title>Administrador Carrusel - Editar</title>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+CKEDITOR.replace( 'texto' );
+})
+</script>
 </head>
 
 <body>
@@ -87,7 +94,7 @@ require_once('../../Connections/otono2011.php');
        </tr>
        <tr>
         <td colspan="2" align="center">
-        <img src="../../imagenes/carrusel/<?php echo $imagen; ?>" width="80%"/>
+        <img src="../../otono_2011/imagenes/carrusel/<?php echo $imagen; ?>" width="80%"/>
        </td>
        </tr>
        <tr>
@@ -103,7 +110,7 @@ require_once('../../Connections/otono2011.php');
        </tr>
        <tr>
           <td width="25%">Texto:</td>
-          <td><input type="text" name="texto" maxlength="140" size="80" value="<?php echo $texto; ?>"/></td>
+          <td><textarea id="texto" name="texto"><?php echo $texto; ?></textarea></td>
               <!--input type="text" name="destino" size="60" placeholder="Ej: http://www.diplomados.uia.mx/programas.php?id_discipline=4&id_program=392"/--></td>
             </tr>
             <tr>
