@@ -170,7 +170,7 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
     //alert(id_discipline);
     $('td#td_programas').html('Cargando...');
     if (id_discipline=="")
-    {
+    { 
       document.getElementById('td_programas').innerHTML="";
       return;
     }
