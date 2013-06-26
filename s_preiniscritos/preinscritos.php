@@ -1,7 +1,15 @@
 <?php
-  require_once('restrict_access.php'); ?>
-  <?php require_once('Connections/des_preinscritos.php'); ?>
-  <?php
+  require_once('restrict_access.php'); 
+  require_once('Connections/des_preinscritos.php'); 
+
+  if(!isset($_GET['id_discipline']) || $_GET['id_discipline'] == NULL){
+    $_GET['id_discipline'] = "";
+  }
+
+  if(!isset($_GET['id_program']) || $_GET['id_program'] == NULL){
+    $_GET['id_program'] = "";
+  }
+
   if (!function_exists("GetSQLValueString")) {
     function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
     {
@@ -254,7 +262,7 @@ $(document).ready(function() {
           <h2>Administrador | <a href="logout.php">Cerrar sesi&oacute;n</a></h2>
         </div>
         <div id="home_link">
-          <form action="<? echo $_SERVER['PHP_SELF']; ?>" method="get" name="form2" id="form2">
+          <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" name="form2" id="form2">
             <table width="100%" cellspacing="0" cellpadding="0" border="0">
               <tbody>
                 <tr>
@@ -263,15 +271,15 @@ $(document).ready(function() {
                    <label>Área:
                     <select <?php if($_SESSION['loggedin_id_user'] == 37){ echo "disabled='disabled'";} ?> onchange="load_programs(this.value);" id="id_discipline" name="id_discipline" class="contenido_diplo">
                      <option value="0" selected="selected">Todas mis &aacute;reas</option>
-                     <? do{ 
+                     <?php do{ 
                 //query para obtener las areas a las que puede acceder el usuario logeado
                        mysql_select_db($database_des_preinscritos, $des_preinscritos);
                        $query_areas_select = "SELECT discipline FROM disciplines WHERE id_discipline = ".$row_disciplinas['id_discipline'];
                        $areas_select = mysql_query($query_areas_select, $des_preinscritos) or die(mysql_error());
                        $row_areas_select = mysql_fetch_assoc($areas_select);
                        ?>
-                       <option value="<? echo $row_disciplinas['id_discipline']; ?>" <? if($row_disciplinas['id_discipline'] == $_GET['id_discipline']){ echo 'selected="selected"'; }?>><? echo utf8_encode($row_areas_select['discipline']); ?></option>
-                       <? }while($row_disciplinas = mysql_fetch_assoc($disciplinas)); 
+                       <option value="<?php echo $row_disciplinas['id_discipline']; ?>" <?php if($row_disciplinas['id_discipline'] == $_GET['id_discipline']){ echo 'selected="selected"'; }?>><?php echo utf8_encode($row_areas_select['discipline']); ?></option>
+                       <?php }while($row_disciplinas = mysql_fetch_assoc($disciplinas)); 
                             $row_disciplinas = mysql_fetch_assoc($disciplinas);?>
                      </select>
                    </label>
@@ -296,7 +304,7 @@ $(document).ready(function() {
                   <select id="id_program" name="id_program" class="contenido_diplo" style="max-width:350px; width:350px;">
                     <option <?php if($_SESSION['loggedin_id_user'] == 37){echo "disabled='disabled'";} ?>value="0">Todos los programas</option>
                     <option disabled="disabled">-------DIPLOMADOS-------</option>
-                    <? 
+                    <?php 
                     $tipo_ant = 'diplomado';
                     do{
                       $tipo = $row_programas['program_type'];
@@ -339,16 +347,16 @@ $(document).ready(function() {
  <div id="menu">
    <div id="menu_int">
     <ul>
-      <li><? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/preinscritos.php'){ ?><span style="color:#F00;">Preinscritos</span><? }else{ ?><a href="preinscritos.php?<? echo $_SERVER['QUERY_STRING']?>">Preinscritos</a><? } ?></li>
-      <li><? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/inscritos.php'){ ?><span style="color:#F00;">Inscritos</span><? }else{ ?><a href="inscritos.php?<? echo $_SERVER['QUERY_STRING']?>">Inscritos</a><? } ?></li>
-      <li><? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/casos_cerrados.php'){ ?><span style="color:#F00;">Casos cerrados</span>
-       <? }else{ ?><a href="casos_cerrados.php?<? echo $_SERVER['QUERY_STRING']?>">Casos cerrados</a><? } ?></li>
-       <li><? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/casos_inconclusos.php'){ ?><span style="color:#F00;">Casos inconclusos</span>
-         <? }else{ ?><a href="casos_inconclusos.php?<? echo $_SERVER['QUERY_STRING']?>">Casos inconclusos</a><? } ?></li>
-         <li><? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/informes.php'){ ?><span style="color:#F00;">Informes</span>
-           <? }else{ ?><a href="informes.php?<? echo $_SERVER['QUERY_STRING']?>">Informes</a><? } ?></li>
-           <li><? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/promo.php'){ ?><span style="color:#F00;">Promociones</span>
-       <? }else{ ?><a href="promo.php?<? echo $_SERVER['QUERY_STRING']?>">Promociones</a><? } ?></li>
+      <li><?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/preinscritos.php'){ ?><span style="color:#F00;">Preinscritos</span><?php }else{ ?><a href="preinscritos.php?<?php echo $_SERVER['QUERY_STRING']?>">Preinscritos</a><?php } ?></li>
+      <li><?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/inscritos.php'){ ?><span style="color:#F00;">Inscritos</span><?php }else{ ?><a href="inscritos.php?<?php echo $_SERVER['QUERY_STRING']?>">Inscritos</a><?php } ?></li>
+      <li><?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/casos_cerrados.php'){ ?><span style="color:#F00;">Casos cerrados</span>
+       <?php }else{ ?><a href="casos_cerrados.php?<?php echo $_SERVER['QUERY_STRING']?>">Casos cerrados</a><?php } ?></li>
+       <li><?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/casos_inconclusos.php'){ ?><span style="color:#F00;">Casos inconclusos</span>
+         <?php }else{ ?><a href="casos_inconclusos.php?<?php echo $_SERVER['QUERY_STRING']?>">Casos inconclusos</a><?php } ?></li>
+         <li><?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/informes.php'){ ?><span style="color:#F00;">Informes</span>
+           <?php }else{ ?><a href="informes.php?<?php echo $_SERVER['QUERY_STRING']?>">Informes</a><?php } ?></li>
+           <li><?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/promo.php'){ ?><span style="color:#F00;">Promociones</span>
+       <?php }else{ ?><a href="promo.php?<?php echo $_SERVER['QUERY_STRING']?>">Promociones</a><?php } ?></li>
          </ul>
        </div>
        <div id="buscador">
@@ -368,7 +376,7 @@ $(document).ready(function() {
       <div style="color:red;font-size:24px;line-height:26px;">No se han encontrado resultados</div>
    <?php }else{ ?>
    <h3>
-    <?
+    <?php
     if(isset($_GET['id_discipline']) && $_GET['id_discipline'] != 0){
      mysql_select_db($database_des_preinscritos, $des_preinscritos);
      $query_disc_temp = "SELECT discipline FROM disciplines WHERE id_discipline = ".$_GET['id_discipline'];
@@ -380,7 +388,7 @@ $(document).ready(function() {
    }
    ?> 
    >
-   <?
+   <?php
    if(isset($_GET['id_program']) && $_GET['id_program'] != 0){
      mysql_select_db($database_des_preinscritos, $des_preinscritos);
      $query_prog_temp = "SELECT program_name, program_type FROM site_programs WHERE id_program = ".$_GET['id_program'];
@@ -392,17 +400,17 @@ $(document).ready(function() {
    }
    ?> 
    >
-   <? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/preinscritos.php'){ ?>
+   <?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/preinscritos.php'){ ?>
    Preinscritos
-   <? }else if($_SERVER['PHP_SELF'] == '/s_preiniscritos/inscritos.php'){ ?>
+   <?php }else if($_SERVER['PHP_SELF'] == '/s_preiniscritos/inscritos.php'){ ?>
    Inscritos
-   <? }else if($_SERVER['PHP_SELF'] == '/s_preiniscritos/casos_cerrados.php'){ ?>
+   <?php }else if($_SERVER['PHP_SELF'] == '/s_preiniscritos/casos_cerrados.php'){ ?>
    Casos cerrados
-   <? }else if($_SERVER['PHP_SELF'] == '/s_preiniscritos/casos_inconclusos.php'){ ?>
+   <?php }else if($_SERVER['PHP_SELF'] == '/s_preiniscritos/casos_inconclusos.php'){ ?>
    Casos inconclusos
-   <? }else if($_SERVER['PHP_SELF'] == '/s_preiniscritos/informes.php'){ ?>
+   <?php }else if($_SERVER['PHP_SELF'] == '/s_preiniscritos/informes.php'){ ?>
    Informes
-   <? } ?>
+   <?php } ?>
 
  </h3>
  <div class="espacio"></div>
@@ -490,10 +498,10 @@ $(document).ready(function() {
   if($cont % 2){$bg='bgcolor="#F1F1F1"';}else{$bg = '';}
   ?>
 
-  <tr <? echo $bg; ?>>
+  <tr <?php echo $bg; ?>>
    <td align="left" valign="middle" class="celdas">
     <strong>
-      <? if($row_paso['comentario_general'] != ''){
+      <?php if($row_paso['comentario_general'] != ''){
           echo '<a href="#" title="'.utf8_encode(ucfirst(strtolower($row_paso['comentario_general']))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a> ';
         } ?>
         <a class="group1" href="preinscrito_detalle.php?id_preinscrito=<?php echo $row_preinscritos['id_preinscrito']; ?>">
@@ -502,18 +510,18 @@ $(document).ready(function() {
       </strong>
     </td>
    <td align="left" valign="middle" class="celdas"><?php echo utf8_encode($row_programa['program_type']).' - '.utf8_encode($row_programa['program_name']); ?></td>
-   <td align="center" valign="middle" class="celdas"><? echo strftime("%d %B %Y", strtotime($row_preinscritos['fecha_registro'])); ?></td>
-   <td align="center" valign="middle" class="celdas"><? if($row_preinscritos['codigo'] != NULL){echo $row_preinscritos['codigo'];} ?></td>
-   <td align="center" valign="middle" class="celdas"><? if($row_paso['primer_contacto'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_1 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_1))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
-   <td align="center" valign="middle" class="celdas"><? if($row_paso['documentos'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_2 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_2))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
-   <td align="center" valign="middle" class="celdas"><? if($row_paso['envio_decse'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_3 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_3))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
-   <td align="center" valign="middle" class="celdas"><? if($row_paso['envio_claves'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_4 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_4))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
-   <td align="center" valign="middle" class="celdas"><? if($row_paso['pago_realizado'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_5 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_5))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
+   <td align="center" valign="middle" class="celdas"><?php echo strftime("%d %B %Y", strtotime($row_preinscritos['fecha_registro'])); ?></td>
+   <td align="center" valign="middle" class="celdas"><?php if($row_preinscritos['codigo'] != NULL){echo $row_preinscritos['codigo'];} ?></td>
+   <td align="center" valign="middle" class="celdas"><?php if($row_paso['primer_contacto'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_1 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_1))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
+   <td align="center" valign="middle" class="celdas"><?php if($row_paso['documentos'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_2 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_2))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
+   <td align="center" valign="middle" class="celdas"><?php if($row_paso['envio_decse'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_3 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_3))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
+   <td align="center" valign="middle" class="celdas"><?php if($row_paso['envio_claves'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_4 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_4))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
+   <td align="center" valign="middle" class="celdas"><?php if($row_paso['pago_realizado'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_5 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_5))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
    <td align="center" valign="middle" class="celdas">
      <form method="post" action="preinscrito_eliminar.php" onsubmit="return confirmar();">
       <input type="submit" name="delete_" id="delete_" value="Eliminar" />
       <input type="hidden" name="id_preinscrito" value="<?php echo $row_preinscritos['id_preinscrito']; ?>" />
-      <input type="hidden" name="url" value="<? echo $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']; ?>" />
+      <input type="hidden" name="url" value="<?php echo $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']; ?>" />
     </form>
   </td>
 </tr>

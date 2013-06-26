@@ -2,7 +2,7 @@
 # FileName="Connection_php_mysql.htm"
 # Type="MYSQL"
 # HTTP="true"
-$hostname_des_preinscritos = "localhost";
+$hostname_des_preinscritos = "127.0.0.1";
 $database_des_preinscritos = "decuiaco_site";
 $username_des_preinscritos = "decuiaco";
 $password_des_preinscritos = "DEC2010";
