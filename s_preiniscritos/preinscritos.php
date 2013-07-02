@@ -190,7 +190,7 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
       //document.getElementById(div).innerHTML=xmlhttp.responseText;
     //alert(xmlhttp.responseText);
     $('td#td_programas').html(xmlhttp.responseText);    
-    
+    console.log(xmlhttp.responseText);
   }
 }
 xmlhttp.open("GET",'ajax_programas.php?id_discipline='+id_discipline,true);
