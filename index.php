@@ -31,7 +31,9 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-
+	if(!isset($_GET['tipo'])){
+		$_GET['tipo'] = "";
+	}
 
 	$comentarios=$_GET["tipo"];
 	if($comentarios==1){
