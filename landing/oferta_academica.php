@@ -18,10 +18,13 @@
   </style>
 </head>
 <body>
-  <h1></h1>						
-  	<img src="landing.jpg" width="700" id="imgLanding"/>
+  <h1></h1>				
+  	<map name="Map" id="Map">																	
+		<area shape="rect" coords="0,0,700,700" href="http://ibero.mx/web/site/tpl-Nivel2.php?menu=mgCooperacion&amp;seccion=cdPremio" target="_blank" />
+	</map>					
+	<img src="landing.jpg" width="700" id="imgLanding" alt="click en imagen" border="0" usemap="#Map"/>
 	<?php
-
+																					
      class ofertaAcademica{
 					
     	function __construct(){
