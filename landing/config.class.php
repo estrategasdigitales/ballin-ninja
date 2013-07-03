@@ -11,7 +11,7 @@
 * 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
-
+		
 Class Conf{
   //private $_domain;
 	private $_userdb;
@@ -23,13 +23,13 @@ Class Conf{
 	static $_instance;
 
 	private function __construct(){
-		require 'libs/config.php';
+		require 'config.php';
 		$this->_userdb = $user;
 		$this->_passdb = $password;
 		$this->_hostdb = $host;
 		$this->_db = $db;
-		$this->_enckey = $enc_key;
-	}
+		//$this->_enckey = $enc_key;
+	}			
 
 	private function __clone(){}
 

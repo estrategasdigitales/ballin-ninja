@@ -17,11 +17,11 @@ $host = "localhost";
 
 //Usuario
 $user = "root";
-
+					
 //Password
-$password = "root";
+$password = "";
 
 //Base de datos
-$db = "base_de_datos";
+$db = "landing";
 
 ?>

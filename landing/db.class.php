@@ -33,9 +33,10 @@ Class Db{
 	/*private function __destruct(){
 
 	}*/
-
+		
 	//Método para establecer los parámetros de la conexión
 	private function setConexion(){
+		require 'config.class.php';
 		$conf = Conf::getInstance();
 		$this->host = $conf->getHostDB();
 		$this->database = $conf->getDB();
