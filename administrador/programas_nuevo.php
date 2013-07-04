@@ -197,6 +197,12 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 	}
 	
 
+	if(isset($_POST['program_new'])){
+		$nuevo = $_POST['program_new'];
+	}else{
+		$nuevo = 0;
+	}
+
   $insertSQL = sprintf("INSERT INTO site_programs (id_program, id_discipline, id_discipline_alterna, program_type, program_name, program_colaboracion, program_colaboracion_img, program_new, `description`, imagen, observaciones, id_maestro, duration, costo_curso, cost_inscripcion, costo_modulo, id_encargado, banner, banner_url, program_pdf, cancelado, periodo, idioma) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                        GetSQLValueString($_POST['id_program'], "int"),
                        GetSQLValueString($_POST['id_discipline'], "int"),
@@ -205,7 +211,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['program_name'], "text"),
                        GetSQLValueString($_POST['program_colaboracion'], "text"),
                        GetSQLValueString($img_colaborador, "text"),
-                       GetSQLValueString(isset($_POST['program_new']) ? "true" : "", "defined","1","0"),
+                       GetSQLValueString($nuevo, "int"),
                        GetSQLValueString($_POST['description'], "text"),
 					   GetSQLValueString($banner_home, "text"),
                        GetSQLValueString($_POST['observaciones'], "text"),
@@ -216,7 +222,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['costo_modulo'], "text"),
                        GetSQLValueString($id_encargado, "text"),
                        GetSQLValueString($banner, "text"),
-					   GetSQLValueString($_POST['banner_url'], "text"),
+			GetSQLValueString($_POST['banner_url'], "text"),
                        GetSQLValueString($pdf_programa, "text"),
                        GetSQLValueString(isset($_POST['cancelado']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString($_POST['periodo'], "text"),
@@ -521,7 +527,11 @@ function check_fields(){
         </tr>
         <tr valign="baseline">
           <td align="right" valign="top" nowrap="nowrap"><strong>Nuevo:</strong></td>
-          <td colspan="2"><input type="checkbox" name="program_new" value="" /></td>
+          <td colspan="2"><input type="radio" name="program_new" value="1" /></td>
+        </tr>
+        <tr valign="baseline">
+          <td align="right" valign="top" nowrap="nowrap"><strong>Nueva Versi&oacute;n:</strong></td>
+          <td colspan="2"><input type="radio" name="program_new" value="2" /></td>
         </tr>
         <tr valign="baseline">
           <td align="right" valign="top" nowrap="nowrap"><strong>Descripci&oacute;n:</strong></td>

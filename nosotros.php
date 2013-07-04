@@ -333,7 +333,9 @@ frameborder='0'></iframe> <!--////////////////////////////////////////////////
      </div>
    </div>
 <div id="espacio" style="width:5%;float:left"> 
+  	<div id="slide_menu" style="display:none; width:190px; background: url(imagenes/sombrita_submenu.png) repeat-y; background-color:#D6D7D9; position:relative; left:-11px; z-index:1000; margin-bottom:-2000px; padding-bottom: 10px; margin-left:10px; top:0px !important;">
 
+  	</div>
 </div>
   <div id= "contenedor_irregular_index" >
     <div id= "type4" class="cuadro_articulos_secciones" style="border:0px;padding:0px;width:828px">

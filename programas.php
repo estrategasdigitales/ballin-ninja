@@ -415,7 +415,9 @@ s.parentNode.insertBefore(ga, s);
       			<td align="left" valign="top" colspan="2" height="74">
       			  <?php if($row_programa['program_type'] == 'programahp'){ echo '<h1>Programa HP</h1>'; }else{echo '<h1>'.ucfirst($row_programa['program_type'])	.'</h1>';} ?>
       			  <?php echo '<h1>'.$row_programa['program_name'].'</h1>';
-				if($row_programa['program_colaboracion'] != NULL && $row_programa['program_colaboracion'] != "Estudio Lofft"){
+				if($row_programa['program_colaboracion'] != NULL && $row_programa['program_colaboracion'] == "Estudio Lofft" || ($row_programa['program_colaboracion'] == "IBM")){
+					
+				}else{
 					echo '<p>(En colaboraci&oacute;n con '.$row_programa['program_colaboracion'].')</p>';
 				}
 				?>      			  <!-- - <a style="cursor:pointer; font-size:12px;" onclick="setActiveStyleSheet('img_templ_princ'); return false;">A</a> <a style="cursor:pointer; font-size:14px;" onclick="setActiveStyleSheet('img_templ_princ2'); return false;">A</a> <a style="cursor:pointer; font-size:16px;" onclick="setActiveStyleSheet('img_templ_princ3'); return false;">A</a> + --></td>

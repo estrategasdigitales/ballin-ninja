@@ -53,7 +53,7 @@ if (isset($_GET['pageNum_fecha_idioma'])) {
 $startRow_fecha_idioma = $pageNum_fecha_idioma * $maxRows_fecha_idioma;
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_fecha_idioma = "SELECT * FROM site_fechas_idiomas ORDER BY id_program ASC";
+$query_fecha_idioma = "SELECT * FROM site_fechas_idiomas ORDER BY id_fecha_idioma DESC";
 $query_limit_fecha_idioma = sprintf("%s LIMIT %d, %d", $query_fecha_idioma, $startRow_fecha_idioma, $maxRows_fecha_idioma);
 $fecha_idioma = mysql_query($query_limit_fecha_idioma, $otono2011) or die(mysql_error());
 $row_fecha_idioma = mysql_fetch_assoc($fecha_idioma);
@@ -153,6 +153,7 @@ function eliminar_fecha(id_fecha){
         <td><?php echo $row_fecha_idioma['duracion']; ?></td>
         <td><?php echo $row_fecha_idioma['horario']; ?></td>
         <!--td>Editar</td-->
+        <td><a href="fechas_idiom_editar.php?id_fecha_idioma=<?php echo $row_fecha_idioma['id_fecha_idioma']; ?>">Editar</a></td>
         <td><a onclick="eliminar_fecha(<?php echo $row_fecha_idioma['id_fecha_idioma']; ?>);" href="#">Eliminar</a></td>
       </tr>
       <?php } while ($row_fecha_idioma = mysql_fetch_assoc($fecha_idioma)); 
