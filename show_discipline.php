@@ -54,7 +54,7 @@ $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
 	
 	if($totalRows_progs_diplos != 0 || $totalRows_progs_hp != 0){ 
 
-	 	$response .= '<p style="padding-left:10px"><img src="imagenes/linea_submenu.png"><p style="font-size:16px; font-weight:bold; padding-left:10px;">Diplomados</p><p style="padding-left:10px;"><img src="imagenes/linea_submenu.png"></p><ul style="list-style-type:none; margin-left:-29px;">';
+	 	$response .= '<p style="padding-left:10px"><img src="imagenes/linea_submenu.png"><p style="font-size:16px; font-weight:bold; padding-left:10px;">Diplomados</p><p style="padding-left:10px;"><img src="imagenes/linea_submenu.png"></p><ul style="list-style-type:disc; margin-left:-16px;">';
 
 	 }elseif($totalRows_progs_progs != 0 ){
 
@@ -93,7 +93,7 @@ $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
 	$response .= "</ul>";
 
 	if($totalRows_progs_progs > 0){ 
-		$response .='<ul class="lista_programas">';
+		$response .='<ul style="padding-left: 25px; list-style-type: disc;">';
 					do {
 							$no_n = str_replace('ñ', 'n', $row_progs_progs['program_name']);
 							$no_a = str_replace('á', 'a', $no_n);
@@ -122,7 +122,7 @@ $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
  
 	if($totalRows_progs_cursos != 0){
 
-		$response .= '<img src="imagenes/linea_submenu.png"><p style="font-size:16px; font-weight:bold; padding:10px 0 0 10px;">Cursos</p><img src="imagenes/linea_submenu.png"><ul style="list-style-type:none; margin-left:-29px;">';
+		$response .= '<img src="imagenes/linea_submenu.png"><p style="font-size:16px; font-weight:bold; padding:10px 0 0 10px;">Cursos</p><img src="imagenes/linea_submenu.png"><ul style="list-style-type:disc; margin-left:-16px;">';
 
 	}
 
@@ -150,12 +150,12 @@ $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
 	if($totalRows_progs_hp > 0 && ($disciplina==9)){ 
 		
 
-$response .= '<p><img src="imagenes/linea_submenu.png"><p style="font-size:16px; font-weight:bold">Programas HP</p><p><img src="imagenes/linea_submenu.png"></p><ul style="list-style-type:none; margin-left:-29px;">';
+$response .= '<p><img src="imagenes/linea_submenu.png"><p style="font-size:16px; font-weight:bold">Programas HP</p><p><img src="imagenes/linea_submenu.png"></p><ul style="list-style-type:disc; margin-left:-16px;">';
 
 	$response .= "</ul>";
 
 	if($totalRows_progs_hp > 0){ 
-		$response .='<ul class="lista_programas" style="padding:3px 0px">';
+		$response .='<ul style="padding:3px 0px; list-style-type:disc;">';
 					do {
 							$no_n = str_replace('ñ', 'n', $row_progs_progs['program_name']);
 							$no_a = str_replace('á', 'a', $no_n);
@@ -189,7 +189,7 @@ $response .= '<p><img src="imagenes/linea_submenu.png"><p style="font-size:16px;
 	$response .= "</ul>";
 
 	if($totalRows_progs_cursos_i > 0){ 
-		$response .='<ul class="lista_programas" style="padding:3px 6px">';
+		$response .='<ul style="padding:3px 6px 3px 25px; list-style-type: disc;	">';
 					do {
 							$no_n = str_replace('ñ', 'n', $row_progs_progs['program_name']);
 							$no_a = str_replace('á', 'a', $no_n);

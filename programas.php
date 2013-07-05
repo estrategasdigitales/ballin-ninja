@@ -688,20 +688,32 @@ s.parentNode.insertBefore(ga, s);
 							if($totalRows_fecha_ini > 0){?>
                       <tr>
                         <td align="right" valign="top" class="contenido_diploRojo">Sede</td>
-                        <td><?php
+                        <td><?php $sede = "";
 							do{
 								$num_sedes++;
 								echo '';
-								echo '('.$num_sedes.') ';
+								if($sede != $row_fecha_ini['id_sede']){
+								echo '('.$num_sedes.') '; 
+								}else{
+									//
+								}
 								if($row_fecha_ini['id_sede'] == NULL){
 									echo 'Ibero</p>';
 								}else{
+									
+									if($sede != $row_fecha_ini['id_sede']){
+
 									mysql_select_db($database_otono2011, $otono2011); 	
 									$query_sede = "SELECT nombre_sede FROM site_sedes WHERE id_sede = ".$row_fecha_ini['id_sede'];
 									$sede = mysql_query($query_sede, $otono2011) or die(mysql_error());
 									$row_sede = mysql_fetch_assoc($sede);
 									$totalRows_sede = mysql_num_rows($sede);
 									echo $row_sede['nombre_sede'].'</br>';
+									}else{
+										//
+									}
+									$sede = $row_fecha_ini['id_sede'];
+
 								}
 							} while($row_fecha_ini = mysql_fetch_assoc($fecha_ini));
 							mysql_data_seek($fecha_ini, 0);
