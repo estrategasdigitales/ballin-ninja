@@ -203,13 +203,18 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		$nuevo = 0;
 	}
 
-  $insertSQL = sprintf("INSERT INTO site_programs (id_program, id_discipline, id_discipline_alterna, program_type, program_name, program_colaboracion, program_colaboracion_img, program_new, `description`, imagen, observaciones, id_maestro, duration, costo_curso, cost_inscripcion, costo_modulo, id_encargado, banner, banner_url, program_pdf, cancelado, periodo, idioma) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+	if($_POST['program_colaboracion_leyenda'] == 1){
+		$leyenda = $_POST['program_colaboracion_leyenda'];
+	}
+
+  $insertSQL = sprintf("INSERT INTO site_programs (id_program, id_discipline, id_discipline_alterna, program_type, program_name, program_colaboracion, program_colaboracion_img, program_colaboracion_leyenda, program_new, `description`, imagen, observaciones, id_maestro, duration, costo_curso, cost_inscripcion, costo_modulo, id_encargado, banner, banner_url, program_pdf, cancelado, periodo, idioma) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                        GetSQLValueString($_POST['id_program'], "int"),
                        GetSQLValueString($_POST['id_discipline'], "int"),
                        GetSQLValueString($id_discipline_alterna, "text"),
                        GetSQLValueString($_POST['program_type'], "text"),
                        GetSQLValueString($_POST['program_name'], "text"),
                        GetSQLValueString($_POST['program_colaboracion'], "text"),
+                       GetSQLValueString($leyenda, "int"),
                        GetSQLValueString($img_colaborador, "text"),
                        GetSQLValueString($nuevo, "int"),
                        GetSQLValueString($_POST['description'], "text"),
@@ -523,6 +528,10 @@ function check_fields(){
         <tr valign="baseline">
           <td align="right" valign="top" nowrap="nowrap"><strong>Colaborador img:</strong></td>
           <td colspan="2"><input type="file" name="program_colaboracion_img" value="" size="32" /></td>
+        </tr>
+        <tr valign="baseline">
+          <td align="right" valign="top" nowrap="nowrap"><strong>&iquest;Se muestra leyenda<br/>"En colaboraci&oacute;n" en la p&aacute;gina?:</strong></td>
+          <td colspan="2" valign="middle"><input type="checkbox" name="program_colaboracion_leyenda" value="1" size="32" /></td>
         </tr>
         <tr valign="baseline">
           <td align="right" valign="top" nowrap="nowrap"><strong>Nuevo:</strong></td>
