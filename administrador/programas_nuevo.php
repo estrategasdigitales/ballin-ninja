@@ -213,7 +213,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($img_colaborador, "text"),
                        GetSQLValueString($nuevo, "int"),
                        GetSQLValueString($_POST['description'], "text"),
-					   GetSQLValueString($banner_home, "text"),
+		       GetSQLValueString($banner_home, "text"),
                        GetSQLValueString($_POST['observaciones'], "text"),
                        GetSQLValueString($id_maestro, "text"),
                        GetSQLValueString($_POST['duration'], "text"),
@@ -222,7 +222,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['costo_modulo'], "text"),
                        GetSQLValueString($id_encargado, "text"),
                        GetSQLValueString($banner, "text"),
-			GetSQLValueString($_POST['banner_url'], "text"),
+		       GetSQLValueString($_POST['banner_url'], "text"),
                        GetSQLValueString($pdf_programa, "text"),
                        GetSQLValueString(isset($_POST['cancelado']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString($_POST['periodo'], "text"),
@@ -260,8 +260,7 @@ $totalRows_encargado = mysql_num_rows($encargado);
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/temp_admin.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"
-        />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Educaci&oacute;n Continua</title>
 <script src="../Scripts/jquery.js"></script>
