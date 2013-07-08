@@ -70,7 +70,14 @@ function eliminar_prog(id_programa){
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
 
  <h1> Sedes </h1>
-<table  border="0" cellpadding="5" cellspacing="0" class="tablas" align="center">
+ <div style="heigth:80px; float:right; margin:10px 0px;">
+    <form action="admin_dir_sedes_result.php" method="post">
+        <label name="nombre_profesor"><b>Nombre Sede:</b></label>
+        <input type="text" name="nombre_profr" value=""/>
+        <input type="submit" value="Buscar"/>
+    </form>
+ </div>
+<table  border="0" cellpadding="5" cellspacing="0" class="tablas" width="100%">
 	<tr class="titulo_tabla">
 		<td>Sede</td>
 		<td colspan="2">

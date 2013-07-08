@@ -176,7 +176,7 @@ $totalRows_fechas = mysql_num_rows($fechas);
 						</tr>
 						<tr valign="baseline">
 							<td align="right" valign="middle" nowrap="nowrap">&nbsp;</td>
-							<td valign="baseline"><input name="Button" type="button" value="Cancelar" onclick="javascript:history.back();" />
+							<td valign="baseline"><input name="Button" type="button" value="Cancelar" onClick="parent.location='fechas_home.php'" />
 								<input type="submit" value="Actualizar" /></td>
 						</tr>
 					</table>
