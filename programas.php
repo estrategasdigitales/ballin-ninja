@@ -415,9 +415,7 @@ s.parentNode.insertBefore(ga, s);
       			<td align="left" valign="top" colspan="2" height="74">
       			  <?php if($row_programa['program_type'] == 'programahp'){ echo '<h1>Programa HP</h1>'; }else{echo '<h1>'.ucfirst($row_programa['program_type'])	.'</h1>';} ?>
       			  <?php echo '<h1>'.$row_programa['program_name'].'</h1>';
-				if($row_programa['program_colaboracion'] != NULL && $row_programa['program_colaboracion'] == "Estudio Lofft" || ($row_programa['program_colaboracion'] == "IBM")){
-					
-				}else{
+				if($row_programa['program_colaboracion'] != NULL && $row_programa['program_colaboracion_leyenda'] != 0){
 					echo '<p>(En colaboraci&oacute;n con '.$row_programa['program_colaboracion'].')</p>';
 				}
 				?>      			  <!-- - <a style="cursor:pointer; font-size:12px;" onclick="setActiveStyleSheet('img_templ_princ'); return false;">A</a> <a style="cursor:pointer; font-size:14px;" onclick="setActiveStyleSheet('img_templ_princ2'); return false;">A</a> <a style="cursor:pointer; font-size:16px;" onclick="setActiveStyleSheet('img_templ_princ3'); return false;">A</a> + --></td>
@@ -689,36 +687,36 @@ s.parentNode.insertBefore(ga, s);
                       <tr>
                         <td align="right" valign="top" class="contenido_diploRojo">Sede</td>
                         <td><?php $sede = "";
-							do{
-								$num_sedes++;
-								echo '';
-								if($sede != $row_fecha_ini['id_sede']){
-								echo '('.$num_sedes.') '; 
-								}else{
-									//
-								}
-								if($row_fecha_ini['id_sede'] == NULL){
-									echo 'Ibero</p>';
-								}else{
-									
-									if($sede != $row_fecha_ini['id_sede']){
+                                                       do{
+                                                               $num_sedes++;
+                                                               echo '';
+                                                               if($sede != $row_fecha_ini['id_sede']){
+                                                               echo '('.$num_sedes.') '; 
+                                                               }else{
+                                                                       //
+                                                               }
+                                                               if($row_fecha_ini['id_sede'] == NULL){
+                                                                       echo 'Ibero</p>';
+                                                               }else{
+                                                                       
+                                                                       if($sede != $row_fecha_ini['id_sede']){
 
-									mysql_select_db($database_otono2011, $otono2011); 	
-									$query_sede = "SELECT nombre_sede FROM site_sedes WHERE id_sede = ".$row_fecha_ini['id_sede'];
-									$sede = mysql_query($query_sede, $otono2011) or die(mysql_error());
-									$row_sede = mysql_fetch_assoc($sede);
-									$totalRows_sede = mysql_num_rows($sede);
-									echo $row_sede['nombre_sede'].'</br>';
-									}else{
-										//
-									}
-									$sede = $row_fecha_ini['id_sede'];
+                                                                       mysql_select_db($database_otono2011, $otono2011);         
+                                                                       $query_sede = "SELECT nombre_sede FROM site_sedes WHERE id_sede = ".$row_fecha_ini['id_sede'];
+                                                                       $sede = mysql_query($query_sede, $otono2011) or die(mysql_error());
+                                                                       $row_sede = mysql_fetch_assoc($sede);
+                                                                       $totalRows_sede = mysql_num_rows($sede);
+                                                                       echo $row_sede['nombre_sede'].'</br>';
+                                                                       }else{
+                                                                               //
+                                                                       }
+                                                                       $sede = $row_fecha_ini['id_sede'];
 
-								}
-							} while($row_fecha_ini = mysql_fetch_assoc($fecha_ini));
-							mysql_data_seek($fecha_ini, 0);
+                                                               }
+                                                       } while($row_fecha_ini = mysql_fetch_assoc($fecha_ini));
+                                                       mysql_data_seek($fecha_ini, 0);
 
-						?></td>
+                                               ?></td>
                       </tr>
                       <?php } ?>
 
