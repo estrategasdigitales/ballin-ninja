@@ -52,11 +52,11 @@ $programas_izqb = mysql_query($query_programas_izqb, $otono2011) or die(mysql_er
 $row_programas_izqb = mysql_fetch_assoc($programas_izqb);
 $totalRows_programas_izqb = mysql_num_rows($programas_izqb);
 
-mysql_select_db($database_otono2011, $otono2011);
-$query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
-$ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
-$row_ad = mysql_fetch_assoc($ad);
-$totalRows_ad = mysql_num_rows($ad);
+// mysql_select_db($database_otono2011, $otono2011);
+// $query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
+// $ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
+// $row_ad = mysql_fetch_assoc($ad);
+// $totalRows_ad = mysql_num_rows($ad);
 
 function WordLimiter($text,$limit,$word_count){
 	$limit = $limit - $word_count;
@@ -104,7 +104,7 @@ if($_POST['search'] == "a"){
 	  AND site_programs.periodo = 'o' 
 	  ORDER BY program_name ASC LIMIT 0,20";
 }else{
-	$query_search = "SELECT * FROM site_programs WHERE program_name LIKE '%".htmlentities($_POST['buscar'])."%' OR description LIKE '%".htmlentities($_POST['buscar'])."%' OR id_discipline IN (SELECT id_discipline FROM disciplines WHERE discipline LIKE '%".htmlentities($_POST['buscar'])."%') AND cost_inscripcion IS NOT NULL AND cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'p') ORDER BY program_name ASC LIMIT 0,20";
+	$query_search = "SELECT * FROM site_programs WHERE program_name LIKE '%".htmlentities($_POST['buscar'])."%' OR description LIKE '%".htmlentities($_POST['buscar'])."%' OR id_discipline IN (SELECT id_discipline FROM disciplines WHERE discipline LIKE '%".htmlentities($_POST['buscar'])."%') AND cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_name ASC LIMIT 0,20";
 }
 
 $search = mysql_query($query_search, $otono2011) or die(mysql_error());

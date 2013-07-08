@@ -37,8 +37,8 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     header('Location: index.php');
   }
 
+$name = $_POST['nombre_profr'];
 
-$currentPage = "fechas_home.php";
 
 $maxRows_fechas = 50;
 $pageNum_fechas = 0;
@@ -48,7 +48,7 @@ if (isset($_GET['pageNum_fechas'])) {
 $startRow_fechas = $pageNum_fechas * $maxRows_fechas;
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_fechas = "SELECT * FROM site_fechas_ini ORDER BY fecha DESC";
+$query_fechas = "SELECT * FROM site_fechas_ini WHERE fecha LIKE '%".$name."%' ORDER BY fecha ASC";
 $query_limit_fechas = sprintf("%s LIMIT %d, %d", $query_fechas, $startRow_fechas, $maxRows_fechas);
 $fechas = mysql_query($query_limit_fechas, $otono2011) or die(mysql_error());
 $row_fechas = mysql_fetch_assoc($fechas);
@@ -84,7 +84,7 @@ $queryString_fechas = sprintf("&totalRows_fechas=%d%s", $totalRows_fechas, $quer
 <meta http-equiv="Content-Type" content="text/html; charset=ISO 8859-1"
         />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>Educación Continua</title>
+<title>EducaciÃ³n Continua</title>
 <!-- InstanceEndEditable -->
 <link href="../css/estilos.css" rel="stylesheet"
         type="text/css" />
@@ -97,7 +97,7 @@ $queryString_fechas = sprintf("&totalRows_fechas=%d%s", $totalRows_fechas, $quer
 <script>
 
 function eliminar_fecha(id_fecha){
-  var r = confirm('¿Estás seguro que deseas eliminar esta fecha?');
+  var r = confirm('Â¿EstÃ¡s seguro que deseas eliminar esta fecha?');
   if(r == true){
     window.location="fechas_eliminar.php?id_fecha="+id_fecha;
   }if(r == false){
@@ -123,9 +123,9 @@ $(document).ready(function(){
   </div>
   <div id="separador"></div>
   <div id="separador"></div>
-<!-- LLamada a menú de secciones-->
+<!-- LLamada a menÃº de secciones-->
 <?php include('menu_secciones.php'); ?>
-<!-- Termina llamada a menú de secciones-->
+<!-- Termina llamada a menÃº de secciones-->
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
 <h1>Fechas </h1>
 <div style="heigth:80px; float:right; margin:10px 0px;">
@@ -136,66 +136,72 @@ $(document).ready(function(){
     </form>
  </div>
 <table border="0" cellpadding="5" cellspacing="0" class="tablas" width="100%">
-	<tr class="titulo_tabla">
-		<td>Fecha</td>
-		<td>Programa</td>
-		<td>Sede</td>
-		<td>Horario</td>
-		<td>Cancelado</td>
-		<td>Temario</td>
-		<td colspan="2"><input type="button" value="Nueva fecha" onclick="javascript:window.location='nueva_fecha.php'"></td>
-	  </tr>
-	<?php 
-	if($totalRows_fechas != 0){
-	do { ?>
-		<tr>
-			<td><?php echo $row_fechas['fecha']; ?></td>
-			<td>
-			<?php
-			mysql_select_db($database_otono2011, $otono2011);
-			$query_programa = "SELECT * FROM site_programs WHERE id_program = ".$row_fechas['id_program'];
-			$programa = mysql_query($query_programa, $otono2011) or die(mysql_error());
-			$row_programa = mysql_fetch_assoc($programa);
-			$totalRows_programa = mysql_num_rows($programa);
-			echo '<a href="fechas_editar.php?id_fecha='.$row_fechas["id_fecha"].'">'.$row_programa["program_name"].'</a>';
-			?>
-			</td>
-			<td>
-				<?php
-			if($row_fechas['id_sede']!=NULL){
-				mysql_select_db($database_otono2011, $otono2011);
-				$query_sede = "SELECT * FROM site_sedes WHERE id_sede = ".$row_fechas['id_sede'];
-				$sede = mysql_query($query_sede, $otono2011) or die(mysql_error());
-				$row_sede = mysql_fetch_assoc($sede);
-				$totalRows_sede = mysql_num_rows($sede);
-				echo $row_sede['nombre_sede'];
-			}
-			?>
-			</td>
-			<td><?php echo $row_fechas['horario']; ?></td>
-			<td><?php if($row_fechas['cancelado'] == 1){echo "S&iacute;";}else{echo "No";} ?></td>
-			<td><?php echo $row_programa['program_pdf']; ?></td>
-			<td><a onclick="eliminar_fecha(<?php echo $row_fechas['id_fecha']; ?>);" href="#">Eliminar</a></td>
-			<td><a href="fechas_editar.php?id_fecha=<?php echo $row_fechas['id_fecha']; ?>">Editar</a></td>
-		</tr>
-		<?php } while ($row_fechas = mysql_fetch_assoc($fechas)); 
-	}?>
+  <tr class="titulo_tabla">
+    <td>Fecha</td>
+    <td>Programa</td>
+    <td>Sede</td>
+    <td>Horario</td>
+    <td>Cancelado</td>
+    <td>Temario</td>
+    <td colspan="2"><input type="button" value="Nueva fecha" onclick="javascript:window.location='nueva_fecha.php'"></td>
+    </tr>
+  <?php 
+  if($totalRows_fechas != 0){
+  do { ?>
+    <tr>
+      <td><?php echo $row_fechas['fecha']; ?></td>
+      <td>
+      <?php
+      mysql_select_db($database_otono2011, $otono2011);
+      $query_programa = "SELECT * FROM site_programs WHERE id_program = ".$row_fechas['id_program'];
+      $programa = mysql_query($query_programa, $otono2011) or die(mysql_error());
+      $row_programa = mysql_fetch_assoc($programa);
+      $totalRows_programa = mysql_num_rows($programa);
+      echo '<a href="fechas_editar.php?id_fecha='.$row_fechas["id_fecha"].'">'.$row_programa["program_name"].'</a>';
+      ?>
+      </td>
+      <td>
+        <?php
+      if($row_fechas['id_sede']!=NULL){
+        mysql_select_db($database_otono2011, $otono2011);
+        $query_sede = "SELECT * FROM site_sedes WHERE id_sede = ".$row_fechas['id_sede'];
+        $sede = mysql_query($query_sede, $otono2011) or die(mysql_error());
+        $row_sede = mysql_fetch_assoc($sede);
+        $totalRows_sede = mysql_num_rows($sede);
+        echo $row_sede['nombre_sede'];
+      }
+      ?>
+      </td>
+      <td><?php echo $row_fechas['horario']; ?></td>
+      <td><?php if($row_fechas['cancelado'] == 1){echo "S&iacute;";}else{echo "No";} ?></td>
+      <td><?php echo $row_programa['program_pdf']; ?></td>
+      <td><a onclick="eliminar_fecha(<?php echo $row_fechas['id_fecha']; ?>);" href="#">Eliminar</a></td>
+      <td><a href="fechas_editar.php?id_fecha=<?php echo $row_fechas['id_fecha']; ?>">Editar</a></td>
+    </tr>
+    <?php } while ($row_fechas = mysql_fetch_assoc($fechas)); 
+  }
+  else{
+
+          echo "<tr><td colspan=7>No se encontraron coincidencias para tu b&uacute;squeda.</td></tr>";
+
+        }
+  ?>
 </table>
 <table border="0" align="center">
-	<tr>
-		<td><?php if ($pageNum_fechas > 0) { // Show if not first page ?>
-				<a href="<?php printf("%s?pageNum_fechas=%d%s", $currentPage, 0, $queryString_fechas); ?>"><img src="First.gif" border="0" /></a>
-		<?php } // Show if not first page ?></td>
-		<td><?php if ($pageNum_fechas > 0) { // Show if not first page ?>
-				<a href="<?php printf("%s?pageNum_fechas=%d%s", $currentPage, max(0, $pageNum_fechas - 1), $queryString_fechas); ?>"><img src="Previous.gif" border="0" /></a>
-		<?php } // Show if not first page ?></td>
-		<td><?php if ($pageNum_fechas < $totalPages_fechas) { // Show if not last page ?>
-				<a href="<?php printf("%s?pageNum_fechas=%d%s", $currentPage, min($totalPages_fechas, $pageNum_fechas + 1), $queryString_fechas); ?>"><img src="Next.gif" border="0" /></a>
-		<?php } // Show if not last page ?></td>
-		<td><?php if ($pageNum_fechas < $totalPages_fechas) { // Show if not last page ?>
-				<a href="<?php printf("%s?pageNum_fechas=%d%s", $currentPage, $totalPages_fechas, $queryString_fechas); ?>"><img src="Last.gif" border="0" /></a>
-		<?php } // Show if not last page ?></td>
-	</tr>
+  <tr>
+    <td><?php if ($pageNum_fechas > 0) { // Show if not first page ?>
+        <a href="<?php printf("%s?pageNum_fechas=%d%s", $currentPage, 0, $queryString_fechas); ?>"><img src="First.gif" border="0" /></a>
+    <?php } // Show if not first page ?></td>
+    <td><?php if ($pageNum_fechas > 0) { // Show if not first page ?>
+        <a href="<?php printf("%s?pageNum_fechas=%d%s", $currentPage, max(0, $pageNum_fechas - 1), $queryString_fechas); ?>"><img src="Previous.gif" border="0" /></a>
+    <?php } // Show if not first page ?></td>
+    <td><?php if ($pageNum_fechas < $totalPages_fechas) { // Show if not last page ?>
+        <a href="<?php printf("%s?pageNum_fechas=%d%s", $currentPage, min($totalPages_fechas, $pageNum_fechas + 1), $queryString_fechas); ?>"><img src="Next.gif" border="0" /></a>
+    <?php } // Show if not last page ?></td>
+    <td><?php if ($pageNum_fechas < $totalPages_fechas) { // Show if not last page ?>
+        <a href="<?php printf("%s?pageNum_fechas=%d%s", $currentPage, $totalPages_fechas, $queryString_fechas); ?>"><img src="Last.gif" border="0" /></a>
+    <?php } // Show if not last page ?></td>
+  </tr>
 </table>
 <!-- InstanceEndEditable --></div>
   <div id="separador" style=" clear:both; height:20px;"></div>
