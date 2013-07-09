@@ -19,9 +19,9 @@ $host = "localhost";
 $user = "root";
 					
 //Password
-$password = "";
+$password = "root";
 
 //Base de datos
-$db = "landing";
+$db = "decuiaco_catalogo_ofertacademica";
 
 ?>

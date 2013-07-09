@@ -1,0 +1,15 @@
+@charset 'utf-8';
+
+body{								
+	background-color: #FFFFFF;
+}		
+
+h1{
+	display: none;
+}
+
+#imgLanding{ 		
+	display: block;		
+	margin-right: auto;
+	margin-left: auto;
+}

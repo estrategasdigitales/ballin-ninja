@@ -13,7 +13,6 @@
  */
 		
 Class Conf{
-  //private $_domain;
 	private $_userdb;
 	private $_passdb;
 	private $_hostdb;
@@ -28,7 +27,6 @@ Class Conf{
 		$this->_passdb = $password;
 		$this->_hostdb = $host;
 		$this->_db = $db;
-		//$this->_enckey = $enc_key;
 	}			
 
 	private function __clone(){}
@@ -61,3 +59,5 @@ Class Conf{
 		return $var;
 	}
 }
+
+?>
