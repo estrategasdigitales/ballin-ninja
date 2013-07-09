@@ -9,9 +9,10 @@
 </head>
 <body>
 	<h1>Cat&aacute;logo de Oferta Acad&eacute;mica</h1>
-	<a href="http://www.dec-uia.com/otono_2011/temarios/otono_2013.pdf" onclick="downloadClick()" target="_blank">					
-		<img src="img/landing.jpg" width="700" id="imgLanding" border="0" />
-	</a>
+	<map name="imgLandingMap">
+		<area shape="rect" coords="60,343,344,386" href="http://www.dec-uia.com/otono_2011/temarios/otono_2013.pdf" onclick="downloadClick()" target="_blank">
+	</map>
+	<img src="img/landing.jpg" width="700" border="0" usemap="#imgLandingMap" id="imgLanding" />
 	<?php
 		include 'inc/catch.class.php';
 		$ofertaAcademica = new ofertaAcademica();
@@ -29,3 +30,4 @@
 </body>
 </html>
 
+  																																				
