@@ -11,7 +11,8 @@
 	<h1>Cat&aacute;logo de Oferta Acad&eacute;mica</h1>
 	<map name="imgLandingMap">
 		<area shape="rect" coords="60,343,344,386" href="http://www.dec-uia.com/otono_2011/temarios/otono_2013.pdf" onclick="downloadClick()" target="_blank">
-	</map>
+      <area shape="rect" coords="262,418,435,438" href="http://www.diplomados.uia.mx" target="_blank">
+</map>
 	<img src="img/landing.jpg" width="700" border="0" usemap="#imgLandingMap" id="imgLanding" />
 	<?php
 		include 'inc/catch.class.php';
