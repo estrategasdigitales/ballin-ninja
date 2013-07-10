@@ -55,7 +55,6 @@ mysql_select_db($database_otono2011, $otono2011);
 $query_programas = "SELECT * FROM site_galeria_programa ORDER BY id_galeria_programa DESC";
 $query_limit_programas = sprintf("%s LIMIT %d, %d", $query_programas, $startRow_programas, $maxRows_programas);
 $programas = mysql_query($query_limit_programas, $otono2011) or die(mysql_error());
-$row_programas = mysql_fetch_assoc($programas);
 
 if (isset($_GET['totalRows_programas'])) {
   $totalRows_programas = $_GET['totalRows_programas'];
