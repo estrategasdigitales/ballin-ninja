@@ -19,7 +19,7 @@ if((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == 'form1')){
   mysql_select_db($database_otono2011, $otono2011);
   $Result1 = mysql_query($insertSQL, $otono2011) or die(mysql_error());
 
-$query_programa_galeria = "SELECT MAX(id_galeria_programa) AS ultima_galeria FROM site_galeria_programa";
+$query_programa_galeria = "SELECT id_galeria_programa AS ultima_galeria FROM site_galeria_programa ORDER BY id_galeria_programa DESC LIMIT 0,1";
 $programa_galeria = mysql_query($query_programa_galeria, $otono2011) or die(mysql_error());
 $row_programa_galeria = mysql_fetch_assoc($programa_galeria);
 $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
@@ -27,7 +27,7 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
           $IMAGE_FILE = $_FILES['imagen_0']['tmp_name'];
           $IMAGE_FILE_NAME = $_FILES['imagen_0']['name'];
           
-          if($IMAGE_FILE != NULL){
+          if($IMAGE_FILE != ""){
               $photosDir="../imagenes/galerias_programas/programa_".$row_programa_galeria['ultima_galeria'];
               $img_filename = str_replace(" ","_",$IMAGE_FILE_NAME);
               $photo = new SimpleImage();
