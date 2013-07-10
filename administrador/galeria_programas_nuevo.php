@@ -10,7 +10,6 @@ $totalRows_programa = mysql_num_rows($programa);
 
 if((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == 'form1')){
 
-
   include('SimpleImage.php');
 
   $insertSQL = sprintf("INSERT INTO site_galeria_programa(id_programa, publicado) VALUES ('%s', '%s')",
