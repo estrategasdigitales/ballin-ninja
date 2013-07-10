@@ -7,7 +7,6 @@ $programa = mysql_query($query_programa, $otono2011) or die(mysql_error());
 $row_programa = mysql_fetch_assoc($programa);
 $totalRows_programa = mysql_num_rows($programa);
 
-
 if((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == 'form1')){
 
   include('SimpleImage.php');
@@ -23,12 +22,13 @@ $query_programa_galeria = "SELECT id_galeria_programa AS ultima_galeria FROM sit
 $programa_galeria = mysql_query($query_programa_galeria, $otono2011) or die(mysql_error());
 $row_programa_galeria = mysql_fetch_assoc($programa_galeria);
 $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
+  
 
           $IMAGE_FILE = $_FILES['imagen_0']['tmp_name'];
           $IMAGE_FILE_NAME = $_FILES['imagen_0']['name'];
           
           if($IMAGE_FILE != ""){
-              $photosDir="../imagenes/galerias_programas/programa_".$row_programa_galeria['ultima_galeria'];
+              $photosDir="../imagenes/galerias_programas/programa_".$row_programa_galeria['ultima_galeria']."/";
               $img_filename = str_replace(" ","_",$IMAGE_FILE_NAME);
               $photo = new SimpleImage();
               $photo->load($IMAGE_FILE);
@@ -37,17 +37,20 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
               $insertSQL2 = sprintf("INSERT INTO site_archivo_galeria(id_galeria_programa, archivo) VALUES ('%s', '%s')",
                       mysql_real_escape_string($row_programa_galeria['ultima_galeria']),
                       mysql_real_escape_string($IMAGE_FILE_NAME));
+
+                mysql_select_db($database_otono2011, $otono2011);
+                $Result1 = mysql_query($insertSQL2, $otono2011) or die(mysql_error());
           }
 
   if($_POST['cont'] > 0){
 
-      for($i=0; $i<=$_POST['cont']; $i++){
+      for($i=1; $i<=$_POST['cont']; $i++){
 
           $IMAGE_FILE = $_FILES['imagen_'.$i.'']['tmp_name'];
           $IMAGE_FILE_NAME = $_FILES['imagen_'.$i.'']['name'];
           
           if($IMAGE_FILE != NULL){
-              $photosDir="../imagenes/galerias_programas/programa_".$row_programa_galeria['ultima_galeria'];
+              $photosDir="../imagenes/galerias_programas/programa_".$row_programa_galeria['ultima_galeria']."/";
               $img_filename = str_replace(" ","_",$IMAGE_FILE_NAME);
               $photo = new SimpleImage();
               $photo->load($IMAGE_FILE);
@@ -56,6 +59,9 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
               $insertSQL2 = sprintf("INSERT INTO site_archivo_galeria(id_galeria_programa, archivo) VALUES ('%s', '%s')",
                       mysql_real_escape_string($row_programa_galeria['ultima_galeria']),
                       mysql_real_escape_string($IMAGE_FILE_NAME));
+
+                mysql_select_db($database_otono2011, $otono2011);
+                $Result1 = mysql_query($insertSQL2, $otono2011) or die(mysql_error());
 
           }
 
