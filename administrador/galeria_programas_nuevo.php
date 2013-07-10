@@ -64,7 +64,7 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
 
   }
 
-
+/*
   $insertSQL2 = sprintf("INSERT INTO site_archivo_galeria(id_galeria_programa, archivo) VALUES ('%s', '%s')",
                       mysql_real_escape_string($row_programa_galeria['ultima_galeria']),
                       mysql_real_escape_string($_POST['publicado']));
@@ -72,7 +72,7 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
   mysql_select_db($database_otono2011, $otono2011);
   $Result2 = mysql_query($insertSQL, $otono2011) or die(mysql_error());
 
-
+*/
   header('Location: galeria_progr_home.php');
 }
 
