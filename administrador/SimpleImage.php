@@ -35,7 +35,7 @@ class SimpleImage {
          $this->image = imagecreatefrompng($filename);
       }
    }
-   function save($filename, $image_type=IMAGETYPE_JPEG, $compression=95, $permissions=777) {
+   function save($filename, $image_type=IMAGETYPE_JPEG, $compression=95, $permissions=null) {
       if( $image_type == IMAGETYPE_JPEG ) {
          imagejpeg($this->image,$filename,$compression);
       } elseif( $image_type == IMAGETYPE_GIF ) {
