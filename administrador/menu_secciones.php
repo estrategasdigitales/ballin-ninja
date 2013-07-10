@@ -14,6 +14,7 @@
             <li><a href="fechas_home.php">Fechas</a> </li>
             <li><a href="fechas_idiom_home.php">Fechas Idiomas</a> </li>
             <li><a href="propuestas_progr_home.php">Propuestas Programas</a></li>
+            <li><a href="galeria_progr_home.php">Galer&iacute;a por Programa</a></li>
           </ul>
           <p>&nbsp;</p>
           <h2>Carrusel Index</h2>

@@ -79,6 +79,7 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 
 <script type="text/javascript" src="Scripts/jquery.js"></script>
 <script type="text/javascript" src="Scripts/menu3.js"></script>
+<script type="text/javascript" src="Scripts/jquery.carouFredSel-6.2.1-packed.js"></script>
 <script src="Scripts/jquery-ui.js"></script>
 <script language="javascript" src="pruebas/js/jquery.tweet.js" type="text/javascript"></script>
 <script>
@@ -88,6 +89,24 @@ $(document).ready(function(){
 		$('div#'+ $(this).attr('id')).show();
 	});
 });
+
+$(function(){
+
+	$('#foo2').carouFredSel({
+					auto: false,
+					prev: '#prev2',
+					next: '#next2',
+					pagination: "#pager2",
+					mousewheel: true,
+					swipe: {
+						onMouse: true,
+						onTouch: true
+					}
+				});
+
+
+})
+
 </script>
 
 <!------ Google Analytics ------>
@@ -600,6 +619,34 @@ s.parentNode.insertBefore(ga, s);
                         <?php } ?>
                       <?php if($totalRows_fecha_ini != 0){ ?>
                       </tr>
+                      <?php ////// se agrega condicion para carrusel de galeria ?>
+                      <tr>
+                  		<td colspan="3">
+                  		<div class="list_carousel">
+				<ul id="foo2">
+					<li>c</li>
+					<li>a</li>
+					<li>r</li>
+					<li>o</li>
+					<li>u</li>
+					<li>F</li>
+					<li>r</li>
+					<li>e</li>
+					<li>d</li>
+					<li>S</li>
+					<li>e</li>
+					<li>l</li>
+					<li> </li>
+				</ul>
+				<div class="clearfix"></div>
+				<a id="prev2" class="prev" href="#">&lt;</a>
+				<a id="next2" class="next" href="#">&gt;</a>
+				<div id="pager2" class="pager"></div>
+			</div>
+				</td>
+                  	</tr>
+                  	<?php ////// termina condicion para carrusel de galeria ?>
+
                       <tr>
                         <td align="right" valign="top" class="contenido_diploRojo">Inicio</td>
                         <?php if($row_programa['program_colaboracion'] == NULL || $row_programa['program_colaboracion_img'] == NULL){ ?>
@@ -1234,7 +1281,9 @@ s.parentNode.insertBefore(ga, s);
             <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/banner_newsletter.png) no-repeat bottom transparent; width:191px;">
               <form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
                 <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">
-                  <tbody><tr>
+                  <tbody>
+                  	
+                  	<tr>
                     <td width="62%" height="10"></td>
                     <td width="38%">&nbsp;</td>
                   </tr>

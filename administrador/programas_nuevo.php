@@ -47,7 +47,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		$DOC_FILE_TYPE1 = $_FILES['program_colaboracion_img']['type'];
 		$DOC_FILE_SIZE1 = $_FILES['program_colaboracion_img']['size'];
 		
-		$target_path1 = "../otono_2011/imagenes/colaboradores/";
+		$target_path1 = "../otono_2011/imagenes/colaboradores/";	
 		
 		// Create the new directory
 		if(!file_exists($target_path1)){
@@ -205,6 +205,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 
 	if($_POST['program_colaboracion_leyenda'] == 1){
 		$leyenda = $_POST['program_colaboracion_leyenda'];
+	}else{
+		$leyenda = 0;
 	}
 
   $insertSQL = sprintf("INSERT INTO site_programs (id_program, id_discipline, id_discipline_alterna, program_type, program_name, program_colaboracion, program_colaboracion_img, program_colaboracion_leyenda, program_new, `description`, imagen, observaciones, id_maestro, duration, costo_curso, cost_inscripcion, costo_modulo, id_encargado, banner, banner_url, program_pdf, cancelado, periodo, idioma) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
@@ -214,8 +216,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['program_type'], "text"),
                        GetSQLValueString($_POST['program_name'], "text"),
                        GetSQLValueString($_POST['program_colaboracion'], "text"),
-                       GetSQLValueString($leyenda, "int"),
                        GetSQLValueString($img_colaborador, "text"),
+                       GetSQLValueString($leyenda, "int"),
                        GetSQLValueString($nuevo, "int"),
                        GetSQLValueString($_POST['description'], "text"),
 		       GetSQLValueString($banner_home, "text"),
