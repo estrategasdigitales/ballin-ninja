@@ -28,7 +28,7 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
           $IMAGE_FILE_NAME = $_FILES['imagen_0']['name'];
           
           if($IMAGE_FILE != ""){
-              $photosDir="../imagenes/galerias_programas/programa_".$row_programa_galeria['ultima_galeria']."/";
+              $photosDir="../imagenes/galerias_programas/";
               $img_filename = str_replace(" ","_",$IMAGE_FILE_NAME);
               $photo = new SimpleImage();
               $photo->load($IMAGE_FILE);
@@ -50,7 +50,7 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
           $IMAGE_FILE_NAME = $_FILES['imagen_'.$i.'']['name'];
           
           if($IMAGE_FILE != NULL){
-              $photosDir="../imagenes/galerias_programas/programa_".$row_programa_galeria['ultima_galeria']."/";
+              $photosDir="../imagenes/galerias_programas/";
               $img_filename = str_replace(" ","_",$IMAGE_FILE_NAME);
               $photo = new SimpleImage();
               $photo->load($IMAGE_FILE);
