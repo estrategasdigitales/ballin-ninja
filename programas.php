@@ -72,7 +72,7 @@ if($totalRows_galeria > 0){
 $query_galeria_imagenes = "SELECT archivo FROM site_archivo_galeria WHERE id_galeria_programa = ".$row_galeria['id_galeria_programa'];
 $galeria_imagenes = mysql_query($query_galeria_imagenes, $otono2011) or die(mysql_error());
 $totalRows_galeria_imagenes = mysql_num_rows($galeria_imagenes);
-//echo $query_galeria_imagenes;die;
+
 }
 
 //CODIGO PARA QUE ASIGNE FORMATO LOCAL A LAS FECHAS
@@ -620,19 +620,7 @@ s.parentNode.insertBefore(ga, s);
       		</table>
       		<table width="100%" border="0" cellpadding="5" cellspacing="0">
 
-      			      		<?php if($_GET['id_program'] != 397){ ?>
-                      <tr>
-                        <?php if(($row_programa['program_colaboracion'] != NULL)&&($row_programa['program_colaboracion_img'] != NULL)){ ?>
-                        <td width="29%" align="right" valign="top" class="contenido_diploRojo">En colaboraci&oacute;n</td>
-                        <td width="2%" rowspan="10" class="linea_separadora_g"></td>
-                        <td width="70%"><?php
-						if($row_programa['program_colaboracion_img'] != NULL){
-							echo '<img src="imagenes/colaboradores/'.$row_programa['program_colaboracion_img'].'" />';
-						} ?></td>
-                        <?php } ?>
-                      <?php if($totalRows_fecha_ini != 0){ ?>
-                      </tr>
-                      <?php if($totalRows_galeria > 0 && $row_galeria['publicado'] == 1){
+      		      <?php if($totalRows_galeria > 0 && $row_galeria['publicado'] == 1){
                        ?>
                       <tr>
                   		<td colspan="3">
@@ -652,6 +640,19 @@ s.parentNode.insertBefore(ga, s);
                   	</tr>
                   	<?php } ?>
 
+
+      			      		<?php if($_GET['id_program'] != 397){ ?>
+                      <tr>
+                        <?php if(($row_programa['program_colaboracion'] != NULL)&&($row_programa['program_colaboracion_img'] != NULL)){ ?>
+                        <td width="29%" align="right" valign="top" class="contenido_diploRojo">En colaboraci&oacute;n</td>
+                        <td width="2%" rowspan="10" class="linea_separadora_g"></td>
+                        <td width="70%"><?php
+						if($row_programa['program_colaboracion_img'] != NULL){
+							echo '<img src="imagenes/colaboradores/'.$row_programa['program_colaboracion_img'].'" />';
+						} ?></td>
+                        <?php } ?>
+                      <?php if($totalRows_fecha_ini != 0){ ?>
+                      </tr>
                       <tr>
                         <td align="right" valign="top" class="contenido_diploRojo">Inicio</td>
                         <?php if($row_programa['program_colaboracion'] == NULL || $row_programa['program_colaboracion_img'] == NULL){ ?>
