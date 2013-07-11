@@ -88,7 +88,6 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 <link href="css/estilos_dan.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="Scripts/jquery-ui.css" type="text/css" media="all" />
 <link href="pruebas/css/jquery.tweet.css" rel="stylesheet" type="text/css">
-
 <script type="text/javascript" src="Scripts/jquery.js"></script>
 <script type="text/javascript" src="Scripts/menu3.js"></script>
 <script type="text/javascript" src="Scripts/jquery.carouFredSel-6.2.1-packed.js"></script>
@@ -105,7 +104,7 @@ $(document).ready(function(){
 $(function(){
 
 	$('#foo2').carouFredSel({
-					auto: false,
+					auto: true,
 					prev: '#prev2',
 					next: '#next2',
 					pagination: "#pager2",
@@ -189,7 +188,11 @@ s.parentNode.insertBefore(ga, s);
         $('.discipline_'+results[1]).css('background-color', '#D6D7D9')
     });
 </script>
-
+<style>
+	.caroufredsel_wrapper{
+		height: 250px !important;
+	}
+</style>
 <!-- widget twitter -->
 
 <!-- InstanceBeginEditable name="head" -->
