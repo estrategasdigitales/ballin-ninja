@@ -180,7 +180,7 @@ s.parentNode.insertBefore(ga, s);
 </script>
 <style>
 	.caroufredsel_wrapper{
-		height: 250px !important;
+		/*height: 250px !important;*/
 	}
 
 	.image_carousel {
@@ -642,11 +642,6 @@ s.parentNode.insertBefore(ga, s);
 					<?php } ?>
 				</div>
 				<div class="clearfix"></div>
-				<div>
-					<a id="prev2" class="prev" href="#">&lt;</a>
-					<a id="next2" class="next" href="#">&gt;</a>
-					<div id="pager2" class="pager"></div>
-				</div>
 			</div>
 				</td>
                   	</tr>
