@@ -33,7 +33,7 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
               $photo = new SimpleImage();
               $photo->load($IMAGE_FILE);
               $photo->save($photosDir."/".$img_filename);
-}
+
 
           function redimensionar_jpeg($img_original, $img_nueva, $img_nueva_anchura, $img_nueva_altura, $img_nueva_calidad)
           { 
@@ -136,7 +136,7 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
       }
 
   }
-
+}
 /*
   $insertSQL2 = sprintf("INSERT INTO site_archivo_galeria(id_galeria_programa, archivo) VALUES ('%s', '%s')",
                       mysql_real_escape_string($row_programa_galeria['ultima_galeria']),
@@ -151,124 +151,6 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
 
 ?>
 
-<?php
-                                      /*  function redimensionar_jpeggrande($img_original, $img_nueva)
-                                        { 
-                                            $r=1; 
-                                            // $e=strtolower(substr($img_original,strrpos($img_original,".")+1,3)); 
-                                            $file_dimensions = getimagesize($img_original);
-                                            $e = strtolower($file_dimensions['mime']);
-                                            if ($e == 'image/jpeg' || $e == 'image/pjpeg'){ 
-                                                $img=ImageCreateFromJpeg($img_original) or $r=0; 
-                                            } elseif ($e == "image/gif") { 
-                                                $img=ImageCreateFromGif($img_original) or $r=0; 
-                                            } elseif ($e == "image/bmp") { 
-                                                $img=ImageCreateFromwbmp($img_original) or $r=0; 
-                                            } elseif ($e == "image/png") { 
-                                                $img=ImageCreateFromPng($img_original) or $r=0; 
-                                            } else { 
-                                                ("Not a Valid Image! (".$e.") -- ".$img_original);$r=0; 
-                                            } 
-                                          $width = 550;
-                                          $height = 800;
-                                          list($width_orig, $height_orig) = getimagesize($img_original);
-
-                                          $ratio_orig = $width_orig/$height_orig;
-
-                                          if ($width/$height > $ratio_orig) {
-                                             $width = $height*$ratio_orig;
-                                          } else {
-                                             $height = $width/$ratio_orig;
-                                          }
-                                          $image_p = imagecreatetruecolor($width, $height);
-                                          imagecopyresampled($image_p, $img, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-                                          imageJPEG($image_p, $img_nueva, 100);  
-                                        } */
-                                        function redimensionar_jpeg($img_original, $img_nueva, $img_nueva_anchura, $img_nueva_altura, $img_nueva_calidad)
-                                        { 
-                                            $width = 550;
-                                            $height = 800;
-                                            $img=ImageCreateFromJpeg($img_original); 
-                                            $img_width  = imagesx($img);
-                                            $img_height = imagesy($img);
-                                            $tlx = floor($img_width / 2) - floor ($img_nueva_anchura / 2);
-                                            $tly = floor($img_height / 2) - floor($img_nueva_altura / 2);
-                                            // Adjust crop size if the image is too small
-                                            if ($tlx < 0)
-                                            {
-                                              $tlx = 0;
-                                            }
-                                            if ($tly < 0)
-                                            {
-                                              $tly = 0;
-                                            }
-
-                                            if (($img_width - $tlx) < $width)
-                                            {
-                                              $width = $img_width - $tlx;
-                                            }
-                                            if (($img_height - $tly) < $height)
-                                            {
-                                              $height = $img_height - $tly;
-                                            }
-
-                                            
-                                            $thumb = imagecreatetruecolor($img_nueva_anchura,$img_nueva_altura); 
-
-                                            imagecopy($thumb,$img,0,0,$tlx,$tly,$img_nueva_anchura, $img_nueva_altura); 
-                                            ImageJPEG($thumb,$img_nueva,$img_nueva_calidad);
-                                            ImageDestroy($img);
-                                        } 
-                                                 $tot = count($_FILES["archivos"]["name"]);
-                                                 //este for recorre el arreglo
-                                                 for ($i = 0; $i < $tot; $i++){
-                                                 if(is_uploaded_file($_FILES["archivos"]["tmp_name"])){
-                                                 //con el indice $i, podremos obtener la propiedad que desemos de cada archivo
-                                                 //para trabajar con este como si fuera un array continuo
-                                                    $tmp_name = $_FILES["archivos"]["tmp_name"];
-                                                    $name = $_FILES["archivos"]["name"];
-                                                    $tamano = $_FILES["archivos"]["size"];
-                                                    $tipo = $_FILES["archivos"]["type"]; 
-                                                    $categoria = $_POST["categoria"];
-                                                    $pie = $_POST["pie"];
-                                                    $mes = $_POST["mes"];
-                                                    $ano = $_POST["ano"];
-                                                    $seccion = $_POST["seccion"];                                                    
-                                                    $imagen1 = explode(".",$name);
-                                                    $fecha = date("d_m_Y_"); 
-                                                    $imagen2 = rand(0,9).rand(100,9999).rand(100,9999).".".$imagen1[3];   
-                                                            if (!((strpos($tipo, "gif") || strpos($tipo, "png")|| strpos($tipo, "jpeg")) && ($tamano < 10000000))) {
-                                                            // echo '<div style="width:500px; height:80px; padding:10px; background-color:#FF0000;float:left;">';
-                                                            echo '<table width="700px"><tr><td><p style="font-size:15px; color:red;"><strong>ERROR DE FORMATO O TAMA&Ntilde;O</strong></td><td><strong><a href="subirarchivos.php">REGRESAR</a></td></tr></table></strong></p></div></div>
-                                                            ';
-                                                            
-                                                            }else{                                                                    
-                                                                    $destino="../galerias/fotos/";
-                                                                    $originales="originales/";
-                                                                    $dir_thumb = "thumbs/";                                                                    
-
-                                                                        if (!file_exists($destino.$dir_thumb)){
-                                                                            @mkdir ($destino.$dir_thumb, 0777) 
-                                                                            or die("No se ha podido crear el directorio ".$destino.$dir_thumb);
-                                                                        }                                                                    
-                                                                    $destTHU= $destino.$dir_thumb;                                                                   
-                                                                    
-                                                                    if(move_uploaded_file($_FILES["archivos"]["tmp_name"],$destino.$originales.$fecha.$imagen2)){
-                                                                   // redimensionar_jpeggrande($destino.$originales.$fecha.$imagen2, $destino.$fecha.$imagen2);
-                                                                    redimensionar_jpeg($destino.$fecha.$imagen2, $destTHU.$fecha.$imagen2, 350, 350, 100);
-                                              
-                                                                    $query = sprintf("INSERT INTO galeria_arte (big, small, categoria, texto, categoriafinal,mes,ano,seccion) 
-                                                                    VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')",
-                                                                    mysql_real_escape_string(htmlentities($fecha.$imagen2, ENT_COMPAT, 'UTF-8')), 
-                                                                    mysql_real_escape_string(htmlentities($fecha.$imagen2, ENT_COMPAT, 'UTF-8')),
-                                                                    mysql_real_escape_string(htmlentities($categoria, ENT_COMPAT, 'UTF-8')),  
-                                                                    mysql_real_escape_string(htmlentities($pie, ENT_COMPAT, 'UTF-8')), 
-                                                                    mysql_real_escape_string(htmlentities($categoriafinal, ENT_COMPAT, 'UTF-8')),
-                                                                    mysql_real_escape_string(htmlentities($mes, ENT_COMPAT, 'UTF-8')),
-                                                                    mysql_real_escape_string(htmlentities($ano, ENT_COMPAT, 'UTF-8')),
-                                                                    mysql_real_escape_string(htmlentities($seccion, ENT_COMPAT, 'UTF-8')));
-                                                                    $ejequery=mysql_query($query,$connect);
-                                                                 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
