@@ -180,11 +180,12 @@ s.parentNode.insertBefore(ga, s);
 </script>
 <style>
 	.caroufredsel_wrapper{
-		/*height: 250px !important;*/
+		height: 370px !important;
+		width: 500px !important;
 	}
 
 	.image_carousel {
-	padding: 15px 0 15px 40px;
+	/*padding: 15px 0 15px 40px;*/
 }
 .image_carousel img {
 	border: 1px solid #ccc;
