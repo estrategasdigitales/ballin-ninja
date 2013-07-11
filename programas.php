@@ -104,17 +104,21 @@ $(document).ready(function(){
 
 $(function(){
 
-	$('#foo2').carouFredSel({
-					auto: false,
-					prev: '#prev2',
-					next: '#next2',
-					pagination: "#pager2",
-					mousewheel: true,
-					swipe: {
-						onMouse: true,
-						onTouch: true
-					}
-				});
+$("#foo2").carouFredSel({
+	circular: false,
+	infinite: false,
+	auto 	: false,
+	prev	: {	
+		button	: "#foo2_prev",
+		key		: "left"
+	},
+	next	: { 
+		button	: "#foo2_next",
+		key		: "right"
+	},
+	pagination	: "#foo2_pag"
+});
+
 
 
 })
