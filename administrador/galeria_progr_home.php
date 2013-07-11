@@ -56,6 +56,7 @@ $query_programas = "SELECT site_programs.program_name, id_programa, publicado FR
 $query_limit_programas = sprintf("%s LIMIT %d, %d", $query_programas, $startRow_programas, $maxRows_programas);
 $programas = mysql_query($query_limit_programas, $otono2011) or die(mysql_error());
 
+
 if (isset($_GET['totalRows_programas'])) {
   $totalRows_programas = $_GET['totalRows_programas'];
 } else {
@@ -138,12 +139,8 @@ function eliminar_prog(id_programa){
 	  </tr>
 	<?php $cont = 0;  while($row_programas = mysql_fetch_assoc($programas)){ $cont++; ?>
 		<tr>
-			<!--td><a href="programas_editar.php?id_program=<?php echo $row_programas['id_program']; ?>"><?php echo $row_programas['program_name']; ?></a></td>
-			<td><?php echo $row_programas['discipline']; ?></td>
-			<td><?php echo $row_programas['id_discipline_alterna']; ?></td>
-			<td><?php echo $row_programas['program_type']; ?></td-->
 			<td><?php echo $row_programas['program_name']; ?></td>
-			<td><?php if($row_programas['publicado'] == 1){ echo "<input type='checkbox' id='check_publicado' checked='checked'>";}else{echo "<input type='checkbox' id='check_publicado'>";} ?></td>
+			<td><?php if($row_programas['publicado'] == 1){ echo "<input type='checkbox' name='check_publicado' id='".$row_programas['id_programa']."' checked='checked'>";}else{echo "<input type='checkbox' id='".$row_programas['id_programa']."' name='check_publicado'>";} ?></td>
 			<td><a href="programas_editar.php?id_program=<?php echo $row_programas['id_program']; ?>">Editar</a></td>
 			<td><a onclick="eliminar_prog(<?php echo $row_programas['id_program']; ?>);" href="#">Eliminar</a></td>
 		</tr>
@@ -170,6 +167,14 @@ function eliminar_prog(id_programa){
   <div id="separador" style=" clear:both; height:20px;"></div>
   
 </div>
+<script>
+$('input[name="check_publicado"]').on('change', function(){
+  var id = this.id;
+  $.post('change_publicado_galeria.php', {id_programa : id}, function(data){
+    console.log(data);
+  })
+})
+</script>
 </body>
 <!-- InstanceEnd --></html>
 <?php
