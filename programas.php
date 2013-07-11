@@ -72,7 +72,7 @@ if($totalRows_galeria > 0){
 $query_galeria_imagenes = "SELECT archivo FROM site_archivo_galeria WHERE id_galeria_programa = ".$row_galeria['id_galeria_programa'];
 $galeria_imagenes = mysql_query($query_galeria_imagenes, $otono2011) or die(mysql_error());
 $totalRows_galeria_imagenes = mysql_num_rows($galeria_imagenes);
-
+echo $totalRows_galeria_imagenes; die;
 }
 
 //CODIGO PARA QUE ASIGNE FORMATO LOCAL A LAS FECHAS
@@ -627,7 +627,7 @@ s.parentNode.insertBefore(ga, s);
                   		<div class="list_carousel">
 				<ul id="foo2">
 					<?php 
-					echo $totalRows_galeria_imagenes; die;
+					
 					while($row_galeria_imagenes = mysql_fetch_assoc($galeria_imagenes)){ ?>
 					<li><img src="imagenes/galerias_programas/<?php echo $row_galeria_imagenes['archivo']; ?>"></li>
 					<?php } ?>
