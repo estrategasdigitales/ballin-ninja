@@ -103,17 +103,7 @@ $(document).ready(function(){
 
 $(function(){
 
-	$('#foo2').carouFredSel({
-					auto: true,
-					prev: '#prev2',
-					next: '#next2',
-					pagination: "#pager2",
-					mousewheel: true,
-					swipe: {
-						onMouse: true,
-						onTouch: true
-					}
-				});
+	$('#foo2').carouFredSel();
 
 
 })
@@ -192,6 +182,23 @@ s.parentNode.insertBefore(ga, s);
 	.caroufredsel_wrapper{
 		height: 250px !important;
 	}
+
+	.image_carousel {
+	padding: 15px 0 15px 40px;
+}
+.image_carousel img {
+	border: 1px solid #ccc;
+	background-color: white;
+	padding: 9px;
+	margin: 7px;
+	display: block;
+	float: left;
+}
+.clearfix {
+	float: none;
+	clear: both;
+}
+
 </style>
 <!-- widget twitter -->
 
