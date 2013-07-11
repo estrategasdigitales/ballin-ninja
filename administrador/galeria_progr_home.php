@@ -88,8 +88,7 @@ $queryString_programas = sprintf("&totalRows_programas=%d%s", $totalRows_program
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Educaci&oacute;n Continua</title>
 <!-- InstanceEndEditable -->
-<link href="../css/estilos.css" rel="stylesheet"
-        type="text/css" />
+<link href="../css/estilos.css" rel="stylesheet" type="text/css" />
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -144,7 +143,7 @@ function eliminar_prog(id_programa){
 			<td><?php echo $row_programas['id_discipline_alterna']; ?></td>
 			<td><?php echo $row_programas['program_type']; ?></td-->
 			<td><?php echo $row_programas['program_name']; ?></td>
-			<td><?php if($row_programas['publicado'] == 1){ echo "S&iacute;";}else{echo "No";} ?></td>
+			<td><?php if($row_programas['publicado'] == 1){ echo "<input type='checkbox' id='check_publicado' checked='checked'>";}else{echo "<input type='checkbox' id='check_publicado' checked='checked'>";} ?></td>
 			<td><a href="programas_editar.php?id_program=<?php echo $row_programas['id_program']; ?>">Editar</a></td>
 			<td><a onclick="eliminar_prog(<?php echo $row_programas['id_program']; ?>);" href="#">Eliminar</a></td>
 		</tr>
