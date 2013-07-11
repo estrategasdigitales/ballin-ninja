@@ -631,7 +631,7 @@ s.parentNode.insertBefore(ga, s);
 					<?php 
 
 					while($row_galeria_imagenes = mysql_fetch_assoc($galeria_imagenes)){ ?>
-					<li><img src="imagenes/galerias_programas/<?php echo $row_galeria_imagenes['archivo']; ?>"></li>
+					<li><img src="imagenes/galerias_programas/<?php echo $row_galeria_imagenes['archivo']; ?>" width="240px"></li>
 					<?php } ?>
 				</ul>
 				<div class="clearfix"></div>
