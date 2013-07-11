@@ -633,14 +633,14 @@ s.parentNode.insertBefore(ga, s);
                        ?>
                       <tr>
                   		<td colspan="3">
-                  		<div class="list_carousel">
-				<ul id="foo2">
+                  		<div class="image_carousel">
+				<div id="foo2">
 					<?php 
 
 					while($row_galeria_imagenes = mysql_fetch_assoc($galeria_imagenes)){ ?>
-					<li><img src="imagenes/galerias_programas/<?php echo $row_galeria_imagenes['archivo']; ?>" width="240px"></li>
+					<img src="imagenes/galerias_programas/<?php echo $row_galeria_imagenes['archivo']; ?>" width="240px">
 					<?php } ?>
-				</ul>
+				</div>
 				<div class="clearfix"></div>
 				<div>
 					<a id="prev2" class="prev" href="#">&lt;</a>
