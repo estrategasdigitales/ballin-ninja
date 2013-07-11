@@ -28,87 +28,35 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
           $IMAGE_FILE_NAME = $row_programa_galeria['ultima_galeria'].'_'.$_FILES['imagen_0']['name'];
           
           if($IMAGE_FILE != ""){
+
+
+
+
               $photosDir="../imagenes/galerias_programas/";
               $img_filename = str_replace(" ","_",$IMAGE_FILE_NAME);
               $photo = new SimpleImage();
               $photo->load($IMAGE_FILE);
               $photo->save($photosDir."/".$img_filename);
 
+            if (!file_exists($photosDir."thumbnails/")){
+                @mkdir ($photosDir."thumbnails/", 0777) 
+                or die("No se ha podido crear el directorio ".$photosDir."thumbnails/");
+            }      
 
-          function redimensionar_jpeg($img_original, $img_nueva, $img_nueva_anchura, $img_nueva_altura, $img_nueva_calidad)
-          { 
-              $width = 550;
-              $height = 800;
-              $img=ImageCreateFromJpeg($img_original); 
-              $img_width  = imagesx($img);
-              $img_height = imagesy($img);
-              $tlx = floor($img_width / 2) - floor ($img_nueva_anchura / 2);
-              $tly = floor($img_height / 2) - floor($img_nueva_altura / 2);
-              // Adjust crop size if the image is too small
-              if ($tlx < 0)
-              {
-                $tlx = 0;
-              }
-              if ($tly < 0)
-              {
-                $tly = 0;
-              }
 
-              if (($img_width - $tlx) < $width)
-              {
-                $width = $img_width - $tlx;
-              }
-              if (($img_height - $tly) < $height)
-              {
-                $height = $img_height - $tly;
-              }
-
-              
-              $thumb = imagecreatetruecolor($img_nueva_anchura,$img_nueva_altura); 
-
-              imagecopy($thumb,$img,0,0,$tlx,$tly,$img_nueva_anchura, $img_nueva_altura); 
-              ImageJPEG($thumb,$img_nueva,$img_nueva_calidad);
-              ImageDestroy($img);
-          } 
-
-         $tmp_name = $_FILES["imagen_0"]["tmp_name"];
-                    $name = $_FILES["imagen_0"]["name"];
-                    $tamano = $_FILES["imagen_0"]["size"];
-                    $tipo = $_FILES["imagen_0"]["type"]; 
-                    $categoria = $_POST["categoria"];
-                    $mes = $_POST["mes"];                                                
-                    $imagen1 = explode(".",$name);
-                    $fecha = date("d_m_Y_"); 
-                    $imagen2 = rand(0,9).rand(100,9999).rand(100,9999).".".$imagen1[3];   
-
-        if (!((strpos($tipo, "gif") || strpos($tipo, "png")|| strpos($tipo, "jpeg")) && ($tamano < 10000000))) {
-        echo '<table width="700px"><tr><td><p style="font-size:15px; color:red;"><strong>ERROR DE FORMATO O TAMA&Ntilde;O</strong></td><td><strong><a href="subirarchivos.php">REGRESAR</a></td></tr></table></strong></p></div></div>
-        ';
-        
-        }else{                                                                    
-                $destino="../imagenes/galerias_programas/";
-                $dir_thumb = "thumbs/";                                                                    
-
-                    if (!file_exists($destino.$dir_thumb)){
-                        @mkdir ($destino.$dir_thumb, 0777) 
-                        or die("No se ha podido crear el directorio ".$destino.$dir_thumb);
-                    }                                                                    
-                $destTHU= $destino.$dir_thumb;                                                                   
-                
-                if(move_uploaded_file($_FILES["archivos"]["tmp_name"],$destino.$fecha.$imagen2)){
-               // redimensionar_jpeggrande($destino.$originales.$fecha.$imagen2, $destino.$fecha.$imagen2);
-                redimensionar_jpeg($destino.$fecha.$IMAGE_FILE_NAME, $destTHU.$fecha.$imagen2, 350, 350, 100);
+              $photo->load($IMAGE_FILE);
+              $photo->resize(500,500);
+              $photo->save($photosDir."/"."thumbnails/");
 
 
               $insertSQL2 = sprintf("INSERT INTO site_archivo_galeria(id_galeria_programa, archivo, archivo_thumb) VALUES ('%s', '%s', '%s')",
                       mysql_real_escape_string($row_programa_galeria['ultima_galeria']),
-                      mysql_real_escape_string($fecha.$IMAGE_FILE_NAME),
-                      mysql_real_escape_string($fecha.$imagen2));
+                      mysql_real_escape_string($IMAGE_FILE_NAME),
+                      mysql_real_escape_string($IMAGE_FILE_NAME));
 
                 mysql_select_db($database_otono2011, $otono2011);
                 $Result1 = mysql_query($insertSQL2, $otono2011) or die(mysql_error());
           }
-        }
 
   if($_POST['cont'] > 0){
 
@@ -136,7 +84,7 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
       }
 
   }
-}
+
 /*
   $insertSQL2 = sprintf("INSERT INTO site_archivo_galeria(id_galeria_programa, archivo) VALUES ('%s', '%s')",
                       mysql_real_escape_string($row_programa_galeria['ultima_galeria']),
@@ -150,7 +98,6 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
 }
 
 ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
