@@ -45,7 +45,7 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
 
 
               $photo->load($IMAGE_FILE);
-              $photo->resize(500,500);
+              $photo->resize(150,150);
               $photo->save($photosDir."thumbnails/".$img_filename);
 
 
