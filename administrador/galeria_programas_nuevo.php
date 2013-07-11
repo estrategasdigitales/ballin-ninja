@@ -71,10 +71,10 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
               ImageDestroy($img);
           } 
 
-         $tmp_name = $_FILES["archivos"]["tmp_name"];
-                    $name = $_FILES["archivos"]["name"];
-                    $tamano = $_FILES["archivos"]["size"];
-                    $tipo = $_FILES["archivos"]["type"]; 
+         $tmp_name = $_FILES["imagen_0"]["tmp_name"];
+                    $name = $_FILES["imagen_0"]["name"];
+                    $tamano = $_FILES["imagen_0"]["size"];
+                    $tipo = $_FILES["imagen_0"]["type"]; 
                     $categoria = $_POST["categoria"];
                     $mes = $_POST["mes"];                                                
                     $imagen1 = explode(".",$name);
