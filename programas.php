@@ -182,6 +182,7 @@ s.parentNode.insertBefore(ga, s);
 	.caroufredsel_wrapper{
 		height: 370px !important;
 		width: 550px !important;
+		padding-bottom: 40px;
 	}
 
 	.image_carousel {
