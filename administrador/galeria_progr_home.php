@@ -52,7 +52,7 @@ if (isset($_GET['pageNum_programas'])) {
 $startRow_programas = $pageNum_programas * $maxRows_programas;
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_programas = "SELECT * FROM site_galeria_programa ORDER BY id_galeria_programa DESC";
+$query_programas = "SELECT site_programs.program_name, id_programa, publicado FROM site_galeria_programa LEFT JOIN site_programs ON site_galeria_programa.id_programa=site_programs.id_program ORDER BY id_galeria_programa DESC";
 $query_limit_programas = sprintf("%s LIMIT %d, %d", $query_programas, $startRow_programas, $maxRows_programas);
 $programas = mysql_query($query_limit_programas, $otono2011) or die(mysql_error());
 
@@ -143,7 +143,7 @@ function eliminar_prog(id_programa){
 			<td><?php echo $row_programas['discipline']; ?></td>
 			<td><?php echo $row_programas['id_discipline_alterna']; ?></td>
 			<td><?php echo $row_programas['program_type']; ?></td-->
-			<td><?php echo $row_programas['id_programa']; ?></td>
+			<td><?php echo $row_programas['program_name']; ?></td>
 			<td><?php if($row_programas['publicado'] == 1){ echo "S&iacute;";}else{echo "No";} ?></td>
 			<td><a href="programas_editar.php?id_program=<?php echo $row_programas['id_program']; ?>">Editar</a></td>
 			<td><a onclick="eliminar_prog(<?php echo $row_programas['id_program']; ?>);" href="#">Eliminar</a></td>

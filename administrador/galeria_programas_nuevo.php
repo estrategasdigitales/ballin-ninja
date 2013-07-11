@@ -18,7 +18,7 @@ if((isset($_POST['MM_insert'])) && ($_POST['MM_insert'] == 'form1')){
   mysql_select_db($database_otono2011, $otono2011);
   $Result1 = mysql_query($insertSQL, $otono2011) or die(mysql_error());
 
-$query_programa_galeria = "SELECT id_programa AS ultima_galeria FROM site_galeria_programa ORDER BY id_galeria_programa DESC LIMIT 0,1";
+$query_programa_galeria = "SELECT id_galeria_programa AS ultima_galeria FROM site_galeria_programa ORDER BY id_galeria_programa DESC LIMIT 0,1";
 $programa_galeria = mysql_query($query_programa_galeria, $otono2011) or die(mysql_error());
 $row_programa_galeria = mysql_fetch_assoc($programa_galeria);
 $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
@@ -113,51 +113,9 @@ CKEDITOR.replace( 'texto' );
   </div>
   <div id="separador"></div>
   <div id="separador"></div>
-  <div id="menu_generos_interior_index">
-    <div class="roundedBox_interior_index" id="type1"> 
-      <!-- esquinas -->
-      <div class="corner topLeft"></div>
-      <div class="corner topRight"></div>
-      <div class="corner bottomLeft"></div>
-      <div class="corner bottomRight"></div>
-      <!-- esquinas -->
-      <div id="menu_desplega_index">
-        <div id="menu_areas">
-          <h2>Programas</h2>
-          <ul>
-            <li><a href="programas_home.php">Programas</a> </li>
-            <li><a href="fechas_home.php">Fechas</a> </li>
-            <li><a href="fechas_idiom_home.php">Fechas Idiomas</a> </li>
-            <li><a href="propuestas_progr_home.php">Propuestas Programas</a></li>
-          </ul>
-          <p>&nbsp;</p>
-          <h2>Carrusel Index</h2>
-          <ul>
-            <li><a href="admin_carrusel/index.php">Banners</a></li>
-          </ul>
-          <p>&nbsp;</p>
-          <h2>Art&iacute;culos</h2>
-          <ul>
-            <li><a href="admin_discipline_articles.php?id_discipline=1">Disciplinas</a> </li>
-            <li><a href="admin_opinions.php">La Comunidad Ibero Opina</a> </li>            
-            <li><a href="admin_weekly_articles.php">Art&iacute;culos semanales</a> </li>
-            <!--li><a href="admin_media_articles.php">La DEC en los Medios</a> </li-->
-          </ul>
-          <p>&nbsp;</p>
-          <h2>Sedes</h2>
-          <ul>
-            <li><a href="admin_sedes_home.php">Sedes</a></li>
-          </ul>
-          <p>&nbsp;</p>
-          <h2>Directorio</h2>
-          <ul>
-            <li><a href="admin_dir_dec.php">DEC</a></li>
-            <li><a href="admin_dir_maestros.php">Maestros</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- LLamada a menú de secciones-->
+<?php include('menu_secciones.php'); ?>
+<!-- Termina llamada a menú de secciones-->
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
             <h1>Nueva Galer&iacute;a </h1>
             <form action="galeria_programas_nuevo.php" onsubmit="return checkFields();" method="post" name="form1" id="form1" enctype="multipart/form-data">

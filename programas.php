@@ -62,6 +62,19 @@ $temp = mysql_query($query_temp, $otono2011) or die(mysql_error());
 $row_temp = mysql_fetch_assoc($temp);
 $totalRows_temp = mysql_num_rows($temp);
 
+$query_galeria = "SELECT * FROM site_galeria_programa WHERE id_programa = ".$id_program;
+$galeria = mysql_query($query_galeria, $otono2011) or die(mysql_error());
+$row_galeria = mysql_fetch_assoc($galeria);
+$totalRows_galeria = mysql_num_rows($galeria);
+
+if($totalRows_galeria > 0){
+
+$query_galeria_imagenes = "SELECT archivo FROM site_archivo_galeria WHERE id_galeria_programa = ".$row_galeria['id_galeria_programa'];
+$galeria_imagenes = mysql_query($query_galeria_imagenes, $otono2011) or die(mysql_error());
+$totalRows_galeria_imagenes = mysql_num_rows($galeria_imagenes);
+//echo $query_galeria_imagenes;die;
+}
+
 //CODIGO PARA QUE ASIGNE FORMATO LOCAL A LAS FECHAS
 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 //++++++++++++++++++++
@@ -619,24 +632,16 @@ s.parentNode.insertBefore(ga, s);
                         <?php } ?>
                       <?php if($totalRows_fecha_ini != 0){ ?>
                       </tr>
-                      <?php ////// se agrega condicion para carrusel de galeria ?>
+                      <?php if($totalRows_galeria > 0 && $row_galeria['publicado'] == 1){
+                       ?>
                       <tr>
                   		<td colspan="3">
                   		<div class="list_carousel">
 				<ul id="foo2">
-					<li>c</li>
-					<li>a</li>
-					<li>r</li>
-					<li>o</li>
-					<li>u</li>
-					<li>F</li>
-					<li>r</li>
-					<li>e</li>
-					<li>d</li>
-					<li>S</li>
-					<li>e</li>
-					<li>l</li>
-					<li> </li>
+					<?php 
+					while($row_galeria_imagenes = mysql_fetch_assoc($galeria_imagenes)){ ?>
+					<li><img src="imagenes/galerias_programas/<?php echo $row_galeria_imagenes['archivo']; ?>"></li>
+					<?php } ?>
 				</ul>
 				<div class="clearfix"></div>
 				<a id="prev2" class="prev" href="#">&lt;</a>
@@ -645,7 +650,7 @@ s.parentNode.insertBefore(ga, s);
 			</div>
 				</td>
                   	</tr>
-                  	<?php ////// termina condicion para carrusel de galeria ?>
+                  	<?php } ?>
 
                       <tr>
                         <td align="right" valign="top" class="contenido_diploRojo">Inicio</td>
