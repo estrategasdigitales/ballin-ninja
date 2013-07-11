@@ -73,7 +73,7 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
               $photo->save($photosDir."/".$img_filename);
 
               $photo->load($IMAGE_FILE);
-              $photo->resize(500,500);
+              $photo->resize(150,150);
               $photo->save($photosDir."thumbnails/".$img_filename);
 
               $insertSQL2 = sprintf("INSERT INTO site_archivo_galeria(id_galeria_programa, archivo) VALUES ('%s', '%s')",
