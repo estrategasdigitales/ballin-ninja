@@ -245,7 +245,7 @@ $response .= '
 					
 					$tipo_ant = $tipo;
 				}
-				else if(($row_programas_alternativa['id_discipline_alterna_2']==24) && ($row_programas_alternativa['id_discipline_alterna']==24))
+				else if(($row_programas_alternativa['id_discipline_alterna_2']==24))
 				{
 
 					$tipo = $row_programas_alternativa['program_type'];
