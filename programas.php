@@ -310,6 +310,13 @@ s.parentNode.insertBefore(ga, s);
 	  }?>
 
 <div id="container">
+					<ul id="carousel" class="elastislide-list">
+					<?php 
+
+					while($row_galeria_imagenes = mysql_fetch_assoc($galeria_imagenes)){ ?>
+					<li><img src="imagenes/galerias_programas/thumbnails/<?php echo $row_galeria_imagenes['archivo']; ?>" height="100" width=""></li>
+					<?php } ?>
+				</ul>
   <div id="header">
     <div id="logos"> <a href="http://uia.mx/" target="_blank"><img src="imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'"><img src="imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></div>
     <div id="primavera" style="margin-bottom:8px"></div>
@@ -625,13 +632,7 @@ s.parentNode.insertBefore(ga, s);
                        ?>
                       <tr>
                   		<td colspan="3">
-				<ul id="carousel" class="elastislide-list">
-					<?php 
 
-					while($row_galeria_imagenes = mysql_fetch_assoc($galeria_imagenes)){ ?>
-					<li><img src="imagenes/galerias_programas/thumbnails/<?php echo $row_galeria_imagenes['archivo']; ?>" height="100" width=""></li>
-					<?php } ?>
-				</ul>
 				<div class="clearfix"></div>
 			
 				</td>
