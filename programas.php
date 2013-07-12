@@ -108,13 +108,6 @@ $(document).ready(function(){
     });
 });
 
-$(function(){
-
-	$('#foo2').carouFredSel();
-
-
-})
-
 function mycarousel_initCallback(carousel)
 {
     // Disable autoscrolling if the user clicks the prev or next button.
@@ -205,30 +198,6 @@ s.parentNode.insertBefore(ga, s);
         $('.discipline_'+results[1]).css('background-color', '#D6D7D9')
     });
 </script>
-<style>
-	.caroufredsel_wrapper{
-		height: 246px !important;
-		width: 550px !important;
-		padding-bottom: 40px;
-	}
-
-	.image_carousel {
-	/*padding: 15px 0 15px 40px;*/
-}
-.image_carousel img {
-	border: 1px solid #ccc;
-	background-color: white;
-	padding: 9px;
-	margin: 7px;
-	display: block;
-	float: left;
-}
-.clearfix {
-	float: none;
-	clear: both;
-}
-
-</style>
 <!-- widget twitter -->
 
 <!-- InstanceBeginEditable name="head" -->
@@ -662,7 +631,6 @@ s.parentNode.insertBefore(ga, s);
                        ?>
                       <tr>
                   		<td colspan="3">
-                  		<div class="image_carousel">
 				<ul id="mycarousel" class="jcarousel-skin-tango">
 					<?php 
 
@@ -671,7 +639,7 @@ s.parentNode.insertBefore(ga, s);
 					<?php } ?>
 				</ul>
 				<div class="clearfix"></div>
-			</div>
+			
 				</td>
                   	</tr>
                   	<?php } ?>
