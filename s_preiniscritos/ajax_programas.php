@@ -8,7 +8,7 @@ $disciplinas = mysql_query($query_disciplinas, $des_preinscritos) or die(mysql_e
 $row_disciplinas = mysql_fetch_assoc($disciplinas);
 
 mysql_select_db($database_des_preinscritos, $des_preinscritos);
-if($_GET['id_discipline'] != 0 && $_GET['id_discipline'] != 4 && $_GET['id_discipline'] != 20 && $_GET['id_discipline'] != 9 && $_GET['id_discipline'] != 14 && $_GET['id_discipline'] != 8 && $_GET['id_discipline'] != 6 && $_GET['id_discipline'] != 11 && $_GET['id_discipline'] != 2 && $_GET['id_discipline'] != 3 && $_GET['id_discipline'] != 10){
+if($_GET['id_discipline'] != 0 && $_GET['id_discipline'] != 4 && $_GET['id_discipline'] != 20 && $_GET['id_discipline'] != 9 && $_GET['id_discipline'] != 14 && $_GET['id_discipline'] != 8 && $_GET['id_discipline'] != 6 && $_GET['id_discipline'] != 11 && $_GET['id_discipline'] != 2 && $_GET['id_discipline'] != 3 && $_GET['id_discipline'] != 10 && $_GET['id_discipline'] != 24){
 	
 	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE cancelado = 0 AND id_discipline = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01' AND cancelado != 1) ORDER BY program_type DESC, program_name ASC";
 	
@@ -16,10 +16,10 @@ if($_GET['id_discipline'] != 0 && $_GET['id_discipline'] != 4 && $_GET['id_disci
 	
 	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE  id_discipline = ".$_GET['id_discipline']." OR id_discipline_alterna = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01') ORDER BY program_type DESC, program_name ASC";
 	
-}else if($_GET['id_discipline'] == 6 || $_GET['id_discipline'] == 2 || $_GET['id_discipline'] == 4 || $_GET['id_discipline'] == 9 || $_GET['id_discipline'] == 8 || $_GET['id_discipline'] == 3 || $_GET['id_discipline'] == 10){
+}else if($_GET['id_discipline'] == 6 || $_GET['id_discipline'] == 2 || $_GET['id_discipline'] == 4 || $_GET['id_discipline'] == 9 || $_GET['id_discipline'] == 8 || $_GET['id_discipline'] == 3 || $_GET['id_discipline'] == 10 || $_GET['id_discipline'] == 24){
 	
 	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo >= '2013-06-01' AND periodo = 'o') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01' AND periodo = 'o') ORDER BY program_type DESC, program_name ASC";
+	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline, id_discipline_alterna, id_discipline_alterna_2 FROM site_programs WHERE id_discipline_alterna = ".$_GET['id_discipline']." OR id_discipline_alterna_2 = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01' AND periodo = 'o') ORDER BY program_type DESC, program_name ASC";
 	$programas_alternativa = mysql_query($query_programas_alternativa, $des_preinscritos) or die(mysql_error());
 	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
 
@@ -80,7 +80,7 @@ if($_GET['id_discipline'] != 0 && $_GET['id_discipline'] != 4 && $_GET['id_disci
 }else if($_GET['id_discipline'] == 11){
 	
 	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 11 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 11 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01') ORDER BY program_type DESC, program_name ASC";
+	$query_programas_alternativa = "SELECT id_program, id_discipline, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 11 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01') ORDER BY program_type DESC, program_name ASC";
 	$programas_alternativa = mysql_query($query_programas_alternativa, $des_preinscritos) or die(mysql_error());
 	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
 
@@ -232,6 +232,20 @@ $response .= '
 					
 				}
 				else if(($row_programas_alternativa['id_discipline_alterna']==11) && ($row_programas_alternativa['id_discipline_alterna']==11))
+				{
+
+					$tipo = $row_programas_alternativa['program_type'];
+
+					if($tipo != $tipo_ant)
+						{
+							$response .= '<option disabled="disabled">-----CURSOS---</option>';
+						}
+
+					$response .= '<option value="'.$row_programas_alternativa['id_program'].'">'.utf8_encode($row_programas_alternativa['program_name']).'</option>';
+					
+					$tipo_ant = $tipo;
+				}
+				else if(($row_programas_alternativa['id_discipline_alterna_2']==24) && ($row_programas_alternativa['id_discipline_alterna']==24))
 				{
 
 					$tipo = $row_programas_alternativa['program_type'];
