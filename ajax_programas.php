@@ -2,7 +2,7 @@
 <?php
 
 mysql_select_db($database_otono2011, $otono2011);
-if($_GET['id_discipline'] != 0 && $_GET['id_discipline'] != 1 && $_GET['id_discipline'] != 2 && $_GET['id_discipline'] != 3 && $_GET['id_discipline'] != 4 && $_GET['id_discipline'] != 5 && $_GET['id_discipline'] != 6 && $_GET['id_discipline'] != 7 && $_GET['id_discipline'] != 8 && $_GET['id_discipline'] != 9 && $_GET['id_discipline'] != 10 && $_GET['id_discipline'] != 11 && $_GET['id_discipline'] != 12 && $_GET['id_discipline'] != 13 && $_GET['id_discipline'] != 14 && $_GET['id_discipline'] != 15 && $_GET['id_discipline'] != 16 && $_GET['id_discipline'] != 17 && $_GET['id_discipline'] != 18 && $_GET['id_discipline'] != 20){
+if($_GET['id_discipline'] != 0 && $_GET['id_discipline'] != 1 && $_GET['id_discipline'] != 2 && $_GET['id_discipline'] != 3 && $_GET['id_discipline'] != 4 && $_GET['id_discipline'] != 5 && $_GET['id_discipline'] != 6 && $_GET['id_discipline'] != 7 && $_GET['id_discipline'] != 8 && $_GET['id_discipline'] != 9 && $_GET['id_discipline'] != 10 && $_GET['id_discipline'] != 11 && $_GET['id_discipline'] != 12 && $_GET['id_discipline'] != 13 && $_GET['id_discipline'] != 14 && $_GET['id_discipline'] != 15 && $_GET['id_discipline'] != 16 && $_GET['id_discipline'] != 17 && $_GET['id_discipline'] != 18 && $_GET['id_discipline'] != 20 && $_GET['id_discipline'] != 24){
 	
 	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = ".$_GET['id_discipline']." AND cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2012-12-06'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
 
