@@ -180,7 +180,7 @@ s.parentNode.insertBefore(ga, s);
 </script>
 <style>
 	.caroufredsel_wrapper{
-		height: 370px !important;
+		height: 246px !important;
 		width: 550px !important;
 		padding-bottom: 40px;
 	}
