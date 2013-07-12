@@ -88,9 +88,10 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 <link href="css/estilos_dan.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="Scripts/jquery-ui.css" type="text/css" media="all" />
 <link href="pruebas/css/jquery.tweet.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="Scripts/tango/skin.css" />
 <script type="text/javascript" src="Scripts/jquery.js"></script>
 <script type="text/javascript" src="Scripts/menu3.js"></script>
-<script type="text/javascript" src="Scripts/jquery.carouFredSel-6.2.1-packed.js"></script>
+<script type="text/javascript" src="Scripts/jquery.jcarousel.min.js"></script>
 <script src="Scripts/jquery-ui.js"></script>
 <script language="javascript" src="pruebas/js/jquery.tweet.js" type="text/javascript"></script>
 <script>
@@ -99,6 +100,12 @@ $(document).ready(function(){
 		$('.galeria').hide();
 		$('div#'+ $(this).attr('id')).show();
 	});
+
+	 jQuery('#mycarousel').jcarousel({
+        auto: 2,
+        wrap: 'last',
+        initCallback: mycarousel_initCallback
+    });
 });
 
 $(function(){
@@ -108,9 +115,29 @@ $(function(){
 
 })
 
+function mycarousel_initCallback(carousel)
+{
+    // Disable autoscrolling if the user clicks the prev or next button.
+    carousel.buttonNext.bind('click', function() {
+        carousel.startAuto(0);
+    });
+
+    carousel.buttonPrev.bind('click', function() {
+        carousel.startAuto(0);
+    });
+
+    // Pause autoscrolling if the user moves with the cursor over the clip.
+    carousel.clip.hover(function() {
+        carousel.stopAuto();
+    }, function() {
+        carousel.startAuto();
+    });
+};
+
+
 </script>
 
-<!------ Google Analytics ------>
+<!-- Google Analytics -->
 <script type="text/javascript">
 
  var _gaq = _gaq || [];
@@ -636,13 +663,13 @@ s.parentNode.insertBefore(ga, s);
                       <tr>
                   		<td colspan="3">
                   		<div class="image_carousel">
-				<div id="foo2">
+				<ul id="mycarousel" class="jcarousel-skin-tango">
 					<?php 
 
 					while($row_galeria_imagenes = mysql_fetch_assoc($galeria_imagenes)){ ?>
-					<img src="imagenes/galerias_programas/thumbnails/<?php echo $row_galeria_imagenes['archivo']; ?>">
+					<li><img src="imagenes/galerias_programas/thumbnails/<?php echo $row_galeria_imagenes['archivo']; ?>"></li>
 					<?php } ?>
-				</div>
+				</ul>
 				<div class="clearfix"></div>
 			</div>
 				</td>
