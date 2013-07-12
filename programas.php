@@ -89,6 +89,7 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 <link rel="stylesheet" href="Scripts/jquery-ui.css" type="text/css" media="all" />
 <link href="pruebas/css/jquery.tweet.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="Scripts/jquery.js"></script>
+<script src="Scripts/modernizr.custom.17475.js"></script>
 <script type="text/javascript" src="Scripts/menu3.js"></script>
 <script type="text/javascript" src="Scripts/jquerypp.custom.js"></script>
 <script type="text/javascript" src="Scripts/jquery.elastislide.js"></script>
