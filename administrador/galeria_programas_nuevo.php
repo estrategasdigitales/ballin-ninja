@@ -109,21 +109,8 @@ $totalRows_programa_galeria = mysql_num_rows($programa_galeria);
 <link href="../css/estilos.css" rel="stylesheet" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <title>Administrador Carrusel - Nueva Imagen</title>
-<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-
-CKEDITOR.replace( 'texto' );
-})
-</script>
 </head>
-
-<!--body>
-
-
-
-
-</body--><body>
+<body>
 <div id="container">
   <div id="header">
     <div id="logos">
