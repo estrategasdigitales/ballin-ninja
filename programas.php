@@ -1387,14 +1387,14 @@ s.parentNode.insertBefore(ga, s);
 					}
 				} );
 
-			function changeImage( el, pos ) {
+			/*function changeImage( el, pos ) {
 
 				$preview.attr( 'src', el.data( 'preview' ) );
 				$carouselItems.removeClass( 'current-img' );
 				el.addClass( 'current-img' );
 				carousel.setCurrent( pos );
 
-			}
+			}*/
 </script>
 </body>
 <!-- InstanceEnd --></html>
