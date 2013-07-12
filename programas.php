@@ -1374,7 +1374,7 @@ s.parentNode.insertBefore(ga, s);
     }
 });
 
-  $(".auto .carrusel_programas_div").jCarouselLite({
+  $(".carrusel_programas_div").jCarouselLite({
     auto: 800,
     speed: 1000
 });
