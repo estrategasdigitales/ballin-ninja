@@ -122,6 +122,12 @@ $response .= '
 		
 			if(isset($row_programas_alternativa) && $row_programas_alternativa != NULL){
 
+				if($row_programas_alternativa['id_discipline_alterna_2']==24){
+					$response = '<select name="id_program" id="id_program" style="max-width:350px; width:350px;">
+		<option value="0" selected="selected" disabled="disabled">Selecciona un programa</option>
+		<option disabled="disabled">-----DIPLOMADOS---</option>';
+				}
+
 				do{
 
 				if(($row_programas_alternativa['id_discipline_alterna']==6) && ($row_programas_alternativa['id_discipline_alterna']==6))
