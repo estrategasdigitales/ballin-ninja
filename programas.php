@@ -94,7 +94,7 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 <script src="Scripts/modernizr.custom.17475.js"></script>
 <script type="text/javascript" src="Scripts/menu3.js"></script>
 <script type="text/javascript" src="Scripts/jquerypp.custom.js"></script>
-<script type="text/javascript" src="Scripts/jquery.elastislide.js"></script>
+<script type="text/javascript" src="http://www.gmarwaha.com/jquery/jcarousellite/js/jcarousellite_1.0.1.min.js"></script>
 <script src="Scripts/jquery-ui.js"></script>
 <script language="javascript" src="pruebas/js/jquery.tweet.js" type="text/javascript"></script>
 <script>
@@ -627,13 +627,15 @@ s.parentNode.insertBefore(ga, s);
                        ?>
                       <tr>
                   		<td colspan="3">
-				<ul id="carousel" class="elastislide-list">
-					<?php 
+                  		<div id="carousel" class="carrusel_programas_div">
+					<ul>
+						<?php 
 
-					while($row_galeria_imagenes = mysql_fetch_assoc($galeria_imagenes)){ ?>
-					<li><img src="imagenes/galerias_programas/thumbnails/<?php echo $row_galeria_imagenes['archivo']; ?>" height="100" width=""></li>
-					<?php } ?>
-				</ul>
+						while($row_galeria_imagenes = mysql_fetch_assoc($galeria_imagenes)){ ?>
+						<li><img src="imagenes/galerias_programas/thumbnails/<?php echo $row_galeria_imagenes['archivo']; ?>" height="100" width=""></li>
+						<?php } ?>
+					</ul>
+				</div>
 				<div class="clearfix"></div>
 			
 				</td>
@@ -1371,9 +1373,11 @@ s.parentNode.insertBefore(ga, s);
         container.hide();
     }
 });
-  $(document).ready(function(){
-  	$('#carousel').elastislide();	
-  })
+
+  $(".auto .carrusel_programas_div").jCarouselLite({
+    auto: 800,
+    speed: 1000
+});
   
 
   			/*var current = 0,
