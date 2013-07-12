@@ -636,7 +636,9 @@ s.parentNode.insertBefore(ga, s);
 				</td>
                   	</tr>
                   	<?php } ?>
-
+                  	<div class="image-preview">
+						<img id="preview" src="images/large/4.jpg" />
+					</div>
 
       			      		<?php if($_GET['id_program'] != 397){ ?>
                       <tr>
@@ -1387,14 +1389,14 @@ s.parentNode.insertBefore(ga, s);
 					}
 				} );
 
-			/*function changeImage( el, pos ) {
+			function changeImage( el, pos ) {
 
 				$preview.attr( 'src', el.data( 'preview' ) );
 				$carouselItems.removeClass( 'current-img' );
 				el.addClass( 'current-img' );
 				carousel.setCurrent( pos );
 
-			}*/
+			}
 </script>
 </body>
 <!-- InstanceEnd --></html>
