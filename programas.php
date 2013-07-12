@@ -91,7 +91,8 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 <link rel="stylesheet" type="text/css" href="Scripts/tango/skin.css" />
 <script type="text/javascript" src="Scripts/jquery.js"></script>
 <script type="text/javascript" src="Scripts/menu3.js"></script>
-<script type="text/javascript" src="Scripts/jquery.jcarousel.min.js"></script>
+<script type="text/javascript" src="Scripts/jquerypp.custom.js"></script>
+<script type="text/javascript" src="Scripts/jquery.elastislide.js"></script>
 <script src="Scripts/jquery-ui.js"></script>
 <script language="javascript" src="pruebas/js/jquery.tweet.js" type="text/javascript"></script>
 <script>
@@ -106,6 +107,36 @@ $(document).ready(function(){
         wrap: 'last',
         initCallback: mycarousel_initCallback
     });
+
+			var current = 0,
+				$preview = $( '#preview' ),
+				$carouselEl = $( '#carousel' ),
+				$carouselItems = $carouselEl.children(),
+				carousel = $carouselEl.elastislide( {
+					current : current,
+					minItems : 4,
+					onClick : function( el, pos, evt ) {
+
+						changeImage( el, pos );
+						evt.preventDefault();
+
+					},
+					onReady : function() {
+
+						changeImage( $carouselItems.eq( current ), current );
+						
+					}
+				} );
+
+			function changeImage( el, pos ) {
+
+				$preview.attr( 'src', el.data( 'preview' ) );
+				$carouselItems.removeClass( 'current-img' );
+				el.addClass( 'current-img' );
+				carousel.setCurrent( pos );
+
+			}
+	 
 });
 
 function mycarousel_initCallback(carousel)
@@ -631,7 +662,7 @@ s.parentNode.insertBefore(ga, s);
                        ?>
                       <tr>
                   		<td colspan="3">
-				<ul id="mycarousel" class="jcarousel-skin-tango">
+				<ul id="carousel" class="elastislide-list">
 					<?php 
 
 					while($row_galeria_imagenes = mysql_fetch_assoc($galeria_imagenes)){ ?>
