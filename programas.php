@@ -97,34 +97,7 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 <script>
 $(document).ready(function(){
 
-			var current = 0,
-				$preview = $( '#preview' ),
-				$carouselEl = $( '#carousel' ),
-				$carouselItems = $carouselEl.children(),
-				carousel = $carouselEl.elastislide( {
-					current : current,
-					minItems : 4,
-					onClick : function( el, pos, evt ) {
 
-						changeImage( el, pos );
-						evt.preventDefault();
-
-					},
-					onReady : function() {
-
-						changeImage( $carouselItems.eq( current ), current );
-						
-					}
-				} );
-
-			function changeImage( el, pos ) {
-
-				$preview.attr( 'src', el.data( 'preview' ) );
-				$carouselItems.removeClass( 'current-img' );
-				el.addClass( 'current-img' );
-				carousel.setCurrent( pos );
-
-			}
 
 });
 
@@ -1393,6 +1366,35 @@ s.parentNode.insertBefore(ga, s);
         container.hide();
     }
 });
+
+  			var current = 0,
+				$preview = $( '#preview' ),
+				$carouselEl = $( '#carousel' ),
+				$carouselItems = $carouselEl.children(),
+				carousel = $carouselEl.elastislide( {
+					current : current,
+					minItems : 4,
+					onClick : function( el, pos, evt ) {
+
+						changeImage( el, pos );
+						evt.preventDefault();
+
+					},
+					onReady : function() {
+
+						changeImage( $carouselItems.eq( current ), current );
+						
+					}
+				} );
+
+			function changeImage( el, pos ) {
+
+				$preview.attr( 'src', el.data( 'preview' ) );
+				$carouselItems.removeClass( 'current-img' );
+				el.addClass( 'current-img' );
+				carousel.setCurrent( pos );
+
+			}
 </script>
 </body>
 <!-- InstanceEnd --></html>
