@@ -103,7 +103,7 @@ $(document).ready(function(){
 });
 
 function mycarousel_initCallback(carousel)
-{
+{ 
     // Disable autoscrolling if the user clicks the prev or next button.
     carousel.buttonNext.bind('click', function() {
         carousel.startAuto(0);
@@ -1370,7 +1370,9 @@ s.parentNode.insertBefore(ga, s);
     }
 });
 
-  			var current = 0,
+  $('#carousel').elastislide();
+
+  			/*var current = 0,
 				$preview = $( '#preview' ),
 				$carouselEl = $( '#carousel' ),
 				$carouselItems = $carouselEl.children(),
@@ -1397,7 +1399,7 @@ s.parentNode.insertBefore(ga, s);
 				el.addClass( 'current-img' );
 				carousel.setCurrent( pos );
 
-			}
+			}*/
 </script>
 </body>
 <!-- InstanceEnd --></html>
