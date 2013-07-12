@@ -88,7 +88,6 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 <link href="css/estilos_dan.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="Scripts/jquery-ui.css" type="text/css" media="all" />
 <link href="pruebas/css/jquery.tweet.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="Scripts/tango/skin.css" />
 <script type="text/javascript" src="Scripts/jquery.js"></script>
 <script type="text/javascript" src="Scripts/menu3.js"></script>
 <script type="text/javascript" src="Scripts/jquerypp.custom.js"></script>
@@ -97,16 +96,6 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 <script language="javascript" src="pruebas/js/jquery.tweet.js" type="text/javascript"></script>
 <script>
 $(document).ready(function(){
-	$('.btn').click(function(){
-		$('.galeria').hide();
-		$('div#'+ $(this).attr('id')).show();
-	});
-
-	 jQuery('#mycarousel').jcarousel({
-        auto: 2,
-        wrap: 'last',
-        initCallback: mycarousel_initCallback
-    });
 
 			var current = 0,
 				$preview = $( '#preview' ),
@@ -136,7 +125,7 @@ $(document).ready(function(){
 				carousel.setCurrent( pos );
 
 			}
-	 
+
 });
 
 function mycarousel_initCallback(carousel)
