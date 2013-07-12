@@ -1369,8 +1369,10 @@ s.parentNode.insertBefore(ga, s);
         container.hide();
     }
 });
-
-  $('#carousel').elastislide();
+  $(document).ready(function(){
+  	$('#carousel').elastislide();	
+  })
+  
 
   			/*var current = 0,
 				$preview = $( '#preview' ),
