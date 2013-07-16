@@ -9,35 +9,35 @@ mysql_select_db($database_otono2011, $otono2011);
 
 /// D I P L O M A D O S
 
-$query_progs_diplos = "SELECT * FROM site_programs WHERE program_type = 'diplomado' AND cancelado = 0 AND (id_discipline  = ".$disciplina." OR id_discipline_alterna = ".$disciplina." OR id_discipline_alterna_2 = ".$disciplina.") AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_name ASC";
+$query_progs_diplos = "SELECT * FROM site_programs WHERE program_type = 'diplomado' AND cancelado = 0 AND periodo = 'o'(id_discipline  = ".$disciplina." OR id_discipline_alterna = ".$disciplina." OR id_discipline_alterna_2 = ".$disciplina.") ORDER BY program_name ASC";
 $progs_diplos = mysql_query($query_progs_diplos, $otono2011) or die(mysql_error());    
 $row_progs_diplos = mysql_fetch_assoc($progs_diplos);
 $totalRows_progs_diplos = mysql_num_rows($progs_diplos);
 
 /// C U R S O S
 
-$query_progs_cursos = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND cancelado = 0 AND periodo = 'o' AND (id_discipline = ".$disciplina." OR id_discipline_alterna  = ".$disciplina." OR id_discipline_alterna_2  = ".$disciplina.") AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY idioma ASC, program_name ASC";
+$query_progs_cursos = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND cancelado = 0 AND periodo = 'o' AND (id_discipline = ".$disciplina." OR id_discipline_alterna  = ".$disciplina." OR id_discipline_alterna_2  = ".$disciplina.") ORDER BY idioma ASC, program_name ASC";
 $progs_cursos = mysql_query($query_progs_cursos, $otono2011) or die(mysql_error());
 $row_progs_cursos = mysql_fetch_assoc($progs_cursos);
 $totalRows_progs_cursos = mysql_num_rows($progs_cursos);
 
 /// P R O G R A M A S
 
-$query_progs_progs = "SELECT * FROM site_programs WHERE program_type = 'programa' AND cancelado = 0 AND periodo = 'o' AND id_discipline = ".$disciplina." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY idioma ASC, program_name ASC";
+$query_progs_progs = "SELECT * FROM site_programs WHERE program_type = 'programa' AND cancelado = 0 AND periodo = 'o' AND id_discipline = ".$disciplina." ORDER BY idioma ASC, program_name ASC";
 $progs_progs = mysql_query($query_progs_progs, $otono2011) or die(mysql_error());
 $row_progs_progs = mysql_fetch_assoc($progs_progs);
 $totalRows_progs_progs = mysql_num_rows($progs_progs);
 
 /// P R O G R A M A S   H P
 
-$query_progs_hp = "SELECT * FROM site_programs WHERE program_type = 'programahp'  AND cancelado = 0 AND periodo = 'o' AND id_discipline = ".$disciplina." OR id_discipline_alterna = ".$disciplina." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY idioma ASC, program_name ASC";
+$query_progs_hp = "SELECT * FROM site_programs WHERE program_type = 'programahp'  AND cancelado = 0 AND periodo = 'o' AND id_discipline = ".$disciplina." OR id_discipline_alterna = ".$disciplina." ORDER BY idioma ASC, program_name ASC";
 $progs_hp = mysql_query($query_progs_hp, $otono2011) or die(mysql_error());
 $row_progs_hp = mysql_fetch_assoc($progs_hp);
 $totalRows_progs_hp = mysql_num_rows($progs_hp);
 
 /// I D I O M A S 
 
-$query_progs_cursos_i = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND idioma = 1 AND cancelado = 0 AND id_discipline = ".$disciplina." AND id_program IN (SELECT id_program FROM site_fechas_idiomas WHERE inicio >= '2013-06-01' AND periodo = 'o') ORDER BY idioma ASC, program_name ASC";
+$query_progs_cursos_i = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND idioma = 1 AND cancelado = 0 AND id_discipline = ".$disciplina." AND id_program IN (SELECT id_program FROM site_fechas_idiomas WHERE inicio >= '2013-06-01') ORDER BY idioma ASC, program_name ASC";
 $progs_cursos_i = mysql_query($query_progs_cursos_i, $otono2011) or die(mysql_error());
 $row_progs_cursos_i = mysql_fetch_assoc($progs_cursos_i);
 $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
