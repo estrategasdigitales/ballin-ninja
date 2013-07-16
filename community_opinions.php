@@ -476,7 +476,7 @@ s.parentNode.insertBefore(ga, s);
     <tr>
       <td width="120" valign="top">
 
-        <a onmouseover="MM_swapImage('img_readmore','','images/links/read_more_onhover.gif',1)" onmouseout="MM_swapImgRestore()" style="cursor: pointer;" onclick="parent.location='http://www.diplomados.uia.mx/community_opinion_detail.php?id_opinion=<?php echo $row_all_community_opinions_details['id_opinion'] ?>&amp;source=<?php echo $row_all_community_opinions_details['source'] ?>'">
+        <a onmouseover="MM_swapImage('img_readmore','','images/links/read_more_onhover.gif',1)" onmouseout="MM_swapImgRestore()" style="cursor: pointer;" onclick="parent.location='http://www.diplomados.uia.mx/community_opinions_detail.php?id_opinion=<?php echo $row_all_community_opinions_details['id_opinion'] ?>&amp;source=<?php echo $row_all_community_opinions_details['source'] ?>'">
       
 	  <?php if($row_all_community_opinions_details['source'] == 'community_opinions') { ?>
       
