@@ -37,9 +37,10 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
-  $updateSQL = sprintf("UPDATE site_fechas_ini SET fecha=%s, horario=%s, cancelado=%s, cont_cancelaciones=%s, cont_cambio_fecha=%s WHERE id_fecha=%s",
+  $updateSQL = sprintf("UPDATE site_fechas_ini SET fecha=%s, horario=%s, periodo=%s, cancelado=%s, cont_cancelaciones=%s, cont_cambio_fecha=%s WHERE id_fecha=%s",
                        GetSQLValueString($_POST['fecha'], "date"),
                        GetSQLValueString($_POST['horario'], "text"),
+                       GetSQLValueString($_POST['periodo'], "text"),
                        GetSQLValueString(isset($_POST['cancelado']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString($_POST['cont_cancelaciones'], "int"),
                        GetSQLValueString($_POST['cont_cambio_fecha'], "int"),
@@ -60,6 +61,7 @@ $query_fechas = sprintf("SELECT * FROM site_fechas_ini WHERE id_fecha = %s", Get
 $fechas = mysql_query($query_fechas, $otono2011) or die(mysql_error());
 $row_fechas = mysql_fetch_assoc($fechas);
 $totalRows_fechas = mysql_num_rows($fechas);
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/temp_admin.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -170,6 +172,28 @@ $totalRows_fechas = mysql_num_rows($fechas);
 							<td align="right" valign="middle" nowrap="nowrap"><strong>Horario:</strong></td>
 							<td valign="baseline"><input type="text" name="horario" value="<?php echo $row_fechas['horario']; ?>" size="32" /></td>
 						</tr>
+            <tr valign="baseline">
+              <td align="right" valign="middle" nowrap="nowrap"><strong>Periodo:</strong></td>
+              <td valign="baseline">
+                  <select name="periodo">
+                    <?php 
+                      switch($row_fechas['periodo']){
+                        case 'p':
+                        $options = '<option selected="selected" value="p">Primavera</option><option value="v">Verano</option><option value="o">Oto&ntilde;o</option>';
+                        break;
+                        case 'v':
+                        $options = '<option selected="selected" value="v">Verano</option><option value="p">Primavera</option><option value="o">Oto&ntilde;o</option>';
+                        break;
+                        case 'o':
+                        $options = '<option selected="selected" value="o">Oto&ntilde;o</option><option value="p">Primavera</option><option value="v">Verano</option>';
+                        break;
+                      }
+                        echo $options;
+
+
+                    ?>
+                  </select></td>
+            </tr>
 						<tr valign="baseline">
 							<td align="right" valign="middle" nowrap="nowrap"><strong>Cancelado:</strong></td>
 							<td valign="baseline"><input type="checkbox" name="cancelado" value=""  <?php if (!(strcmp($row_fechas['cancelado'],1))) {echo "checked=\"checked\"";} ?> /></td>
