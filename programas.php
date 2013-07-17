@@ -61,7 +61,7 @@ $query_temp = "SELECT discipline FROM disciplines WHERE id_discipline = ".$id_di
 $temp = mysql_query($query_temp, $otono2011) or die(mysql_error());
 $row_temp = mysql_fetch_assoc($temp);
 $totalRows_temp = mysql_num_rows($temp);
-
+/*
 $query_galeria = "SELECT * FROM site_galeria_programa WHERE id_programa = ".$id_program;
 $galeria = mysql_query($query_galeria, $otono2011) or die(mysql_error());
 $row_galeria = mysql_fetch_assoc($galeria);
@@ -73,7 +73,7 @@ $query_galeria_imagenes = "SELECT archivo FROM site_archivo_galeria WHERE id_gal
 $galeria_imagenes = mysql_query($query_galeria_imagenes, $otono2011) or die(mysql_error());
 $totalRows_galeria_imagenes = mysql_num_rows($galeria_imagenes);
 }
-
+*/
 //CODIGO PARA QUE ASIGNE FORMATO LOCAL A LAS FECHAS
 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 //++++++++++++++++++++
@@ -623,9 +623,9 @@ s.parentNode.insertBefore(ga, s);
       		</table>
       		<table width="100%" border="0" cellpadding="5" cellspacing="0">
 
-      		      <?php if($totalRows_galeria > 0 && $row_galeria['publicado'] == 1){
+      		      <?php //if($totalRows_galeria > 0 && $row_galeria['publicado'] == 1){
                        ?>
-                      <tr>
+                      <!--tr>
                   		<td colspan="3">
                   		<div id="carousel" class="carrusel_programas_div">
 					<ul>
@@ -639,8 +639,8 @@ s.parentNode.insertBefore(ga, s);
 				<div class="clearfix"></div>
 			
 				</td>
-                  	</tr>
-                  	<?php } ?>
+                  	</tr-->
+                  	<?php // } ?>
 
       			      		<?php if($_GET['id_program'] != 397){ ?>
                       <tr>
