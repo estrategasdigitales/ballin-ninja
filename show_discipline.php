@@ -9,7 +9,7 @@ mysql_select_db($database_otono2011, $otono2011);
 
 /// D I P L O M A D O S
 
-$query_progs_diplos = "SELECT * FROM site_programs WHERE program_type = 'diplomado' AND cancelado = 0 AND periodo = 'o'(id_discipline  = ".$disciplina." OR id_discipline_alterna = ".$disciplina." OR id_discipline_alterna_2 = ".$disciplina.") ORDER BY program_name ASC";
+$query_progs_diplos = "SELECT * FROM site_programs WHERE program_type = 'diplomado' AND cancelado = 0 AND periodo = 'o' AND (id_discipline  = ".$disciplina." OR id_discipline_alterna = ".$disciplina." OR id_discipline_alterna_2 = ".$disciplina.") ORDER BY program_name ASC";
 $progs_diplos = mysql_query($query_progs_diplos, $otono2011) or die(mysql_error());    
 $row_progs_diplos = mysql_fetch_assoc($progs_diplos);
 $totalRows_progs_diplos = mysql_num_rows($progs_diplos);
