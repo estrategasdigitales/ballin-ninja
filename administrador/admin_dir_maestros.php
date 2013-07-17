@@ -128,7 +128,7 @@ function eliminar_prog(id_programa){
  <h1> Directorio DEC </h1>
  <div style="heigth:80px; float:right; margin:10px 0px;">
     <form action="admin_dir_maestros_result.php" method="post">
-        <label name="nombre_profesor"><b>Nombre Profesor:</b></label>
+        <label name="nombre_profesor"><b>Nombre del administrativo:</b></label>
         <input type="text" name="nombre_profr" value=""/>
         <input type="submit" value="Buscar"/>
     </form>
