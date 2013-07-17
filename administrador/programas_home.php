@@ -126,6 +126,13 @@ function eliminar_prog(id_programa){
   <div id="contenedor_irregular_index" style="width:800px;"><!-- InstanceBeginEditable name="contenido" -->
 
  <h1> Programas </h1>
+<div style="heigth:80px; float:right; margin:10px 0px;">
+    <form action="admin_dir_programas_result.php" method="post">
+        <label name="nombre_programa"><b>Nombre del programa:</b></label>
+        <input type="text" name="nombre_programa" value=""/>
+        <input type="submit" value="Buscar"/>
+    </form>
+ </div>
 <table  border="0" cellpadding="5" cellspacing="0" class="tablas">
 	<tr class="titulo_tabla">
 		<td>Programa</td>

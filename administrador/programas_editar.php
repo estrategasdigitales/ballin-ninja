@@ -255,10 +255,9 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   mysql_select_db($database_otono2011, $otono2011);
   $Result1 = mysql_query($updateSQL, $otono2011) or die(mysql_error());
   for($i=1;$i<=$_POST['fechas_cont'];$i++){
-	  $update_fechaSQL = sprintf("UPDATE site_fechas_ini SET fecha=%s, horario=%s, publicado=%s, cancelado=%s, cont_cancelaciones=%s, cont_cambio_fecha=%s WHERE id_fecha=%s",
+	  $update_fechaSQL = sprintf("UPDATE site_fechas_ini SET fecha=%s, horario=%s, cancelado=%s, cont_cancelaciones=%s, cont_cambio_fecha=%s WHERE id_fecha=%s",
 						   GetSQLValueString($_POST['fecha'.$i], "date"),
-						   GetSQLValueString($_POST['horario'.$i], "text"),
-						   GetSQLValueString(isset($_POST['banner_home_publ'.$i]) ? "true" : "", "defined","1","0"),							 
+						   GetSQLValueString($_POST['horario'.$i], "text"),						 
 						   GetSQLValueString(isset($_POST['cancelado_fecha'.$i]) ? "true" : "", "defined","1","0"),
 						   GetSQLValueString($_POST['cont_cancelaciones'], "int"),
 						   GetSQLValueString($_POST['cont_cambio_fecha'], "int"),
