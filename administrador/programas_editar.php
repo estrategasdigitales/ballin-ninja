@@ -357,10 +357,10 @@ function check_fields(){
 		message += "Periodo\n";
 		empty_fields = 0;
 	}
-	if($('select[name="id_maestro_1"]').val() == ""){
+	/*if($('select[name="id_maestro_1"]').val() == ""){
 		message += "Maestro\n";
     	empty_fields = 0;
-	}
+	}*/
 	if(!$.trim($(document).find('#description').val())){
     	message += "Descripci\u00F3n\n";
     	empty_fields = 0;
