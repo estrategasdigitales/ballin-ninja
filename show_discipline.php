@@ -16,7 +16,7 @@ $totalRows_progs_diplos = mysql_num_rows($progs_diplos);
 
 /// C U R S O S
 
-$query_progs_cursos = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND periodo = 'o' AND (id_discipline = ".$disciplina." OR id_discipline_alterna  = ".$disciplina." OR id_discipline_alterna_2  = ".$disciplina.") ORDER BY idioma ASC, program_name ASC"; 
+$query_progs_cursos = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND periodo = 'o' AND idioma != 1 AND (id_discipline = ".$disciplina." OR id_discipline_alterna  = ".$disciplina." OR id_discipline_alterna_2  = ".$disciplina.") ORDER BY idioma ASC, program_name ASC"; 
 $progs_cursos = mysql_query($query_progs_cursos, $otono2011) or die(mysql_error());
 $row_progs_cursos = mysql_fetch_assoc($progs_cursos);
 $totalRows_progs_cursos = mysql_num_rows($progs_cursos);
