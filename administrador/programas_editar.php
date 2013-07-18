@@ -471,7 +471,7 @@ function check_fields(){
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_discipline['id_discipline'];?>" <?php if($row_discipline['id_discipline'] == $disc_alter_array[0]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
+					<option value="<?php echo $row_discipline['id_discipline'];?>" <?php if(!isset($disc_alter_array[0]) && $disc_alter_array[0] == NULL){$disc_alter_array[0] = "";}  if($row_discipline['id_discipline'] == $disc_alter_array[0]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
 					<?php
 					} while ($row_discipline = mysql_fetch_assoc($discipline));
 					  $rows = mysql_num_rows($discipline);
@@ -487,7 +487,7 @@ function check_fields(){
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_discipline['id_discipline'];?>" <?php if($row_discipline['id_discipline'] == $disc_alter_array[1]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
+					<option value="<?php echo $row_discipline['id_discipline'];?>" <?php if(!isset($disc_alter_array[1]) && $disc_alter_array[1] == NULL){$disc_alter_array[1] = "";} if($row_discipline['id_discipline'] == $disc_alter_array[1]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
 					<?php
 					} while ($row_discipline = mysql_fetch_assoc($discipline));
 					  $rows = mysql_num_rows($discipline);
@@ -503,7 +503,7 @@ function check_fields(){
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_discipline['id_discipline'];?>" <?php if($row_discipline['id_discipline'] == $disc_alter_array[2]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
+					<option value="<?php echo $row_discipline['id_discipline'];?>" <?php if(!isset($disc_alter_array[2]) && $disc_alter_array[2] == NULL){$disc_alter_array[2] = "";} if($row_discipline['id_discipline'] == $disc_alter_array[2]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
 					<?php
 					} while ($row_discipline = mysql_fetch_assoc($discipline));
 					  $rows = mysql_num_rows($discipline);
@@ -519,7 +519,7 @@ function check_fields(){
 					<?php
 					do {  
 					?>
-					<option value="<?php echo $row_discipline['id_discipline'];?>" <?php if($row_discipline['id_discipline'] == $disc_alter_array[3]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
+					<option value="<?php echo $row_discipline['id_discipline'];?>" <?php if(!isset($disc_alter_array[3]) && $disc_alter_array[3] == NULL){$disc_alter_array[3] = "";} if($row_discipline['id_discipline'] == $disc_alter_array[3]){echo 'selected="selected"';}?>><?php echo $row_discipline['discipline']?></option>
 					<?php
 					} while ($row_discipline = mysql_fetch_assoc($discipline));
 					  $rows = mysql_num_rows($discipline);
