@@ -37,7 +37,7 @@ $totalRows_progs_hp = mysql_num_rows($progs_hp);
 
 /// I D I O M A S 
 
-$query_progs_cursos_i = "SELECT * FROM site_programs WHERE program_type = 'curso' AND idioma = 1 AND cancelado = 0 AND id_discipline = ".$disciplina." ORDER BY idioma ASC, program_name ASC";
+$query_progs_cursos_i = "SELECT * FROM site_programs WHERE idioma = 1 AND cancelado = 0 AND (id_discipline = ".$disciplina." OR id_discipline_alterna = ".$disciplina.") ORDER BY idioma ASC, program_name ASC";
 $progs_cursos_i = mysql_query($query_progs_cursos_i, $otono2011) or die(mysql_error());
 $row_progs_cursos_i = mysql_fetch_assoc($progs_cursos_i);
 $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
@@ -185,7 +185,8 @@ $response .= '<p><img src="imagenes/linea_submenu.png"><p style="font-size:16px;
 
 	if($totalRows_progs_cursos_i > 0){ 
 
-	}
+$response .= '<p><img src="imagenes/linea_submenu.png"><p style="font-size:16px; font-weight:bold; padding:10px 0 0 10px;">Cursos</p><p><img src="imagenes/linea_submenu.png"></p><ul style="list-style-type:disc; margin-left:-16px;">';
+	
 	$response .= "</ul>";
 
 	if($totalRows_progs_cursos_i > 0){ 
@@ -214,7 +215,7 @@ $response .= '<p><img src="imagenes/linea_submenu.png"><p style="font-size:16px;
 
 					$response .= '</ul>';
 	} 
-
+}
 echo $response;
 
 ?>
