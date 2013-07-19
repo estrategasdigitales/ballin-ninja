@@ -227,13 +227,14 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		$id_maestro .= ', '.$_POST['id_maestro_4'];
 	}
 	
-  $updateSQL = sprintf("UPDATE site_programs SET id_discipline=%s, id_discipline_alterna=%s, program_type=%s, program_name=%s, program_colaboracion=%s, program_colaboracion_img=%s, program_new=%s, `description`=%s, imagen=%s, observaciones=%s, id_maestro=%s, duration=%s, costo_curso=%s, cost_inscripcion=%s, costo_modulo=%s, id_encargado=%s, banner=%s, banner_url=%s, program_pdf=%s, cancelado=%s, periodo=%s, idioma=%s WHERE id_program=%s",
+  $updateSQL = sprintf("UPDATE site_programs SET id_discipline=%s, id_discipline_alterna=%s, program_type=%s, program_name=%s, program_colaboracion=%s, program_colaboracion_img=%s, program_colaboracion_leyenda=%s, program_new=%s, `description`=%s, imagen=%s, observaciones=%s, id_maestro=%s, duration=%s, costo_curso=%s, cost_inscripcion=%s, costo_modulo=%s, id_encargado=%s, banner=%s, banner_url=%s, program_pdf=%s, cancelado=%s, periodo=%s, idioma=%s WHERE id_program=%s",
                        GetSQLValueString($_POST['id_discipline'], "int"),
                        GetSQLValueString($id_discipline_alterna, "text"),
                        GetSQLValueString($_POST['program_type'], "text"),
                        GetSQLValueString($_POST['program_name'], "text"),
                        GetSQLValueString($_POST['program_colaboracion'], "text"),
                        GetSQLValueString($img_colaborador, "text"),
+                       GetSQLValueString(isset($_POST['program_colaboracion_leyenda']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString(isset($_POST['program_new']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString($_POST['description'], "text"),
 											 GetSQLValueString($banner_home, "text"),
@@ -587,6 +588,12 @@ function check_fields(){
 			<td colspan="3">
 			<input type="file" name="program_colaboracion_img" value="<?php echo $row_programa['program_colaboracion_img']; ?>" size="32" /><br />
 			<?php echo $row_programa['program_colaboracion_img']; ?><input type="hidden" name="program_colaboracion_img_old" value="<?php echo $row_programa['program_colaboracion_img']; ?>"  /></td>
+		</tr>
+		<tr valign="baseline">
+			<td nowrap="nowrap" align="right"><strong>&iquest;Se muestra leyenda<br/>"En colaboraci&oacute;n" en la p&aacute;gina?:</strong></td>
+			<td colspan="3">
+			<input type="checkbox" name="program_colaboracion_leyenda" <?php if($row_programa['program_colaboracion_leyenda'] == 1){ echo "checked='checked'"; }  ?> /><br />
+			</td>
 		</tr>
 		<tr>
         	<td align="right" valign="top" nowrap="nowrap"><strong>Eliminar imagen colaborador:</strong></td>
