@@ -233,7 +233,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($pdf_programa, "text"),
                        GetSQLValueString(isset($_POST['cancelado']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString($_POST['periodo'], "text"),
-                       GetSQLValueString(isset($_POST['idioma']) ? "true" : "", "defined","1","NULL"));
+                       GetSQLValueString(isset($_POST['idioma']) ? "true" : "", "defined","1","0"));
 
   mysql_select_db($database_otono2011, $otono2011);
   $Result1 = mysql_query($insertSQL, $otono2011) or die(mysql_error());
