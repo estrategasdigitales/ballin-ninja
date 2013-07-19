@@ -23,7 +23,7 @@ $totalRows_progs_cursos = mysql_num_rows($progs_cursos);
 
 /// P R O G R A M A S
 
-$query_progs_progs = "SELECT * FROM site_programs WHERE program_type = 'programa' AND cancelado = 0 AND periodo = 'o' AND id_discipline = ".$disciplina." ORDER BY idioma ASC, program_name ASC";
+$query_progs_progs = "SELECT * FROM site_programs WHERE program_type = 'programa' AND cancelado = 0 AND idioma = 0 AND periodo = 'o' AND id_discipline = ".$disciplina." ORDER BY idioma ASC, program_name ASC";
 $progs_progs = mysql_query($query_progs_progs, $otono2011) or die(mysql_error());
 $row_progs_progs = mysql_fetch_assoc($progs_progs);	
 $totalRows_progs_progs = mysql_num_rows($progs_progs);
