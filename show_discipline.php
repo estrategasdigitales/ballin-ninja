@@ -185,8 +185,10 @@ $response .= '<p><img src="imagenes/linea_submenu.png"><p style="font-size:16px;
 
 	if($totalRows_progs_cursos_i > 0){ 
 
+		if($disciplina == 14){
+
 $response .= '<p><img src="imagenes/linea_submenu.png"><p style="font-size:16px; font-weight:bold; padding:10px 0 0 10px;">Cursos</p><p><img src="imagenes/linea_submenu.png"></p><ul style="list-style-type:disc; margin-left:-16px;">';
-	
+	}
 	$response .= "</ul>";
 
 	if($totalRows_progs_cursos_i > 0){ 
