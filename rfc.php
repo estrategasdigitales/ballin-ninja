@@ -29,5 +29,5 @@ while($row_rfc = mysql_fetch_assoc($rfc)){
 	echo $cont."- ".$fecha_completa."-".$edad_limpia[0]."<br>";
 }
 }
-
+ 
 ?>
