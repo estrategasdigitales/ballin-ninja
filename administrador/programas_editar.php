@@ -250,7 +250,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($pdf_programa, "text"),
                        GetSQLValueString(isset($_POST['cancelado']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString($_POST['periodo'], "text"),
-                       GetSQLValueString(isset($_POST['idioma']) ? "true" : "", "defined","1","NULL"),
+                       GetSQLValueString(isset($_POST['idioma']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString($_POST['id_program'], "int"));
 
 echo $updateSQL;die;
