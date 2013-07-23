@@ -32,7 +32,6 @@ while($row_rfc = mysql_fetch_assoc($rfc)){
 		  mysql_select_db($database_otono2011, $otono2011);
 		  $Result_edades = mysql_query($query_edades, $otono2011) or die(mysql_error());
 
-		echo $cont."- ".$fecha_completa."-".$edad_limpia[0]."<br>";
 	}
 }
 
