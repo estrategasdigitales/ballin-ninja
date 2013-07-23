@@ -4,10 +4,10 @@ session_start();
 
 if(!isset($_SESSION['loggedin_id_user'])){
 	
-	header('Location: login.php');
+	header('Location: index.php');
 
 }else{
-	
+
 	mysql_select_db($database_otono2011, $otono2011);
 	$query_rfc = sprintf("SELECT id_preinscrito, rfc FROM sp_preinscritos ORDER BY rfc ASC");
 	$rfc = mysql_query($query_rfc, $otono2011) or die(mysql_error());
