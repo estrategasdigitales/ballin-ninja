@@ -246,15 +246,15 @@ $(document).ready(function(){
 	$("input#fecha_fin" ).datepicker();
 	
 	//FUNCTION PARA GRAFICA DE BARRAS 1
-	  var line1 = [<? echo $valores; ?>];
+	  var line1 = [<?php echo $valores; ?>];
 	 
 	  var plot1 = $.jqplot('chart1', [line1], {
-		title: '<? echo $graph_title; ?>',
+		title: '<?php echo $graph_title; ?>',
 		seriesDefaults: {renderer: $.jqplot.BarRenderer},
 		series:[
 		{pointLabels:{
 			show: true,
-			labels:[<? echo $etiquetas; ?>]
+			labels:[<?php echo $etiquetas; ?>]
 		  }}],
 		axesDefaults: {
 			tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
@@ -309,16 +309,16 @@ function graph_history(fecha_ini,fecha_fin){
   <div id="menu">
 	  <div id="menu_int">
     	<ul>
-	      <li><? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/preinscritos.php'){ ?><span style="color:#F00;">Preinscritos</span><? }else{ ?><a href="../preinscritos.php?<? echo $_SERVER['QUERY_STRING']?>">Preinscritos</a><? } ?></li>
-	      <li><? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/inscritos.php'){ ?><span style="color:#F00;">Inscritos</span><? }else{ ?><a href="../inscritos.php?<? echo $_SERVER['QUERY_STRING']?>">Inscritos</a><? } ?></li>
-	      <li><? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/casos_cerrados.php'){ ?><span style="color:#F00;">Casos cerrados</span>
-	       <? }else{ ?><a href="../casos_cerrados.php?<? echo $_SERVER['QUERY_STRING']?>">Casos cerrados</a><? } ?></li>
-	       <li><? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/casos_inconclusos.php'){ ?><span style="color:#F00;">Casos inconclusos</span>
-	         <? }else{ ?><a href="../casos_inconclusos.php?<? echo $_SERVER['QUERY_STRING']?>">Casos inconclusos</a><? } ?></li>
-	         <li><? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/informes.php'){ ?><span style="color:#F00;">Informes</span>
-	           <? }else{ ?><a href="../informes.php?<? echo $_SERVER['QUERY_STRING']?>">Informes</a><? } ?></li>
-	           <li><? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/promo.php'){ ?><span style="color:#F00;">Promociones</span>
-	       <? }else{ ?><a href="../promo.php?<? echo $_SERVER['QUERY_STRING']?>">Promociones</a><? } ?></li>
+	      <li><?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/preinscritos.php'){ ?><span style="color:#F00;">Preinscritos</span><?php }else{ ?><a href="../preinscritos.php?<?php echo $_SERVER['QUERY_STRING']?>">Preinscritos</a><?php } ?></li>
+	      <li><?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/inscritos.php'){ ?><span style="color:#F00;">Inscritos</span><?php }else{ ?><a href="../inscritos.php?<?php echo $_SERVER['QUERY_STRING']?>">Inscritos</a><?php } ?></li>
+	      <li><?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/casos_cerrados.php'){ ?><span style="color:#F00;">Casos cerrados</span>
+	       <?php }else{ ?><a href="../casos_cerrados.php?<?php echo $_SERVER['QUERY_STRING']?>">Casos cerrados</a><?php } ?></li>
+	       <li><?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/casos_inconclusos.php'){ ?><span style="color:#F00;">Casos inconclusos</span>
+	         <?php }else{ ?><a href="../casos_inconclusos.php?<?php echo $_SERVER['QUERY_STRING']?>">Casos inconclusos</a><?php } ?></li>
+	         <li><?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/informes.php'){ ?><span style="color:#F00;">Informes</span>
+	           <?php }else{ ?><a href="../informes.php?<?php echo $_SERVER['QUERY_STRING']?>">Informes</a><?php } ?></li>
+	           <li><?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/promo.php'){ ?><span style="color:#F00;">Promociones</span>
+	       <?php }else{ ?><a href="../promo.php?<?php echo $_SERVER['QUERY_STRING']?>">Promociones</a><?php } ?></li>
          </ul>
 		</div>
 		<div id="buscador">
@@ -341,46 +341,46 @@ function graph_history(fecha_ini,fecha_fin){
     <div id="menu_int" style="width:100%;">
       <ul>
         <li>
-          <? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/graficas/graficas_area_programa.php'){ ?>
+          <?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/graficas/graficas_area_programa.php'){ ?>
           <span style="color:#F00;">&Aacute;rea/programa</span>
-          <? }else{ ?>
-          <a href="graficas_area_programa.php?<? echo $_SERVER['QUERY_STRING']?>">&Aacute;rea/programa</a>
-          <? } ?>
+          <?php }else{ ?>
+          <a href="graficas_area_programa.php?<?php echo $_SERVER['QUERY_STRING']?>">&Aacute;rea/programa</a>
+          <?php } ?>
         </li>
         <li>
-          <? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/graficas/graficas_nacionalidad.php'){ ?>
+          <?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/graficas/graficas_nacionalidad.php'){ ?>
           <span style="color:#F00;">Nacionalidad</span>
-          <? }else{ ?>
-          <a href="graficas_nacionalidad.php?<? echo $_SERVER['QUERY_STRING']?>">Nacionalidad</a>
-          <? } ?>
+          <?php }else{ ?>
+          <a href="graficas_nacionalidad.php?<?php echo $_SERVER['QUERY_STRING']?>">Nacionalidad</a>
+          <?php } ?>
         </li>
         <li>
-          <? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/graficas/graficas_nivel_academico.php'){ ?>
+          <?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/graficas/graficas_nivel_academico.php'){ ?>
           <span style="color:#F00;">Nivel acad&eacute;mico</span>
-          <? }else{ ?>
-          <a href="graficas_nivel_academico.php?<? echo $_SERVER['QUERY_STRING']?>">Nivel acad&eacute;mico</a>
-          <? } ?>
+          <?php }else{ ?>
+          <a href="graficas_nivel_academico.php?<?php echo $_SERVER['QUERY_STRING']?>">Nivel acad&eacute;mico</a>
+          <?php } ?>
         </li>
         <li>
-          <? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/graficas/graficas_exalumno.php'){ ?>
+          <?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/graficas/graficas_exalumno.php'){ ?>
           <span style="color:#F00;">Exalumno Ibero</span>
-          <? }else{ ?>
-          <a href="graficas_exalumno.php?<? echo $_SERVER['QUERY_STRING']?>">Exalumno Ibero</a>
-          <? } ?>
+          <?php }else{ ?>
+          <a href="graficas_exalumno.php?<?php echo $_SERVER['QUERY_STRING']?>">Exalumno Ibero</a>
+          <?php } ?>
         </li>
         <li>
-          <? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/graficas/graficas_como_se_entero.php'){ ?>
+          <?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/graficas/graficas_como_se_entero.php'){ ?>
           <span style="color:#F00;">¿C&oacute;mo se enter&oacute;?</span>
-          <? }else{ ?>
-          <a href="graficas_como_se_entero.php?<? echo $_SERVER['QUERY_STRING']?>">¿C&oacute;mo se enter&oacute;?</a>
-          <? } ?>
+          <?php }else{ ?>
+          <a href="graficas_como_se_entero.php?<?php echo $_SERVER['QUERY_STRING']?>">¿C&oacute;mo se enter&oacute;?</a>
+          <?php } ?>
         </li>
         <li>
-          <? if($_SERVER['PHP_SELF'] == '/s_preiniscritos/graficas/graficas_paso_del_proceso_estatus.php'){ ?>
+          <?php if($_SERVER['PHP_SELF'] == '/s_preiniscritos/graficas/graficas_paso_del_proceso_estatus.php'){ ?>
           <span style="color:#F00;">Paso del proceso / estatus</span>
-          <? }else{ ?>
-          <a href="graficas_paso_del_proceso_estatus.php?<? echo $_SERVER['QUERY_STRING']?>">Paso del proceso / estatus</a>
-          <? } ?>
+          <?php }else{ ?>
+          <a href="graficas_paso_del_proceso_estatus.php?<?php echo $_SERVER['QUERY_STRING']?>">Paso del proceso / estatus</a>
+          <?php } ?>
         </li>
       </ul>
     </div>
@@ -411,15 +411,15 @@ function graph_history(fecha_ini,fecha_fin){
                         <label>Área:
                           <select id="id_discipline" name="id_discipline" class="contenido_diplo">
                             <option value="0" selected="selected">Todas mis &aacute;reas</option>
-                            <? do{ 
+                            <?php do{ 
 							//query para obtener las areas a las que puede acceder el usuario logeado
 							mysql_select_db($database_des_preinscritos, $des_preinscritos);
 							$query_areas_select = "SELECT discipline FROM disciplines WHERE id_discipline = ".$row_disciplinas['id_discipline'];
 							$areas_select = mysql_query($query_areas_select, $des_preinscritos) or die(mysql_error());
 							$row_areas_select = mysql_fetch_assoc($areas_select);
 							?>
-                            <option value="<? echo $row_disciplinas['id_discipline']; ?>" <? if($row_disciplinas['id_discipline'] == $_GET['id_discipline']){ echo 'selected="selected"'; }?>><? echo utf8_encode($row_areas_select['discipline']); ?></option>
-                            <? }while($row_disciplinas = mysql_fetch_assoc($disciplinas)); ?>
+                            <option value="<?php echo $row_disciplinas['id_discipline']; ?>" <?php if($row_disciplinas['id_discipline'] == $_GET['id_discipline']){ echo 'selected="selected"'; }?>><?php echo utf8_encode($row_areas_select['discipline']); ?></option>
+                            <?php }while($row_disciplinas = mysql_fetch_assoc($disciplinas)); ?>
                           </select>
                         </label>
                      
