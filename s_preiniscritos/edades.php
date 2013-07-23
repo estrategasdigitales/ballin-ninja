@@ -1,5 +1,7 @@
 <?php require_once('../Connections/otono2011.php'); 
 
+session_start();
+
 if(!isset($_SESSION['loggedin_id_user'])){
 	
 	header('Location: index.php');
