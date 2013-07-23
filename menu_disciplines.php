@@ -36,5 +36,5 @@
           <h4 style="padding-top: 0px;"></h4>
           <p id="search_on" style="padding:5px"><a onclick="show_search()" style="color:#EF353C; font-weight:bold;">Busca tu programa de inter&eacute;s </p></a>
           <h4 style="padding-top: 0px;"></h4>
-          <p style="padding:0px 5px 5px 5px;"><a href="catalogo.php"style="color:#EF353C; font-weight:bold;">Consulta cat&aacute;logo oferta oto&ntilde;o 2013</a></p>
+          <p style="padding:0px 5px 5px 5px;"><a onclick="parent.location='http://www.diplomados.uia.mx/catalogo.php'" style="color:#EF353C; font-weight:bold;">Consulta cat&aacute;logo oferta oto&ntilde;o 2013</a></p>
         </div>

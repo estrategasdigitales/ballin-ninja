@@ -1,5 +1,5 @@
 <?php
-  require_once('restrict_access.php'); 
+  require_once('restrict_access.php');
   require_once('Connections/des_preinscritos.php'); 
 
   if(!isset($_GET['id_discipline']) || $_GET['id_discipline'] == NULL){
@@ -170,7 +170,7 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
     //alert(id_discipline);
     $('td#td_programas').html('Cargando...');
     if (id_discipline=="")
-    { 
+    {
       document.getElementById('td_programas').innerHTML="";
       return;
     }
@@ -190,7 +190,7 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
       //document.getElementById(div).innerHTML=xmlhttp.responseText;
     //alert(xmlhttp.responseText);
     $('td#td_programas').html(xmlhttp.responseText);    
-    console.log(xmlhttp.responseText);
+    
   }
 }
 xmlhttp.open("GET",'ajax_programas.php?id_discipline='+id_discipline,true);
@@ -269,7 +269,7 @@ $(document).ready(function() {
                   <td valign="top" align="right">
                    <!-- comienza select de áreas -->
                    <label>Área:
-                    <select <?php if($_SESSION['loggedin_id_user'] == 37){ echo "disabled='disabled'";} ?> onchange="load_programs(this.value);" id="id_discipline" name="id_discipline" class="contenido_diplo">
+                    <select <?php if($_SESSION['loggedin_id_user'] == 37 || $_SESSION['loggedin_id_user'] == 38){ echo "disabled='disabled'";} ?> onchange="load_programs(this.value);" id="id_discipline" name="id_discipline" class="contenido_diplo">
                      <option value="0" selected="selected">Todas mis &aacute;reas</option>
                      <?php do{ 
                 //query para obtener las areas a las que puede acceder el usuario logeado
@@ -302,7 +302,7 @@ $(document).ready(function() {
   
 
                   <select id="id_program" name="id_program" class="contenido_diplo" style="max-width:350px; width:350px;">
-                    <option <?php if($_SESSION['loggedin_id_user'] == 37){echo "disabled='disabled'";} ?>value="0">Todos los programas</option>
+                    <option <?php if($_SESSION['loggedin_id_user'] == 38){echo "disabled='disabled'";} ?>value="0">Todos los programas</option>
                     <option disabled="disabled">-------DIPLOMADOS-------</option>
                     <?php 
                     $tipo_ant = 'diplomado';
@@ -317,6 +317,16 @@ $(document).ready(function() {
                               if($row_programas['id_program'] == $_GET['id_program']){echo ' selected="selected"';}
                               echo '>'.utf8_encode($row_programas['program_name']).'</option>';
                             }
+                      }elseif($_SESSION['loggedin_id_user'] == 38){
+                        if($tipo != $tipo_ant){echo '<option disabled="disabled">-----CURSOS---</option>';}
+                          if($row_programas['id_program'] == 120 || $row_programas['id_program'] == 110){
+                              echo '<option value="'.$row_programas['id_program'].'"';
+                              if($row_programas['id_program'] == $_GET['id_program']){echo ' selected="selected"';}
+                              echo '>'.utf8_encode($row_programas['program_name']).'</option>';
+                            }else{
+                             //
+                            }
+
                       }else{
                         if($tipo != $tipo_ant){echo '<option disabled="disabled">-----CURSOS---</option>';}
                         echo '<option value="'.$row_programas['id_program'].'"';
@@ -360,9 +370,9 @@ $(document).ready(function() {
          </ul>
        </div>
        <div id="buscador">
-        <form name="buscador" id="buscador" action="resultados_busqueda.php" method="get">
+        <form name="buscador" id="buscador" action="resultados_busqueda.php" method="get">         
          <a href="graficas/graficas_area_programa.php">Gr&aacute;ficas</a>
-         <a href="export_to_xls.php">Exportar a Excel</a>
+         <ahref="export_to_xls.php">Exportar a Excel</a>
          <input name="qs" type="text" id="qs" placeholder="Todas las &aacute;reas" value="" size="20" />
          <input type="submit" name="enviar" id="enviar" value="Buscar">
        </form>
@@ -370,6 +380,7 @@ $(document).ready(function() {
    </div>
    <div class="sombra"> </div>
    <div class="espacio"></div>
+    <a target="_blank" href="rfc.php">Gr&aacute;fica de preinscritos por edades</a> 
 
    <!-- InstanceBeginEditable name="contenido" -->
    <?php if(mysql_num_rows($preinscritos) == 0){ ?>
