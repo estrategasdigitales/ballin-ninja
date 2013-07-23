@@ -1,4 +1,4 @@
-<?php require_once('Connections/otono2011.php'); 
+<?php require_once('../Connections/otono2011.php'); 
 
 session_start();
 
