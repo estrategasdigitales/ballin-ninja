@@ -237,7 +237,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString(isset($_POST['program_colaboracion_leyenda']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString(isset($_POST['program_new']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString($_POST['description'], "text"),
-											 GetSQLValueString($banner_home, "text"),
+					   GetSQLValueString($banner_home, "text"),
                        GetSQLValueString($_POST['observaciones'], "text"),
                        GetSQLValueString($id_maestro, "text"),
                        GetSQLValueString($_POST['duration'], "text"),
@@ -246,12 +246,14 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['costo_modulo'], "text"),
                        GetSQLValueString($id_encargado, "text"),
                        GetSQLValueString($banner, "text"),
-					   					 GetSQLValueString($_POST['banner_url'], "text"),
+					   	GetSQLValueString($_POST['banner_url'], "text"),
                        GetSQLValueString($pdf_programa, "text"),
                        GetSQLValueString(isset($_POST['cancelado']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString($_POST['periodo'], "text"),
                        GetSQLValueString(isset($_POST['idioma']) ? "true" : "", "defined","1","NULL"),
                        GetSQLValueString($_POST['id_program'], "int"));
+
+echo $updateSQL;die;
 
   mysql_select_db($database_otono2011, $otono2011);
   $Result1 = mysql_query($updateSQL, $otono2011) or die(mysql_error());
