@@ -613,11 +613,11 @@ function check_fields(){
         </tr>
 		<tr valign="baseline">
 			<td nowrap="nowrap" align="right"><strong>Nuevo:</strong></td>
-			<td colspan="3"><input type="radio" name="program_new" value="" <?php if($row_programa['program_new'] == 1) {echo "checked=\"checked\"";} ?> /></td>
+			<td colspan="3"><input type="radio" name="program_new" value="1" <?php if($row_programa['program_new'] == 1) {echo "checked=\"checked\"";} ?> /></td>
 		</tr>
 		<tr valign="baseline">
 			<td nowrap="nowrap" align="right"><strong>Nueva versi&oacute;n:</strong></td>
-			<td colspan="3"><input type="radio" name="program_new" value="" <?php if($row_programa['program_new'] == 2) {echo "checked=\"checked\"";} ?> /></td>
+			<td colspan="3"><input type="radio" name="program_new" value="2" <?php if($row_programa['program_new'] == 2) {echo "checked=\"checked\"";} ?> /></td>
 		</tr>
 		<tr valign="top">
 			<td nowrap="nowrap" align="right"><strong>Descripci&oacute;n:</strong></td>
