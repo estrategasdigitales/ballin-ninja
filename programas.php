@@ -615,10 +615,10 @@ s.parentNode.insertBefore(ga, s);
 				  </td>
 				                          <td  width="22%" align="left" valign="top">
 
-				                          		<?php if($_GET['id_program'] == 452){ ?> <table><tr><td valign="top"><div style="margin-bottom: 35px;"><a target="_blank" href="temarios/HEmpresa_PlanDiplomado7Def.pdf" style="float:left;"><img src="imagenes/icono_temario.gif" width="30" height="30" border="0" / ></a> <a href="temarios/HEmpresa_PlanDiplomado7Def.pdf" target="_blank"> Programa Detallado</a></div></td></tr></table><div style="margin-top: -114px;"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" style="float:left"> <img src="imagenes/icono_temario.gif" width="30" height="30" border="0" / ></a><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar<br>Temario</a></div><?php }else{ ?>
+				                          		<?php if($_GET['id_program'] == 452){ ?> <table><tr><td valign="top"><div style="margin-bottom: 35px;"><a target="_blank" href="temarios/HEmpresa_PlanDiplomado7Def.pdf" style="float:left;"><img src="imagenes/icono_temario.gif" width="30" height="30" border="0" / ></a> <a href="temarios/HEmpresa_PlanDiplomado7Def.pdf" target="_blank"> Programa Detallado</a></div></td></tr></table><div style="margin-top: -114px;"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" style="float:left"> <img src="imagenes/icono_temario.gif" width="30" height="30" border="0" / ></a><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar<br>Temario</a></div><?php }else{ if($row_programa['program_pdf'] != NULL){ ?>
 
 				                          	<div style="margin-top: -25px;"><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" style="float:left"> <img src="imagenes/icono_temario.gif" width="30" height="30" border="0" / ></a><a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank">Descargar<br>Temario</a></div></td></td>
-				                          	<?php } ?>
+				                          	<?php } } ?>
       			</tr>
       		</table>
       		<table width="100%" border="0" cellpadding="5" cellspacing="0">
