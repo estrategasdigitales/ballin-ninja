@@ -72,7 +72,7 @@ $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
 					$no_u = str_replace('ú', 'u', $no_o);
 					$titulo = str_replace(' ', '_', $no_u); 
 	 $response .=  "<li style='padding:3px 15px 3px 0px;'><a href='#' onclick=parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=".$disciplina."&amp;id_program=".$row_progs_diplos['id_program']."'>".utf8_encode($row_progs_diplos['program_name']);
-
+	 
 	 	if($row_progs_diplos['program_new']==1){
 
 	 		$response .= '<span class="contenido_diploRojo"> Nuevo </span>';
@@ -136,7 +136,10 @@ $totalRows_progs_cursos_i = mysql_num_rows($progs_cursos_i);
 
 	             	$response .= '<span class="contenido_diploRojo"> Nuevo </span> ';
 
-	         	 }
+	         	 }else if($row_progs_progs['program_new']==2){
+
+						 		$response .= '<span class="contenido_diploRojo"> Nueva versión </span> ';
+							 }
 
          		$response .= '</a></li>';
                     
