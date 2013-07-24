@@ -226,6 +226,11 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 	if($_POST['id_maestro_4'] != ""){
 		$id_maestro .= ', '.$_POST['id_maestro_4'];
 	}
+
+	if(isset($_POST['delete_pdf']) && ($_POST['delete_pdf']) == 1){
+		$pdf_program = "";
+	}
+
 	
   $updateSQL = sprintf("UPDATE site_programs SET id_discipline=%s, id_discipline_alterna=%s, program_type=%s, program_name=%s, program_colaboracion=%s, program_colaboracion_img=%s, program_colaboracion_leyenda=%s, program_new=%s, `description`=%s, imagen=%s, observaciones=%s, id_maestro=%s, duration=%s, costo_curso=%s, cost_inscripcion=%s, costo_modulo=%s, id_encargado=%s, banner=%s, banner_url=%s, program_pdf=%s, cancelado=%s, periodo=%s, idioma=%s WHERE id_program=%s",
                        GetSQLValueString($_POST['id_discipline'], "int"),
@@ -246,14 +251,12 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['costo_modulo'], "text"),
                        GetSQLValueString($id_encargado, "text"),
                        GetSQLValueString($banner, "text"),
-					   	GetSQLValueString($_POST['banner_url'], "text"),
+					   GetSQLValueString($_POST['banner_url'], "text"),
                        GetSQLValueString($pdf_programa, "text"),
                        GetSQLValueString(isset($_POST['cancelado']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString($_POST['periodo'], "text"),
                        GetSQLValueString(isset($_POST['idioma']) ? "true" : "", "defined","1","0"),
                        GetSQLValueString($_POST['id_program'], "int"));
-
-echo $updateSQL;die;
 
   mysql_select_db($database_otono2011, $otono2011);
   $Result1 = mysql_query($updateSQL, $otono2011) or die(mysql_error());
@@ -790,6 +793,11 @@ function check_fields(){
 			<td nowrap="nowrap" align="right"><strong>Programa PDF:</strong></td>
 			<td colspan="3"><input type="file" name="program_pdf" value="<?php echo $row_programa['program_pdf']; ?>" size="32" /><br /><?php echo $row_programa['program_pdf']; ?>
 			<input type="hidden" name="program_pdf_old" value="<?php echo $row_programa['program_pdf']; ?>"  /></td>
+
+		</tr>
+		<tr valign="baseline">
+			<td nowrap="nowrap" align="right"><strong>Eliminar PDF:</strong></td>
+			<td colspan="3"><input type="checkbox" name="delete_pdf" value="1" /></td>
 		</tr>
 		<tr valign="baseline">
 			<td nowrap="nowrap" align="right"><strong>Cancelado:</strong></td>
