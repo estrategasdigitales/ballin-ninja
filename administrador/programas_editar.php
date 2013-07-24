@@ -229,6 +229,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 
 	if((isset($_POST['delete_pdf'])) && ($_POST['delete_pdf'] == 1)){
 		$pdf_programa = "";
+		unlink('../otono_2011/temarios/'.$_POST['program_pdf_old']);
 	}
 
 	if(isset($_POST['program_new'])){
