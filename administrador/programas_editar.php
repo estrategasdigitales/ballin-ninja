@@ -227,8 +227,14 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		$id_maestro .= ', '.$_POST['id_maestro_4'];
 	}
 
-	if(isset($_POST['delete_pdf']) && ($_POST['delete_pdf']) == 1){
-		$pdf_program = "";
+	if((isset($_POST['delete_pdf'])) && ($_POST['delete_pdf'] == 1)){
+		$pdf_programa = "";
+	}
+
+	if(isset($_POST['program_new'])){
+		$nuevo = $_POST['program_new'];
+	}else{
+		$nuevo = 0;
 	}
 
 	
@@ -240,7 +246,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['program_colaboracion'], "text"),
                        GetSQLValueString($img_colaborador, "text"),
                        GetSQLValueString(isset($_POST['program_colaboracion_leyenda']) ? "true" : "", "defined","1","0"),
-                       GetSQLValueString(isset($_POST['program_new']) ? "true" : "", "defined","1","0"),
+                       GetSQLValueString($nuevo, "int"),
                        GetSQLValueString($_POST['description'], "text"),
 					   GetSQLValueString($banner_home, "text"),
                        GetSQLValueString($_POST['observaciones'], "text"),
@@ -607,7 +613,11 @@ function check_fields(){
         </tr>
 		<tr valign="baseline">
 			<td nowrap="nowrap" align="right"><strong>Nuevo:</strong></td>
-			<td colspan="3"><input type="checkbox" name="program_new" value=""  <?php if (!(strcmp($row_programa['program_new'],1))) {echo "checked=\"checked\"";} ?> /></td>
+			<td colspan="3"><input type="radio" name="program_new" value="" <?php if($row_programa['program_new'] == 1) {echo "checked=\"checked\"";} ?> /></td>
+		</tr>
+		<tr valign="baseline">
+			<td nowrap="nowrap" align="right"><strong>Nueva versi&oacute;n:</strong></td>
+			<td colspan="3"><input type="radio" name="program_new" value="" <?php if($row_programa['program_new'] == 2) {echo "checked=\"checked\"";} ?> /></td>
 		</tr>
 		<tr valign="top">
 			<td nowrap="nowrap" align="right"><strong>Descripci&oacute;n:</strong></td>
@@ -800,11 +810,15 @@ function check_fields(){
 			<td colspan="3"><input type="checkbox" name="delete_pdf" value="1" /></td>
 		</tr>
 		<tr valign="baseline">
-			<td nowrap="nowrap" align="right"><strong>Cancelado:</strong></td>
+			<td nowrap="nowrap" align="right" height="30px"></td>
+			<td colspan="3"></td>
+		</tr>
+		<tr valign="baseline">
+			<td nowrap="nowrap" align="right"><strong>Cancelar Programa:</strong></td>
 			<td colspan="3"><input type="checkbox" name="cancelado" value=""  <?php if (!(strcmp($row_programa['cancelado'],1))) {echo "checked=\"checked\"";} ?> /></td>
 		</tr>
 		<tr valign="baseline">
-			<td align="right" nowrap="nowrap"><strong>Idioma:</strong></td>
+			<td align="right" nowrap="nowrap"><strong>Programa de tipo idioma:</strong></td>
 			<td colspan="3"><input type="checkbox" name="idioma" value=""  <?php if (!(strcmp($row_programa['idioma'],1))) {echo "checked=\"checked\"";} ?> /></td>
 		</tr>
 		<tr valign="baseline">
