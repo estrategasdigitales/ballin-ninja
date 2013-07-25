@@ -823,12 +823,14 @@ s.parentNode.insertBefore(ga, s);
 		            	<br>
 		            	</b>
             			</font>
-            			<div style="margin-top: -31px;">
-	            			<a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" style="margin-left:95px; float:left"> 
-	              			<img src="imagenes/icono_temario.gif" width="30" height="30" border="0" />
-	              			</a>
-	              			<a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" >Descargar<br>Temario</a>
-	              		</div>
+            			<?php if($row_programa['program_pdf'] != NULL){ ?>
+	            			<div style="margin-top: -31px;">
+		            			<a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" style="margin-left:95px; float:left"> 
+		              			<img src="imagenes/icono_temario.gif" width="30" height="30" border="0" />
+		              			</a>
+		              			<a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" >Descargar<br>Temario</a>
+		              		</div>
+	              		<?php } ?>
             		</td>
             	<!-- -->
             	<!--<td colspan="2" width="85%" align="left" valign="bottom" class="contenido_diploRojo">
