@@ -51,6 +51,12 @@
   $disciplinas = mysql_query($query_disciplinas, $des_preinscritos) or die(mysql_error());
   $row_disciplinas = mysql_fetch_assoc($disciplinas);
 
+    $query_disciplinas_todas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline IN(SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user']." ) AND cancelado = 0 AND periodo = "o" ORDER BY 1 DESC";
+    $disciplinas_todas = mysql_query($query_disciplinas_todas, $des_preinscritos) or die(mysql_error());
+    $row_disciplinas_todas = mysql_fetch_assoc($disciplinas_todas);
+
+
+  
 
   mysql_select_db($database_des_preinscritos, $des_preinscritos);
 
@@ -272,15 +278,10 @@ $(document).ready(function() {
                     <select <?php if($_SESSION['loggedin_id_user'] == 37 || $_SESSION['loggedin_id_user'] == 38){ echo "disabled='disabled'";} ?> onchange="load_programs(this.value);" id="id_discipline" name="id_discipline" class="contenido_diplo">
                      <option value="0" selected="selected">Todas mis &aacute;reas</option>
                      <?php do{ 
-                //query para obtener las areas a las que puede acceder el usuario logeado
-                       mysql_select_db($database_des_preinscritos, $des_preinscritos);
-                       $query_areas_select = "SELECT discipline FROM disciplines WHERE id_discipline = ".$row_disciplinas['id_discipline'];
-                       $areas_select = mysql_query($query_areas_select, $des_preinscritos) or die(mysql_error());
-                       $row_areas_select = mysql_fetch_assoc($areas_select);
                        ?>
-                       <option value="<?php echo $row_disciplinas['id_discipline']; ?>" <?php if($row_disciplinas['id_discipline'] == $_GET['id_discipline']){ echo 'selected="selected"'; }?>><?php echo utf8_encode($row_areas_select['discipline']); ?></option>
-                       <?php }while($row_disciplinas = mysql_fetch_assoc($disciplinas)); 
-                            $row_disciplinas = mysql_fetch_assoc($disciplinas);?>
+                       <option value="<?php echo $row_disciplinas_todas['id_discipline']; ?>" <?php if($row_disciplinas_todas['id_discipline'] == $_GET['id_discipline']){ echo 'selected="selected"'; }?>><?php echo utf8_encode($row_areas_select['discipline']); ?></option>
+                       <?php }while($row_disciplinas_todas = mysql_fetch_assoc($disciplinas_todas)); 
+                            //$row_disciplinas = mysql_fetch_assoc($disciplinas); ?>
                      </select>
                    </label>
                    <!-- termina select de areas -->
