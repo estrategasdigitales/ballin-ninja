@@ -50,7 +50,15 @@
   $disciplinas = mysql_query($query_disciplinas, $des_preinscritos) or die(mysql_error());
   $row_disciplinas = mysql_fetch_assoc($disciplinas);
 
-    $query_disciplinas_todas = "SELECT id_program, program_type, program_name, id_discipline FROM site_programs WHERE id_discipline IN(SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user']." ) AND cancelado = 0 AND periodo = 'o'";
+    $query_disciplinas_todas = "SELECT id_program, id_discipline, id_discipline_alterna, id_discipline_alterna_2, program_type, program_name, idioma 
+FROM site_programs 
+WHERE (id_discipline IN (SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user']." ) 
+OR id_discipline_alterna IN (SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user']." ) 
+OR id_discipline_alterna_2 IN (SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user']." ) )
+AND cancelado = 0
+AND periodo = 'o'
+GROUP BY id_program
+ORDER BY 5 DESC, 7 DESC, 6 ASC";
     $disciplinas_todas = mysql_query($query_disciplinas_todas, $des_preinscritos) or die(mysql_error());
     $row_disciplinas_todas = mysql_fetch_assoc($disciplinas_todas);
 
@@ -289,7 +297,7 @@ $(document).ready(function() {
                        ?>
                        <option value="<?php echo $row_disciplinas['id_discipline']; ?>" <?php if($row_disciplinas['id_discipline'] == $_GET['id_discipline']){ echo 'selected="selected"'; }?>><?php echo utf8_encode($row_areas_select['discipline']); ?></option>
                        <?php }while($row_disciplinas = mysql_fetch_assoc($disciplinas)); 
-                            $row_disciplinas = mysql_fetch_assoc($disciplinas);?>
+                            //$row_disciplinas = mysql_fetch_assoc($disciplinas);?>
                      </select>
                    </label>
                    <!-- termina select de areas -->
@@ -316,34 +324,34 @@ $(document).ready(function() {
                     <?php 
                     $tipo_ant = 'diplomado';
                     do{
-                      $tipo = $row_programas['program_type'];
+                      $tipo = $row_disciplinas_todas['program_type'];
                       if($_SESSION['loggedin_id_user'] == 37){
                         if($tipo != $tipo_ant){echo '<option disabled="disabled">-----CURSOS---</option>';}
-                          if($row_programas['id_program'] == 386){
+                          if($row_disciplinas_todas['id_program'] == 386){
                               //
                             }else{
-                              echo '<option value="'.$row_programas['id_program'].'"';
-                              if($row_programas['id_program'] == $_GET['id_program']){echo ' selected="selected"';}
-                              echo '>'.utf8_encode($row_programas['program_name']).'</option>';
+                              echo '<option value="'.$row_disciplinas_todas['id_program'].'"';
+                              if($row_disciplinas_todas['id_program'] == $_GET['id_program']){echo ' selected="selected"';}
+                              echo '>'.utf8_encode($row_disciplinas_todas['program_name']).'</option>';
                             }
                       }elseif($_SESSION['loggedin_id_user'] == 38){
                         if($tipo != $tipo_ant){echo '<option disabled="disabled">-----CURSOS---</option>';}
-                          if($row_programas['id_program'] == 120 || $row_programas['id_program'] == 110){
-                              echo '<option value="'.$row_programas['id_program'].'"';
-                              if($row_programas['id_program'] == $_GET['id_program']){echo ' selected="selected"';}
-                              echo '>'.utf8_encode($row_programas['program_name']).'</option>';
+                          if($row_disciplinas_todas['id_program'] == 120 || $row_disciplinas_todas['id_program'] == 110){
+                              echo '<option value="'.$row_disciplinas_todas['id_program'].'"';
+                              if($row_disciplinas_todas['id_program'] == $_GET['id_program']){echo ' selected="selected"';}
+                              echo '>'.utf8_encode($row_disciplinas_todas['program_name']).'</option>';
                             }else{
                              //
                             }
 
                       }else{
                         if($tipo != $tipo_ant){echo '<option disabled="disabled">-----CURSOS---</option>';}
-                        echo '<option value="'.$row_programas['id_program'].'"';
-                        if($row_programas['id_program'] == $_GET['id_program']){echo ' selected="selected"';}
-                        echo '>'.utf8_encode($row_programas['program_name']).'</option>';
+                        echo '<option value="'.$row_disciplinas_todas['id_program'].'"';
+                        if($row_disciplinas_todas['id_program'] == $_GET['id_program']){echo ' selected="selected"';}
+                        echo '>'.utf8_encode($row_disciplinas_todas['program_name']).'</option>';
                       }
                       $tipo_ant = $tipo;
-                    } while($row_programas = mysql_fetch_assoc($programas)); ?>
+                    } while($row_disciplinas_todas = mysql_fetch_assoc($disciplinas_todas)); ?>
                   </select><?php  } ?>
                 </td>
                 <!-- finaliza TD -->

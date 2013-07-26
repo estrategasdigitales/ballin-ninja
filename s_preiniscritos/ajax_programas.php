@@ -47,7 +47,15 @@ if($discipline != 0 && $discipline != 4 && $discipline != 20 && $discipline != 9
 
 }else{
 	
-	$query_programas = "SELECT id_program, program_type, program_name, id_discipline FROM site_programs WHERE id_discipline IN(SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$id_user." ) AND cancelado = 0 AND periodo = 'o' ORDER BY 1 DESC";
+	$query_programas = "SELECT id_program, id_discipline, id_discipline_alterna, id_discipline_alterna_2, program_type, program_name, idioma
+FROM site_programs 
+WHERE (id_discipline IN (SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$id_user." ) 
+OR id_discipline_alterna IN (SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$id_user." ) 
+OR id_discipline_alterna_2 IN (SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$id_user." ) )
+AND cancelado = 0
+AND periodo = 'o'
+GROUP BY id_program
+ORDER BY 7, 6 ASC";
 
 }
 
