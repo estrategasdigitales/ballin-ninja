@@ -47,11 +47,10 @@
   mysql_select_db($database_des_preinscritos, $des_preinscritos);
 
   $query_disciplinas = "SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user'];
-  //$query_disciplinas = "SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['id_user'];
   $disciplinas = mysql_query($query_disciplinas, $des_preinscritos) or die(mysql_error());
   $row_disciplinas = mysql_fetch_assoc($disciplinas);
 
-    $query_disciplinas_todas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline IN(SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user']." ) AND cancelado = 0 AND periodo = "o" ORDER BY 1 DESC";
+    $query_disciplinas_todas = "SELECT id_program, program_type, program_name, id_discipline FROM site_programs WHERE id_discipline IN(SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user']." ) AND cancelado = 0 AND periodo = 'o'";
     $disciplinas_todas = mysql_query($query_disciplinas_todas, $des_preinscritos) or die(mysql_error());
     $row_disciplinas_todas = mysql_fetch_assoc($disciplinas_todas);
 
@@ -63,20 +62,11 @@
   
 if(!isset($_GET['id_discipline']) || $_GET['id_discipline'] == 0){
     
-    $query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2012-12-06' AND periodo = 'p') AND (";
+    $query_programas = "SELECT id_program, program_type, program_name, id_discipline FROM site_programs WHERE id_discipline IN(SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user'].") AND cancelado = 0 AND periodo = 'o' ORDER BY program_type DESC, program_name ASC";
+    $programas = mysql_query($query_programas, $des_preinscritos) or die(mysql_error());
+    $row_programas = mysql_fetch_assoc($programas); 
 
-     do{
-      $query_programas .= ' id_discipline = '.$row_disciplinas['id_discipline'].' OR';
-    }while($row_disciplinas = mysql_fetch_assoc($disciplinas));
-    mysql_data_seek($disciplinas,0);
-    $row_disciplinas = mysql_fetch_assoc($disciplinas);
-
-    $query_programas = substr($query_programas, 0, -2); 
-    $query_programas .= ") ORDER BY program_type DESC, program_name ASC";
-
-//echo $query_programas;
-$programas = mysql_query($query_programas, $des_preinscritos) or die(mysql_error());
-$row_programas = mysql_fetch_assoc($programas); } 
+  } 
 
 
 $maxRows_preinscritos = 20;
@@ -173,6 +163,15 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 
   function load_programs(id_discipline)
   {
+
+    var usuario = <?php if(isset($_SESSION['loggedin_id_user'])){
+      echo $_SESSION['loggedin_id_user'];
+    }else{
+      echo '0';
+    }
+
+    ?>
+
     //alert(id_discipline);
     $('td#td_programas').html('Cargando...');
     if (id_discipline=="")
@@ -199,7 +198,7 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
     
   }
 }
-xmlhttp.open("GET",'ajax_programas.php?id_discipline='+id_discipline,true);
+xmlhttp.open("GET",'ajax_programas.php?id_discipline='+id_discipline+'&id_usuario='+usuario,true);
 xmlhttp.send();
 }
 </script>
@@ -277,11 +276,20 @@ $(document).ready(function() {
                    <label>Área:
                     <select <?php if($_SESSION['loggedin_id_user'] == 37 || $_SESSION['loggedin_id_user'] == 38){ echo "disabled='disabled'";} ?> onchange="load_programs(this.value);" id="id_discipline" name="id_discipline" class="contenido_diplo">
                      <option value="0" selected="selected">Todas mis &aacute;reas</option>
-                     <?php do{ 
+                     <?php
+
+                       
+
+                      do{ 
+                //query para obtener las areas a las que puede acceder el usuario logeado
+                       $query_areas_select = "SELECT discipline FROM disciplines WHERE id_discipline = ".$row_disciplinas['id_discipline'];
+                       $areas_select = mysql_query($query_areas_select, $des_preinscritos) or die(mysql_error());
+                       $row_areas_select = mysql_fetch_assoc($areas_select);
+                       
                        ?>
-                       <option value="<?php echo $row_disciplinas_todas['id_discipline']; ?>" <?php if($row_disciplinas_todas['id_discipline'] == $_GET['id_discipline']){ echo 'selected="selected"'; }?>><?php echo utf8_encode($row_areas_select['discipline']); ?></option>
-                       <?php }while($row_disciplinas_todas = mysql_fetch_assoc($disciplinas_todas)); 
-                            //$row_disciplinas = mysql_fetch_assoc($disciplinas); ?>
+                       <option value="<?php echo $row_disciplinas['id_discipline']; ?>" <?php if($row_disciplinas['id_discipline'] == $_GET['id_discipline']){ echo 'selected="selected"'; }?>><?php echo utf8_encode($row_areas_select['discipline']); ?></option>
+                       <?php }while($row_disciplinas = mysql_fetch_assoc($disciplinas)); 
+                            $row_disciplinas = mysql_fetch_assoc($disciplinas);?>
                      </select>
                    </label>
                    <!-- termina select de areas -->

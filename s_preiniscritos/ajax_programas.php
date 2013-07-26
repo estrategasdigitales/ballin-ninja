@@ -1,11 +1,12 @@
 <?php require_once('Connections/des_preinscritos.php'); 
 
 $discipline = $_GET['id_discipline'];
+$id_user = $_GET['id_usuario'];
 
 mysql_select_db($database_des_preinscritos, $des_preinscritos);
 if($discipline != 0 && $discipline != 4 && $discipline != 20 && $discipline != 9 && $discipline != 14 && $discipline != 8 && $discipline != 6 && $discipline != 11 && $discipline != 2 && $discipline != 3 && $discipline != 10 && $discipline != 24){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE cancelado = 0 AND id_discipline = ".$discipline." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01' AND cancelado != 1) ORDER BY program_type DESC, program_name ASC";
+		
+	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE cancelado = 0 AND id_discipline = ".$discipline." ORDER BY program_type DESC, program_name ASC";
 	
 }else if($discipline == 20){
 	
@@ -46,7 +47,7 @@ if($discipline != 0 && $discipline != 4 && $discipline != 20 && $discipline != 9
 
 }else{
 	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2012-12-06' AND periodo = 'o') ORDER BY program_type DESC, program_name ASC";
+	$query_programas = "SELECT id_program, program_type, program_name, id_discipline FROM site_programs WHERE id_discipline IN(SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$id_user." ) AND cancelado = 0 AND periodo = 'o' ORDER BY 1 DESC";
 
 }
 
