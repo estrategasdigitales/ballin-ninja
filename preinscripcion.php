@@ -277,7 +277,7 @@ do {
 	$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord_mails['username']."</strong>";
 	$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_mails['password']."</strong>";
 	//mail($to_coord, $mail_title, $mensaje_coord, $headers);
-	mail($to_coord_b, $mail_title, $mensaje_coord, $headers);
+	//mail($to_coord_b, $mail_title, $mensaje_coord, $headers);
 	
 }while($row_coord_mails = mysql_fetch_assoc($coord_mails));
 
@@ -295,6 +295,7 @@ $totalRows_coord_alt_mails = mysql_num_rows($coord_alt_mails);
 do {
 	//$to_coord = $row_coord_mails['email'];
 	$to_coord_b_alt = $row_coord_alt_mails['email_b'];
+	echo $to_coord_b_alt;
 	$mensaje_coord .= "<br /><br />";
 	$mensaje_coord = "Tienes un nuevo preinscrito en el <strong>".$nombre_programa."</strong>";
 	$mensaje_coord .= "<br /><br />";
@@ -305,10 +306,10 @@ do {
 	$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord_alt_mails['username']."</strong>";
 	$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_alt_mails['password']."</strong>";
 	//mail($to_coord, $mail_title, $mensaje_coord, $headers);
-	mail($to_coord_b_alt, $mail_title, $mensaje_coord, $headers);
+	//mail($to_coord_b_alt, $mail_title, $mensaje_coord, $headers);
 	
 }while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));
-
+die;
 /*
 do{
 	echo $row_coord_alt_mails['email'].'<br/>'.$row_coord_alt_mails['username'].'<br/>'.$row_coord_alt_mails['password'].'<br/><br/>';
