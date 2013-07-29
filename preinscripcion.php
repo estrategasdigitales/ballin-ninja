@@ -275,7 +275,7 @@ do {
 	$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord_mails['username']."</strong>";
 	$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_mails['password']."</strong>";
 	//mail($to_coord, $mail_title, $mensaje_coord, $headers);
-	//mail($to_coord_b, $mail_title, $mensaje_coord, $headers);
+	mail($to_coord_b, $mail_title, $mensaje_coord, $headers);
 	
 }while($row_coord_mails = mysql_fetch_assoc($coord_mails));
 
@@ -284,7 +284,7 @@ if(isset($row_diplos_names['id_discipline_alterna']) && $row_diplos_names['id_di
 $disciplina_alterna = $row_diplos_names['id_discipline_alterna'];
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_coord_alt_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $disciplina_alterna) AND id_access =2";
+$query_coord_alt_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $disciplina_alterna) AND id_access != 1 AND id_access !=2";
 $coord_alt_mails = mysql_query($query_coord_alt_mails, $otono2011) or die(mysql_error());
 $row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails);
 $totalRows_coord_alt_mails = mysql_num_rows($coord_alt_mails);
@@ -304,9 +304,9 @@ do {
 	$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_alt_mails['password']."</strong>";
 	//mail($to_coord, $mail_title, $mensaje_coord, $headers);
 	//mail($to_coord_b_alt, $mail_title, $mensaje_coord, $headers);
-	
-}while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));
 	echo $to_coord_b_alt;
+}while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));
+die;
 /*
 do{
 	echo $row_coord_alt_mails['email'].'<br/>'.$row_coord_alt_mails['username'].'<br/>'.$row_coord_alt_mails['password'].'<br/><br/>';
@@ -324,9 +324,8 @@ for($i=0;$i<=$totalRows_coord_alt_mails;$i++){
 	echo $correos_alt_.$i;
 }*/
 
-
 }
-die;
+
 //mail('pvazquezdiaz@gmail.com', $mail_title, $mensaje_coord, $headers);
 
 $mensaje_user = 'Tu preinscripción al '.$nombre_programa.' ha sido recibida';
