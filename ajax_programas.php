@@ -4,15 +4,15 @@
 mysql_select_db($database_otono2011, $otono2011);
 if($_GET['id_discipline'] != 0 && $_GET['id_discipline'] != 1 && $_GET['id_discipline'] != 2 && $_GET['id_discipline'] != 3 && $_GET['id_discipline'] != 4 && $_GET['id_discipline'] != 5 && $_GET['id_discipline'] != 6 && $_GET['id_discipline'] != 7 && $_GET['id_discipline'] != 8 && $_GET['id_discipline'] != 9 && $_GET['id_discipline'] != 10 && $_GET['id_discipline'] != 11 && $_GET['id_discipline'] != 12 && $_GET['id_discipline'] != 13 && $_GET['id_discipline'] != 14 && $_GET['id_discipline'] != 15 && $_GET['id_discipline'] != 16 && $_GET['id_discipline'] != 17 && $_GET['id_discipline'] != 18 && $_GET['id_discipline'] != 20 && $_GET['id_discipline'] != 24){
 	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = ".$_GET['id_discipline']." AND cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2012-12-06'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
+	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = ".$_GET['id_discipline']." AND cancelado = 0 AND periodo = 'o' ORDER BY program_type DESC, program_name ASC";
 
 } /*else if($_GET['id_discipline'] == 20){
 	
 	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE  id_discipline = ".$_GET['id_discipline']." OR id_discipline_alterna = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
 	
 }*/else if($_GET['id_discipline'] == 1 || $_GET['id_discipline'] == 2 || $_GET['id_discipline'] == 3 || $_GET['id_discipline'] == 4 || $_GET['id_discipline'] == 5 || $_GET['id_discipline'] == 6 || $_GET['id_discipline'] == 7 || $_GET['id_discipline'] == 8 || $_GET['id_discipline'] == 9 || $_GET['id_discipline'] == 10 || $_GET['id_discipline'] == 11 || $_GET['id_discipline'] == 12 || $_GET['id_discipline'] == 13 || $_GET['id_discipline'] == 14 || $_GET['id_discipline'] == 15 || $_GET['id_discipline'] == 16 || $_GET['id_discipline'] == 17 || $_GET['id_discipline'] == 18 || $_GET['id_discipline'] == 20 || $_GET['id_discipline'] == 24 ){
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna, id_discipline_alterna_2 FROM site_programs WHERE id_discipline_alterna = ".$_GET['id_discipline']." OR id_discipline_alterna_2 = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
+	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = ".$_GET['id_discipline']." AND periodo = 'o' AND cancelado = 0 ORDER BY program_type DESC, program_name ASC";
+	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna, id_discipline_alterna_2 FROM site_programs WHERE (id_discipline_alterna = ".$_GET['id_discipline']." OR id_discipline_alterna_2 = ".$_GET['id_discipline'].") AND periodo = 'o' AND cancelado = '0' ORDER BY program_type DESC, program_name ASC";
 	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
 	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
 
@@ -144,7 +144,7 @@ if($_GET['id_discipline'] != 0 && $_GET['id_discipline'] != 1 && $_GET['id_disci
 	
 }*/else{
 	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2012-12-06'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
+	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE cancelado = 0 AND periodo = 'o'  ORDER BY program_type DESC, program_name ASC";
 }
 $programas = mysql_query($query_programas, $otono2011) or die(mysql_error());
 $row_programas = mysql_fetch_assoc($programas);
@@ -300,5 +300,5 @@ $response .= '
 
 mysql_free_result($programas);
 
-//echo $response;
+echo $response;
 ?>
