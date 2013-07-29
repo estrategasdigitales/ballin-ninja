@@ -304,9 +304,9 @@ do {
 	$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_alt_mails['password']."</strong>";
 	//mail($to_coord, $mail_title, $mensaje_coord, $headers);
 	//mail($to_coord_b_alt, $mail_title, $mensaje_coord, $headers);
-	echo $to_coord_b_alt;
-}while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));
 	
+}while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));
+	echo $to_coord_b_alt;
 /*
 do{
 	echo $row_coord_alt_mails['email'].'<br/>'.$row_coord_alt_mails['username'].'<br/>'.$row_coord_alt_mails['password'].'<br/><br/>';
