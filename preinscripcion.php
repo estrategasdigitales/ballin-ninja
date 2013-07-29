@@ -306,7 +306,7 @@ do {
 	//mail($to_coord_b_alt, $mail_title, $mensaje_coord, $headers);
 	echo $to_coord_b_alt;
 }while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));
-	die;
+	
 /*
 do{
 	echo $row_coord_alt_mails['email'].'<br/>'.$row_coord_alt_mails['username'].'<br/>'.$row_coord_alt_mails['password'].'<br/><br/>';
@@ -326,7 +326,7 @@ for($i=0;$i<=$totalRows_coord_alt_mails;$i++){
 
 
 }
-
+die;
 //mail('pvazquezdiaz@gmail.com', $mail_title, $mensaje_coord, $headers);
 
 $mensaje_user = 'Tu preinscripción al '.$nombre_programa.' ha sido recibida';
