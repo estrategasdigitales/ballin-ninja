@@ -55,7 +55,7 @@ OR id_discipline_alterna_2 IN (SELECT id_discipline FROM ss_users_disciplines WH
 AND cancelado = 0
 AND periodo = 'o'
 GROUP BY id_program
-ORDER BY 7, 6 ASC";
+ORDER BY program_type DESC, idioma DESC, program_name ASC";
 
 }
 
@@ -70,8 +70,36 @@ $response .= '
 
 	<select name="id_program" id="id_program" style="max-width:350px; width:350px;">
 		<option value="0" selected="selected" disabled="disabled">Selecciona un programa</option>
-		<option disabled="disabled">-----DIPLOMADOS---</option>';
+		<!--option disabled="disabled">-----DIPLOMADOS---</option-->';
+
+			$tipo = "";
+			$tipo_ant = "";
+
 				do{
+
+                      switch ($row_programas['program_type']) {
+                        case 'programahp':
+                          $tipo_programa = 'PROGRAMAS HP';
+                          $tipo_ant = $row_programas['program_type'];
+                          break;
+                        case 'programa':
+                          $tipo_programa = 'PROGRAMAS';
+                          $tipo_ant = $row_programas['program_type'];
+                          break;
+                        case 'diplomado':
+                          $tipo_programa = 'DIPLOMADOS';
+                          $tipo_ant = $row_programas['program_type'];
+                          break;
+                        case 'curso':
+                          $tipo_programa = 'CURSOS';
+                          $tipo_ant = $row_programas['program_type'];
+                          break;
+                      }
+
+                     if($tipo != $tipo_ant){
+                        $response .=  '<option disabled="disabled">-----'.$tipo_programa.'---</option>';
+                      }
+
 
 					$tipo = $row_programas['program_type'];
 					

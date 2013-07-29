@@ -58,7 +58,7 @@ OR id_discipline_alterna_2 IN (SELECT id_discipline FROM ss_users_disciplines WH
 AND cancelado = 0
 AND periodo = 'o'
 GROUP BY id_program
-ORDER BY 5 DESC, 7 DESC, 6 ASC";
+ORDER BY program_type DESC, idioma DESC, program_name ASC";
     $disciplinas_todas = mysql_query($query_disciplinas_todas, $des_preinscritos) or die(mysql_error());
     $row_disciplinas_todas = mysql_fetch_assoc($disciplinas_todas);
 
@@ -67,7 +67,7 @@ ORDER BY 5 DESC, 7 DESC, 6 ASC";
 
   mysql_select_db($database_des_preinscritos, $des_preinscritos);
 
-  
+
 if(!isset($_GET['id_discipline']) || $_GET['id_discipline'] == 0){
     
     $query_programas = "SELECT id_program, program_type, program_name, id_discipline FROM site_programs WHERE id_discipline IN(SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user'].") AND cancelado = 0 AND periodo = 'o' ORDER BY program_type DESC, program_name ASC";
@@ -315,40 +315,72 @@ $(document).ready(function() {
     </script>
 
   <?php }else{
+
 ?>
   
 
                   <select id="id_program" name="id_program" class="contenido_diplo" style="max-width:350px; width:350px;">
                     <option <?php if($_SESSION['loggedin_id_user'] == 38){echo "disabled='disabled'";} ?>value="0">Todos los programas</option>
-                    <option disabled="disabled">-------DIPLOMADOS-------</option>
+                    <!--option disabled="disabled">-------DIPLOMADOS-------</option-->
                     <?php 
-                    $tipo_ant = 'diplomado';
+                    $tipo_ant = '';
+                    $tipo = '';
                     do{
+
+                      switch ($row_disciplinas_todas['program_type']) {
+                        case 'programahp':
+                          $tipo_programa = 'PROGRAMAS HP';
+                          $tipo_ant = $row_disciplinas_todas['program_type'];
+                          break;
+                        case 'programa':
+                          $tipo_programa = 'PROGRAMAS';
+                          $tipo_ant = $row_disciplinas_todas['program_type'];
+                          break;
+                        case 'diplomado':
+                          $tipo_programa = 'DIPLOMADOS';
+                          $tipo_ant = $row_disciplinas_todas['program_type'];
+                          break;
+                        case 'curso':
+                          $tipo_programa = 'CURSOS';
+                          $tipo_ant = $row_disciplinas_todas['program_type'];
+                          break;
+                      }
+
+                      if($tipo != $tipo_ant){
+                        echo '<option disabled="disabled">-----'.$tipo_programa.'---</option>';
+                      }
                       $tipo = $row_disciplinas_todas['program_type'];
                       if($_SESSION['loggedin_id_user'] == 37){
-                        if($tipo != $tipo_ant){echo '<option disabled="disabled">-----CURSOS---</option>';}
                           if($row_disciplinas_todas['id_program'] == 386){
                               //
                             }else{
-                              echo '<option value="'.$row_disciplinas_todas['id_program'].'"';
-                              if($row_disciplinas_todas['id_program'] == $_GET['id_program']){echo ' selected="selected"';}
-                              echo '>'.utf8_encode($row_disciplinas_todas['program_name']).'</option>';
+                                echo '<option value="'.$row_disciplinas_todas['id_program'].'"';
+                                if($row_disciplinas_todas['id_program'] == $_GET['id_program']){echo ' selected="selected"';}
+                                echo '>'.utf8_encode($row_disciplinas_todas['program_name']).'</option>';
                             }
                       }elseif($_SESSION['loggedin_id_user'] == 38){
-                        if($tipo != $tipo_ant){echo '<option disabled="disabled">-----CURSOS---</option>';}
+                          if($tipo != $tipo_ant){
+                              echo '<option disabled="disabled">-----CURSOS---</option>';
+                          }
                           if($row_disciplinas_todas['id_program'] == 120 || $row_disciplinas_todas['id_program'] == 110){
                               echo '<option value="'.$row_disciplinas_todas['id_program'].'"';
-                              if($row_disciplinas_todas['id_program'] == $_GET['id_program']){echo ' selected="selected"';}
+                              if($row_disciplinas_todas['id_program'] == $_GET['id_program']){
+                                  echo ' selected="selected"';
+                              }
                               echo '>'.utf8_encode($row_disciplinas_todas['program_name']).'</option>';
-                            }else{
+                          }else{
                              //
-                            }
+                          }
 
                       }else{
-                        if($tipo != $tipo_ant){echo '<option disabled="disabled">-----CURSOS---</option>';}
-                        echo '<option value="'.$row_disciplinas_todas['id_program'].'"';
-                        if($row_disciplinas_todas['id_program'] == $_GET['id_program']){echo ' selected="selected"';}
-                        echo '>'.utf8_encode($row_disciplinas_todas['program_name']).'</option>';
+                          if($tipo != $tipo_ant){
+                              echo '<option disabled="disabled">-----CURSOS---</option>';
+                          }
+                          echo '<option value="'.$row_disciplinas_todas['id_program'].'"';
+                          if($row_disciplinas_todas['id_program'] == $_GET['id_program']){
+                              echo ' selected="selected"';
+                          }
+                          echo '>'.utf8_encode($row_disciplinas_todas['program_name']).'</option>';
                       }
                       $tipo_ant = $tipo;
                     } while($row_disciplinas_todas = mysql_fetch_assoc($disciplinas_todas)); ?>
