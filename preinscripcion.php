@@ -324,7 +324,6 @@ for($i=0;$i<=$totalRows_coord_alt_mails;$i++){
 	echo $correos_alt_.$i;
 }*/
 
-die;
 
 }
 
