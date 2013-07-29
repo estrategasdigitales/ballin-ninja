@@ -74,6 +74,8 @@ $coord_mails = mysql_query($query_coord_mails, $otono2011) or die(mysql_error())
 $row_coord_mails = mysql_fetch_assoc($coord_mails);
 $totalRows_coord_mails = mysql_num_rows($coord_mails);
 
+echo $row_coord_mails['email_b'];die;
+
 $nombre_area = $row_diplos_names['discipline'];
 $nombre_programa = $row_diplos_names['program_type']." - ".$row_diplos_names['program_name'];
 
