@@ -74,8 +74,6 @@ $coord_mails = mysql_query($query_coord_mails, $otono2011) or die(mysql_error())
 $row_coord_mails = mysql_fetch_assoc($coord_mails);
 $totalRows_coord_mails = mysql_num_rows($coord_mails);
 
-echo $row_coord_mails['email_b'];die;
-
 $nombre_area = $row_diplos_names['discipline'];
 $nombre_programa = $row_diplos_names['program_type']." - ".$row_diplos_names['program_name'];
 
@@ -286,7 +284,7 @@ if(isset($row_diplos_names['id_discipline_alterna']) && $row_diplos_names['id_di
 $disciplina_alterna = $row_diplos_names['id_discipline_alterna'];
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_coord_alt_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $disciplina_alterna) AND id_access != 1 AND id_access !=2";
+$query_coord_alt_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $disciplina_alterna) AND id_access =2";
 $coord_alt_mails = mysql_query($query_coord_alt_mails, $otono2011) or die(mysql_error());
 $row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails);
 $totalRows_coord_alt_mails = mysql_num_rows($coord_alt_mails);
@@ -295,7 +293,6 @@ $totalRows_coord_alt_mails = mysql_num_rows($coord_alt_mails);
 do {
 	//$to_coord = $row_coord_mails['email'];
 	$to_coord_b_alt = $row_coord_alt_mails['email_b'];
-	echo $to_coord_b_alt;
 	$mensaje_coord .= "<br /><br />";
 	$mensaje_coord = "Tienes un nuevo preinscrito en el <strong>".$nombre_programa."</strong>";
 	$mensaje_coord .= "<br /><br />";
@@ -307,9 +304,9 @@ do {
 	$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_alt_mails['password']."</strong>";
 	//mail($to_coord, $mail_title, $mensaje_coord, $headers);
 	//mail($to_coord_b_alt, $mail_title, $mensaje_coord, $headers);
-	
+	echo $to_coord_b_alt;
 }while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));
-die;
+	die;
 /*
 do{
 	echo $row_coord_alt_mails['email'].'<br/>'.$row_coord_alt_mails['username'].'<br/>'.$row_coord_alt_mails['password'].'<br/><br/>';
