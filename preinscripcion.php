@@ -153,11 +153,11 @@ do {
 	$mensaje_coord = "Tienes un nuevo preinscrito en el <strong>".$nombre_programa."</strong>";
 	$mensaje_coord .= "<br /><br />";
 	$mensaje_coord .= "Su nombre:<strong>".$nombre."&nbsp;".$a_paterno."</strong><br /><br />";
-	$mensaje_coord .= "Su correo electr&oacute;nico:<strong>".$correo."</strong>";
+	$mensaje_coord .= "Su correo electr&oacute;nico:<strong>".$correo."</strong><br /><br />";
 	$mensaje_coord .= "Para darle seguimiento visita la siguiente liga:";
 	$mensaje_coord .= "<br /><br />";
 	$mensaje_coord .= "<a href='http://www.dec-uia.com/s_preiniscritos/' target='_blank'>http://www.dec-uia.com/s_preiniscritos/</a>";
-	$mensaje_coord .= "<br /><br />donde podr&aacute;s llevar paso a paso el proceso de inscripci&ooacute;n y tener un f&aacute;cil acceso a la informaci&ooacute;n del usuario.";
+	$mensaje_coord .= "<br /><br />donde podr&aacute;s llevar paso a paso el proceso de inscripci&oacute;n y tener un f&aacute;cil acceso a la informaci&oacute;n del usuario.";
 	$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord_mails['username']."</strong>";
 	$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_mails['password']."</strong>";
 	//mail($to_coord, $mail_title, $mensaje_coord, $headers);
