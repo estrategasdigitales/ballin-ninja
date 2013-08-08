@@ -148,7 +148,7 @@ $mail_title = "DEC - Preinscripción";
 //mail("jlaa2774@hotmail.com", utf8_decode($mail_title), $mensaje, $headers);
 do {
 	//$to_coord = $row_coord_mails['email'];
-	$to_coord_b = "dan.aldrete1@gmail.com";
+	$to_coord_b = "ccuellarlira@gmail.com";
 	$mensaje_coord .= "<br /><br />";
 	$mensaje_coord = "Tienes un nuevo preinscrito en el <strong>".$nombre_programa."</strong>";
 	$mensaje_coord .= "<br /><br />";
