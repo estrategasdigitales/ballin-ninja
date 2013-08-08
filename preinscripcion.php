@@ -36,6 +36,37 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	
 	/*CONSTRUCCION DEL MENSJAE PARA ENVIAR EN EL MAIL*/
 
+	$id_program = $_POST['id_program'];
+$fecha_registro = date('Y-m-d H:i:s');
+
+//Informacion del curso seleccionado
+
+
+
+mysql_select_db($database_otono2011, $otono2011);
+//$query_diplos_names = "SELECT program_name, (SELECT discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS discipline, (SELECT id_discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS id_discipline FROM site_programs WHERE id_program = '".$id_program."'";
+$query_diplos_names = "SELECT site_programs.program_name, site_programs.id_discipline_alterna, site_programs.id_discipline, disciplines.discipline FROM site_programs, disciplines WHERE site_programs.id_discipline = disciplines.id_discipline AND site_programs.id_program = '".$id_program."'";
+$diplos_names = mysql_query($query_diplos_names, $otono2011) or die(mysql_error());
+$row_diplos_names = mysql_fetch_assoc($diplos_names);
+//$totalRows_diplos_names = mysql_num_rows($diplos_names);
+
+$id_discipline = $row_diplos_names['id_discipline'];
+
+mysql_select_db($database_otono2011, $otono2011);
+$query_coord_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $id_discipline) AND id_access = 3";
+$coord_mails = mysql_query($query_coord_mails, $otono2011) or die(mysql_error());
+$row_coord_mails = mysql_fetch_assoc($coord_mails);
+$totalRows_coord_mails = mysql_num_rows($coord_mails);
+
+$nombre_area = $row_diplos_names['discipline'];
+$nombre_programa = $row_diplos_names['program_type']." - ".$row_diplos_names['program_name'];
+
+if($_POST['como_se_entero']==NULL){
+	$como_se_entero = $_POST['otromedio'];
+}else{
+	$como_se_entero = $_POST['como_se_entero'];
+}
+
 	$nombre_area = $row_diplos_names['discipline'];
 $nombre_programa = $row_diplos_names['program_type']." - ".$row_diplos_names['program_name'];
 
