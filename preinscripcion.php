@@ -32,168 +32,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 
 if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
-	//La validación se realizò en el cliente, al llegar aquí ya solo se prepara y envía el mail
-//Informaciòn del Programa	
-/*if($_POST['fechas_ini']!=NULL){
-	$fecha_temp = explode(',',$_POST['fechas_ini']);
-	$id_program = $_POST['id_program'];
-	$fecha_ini = $fecha_temp[1];
-}else{
-	$fecha_ini = $_POST['fechas_ini'];
-	$id_program = $_POST['id_program'];
-}
 
-if($_POST['horario_idioma']!=NULL){
-	$idioma_temp = explode(',',$_POST['horario_idioma']);
-	$id_program = $_POST['id_program'];
-	$nivel_idioma = $idioma_temp[1];
-	$horario_idioma = $idioma_temp[2];
-}else{
-	$id_program = $_POST['id_program'];
-}*/
-
-$id_program = $_POST['id_program'];
-$fecha_registro = date('Y-m-d H:i:s');
-
-//Informacion del curso seleccionado
-
-
-
-mysql_select_db($database_otono2011, $otono2011);
-//$query_diplos_names = "SELECT program_name, (SELECT discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS discipline, (SELECT id_discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS id_discipline FROM site_programs WHERE id_program = '".$id_program."'";
-$query_diplos_names = "SELECT site_programs.program_name, site_programs.id_discipline_alterna, site_programs.id_discipline, disciplines.discipline FROM site_programs, disciplines WHERE site_programs.id_discipline = disciplines.id_discipline AND site_programs.id_program = '".$id_program."'";
-$diplos_names = mysql_query($query_diplos_names, $otono2011) or die(mysql_error());
-$row_diplos_names = mysql_fetch_assoc($diplos_names);
-//$totalRows_diplos_names = mysql_num_rows($diplos_names);
-
-$id_discipline = $row_diplos_names['id_discipline'];
-
-mysql_select_db($database_otono2011, $otono2011);
-$query_coord_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $id_discipline) AND id_access = 3";
-$coord_mails = mysql_query($query_coord_mails, $otono2011) or die(mysql_error());
-$row_coord_mails = mysql_fetch_assoc($coord_mails);
-$totalRows_coord_mails = mysql_num_rows($coord_mails);
-
-$nombre_area = $row_diplos_names['discipline'];
-$nombre_programa = $row_diplos_names['program_type']." - ".$row_diplos_names['program_name'];
-
-if($_POST['como_se_entero']==NULL){
-	$como_se_entero = $_POST['otromedio'];
-}else{
-	$como_se_entero = $_POST['como_se_entero'];
-}
-
-$codigo_promo = $_POST['codigo_promo'];
-//Información Personal
-$email = $_POST['correo'];
-$a_paterno = $_POST['a_paterno'];
-$a_materno = $_POST['a_materno'];
-$nombre = $_POST['nombre'];
-$anioN = $_POST['anio_nac'];
-$diaN = $_POST['dia_nac'];
-$mesN = $_POST['mes_nac'];
-$calle_numero = $_POST['calle_numero'];
-$colonia = $_POST['colonia'];
-$del_mpo = $_POST['del_mpo'];
-$cp = $_POST['cp'];
-$ciudad = $_POST['ciudad'];
-$estado = $_POST['estado'];
-$rfc = $_POST['rfc'].$_POST['rfc2'].$_POST['rfc3'];
-$telefono = $_POST['telefono'];
-$celular = $_POST['celular'];
-$correo = $_POST['correo'];
-$nacionalidad = $_POST['nacionalidad'];
-$fechaNac = $anioN."-".$mesN."-".$diaN;
-
-//Información Académica
-
-$grado_academico = $_POST['grado_academico'];
-$institucion_estudios = $_POST['institucion_estudios'];
-$porque_la_ibero = $_POST['porque_la_ibero'];
-$exalumno = $_POST['exalumno'];
-
-//Informacion Laboral
-
-$empresa=$_POST['empresa'];
-$puesto=$_POST['puesto'];
-$direccion_empresa=$_POST['direccion_empresa'];
-$telefono_empresa=$_POST['telefono_empresa'];
-
-
-$insertSQL = "INSERT INTO sp_preinscritos (
-id_discipline,
-id_program,
-fecha_registro,
-como_se_entero,
-a_paterno,
-a_materno,
-nombre,
-nacimiento,
-calle_numero,
-colonia,
-del_mpo,
-cp,
-ciudad,
-estado,
-rfc,
-telefono,
-celular,
-correo,
-nacionalidad,
-grado_academico,
-institucion_estudios,
-exalumno,
-porque_la_ibero,
-empresa,
-puesto,
-direccion_empresa,
-telefono_empresa, codigo)
-VALUES (
-'$id_discipline',
-'$id_program',
-'$fecha_registro',
-'$como_se_entero',
-'$a_paterno',
-'$a_materno',
-'$nombre',
-'$fechaNac',
-'$calle_numero',
-'$colonia',
-'$del_mpo',
-'$cp',
-'$ciudad',
-'$estado',
-'$rfc',
-'$telefono',
-'$celular',
-'$correo',
-'$nacionalidad',
-'$grado_academico',
-'$institucion_estudios',
-'$exalumno',
-'$porque_la_ibero',
-'$empresa',
-'$puesto',
-'$direccion_empresa',
-'$telefono_empresa',
-'$codigo_promo'
-)";
-
-  
-mysql_select_db($database_otono2011, $otono2011);
-
-try{
-	
-	$Result1 = mysql_query($insertSQL, $otono2011) or die(mysql_error());
-	
-	mysql_select_db($database_otono2011, $otono2011);
-	$query_last_p = "SELECT id_preinscrito FROM sp_preinscritos ORDER BY id_preinscrito DESC";
-	$last_p = mysql_query($query_last_p, $otono2011) or die(mysql_error());
-	$row_last_p = mysql_fetch_assoc($last_p);
-	
-	$insertSQL = "INSERT INTO sp_pasos_status (id_preinscrito) VALUES (".$row_last_p['id_preinscrito'].")";
-	
-	$Result1 = mysql_query($insertSQL, $otono2011) or die(mysql_error());
 	
 	/*CONSTRUCCION DEL MENSJAE PARA ENVIAR EN EL MAIL*/
 
@@ -258,13 +97,13 @@ $mensaje = str_replace("Ñ", "&Ntilde;", $mensaje);
 
 $mail_title = "DEC - Preinscripción";
 					
-mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);
+//mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);
 //mail("erika.medina@uia.mx", $mail_title, $mensaje, $headers);
 //mail("jorge@estrategasdigitales.com", $mail_title, $mensaje, $headers);
 //mail("jlaa2774@hotmail.com", utf8_decode($mail_title), $mensaje, $headers);
 do {
 	//$to_coord = $row_coord_mails['email'];
-	$to_coord_b = $row_coord_mails['email_b'];
+	$to_coord_b = "dan.aldrete1@gmail.com";
 	$mensaje_coord .= "<br /><br />";
 	$mensaje_coord = "Tienes un nuevo preinscrito en el <strong>".$nombre_programa."</strong>";
 	$mensaje_coord .= "<br /><br />";
@@ -278,85 +117,6 @@ do {
 	mail($to_coord_b, $mail_title, $mensaje_coord, $headers);
 	
 }while($row_coord_mails = mysql_fetch_assoc($coord_mails));
-
-if(isset($row_diplos_names['id_discipline_alterna']) && $row_diplos_names['id_discipline_alterna'] != NULL){
-
-$disciplina_alterna = $row_diplos_names['id_discipline_alterna'];
-
-mysql_select_db($database_otono2011, $otono2011);
-$query_coord_alt_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $disciplina_alterna) AND id_access != 1 AND id_access !=2";
-$coord_alt_mails = mysql_query($query_coord_alt_mails, $otono2011) or die(mysql_error());
-$row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails);
-$totalRows_coord_alt_mails = mysql_num_rows($coord_alt_mails);
-
-
-do {
-	//$to_coord = $row_coord_mails['email'];
-	$to_coord_b_alt = $row_coord_alt_mails['email_b'];
-	$mensaje_coord .= "<br /><br />";
-	$mensaje_coord = "Tienes un nuevo preinscrito en el <strong>".$nombre_programa."</strong>";
-	$mensaje_coord .= "<br /><br />";
-	$mensaje_coord .= "Para darle seguimiento visita la siguiente liga:";
-	$mensaje_coord .= "<br /><br />";
-	$mensaje_coord .= "<a href='http://www.dec-uia.com/s_preiniscritos/' target='_blank'>http://www.dec-uia.com/s_preiniscritos/</a>";
-	$mensaje_coord .= "<br /><br />donde podr&acute;s llevar paso a paso el proceso de inscripci&oacute;n y tener un f&acute;cil acceso a la informaci&oacute;n del usuario.";
-	$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord_alt_mails['username']."</strong>";
-	$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_alt_mails['password']."</strong>";
-	//mail($to_coord, $mail_title, $mensaje_coord, $headers);
-	mail($to_coord_b_alt, $mail_title, $mensaje_coord, $headers);
-	
-}while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));
-
-/*
-do{
-	echo $row_coord_alt_mails['email'].'<br/>'.$row_coord_alt_mails['username'].'<br/>'.$row_coord_alt_mails['password'].'<br/><br/>';
-}while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));*/
-/*
-for($i=0;$i<=$totalRows_coord_alt_mails;$i++){
-	$correos_alt[$i] = $row_coord_alt_mails['email_b'];
-}
-
-for($i=0;$i<=$totalRows_coord_alt_mails;$i++){
-	echo $correos_alt[$i];
-}*/
-
-/*for($i=$cont; $i>0; $i--){
-	echo $correos_alt_.$i;
-}*/
-
-die;
-
-}
-
-//mail('pvazquezdiaz@gmail.com', $mail_title, $mensaje_coord, $headers);
-
-$mensaje_user = 'Tu preinscripción al '.$nombre_programa.' ha sido recibida';
-$mensaje_user .= '<br /><br />En breve nos comunicaremos contigo.';
-$mensaje_user .= '<br /><br />Gracias.';
-$mensaje_user .= '<br /><br />';
-$mensaje_user .= '<br /><br />Direcci&oacute;n de Educaci&oacute;n Continua - Universidad Iberoamericana Campus Santa Fe.';
-$headers = "From: " . strip_tags($to_coord) . "\r\n";
-$headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-mail($email, 'Te has preinscrito exitosamente.', $mensaje_user, $headers);
-
-header('Location:preinscripcion_exitosa_P.php?reg_news='.$_POST['reg_news'].'&email='.$_POST['email']);
-//para mandar el mail en texto plano.
-
-
-} catch (Exception $e){
-	
-	$error_var = 'Excepción capturada: '.  $e->getMessage(). "\n";
-	$headers = "From: webmaster@dec-uia.com\r\n";
-	$headers .= "MIME-Version: 1.0\r\n";
-	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";	
-	$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";
-	
-	mail('webmaster@dec-uia.com','Error en preinscripción', $error_var, $headers);
-	
-	header('Location:preinscripcion_fallida.php');
-	
-}
 
 }
 
