@@ -153,7 +153,7 @@ do {
 	$mensaje_coord = "Tienes un nuevo preinscrito en el <strong>".$nombre_programa."</strong>";
 	$mensaje_coord .= "<br /><br />";
 	$mensaje_coord .= "Su nombre:<strong>".$nombre."&nbsp;".$a_paterno."</strong><br /><br />";
-	$mensaje_coord .= "Su correo electr&oacute;nico:<strong>".$nombre."&nbsp;".$a_paterno."</strong>";
+	$mensaje_coord .= "Su correo electr&oacute;nico:<strong>".$correo."</strong>";
 	$mensaje_coord .= "Para darle seguimiento visita la siguiente liga:";
 	$mensaje_coord .= "<br /><br />";
 	$mensaje_coord .= "<a href='http://www.dec-uia.com/s_preiniscritos/' target='_blank'>http://www.dec-uia.com/s_preiniscritos/</a>";
