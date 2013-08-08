@@ -36,6 +36,51 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	
 	/*CONSTRUCCION DEL MENSJAE PARA ENVIAR EN EL MAIL*/
 
+	$nombre_area = $row_diplos_names['discipline'];
+$nombre_programa = $row_diplos_names['program_type']." - ".$row_diplos_names['program_name'];
+
+if($_POST['como_se_entero']==NULL){
+	$como_se_entero = $_POST['otromedio'];
+}else{
+	$como_se_entero = $_POST['como_se_entero'];
+}
+
+$codigo_promo = $_POST['codigo_promo'];
+//Información Personal
+$email = $_POST['correo'];
+$a_paterno = $_POST['a_paterno'];
+$a_materno = $_POST['a_materno'];
+$nombre = $_POST['nombre'];
+$anioN = $_POST['anio_nac'];
+$diaN = $_POST['dia_nac'];
+$mesN = $_POST['mes_nac'];
+$calle_numero = $_POST['calle_numero'];
+$colonia = $_POST['colonia'];
+$del_mpo = $_POST['del_mpo'];
+$cp = $_POST['cp'];
+$ciudad = $_POST['ciudad'];
+$estado = $_POST['estado'];
+$rfc = $_POST['rfc'].$_POST['rfc2'].$_POST['rfc3'];
+$telefono = $_POST['telefono'];
+$celular = $_POST['celular'];
+$correo = $_POST['correo'];
+$nacionalidad = $_POST['nacionalidad'];
+$fechaNac = $anioN."-".$mesN."-".$diaN;
+
+//Información Académica
+
+$grado_academico = $_POST['grado_academico'];
+$institucion_estudios = $_POST['institucion_estudios'];
+$porque_la_ibero = $_POST['porque_la_ibero'];
+$exalumno = $_POST['exalumno'];
+
+//Informacion Laboral
+
+$empresa=$_POST['empresa'];
+$puesto=$_POST['puesto'];
+$direccion_empresa=$_POST['direccion_empresa'];
+$telefono_empresa=$_POST['telefono_empresa'];
+
 $mensaje="<strong>&Aacute;rea:</strong> ".$nombre_area."<br />";
 $mensaje.="<strong>Nombre del programa:</strong> ".$nombre_programa."<br />";
 $mensaje.="<strong>Se enteró del programa através de:</strong><br />";
@@ -107,10 +152,12 @@ do {
 	$mensaje_coord .= "<br /><br />";
 	$mensaje_coord = "Tienes un nuevo preinscrito en el <strong>".$nombre_programa."</strong>";
 	$mensaje_coord .= "<br /><br />";
+	$mensaje_coord .= "Su nombre:<strong>".$nombre."&nbsp;".$a_paterno."</strong><br /><br />";
+	$mensaje_coord .= "Su correo electr&oacute;nico:<strong>".$nombre."&nbsp;".$a_paterno."</strong>";
 	$mensaje_coord .= "Para darle seguimiento visita la siguiente liga:";
 	$mensaje_coord .= "<br /><br />";
 	$mensaje_coord .= "<a href='http://www.dec-uia.com/s_preiniscritos/' target='_blank'>http://www.dec-uia.com/s_preiniscritos/</a>";
-	$mensaje_coord .= "<br /><br />donde podr&acute;s llevar paso a paso el proceso de inscripci&oacute;n y tener un f&acute;cil acceso a la informaci&oacute;n del usuario.";
+	$mensaje_coord .= "<br /><br />donde podr&aacute;s llevar paso a paso el proceso de inscripci&ooacute;n y tener un f&aacute;cil acceso a la informaci&ooacute;n del usuario.";
 	$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord_mails['username']."</strong>";
 	$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_mails['password']."</strong>";
 	//mail($to_coord, $mail_title, $mensaje_coord, $headers);
