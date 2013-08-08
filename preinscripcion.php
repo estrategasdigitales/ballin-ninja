@@ -258,7 +258,7 @@ $mensaje = str_replace("Ñ", "&Ntilde;", $mensaje);
 
 $mail_title = "DEC - Preinscripción";
 					
-mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);
+//mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);
 //mail("erika.medina@uia.mx", $mail_title, $mensaje, $headers);
 //mail("jorge@estrategasdigitales.com", $mail_title, $mensaje, $headers);
 //mail("jlaa2774@hotmail.com", utf8_decode($mail_title), $mensaje, $headers);
@@ -275,7 +275,7 @@ do {
 	$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord_mails['username']."</strong>";
 	$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_mails['password']."</strong>";
 	//mail($to_coord, $mail_title, $mensaje_coord, $headers);
-	mail($to_coord_b, $mail_title, $mensaje_coord, $headers);
+	mail("daniel.garcia@estrategasdigitales.com", $mail_title, $mensaje_coord, $headers);
 	
 }while($row_coord_mails = mysql_fetch_assoc($coord_mails));
 
@@ -284,7 +284,7 @@ if(isset($row_diplos_names['id_discipline_alterna']) && $row_diplos_names['id_di
 $disciplina_alterna = $row_diplos_names['id_discipline_alterna'];
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_coord_alt_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $disciplina_alterna) AND id_access IN(2,3)";
+$query_coord_alt_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $disciplina_alterna) AND id_access != 1 AND id_access !=2";
 $coord_alt_mails = mysql_query($query_coord_alt_mails, $otono2011) or die(mysql_error());
 $row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails);
 $totalRows_coord_alt_mails = mysql_num_rows($coord_alt_mails);
@@ -303,10 +303,10 @@ do {
 	$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord_alt_mails['username']."</strong>";
 	$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_alt_mails['password']."</strong>";
 	//mail($to_coord, $mail_title, $mensaje_coord, $headers);
-	//mail($to_coord_b_alt, $mail_title, $mensaje_coord, $headers);
-	echo $to_coord_b_alt;
+	mail("daniel.garcia@estrategasdigitales.com", $mail_title, $mensaje_coord, $headers);
+	
 }while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));
-die;
+
 /*
 do{
 	echo $row_coord_alt_mails['email'].'<br/>'.$row_coord_alt_mails['username'].'<br/>'.$row_coord_alt_mails['password'].'<br/><br/>';
@@ -324,6 +324,8 @@ for($i=0;$i<=$totalRows_coord_alt_mails;$i++){
 	echo $correos_alt_.$i;
 }*/
 
+die;
+
 }
 
 //mail('pvazquezdiaz@gmail.com', $mail_title, $mensaje_coord, $headers);
@@ -336,7 +338,7 @@ $mensaje_user .= '<br /><br />Direcci&oacute;n de Educaci&oacute;n Continua - Un
 $headers = "From: " . strip_tags($to_coord) . "\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-mail($email, 'Te has preinscrito exitosamente.', $mensaje_user, $headers);
+//mail($email, 'Te has preinscrito exitosamente.', $mensaje_user, $headers);
 
 header('Location:preinscripcion_exitosa_P.php?reg_news='.$_POST['reg_news'].'&email='.$_POST['email']);
 //para mandar el mail en texto plano.
@@ -350,7 +352,7 @@ header('Location:preinscripcion_exitosa_P.php?reg_news='.$_POST['reg_news'].'&em
 	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";	
 	$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";
 	
-	mail('webmaster@dec-uia.com','Error en preinscripción', $error_var, $headers);
+	//mail('webmaster@dec-uia.com','Error en preinscripción', $error_var, $headers);
 	
 	header('Location:preinscripcion_fallida.php');
 	
