@@ -1,4 +1,9 @@
-<?php require_once('Connections/otono2011.php'); ?>
+<?php 
+if(preg_match('/msie [2-7]/i', $_SERVER['HTTP_USER_AGENT'])) {
+       header('Location: Scripts/ie_detect/update_browser.html');
+}
+
+require_once('Connections/otono2011.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -143,7 +148,7 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 <script type="text/javascript" src="jquery.carouFredSel-6.1.0.js"></script>
 <script type="text/javascript" src="jquery.carouFredSel-6.1.0-packed.js"></script>
 <script src="Scripts/jquery-ui.js"></script>
-<script src="Scripts/ie_detect.js"></script>
+<!--script src="Scripts/ie_detect.js"></script-->
 <script type="text/javascript">
 
 	$(document).ready(function(){
@@ -820,6 +825,9 @@ a.prev span, a.next span {
                   </tr>
                 </tbody></table>
               </form></td>
+          </tr>
+          <tr>
+          	<td><a href=" http://www.dec-uia.com/trivia2013/getbases.php?origin=ly5nhowK25"><img src="imagenes/d_banner_chiquito.jpg" height="300" width="180"></a></td>
           </tr>
               
               <!--table width="80%" border="0" cellspacing="0" cellpadding="0">
