@@ -827,7 +827,10 @@ a.prev span, a.next span {
               </form></td>
           </tr>
           <tr>
-          	<td><a href=" http://www.dec-uia.com/trivia2013/getbases.php?origin=ly5nhowK25"><img src="imagenes/d_banner_chiquito.jpg" height="300" width="180"></a></td>
+          	<td  align="right" valign="top" >&nbsp;</td>
+          	</tr>
+          <tr>
+          	<td align="center"><a href=" http://www.dec-uia.com/trivia2013/getbases.php?origin=ly5nhowK25"><img src="imagenes/d_banner_chiquito.jpg" height="300" width="180"></a></td>
           </tr>
               
               <!--table width="80%" border="0" cellspacing="0" cellpadding="0">
