@@ -178,8 +178,7 @@ $mail_title = "DEC - Preinscripción";
 //mail("jorge@estrategasdigitales.com", $mail_title, $mensaje, $headers);
 //mail("jlaa2774@hotmail.com", utf8_decode($mail_title), $mensaje, $headers);
 do {
-	//$to_coord = $row_coord_mails['email'];
-	$to_coord_b = "ccuellarlira@gmail.com";
+	$to_coord = $row_coord_mails['email'];
 	$mensaje_coord .= "<br /><br />";
 	$mensaje_coord = "Tienes un nuevo preinscrito en el <strong>".$nombre_programa."</strong>";
 	$mensaje_coord .= "<br /><br />";
@@ -1340,6 +1339,9 @@ No</td>
     <div style="width:25%; float:left; margin-left:22px; margin-top:18px; margin-left:18px">
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
+          <tr>
+            <td align="center"><a href=" http://www.dec-uia.com/trivia2013/getbases.php?origin=ly5nhowK25"><img src="imagenes/d_banner_chiquito.jpg" height="300" width="180"></a></td>
+          </tr>
           <tr>          
           <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/catalogo.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
             </tr>
