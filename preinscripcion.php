@@ -112,6 +112,85 @@ $puesto=$_POST['puesto'];
 $direccion_empresa=$_POST['direccion_empresa'];
 $telefono_empresa=$_POST['telefono_empresa'];
 
+$insertSQL = "INSERT INTO sp_preinscritos (
+id_discipline,
+id_program,
+fecha_registro,
+como_se_entero,
+a_paterno,
+a_materno,
+nombre,
+nacimiento,
+calle_numero,
+colonia,
+del_mpo,
+cp,
+ciudad,
+estado,
+rfc,
+telefono,
+celular,
+correo,
+nacionalidad,
+grado_academico,
+institucion_estudios,
+exalumno,
+porque_la_ibero,
+empresa,
+puesto,
+direccion_empresa,
+telefono_empresa, codigo)
+VALUES (
+'$id_discipline',
+'$id_program',
+'$fecha_registro',
+'$como_se_entero',
+'$a_paterno',
+'$a_materno',
+'$nombre',
+'$fechaNac',
+'$calle_numero',
+'$colonia',
+'$del_mpo',
+'$cp',
+'$ciudad',
+'$estado',
+'$rfc',
+'$telefono',
+'$celular',
+'$correo',
+'$nacionalidad',
+'$grado_academico',
+'$institucion_estudios',
+'$exalumno',
+'$porque_la_ibero',
+'$empresa',
+'$puesto',
+'$direccion_empresa',
+'$telefono_empresa',
+'$codigo_promo'
+)";
+
+  
+mysql_select_db($database_otono2011, $otono2011);
+
+try{
+	
+	$Result1 = mysql_query($insertSQL, $otono2011) or die(mysql_error());
+	
+	mysql_select_db($database_otono2011, $otono2011);
+	$query_last_p = "SELECT id_preinscrito FROM sp_preinscritos ORDER BY id_preinscrito DESC";
+	$last_p = mysql_query($query_last_p, $otono2011) or die(mysql_error());
+	$row_last_p = mysql_fetch_assoc($last_p);
+	
+	$insertSQL = "INSERT INTO sp_pasos_status (id_preinscrito) VALUES (".$row_last_p['id_preinscrito'].")";
+	
+	$Result1 = mysql_query($insertSQL, $otono2011) or die(mysql_error());
+	
+	/*CONSTRUCCION DEL MENSJAE PARA ENVIAR EN EL MAIL*/
+
+
+
 $mensaje="<strong>&Aacute;rea:</strong> ".$nombre_area."<br />";
 $mensaje.="<strong>Nombre del programa:</strong> ".$nombre_programa."<br />";
 $mensaje.="<strong>Se enteró del programa através de:</strong><br />";
