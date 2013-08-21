@@ -149,20 +149,34 @@ if($_GET['id_discipline'] != 0 && $_GET['id_discipline'] != 1 && $_GET['id_disci
 $programas = mysql_query($query_programas, $otono2011) or die(mysql_error());
 $row_programas = mysql_fetch_assoc($programas);
 
-$tipo_ant = 'diplomado';
+$tipo_ant = '';
 
 $response = '';
 
 $response .= '
 
 	<select name="id_program" id="id_program" style="width:540px; max-width:540px;">
-		<option value="0" selected="selected" disabled="disabled">Selecciona un programa</option>
-		<option disabled="disabled">-----DIPLOMADOS---</option>';
+		<option value="0" selected="selected" disabled="disabled">Selecciona un programa</option>';
 		
 			do{
 				if(($row_programas['id_program']!=217) && ($row_programas['id_program']!=195)){
 					$tipo = $row_programas['program_type'];
-					if($tipo != $tipo_ant){$response .= '<option disabled="disabled">-----CURSOS---</option>';}
+					switch ($tipo) {
+						case 'programahp':
+							$tipo_mostrar = "PROGRAMAS HP";
+							break;
+						case 'diplomado':
+							$tipo_mostrar = "DIPLOMADOS";
+							break;
+						case 'curso':
+							$tipo_mostrar = "CURSOS";
+							break;
+						
+						default:
+							$tipo_mostrar = strtoupper($tipo);
+							break;
+					}
+					if($tipo != $tipo_ant){$response .= '<option disabled="disabled">-----'.$tipo_mostrar.'---</option>';}
 					$response .= '<option value="'.$row_programas['id_program'].'">'.utf8_encode($row_programas['program_name']).'</option>';
 					$tipo_ant = $tipo;
 				}
