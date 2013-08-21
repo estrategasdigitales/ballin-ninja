@@ -962,7 +962,7 @@ s.parentNode.insertBefore(ga, s);
 							$tipo_ant = 'diplomado';
 							do{
 								$tipo = $row_programas['program_type'];
-								if($tipo != $tipo_ant){echo '<option disabled="disabled">-----CURSOS---</option>';}
+								if($tipo != $tipo_ant){echo '<option disabled="disabled">-----'.$tipo.'---</option>';}
 								echo '<option value="'.$row_programas['id_program'].'">'.$row_programas['program_name'].'</option>';
 								$tipo_ant = $tipo;
 							} while($row_programas = mysql_fetch_assoc($programas)); 
