@@ -959,7 +959,7 @@ s.parentNode.insertBefore(ga, s);
 						<select name="id_program" id="id_program" style="width:540px; max-width:540px;">
 							<option value="0" selected="selected" disabled="disabled">Selecciona un programa</option>
 							<?php 
-							$tipo_ant = 'diplomado';
+							$tipo_ant = 'cursos';
 							do{
 								$tipo = $row_programas['program_type'];
 								if($tipo != $tipo_ant){echo '<option disabled="disabled">-----'.$tipo.'---</option>';}
