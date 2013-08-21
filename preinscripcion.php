@@ -956,13 +956,16 @@ s.parentNode.insertBefore(ga, s);
 				<tr>
 					<td colspan="2" valign="top" id="td_programas">
 					
+						
+						<!-- Esto no sirve de nada, todo el HTML se trae via AJAX Request y se inserta en td_programs -- >
+
 						<select name="id_program" id="id_program" style="width:540px; max-width:540px;">
 							<option value="0" selected="selected" disabled="disabled">Selecciona un programa</option>
 							<?php 
 							$tipo_ant = 'cursos';
 							do{
 								$tipo = $row_programas['program_type'];
-								if($tipo != $tipo_ant){echo '<option disabled="disabled">-----'.$tipo.'111---</option>';}
+								if($tipo != $tipo_ant){echo '<option disabled="disabled">-----'.$tipo.'---</option>';}
 								echo '<option value="'.$row_programas['id_program'].'">'.$row_programas['program_name'].'</option>';
 								$tipo_ant = $tipo;
 							} while($row_programas = mysql_fetch_assoc($programas)); 
@@ -971,9 +974,7 @@ s.parentNode.insertBefore(ga, s);
 
 
 	
-							}	
-
-							?>
+							}?>
 
 
 							
