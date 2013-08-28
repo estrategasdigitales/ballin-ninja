@@ -351,7 +351,7 @@ s.parentNode.insertBefore(ga, s);
 	  }?>
 <div id="container">
   <div id="header" style="margin-top:16px">
-    <div id="logos"> <a href="http://uia.mx/" target="_blank"><img src="imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.dec-uia.com/primavera2013/index.php'"><img src="imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></div>
+    <div id="logos"> <a href="http://uia.mx/" target="_blank"><img src="imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.dec-uia.com/otono_2011/index.php'"><img src="imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></div>
     <div id="primavera" style="margin-bottom:8px"></div>
     <div id="menu" style="float:none;width:1016px">
    	<a href="https://twitter.com/DiplomadosIbero" target="_blank"><div style="float:right;height:24px;width:33px;background-image: url(imagenes/twitter.png);border-left:3px;margin-left:11px;margin-right:13px"></div></a>
@@ -383,8 +383,8 @@ s.parentNode.insertBefore(ga, s);
 	<ul style="list-style:none; padding-left:16px; width:110px;">
 	<li style="padding-bottom:10px;"><a href="http://enlinea.uia.mx/tes_dec/dec_login.cfm" target="_blank">Servicios en l&iacute;nea</a></li>
 	<li style="padding-bottom:10px;"><a href="https://enlinea.uia.mx/sit/SitActividadesEsp.cfm" target="_blank">Pago de traducciones</a></li>
-	<li style="padding-bottom:10px;"><a href="http://www.dec-uia.com/primavera2013/temarios/politcas_cobranza.pdf" target="_blank">Pol&iacute;ticas cobranza</a></li>
-	<li style="padding-bottom:10px;"><a href="http://www.www.dec-uia.com/primavera2013/tutorial_pagos.php">Tutorial pagos en l&iacute;nea</a></li></ul>
+	<li style="padding-bottom:10px;"><a href="http://www.dec-uia.com/otono_2011/temarios/politcas_cobranza.pdf" target="_blank">Pol&iacute;ticas cobranza</a></li>
+	<li style="padding-bottom:10px;"><a href="http://www.www.dec-uia.com/otono_2011/tutorial_pagos.php">Tutorial pagos en l&iacute;nea</a></li></ul>
   </div>
 <div id="menu_generos_interior_index">
     <div class="roundedBox_interior_index" id="type1"> 
@@ -644,10 +644,10 @@ s.parentNode.insertBefore(ga, s);
 					if ($row_prog_tipo ["idioma"] ==1) {
 						
 					?>
-                    <a onclick="parent.location='http://www.dec-uia.com/primavera2013/idiomas.php?id_discipline=<?php echo $row_prog_tipo['id_discipline'];?>&id_program=<?php echo $row_disciplines['id_program'];?>'" href="http://www.dec-uia.com/primavera2013/idiomas.php?id_discipline=<?php echo $row_prog_tipo['id_discipline'];?>&id_program=<?php echo $row_disciplines['id_program'];?>" > <strong><?php echo $row_prog_tipo['program_name'];?></strong></a>
+                    <a onclick="parent.location='http://www.dec-uia.com/otono_2011/idiomas.php?id_discipline=<?php echo $row_prog_tipo['id_discipline'];?>&id_program=<?php echo $row_disciplines['id_program'];?>'" href="http://www.dec-uia.com/otono_2011/idiomas.php?id_discipline=<?php echo $row_prog_tipo['id_discipline'];?>&id_program=<?php echo $row_disciplines['id_program'];?>" > <strong><?php echo $row_prog_tipo['program_name'];?></strong></a>
                     <?php } else { ?>
 					
-                <a onclick="parent.location='http://www.dec-uia.com/primavera2013/programas.php?id_discipline=<?php echo $row_prog_tipo['id_discipline'];?>&id_program=<?php echo $row_disciplines['id_program'];?>'" href="http://www.dec-uia.com/primavera2013/programas.php?id_discipline=<?php echo $row_prog_tipo['id_discipline'];?>&id_program=<?php echo $row_disciplines['id_program'];?>" > <strong><?php echo $row_prog_tipo['program_name'];?></strong></a> </p>
+                <a onclick="parent.location='http://www.dec-uia.com/otono_2011/programas.php?id_discipline=<?php echo $row_prog_tipo['id_discipline'];?>&id_program=<?php echo $row_disciplines['id_program'];?>'" href="http://www.dec-uia.com/otono_2011/programas.php?id_discipline=<?php echo $row_prog_tipo['id_discipline'];?>&id_program=<?php echo $row_disciplines['id_program'];?>" > <strong><?php echo $row_prog_tipo['program_name'];?></strong></a> </p>
                 
                 <?php }   ?>
                 
