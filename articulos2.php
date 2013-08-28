@@ -583,7 +583,7 @@ s.parentNode.insertBefore(ga, s);
 								
  else {
 	?>
-    <div id= "type4" class="cuadro_articulos"> <img class="articulos_img" src="imagenes/uploads/discipline_articles/<?php echo $row_pictures['picture']; ?>" width="790" height="266" /> 
+    <div id= "type4" class="cuadro_articulos"> <img class="articulos_img" src="../imagenes/uploads/discipline_articles/<?php echo $row_pictures['picture']; ?>" width="790" height="266" /> 
     </div>
     <?php
 }
@@ -597,7 +597,7 @@ s.parentNode.insertBefore(ga, s);
           <table>
          	<tr>
 				<td width="17%" rowspan="2" valign="top">
-					<img src="imagenes/uploads/discipline_articles/thumbnails/<?php echo $row_disciplines['thumbnail'];?>" width="120" height="114" border="0" />
+					<img src="../imagenes/uploads/discipline_articles/thumbnails/<?php echo $row_disciplines['thumbnail'];?>" width="120" height="114" border="0" />
 				</a></td>
 				<td width="2%" rowspan="2">&nbsp;</td>
 				<td colspan="2"><p class="contenido_diploRojo"><strong><span><?php echo $row_disciplines['title'];?></strong></span></p>
