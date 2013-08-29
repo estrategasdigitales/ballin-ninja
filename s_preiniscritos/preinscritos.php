@@ -84,34 +84,43 @@ if (isset($_GET['pageNum_preinscritos'])) {
 }
 $startRow_preinscritos = $pageNum_preinscritos * $maxRows_preinscritos;
 
-  //query para obtener el total de preinscritos
+  //-------------------<<<<  query para obtener el total de preinscritos >>>> ------------------------------------------
 mysql_select_db($database_des_preinscritos, $des_preinscritos);
-if(isset($_GET['id_program']) && $_GET['id_program'] != 0){
+  
+  if(isset($_GET['id_program']) && $_GET['id_program'] != 0){ // Si tenemos el id del programa creamos el siguiente query
 
- $query_preinscritos = "SELECT * FROM sp_preinscritos WHERE id_program = ".$_GET['id_program']." AND id_preinscrito IN
- (SELECT id_preinscrito FROM sp_pasos_status WHERE sp_preinscritos.id_preinscrito = sp_pasos_status.id_preinscrito AND sp_pasos_status.pago_realizado = 0 AND sp_pasos_status.caso_cerrado = 0 AND sp_pasos_status.caso_inconcluso = 0 AND sp_pasos_status.informes = 0) ORDER BY fecha_registro DESC, id_preinscrito DESC";
+    $query_preinscritos = "SELECT * FROM sp_preinscritos WHERE id_program = ".$_GET['id_program']." AND id_preinscrito IN
+    (SELECT id_preinscrito FROM sp_pasos_status WHERE sp_preinscritos.id_preinscrito = sp_pasos_status.id_preinscrito 
+    AND sp_pasos_status.pago_realizado = 0 AND sp_pasos_status.caso_cerrado = 0 AND sp_pasos_status.caso_inconcluso = 0 
+    AND sp_pasos_status.informes = 0) ORDER BY fecha_registro DESC, id_preinscrito DESC";
 
-}else if(isset($_GET['id_discipline']) && $_GET['id_discipline'] != 0){
+  }else if(isset($_GET['id_discipline']) && $_GET['id_discipline'] != 0){ // Si tenemos el id de la disciplina creamos el siguiente query
 
- $query_preinscritos = "SELECT * FROM sp_preinscritos WHERE id_discipline = ".$_GET['id_discipline']." AND id_preinscrito IN
- (SELECT id_preinscrito FROM sp_pasos_status WHERE sp_preinscritos.id_preinscrito = sp_pasos_status.id_preinscrito AND sp_pasos_status.pago_realizado = 0 AND sp_pasos_status.caso_cerrado = 0 AND sp_pasos_status.caso_inconcluso = 0 AND sp_pasos_status.informes = 0) ORDER BY fecha_registro DESC, id_preinscrito DESC";
+    $query_preinscritos = "SELECT * FROM sp_preinscritos WHERE id_discipline = ".$_GET['id_discipline']." AND id_preinscrito IN
+    (SELECT id_preinscrito FROM sp_pasos_status WHERE sp_preinscritos.id_preinscrito = sp_pasos_status.id_preinscrito 
+    AND sp_pasos_status.pago_realizado = 0 AND sp_pasos_status.caso_cerrado = 0 AND sp_pasos_status.caso_inconcluso = 0 AND sp_pasos_status.informes = 0) 
+    ORDER BY fecha_registro DESC, id_preinscrito DESC";
 
-}else{
+  }else{
 
- $query_preinscritos = "SELECT * FROM sp_preinscritos WHERE id_preinscrito IN
- (SELECT id_preinscrito FROM sp_pasos_status WHERE sp_preinscritos.id_preinscrito = sp_pasos_status.id_preinscrito AND sp_pasos_status.pago_realizado = 0 AND sp_pasos_status.caso_cerrado = 0 AND sp_pasos_status.caso_inconcluso = 0 AND sp_pasos_status.informes = 0) AND (";
+    $query_preinscritos = "SELECT * FROM sp_preinscritos WHERE id_preinscrito IN
+    (SELECT id_preinscrito FROM sp_pasos_status WHERE sp_preinscritos.id_preinscrito = sp_pasos_status.id_preinscrito 
+    AND sp_pasos_status.pago_realizado = 0 AND sp_pasos_status.caso_cerrado = 0 
+    AND sp_pasos_status.caso_inconcluso = 0 AND sp_pasos_status.informes = 0) AND (";
 
-   do{
-    $query_preinscritos .= ' id_discipline = '.$row_disciplinas['id_discipline'].' OR';
-  }while($row_disciplinas = mysql_fetch_assoc($disciplinas));
-  mysql_data_seek($disciplinas,0);
-  $row_disciplinas = mysql_fetch_assoc($disciplinas);
+    do{
+      $query_preinscritos .= ' id_discipline = '.$row_disciplinas['id_discipline'].' OR';
+    }while($row_disciplinas = mysql_fetch_assoc($disciplinas));
+    
+    mysql_data_seek($disciplinas,0);
+    $row_disciplinas = mysql_fetch_assoc($disciplinas);
 
-  $query_preinscritos = substr($query_preinscritos, 0, -2); 
-  $query_preinscritos .= ") ORDER BY fecha_registro DESC, id_preinscrito DESC";
+    $query_preinscritos = substr($query_preinscritos, 0, -2); 
+    $query_preinscritos .= ") ORDER BY fecha_registro DESC, id_preinscrito DESC";
+  }
+  $query_limit_preinscritos = sprintf("%s LIMIT %d, %d", $query_preinscritos, $startRow_preinscritos, $maxRows_preinscritos);
 
-}
-$query_limit_preinscritos = sprintf("%s LIMIT %d, %d", $query_preinscritos, $startRow_preinscritos, $maxRows_preinscritos);
+
 $preinscritos = mysql_query($query_limit_preinscritos, $des_preinscritos) or die(mysql_error());
 $row_preinscritos = mysql_fetch_assoc($preinscritos);
 
@@ -272,7 +281,7 @@ $(document).ready(function() {
         <div style="float:left;"><a href="http://uia.mx/" target="_blank"><img src="imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" /></a> <a href="preinscritos.php"><img src="imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></div>
         <div style="float:left; margin:10px;" >
           <h1>Sistema de seguimiento de preinscripciones</h1>
-          <h2>Administrador | <a href="logout.php">Cerrar sesi&oacute;n</a></h2>
+          <h2> <?php echo $_SESSION['loggedin_username']; ?> | <a href="logout.php">Cerrar sesi&oacute;n</a></h2>
         </div>
         <div id="home_link">
           <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" name="form2" id="form2">
