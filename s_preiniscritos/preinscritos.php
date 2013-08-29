@@ -50,15 +50,17 @@
   $disciplinas = mysql_query($query_disciplinas, $des_preinscritos) or die(mysql_error());
   $row_disciplinas = mysql_fetch_assoc($disciplinas);
 
+    //Consulta que obtiene los programas que pertenecen a las disciplinas relacionadas con el usuario.
+
     $query_disciplinas_todas = "SELECT id_program, id_discipline, id_discipline_alterna, id_discipline_alterna_2, program_type, program_name, idioma 
-FROM site_programs 
-WHERE (id_discipline IN (SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user']." ) 
-OR id_discipline_alterna IN (SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user']." ) 
-OR id_discipline_alterna_2 IN (SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user']." ) )
-AND cancelado = 0
-AND periodo = 'o'
-GROUP BY id_program
-ORDER BY program_type DESC, idioma DESC, program_name ASC";
+                                FROM site_programs 
+                                WHERE (id_discipline IN (SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user']." ) 
+                                OR id_discipline_alterna IN (SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user']." ) 
+                                OR id_discipline_alterna_2 IN (SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user']." ) )
+                                AND cancelado = 0
+                                AND periodo = 'o'
+                                GROUP BY id_program
+                                ORDER BY program_type DESC, idioma DESC, program_name ASC";
     $disciplinas_todas = mysql_query($query_disciplinas_todas, $des_preinscritos) or die(mysql_error());
     $row_disciplinas_todas = mysql_fetch_assoc($disciplinas_todas);
 
@@ -103,26 +105,26 @@ mysql_select_db($database_des_preinscritos, $des_preinscritos);
 
   }else{
 
-    $query_preinscritos = "SELECT * FROM sp_preinscritos WHERE id_preinscrito IN
-    (SELECT id_preinscrito FROM sp_pasos_status WHERE sp_preinscritos.id_preinscrito = sp_pasos_status.id_preinscrito 
-    AND sp_pasos_status.pago_realizado = 0 AND sp_pasos_status.caso_cerrado = 0 
-    AND sp_pasos_status.caso_inconcluso = 0 AND sp_pasos_status.informes = 0) AND (";
+        $query_preinscritos = "SELECT * FROM sp_preinscritos WHERE id_preinscrito IN
+        (SELECT id_preinscrito FROM sp_pasos_status WHERE sp_preinscritos.id_preinscrito = sp_pasos_status.id_preinscrito 
+        AND sp_pasos_status.pago_realizado = 0 AND sp_pasos_status.caso_cerrado = 0 
+        AND sp_pasos_status.caso_inconcluso = 0 AND sp_pasos_status.informes = 0) AND (";
+        do{
+          $query_preinscritos .= ' id_discipline = '.$row_disciplinas['id_discipline'].' OR';
+        }while($row_disciplinas = mysql_fetch_assoc($disciplinas));
+        
+        mysql_data_seek($disciplinas,0);
+        $row_disciplinas = mysql_fetch_assoc($disciplinas);
 
-    do{
-      $query_preinscritos .= ' id_discipline = '.$row_disciplinas['id_discipline'].' OR';
-    }while($row_disciplinas = mysql_fetch_assoc($disciplinas));
-    
-    mysql_data_seek($disciplinas,0);
-    $row_disciplinas = mysql_fetch_assoc($disciplinas);
-
-    $query_preinscritos = substr($query_preinscritos, 0, -2); 
-    $query_preinscritos .= ") ORDER BY fecha_registro DESC, id_preinscrito DESC";
-  }
+        $query_preinscritos = substr($query_preinscritos, 0, -2); 
+        $query_preinscritos .= ") ORDER BY fecha_registro DESC, id_preinscrito DESC";
+        }
+  
   $query_limit_preinscritos = sprintf("%s LIMIT %d, %d", $query_preinscritos, $startRow_preinscritos, $maxRows_preinscritos);
+  echo $query_limit_preinscritos;
+  $preinscritos = mysql_query($query_limit_preinscritos, $des_preinscritos) or die(mysql_error());
+  $row_preinscritos = mysql_fetch_assoc($preinscritos);
 
-
-$preinscritos = mysql_query($query_limit_preinscritos, $des_preinscritos) or die(mysql_error());
-$row_preinscritos = mysql_fetch_assoc($preinscritos);
 
 if (isset($_GET['totalRows_preinscritos'])) {
   $totalRows_preinscritos = $_GET['totalRows_preinscritos'];
