@@ -137,7 +137,7 @@ mysql_select_db($database_des_preinscritos, $des_preinscritos);
         }
   
   $query_limit_preinscritos = sprintf("%s LIMIT %d, %d", $query_preinscritos, $startRow_preinscritos, $maxRows_preinscritos);
-  echo $query_limit_preinscritos;
+  //echo $query_limit_preinscritos;
   $preinscritos = mysql_query($query_limit_preinscritos, $des_preinscritos) or die(mysql_error());
   $row_preinscritos = mysql_fetch_assoc($preinscritos);
 

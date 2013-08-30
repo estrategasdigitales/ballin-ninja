@@ -438,7 +438,7 @@ function uncheck_other(id){
               <td><strong>Programa de inter&eacute;s: </strong>
                 <select name="id_program" id="id_program" style="width:450px; max-width:450px;">
                   <? do{ ?>
-                  <option value="<?php echo $row_program_name['id_program']; ?>" <?php if($row_program_name['id_program'] == $_GET['id_program']){echo 'selected="selected"';}?>><?php echo $row_program_name['program_type'].' - '.$row_program_name['program_name']; ?></option>
+                  <option value="<?php echo $row_program_name['id_program']; ?>" <?php if($row_program_name['id_program'] == $_POST['id_program']){echo 'selected="selected"';}?>><?php echo $row_program_name['program_type'].' - '.$row_program_name['program_name']; ?></option>
                   <? }while($row_program_name = mysql_fetch_assoc($program_name)); ?>
                 </select></td>
             </tr>
