@@ -43,7 +43,7 @@
 
   $currentPage = $_SERVER["PHP_SELF"];
 
-  //query para obtener las areas a las que puede acceder el usuario logeado
+  //query para obtener las areas(disciplinas) a las que puede acceder el usuario logeado
   mysql_select_db($database_des_preinscritos, $des_preinscritos);
 
   $query_disciplinas = "SELECT id_discipline FROM ss_users_disciplines WHERE id_user = ".$_SESSION['loggedin_id_user'];
@@ -105,7 +105,7 @@ mysql_select_db($database_des_preinscritos, $des_preinscritos);
 
   }else{
 
-        $query_preinscritos = "SELECT * FROM sp_preinscritos WHERE id_preinscrito IN
+        /*$query_preinscritos = "SELECT * FROM sp_preinscritos WHERE id_preinscrito IN
         (SELECT id_preinscrito FROM sp_pasos_status WHERE sp_preinscritos.id_preinscrito = sp_pasos_status.id_preinscrito 
         AND sp_pasos_status.pago_realizado = 0 AND sp_pasos_status.caso_cerrado = 0 
         AND sp_pasos_status.caso_inconcluso = 0 AND sp_pasos_status.informes = 0) AND (";
@@ -118,6 +118,22 @@ mysql_select_db($database_des_preinscritos, $des_preinscritos);
 
         $query_preinscritos = substr($query_preinscritos, 0, -2); 
         $query_preinscritos .= ") ORDER BY fecha_registro DESC, id_preinscrito DESC";
+        */
+        $query_preinscritos = "SELECT * FROM sp_preinscritos WHERE id_preinscrito IN
+        (SELECT id_preinscrito FROM sp_pasos_status WHERE sp_preinscritos.id_preinscrito = sp_pasos_status.id_preinscrito 
+        AND sp_pasos_status.pago_realizado = 0 AND sp_pasos_status.caso_cerrado = 0 
+        AND sp_pasos_status.caso_inconcluso = 0 ) 
+        AND id_program IN (";
+                      do{
+                        $query_preinscritos .= ' '.$row_disciplinas_todas['id_program'].',';
+                      }while($row_disciplinas_todas = mysql_fetch_assoc($disciplinas_todas));
+        
+        mysql_data_seek($disciplinas_todas,0);
+        $row_disciplinas_todas = mysql_fetch_assoc($disciplinas_todas);
+
+        $query_preinscritos = substr($query_preinscritos, 0, -1);
+        $query_preinscritos .= ") ORDER BY fecha_registro DESC, id_preinscrito DESC";
+
         }
   
   $query_limit_preinscritos = sprintf("%s LIMIT %d, %d", $query_preinscritos, $startRow_preinscritos, $maxRows_preinscritos);
@@ -522,85 +538,86 @@ $(document).ready(function() {
   $cont = 0;
 
   do { 
-    
-      //query para obtener el nombre del programa
-    mysql_select_db($database_des_preinscritos, $des_preinscritos);
-    $query_programa = "SELECT program_name, program_type FROM site_programs WHERE id_program = ".$row_preinscritos['id_program'];
-    $programa = mysql_query($query_programa, $des_preinscritos) or die(mysql_error());
-    $row_programa = mysql_fetch_assoc($programa);
-      //query para sacar el paso y el comentario donde se encuentra el interesado   
-      //mysql_select_db($database_des_preinscritos, $des_preinscritos);
-    $query_paso = "SELECT * FROM sp_pasos_status WHERE id_preinscrito = ".$row_preinscritos['id_preinscrito'];
-    $paso = mysql_query($query_paso, $des_preinscritos) or die(mysql_error());
-    $row_paso = mysql_fetch_assoc($paso);
-      //query para sacar los comentarios por paso 
-      //mysql_select_db($database_des_preinscritos, $des_preinscritos);
-    $query_comment_paso = "SELECT * FROM sp_comentarios WHERE id_preinscrito = ".$row_preinscritos['id_preinscrito'];
-    $comment_paso = mysql_query($query_comment_paso, $des_preinscritos) or die(mysql_error());
-    $row_comment_paso = mysql_fetch_assoc($comment_paso);
+        
+          //query para obtener el nombre del programa
+        mysql_select_db($database_des_preinscritos, $des_preinscritos);
+        $query_programa = "SELECT program_name, program_type FROM site_programs WHERE id_program = ".$row_preinscritos['id_program'];
+        $programa = mysql_query($query_programa, $des_preinscritos) or die(mysql_error());
+        $row_programa = mysql_fetch_assoc($programa);
+          //query para sacar el paso y el comentario donde se encuentra el interesado   
+          //mysql_select_db($database_des_preinscritos, $des_preinscritos);
+        $query_paso = "SELECT * FROM sp_pasos_status WHERE id_preinscrito = ".$row_preinscritos['id_preinscrito'];
+        $paso = mysql_query($query_paso, $des_preinscritos) or die(mysql_error());
+        $row_paso = mysql_fetch_assoc($paso);
+          //query para sacar los comentarios por paso 
+          //mysql_select_db($database_des_preinscritos, $des_preinscritos);
+        $query_comment_paso = "SELECT * FROM sp_comentarios WHERE id_preinscrito = ".$row_preinscritos['id_preinscrito'];
+        $comment_paso = mysql_query($query_comment_paso, $des_preinscritos) or die(mysql_error());
+        $row_comment_paso = mysql_fetch_assoc($comment_paso);
 
-    $comment_1 = '';
-    $comment_2 = '';
-    $comment_3 = '';
-    $comment_4 = '';
-    $comment_5 = '';
+        $comment_1 = '';
+        $comment_2 = '';
+        $comment_3 = '';
+        $comment_4 = '';
+        $comment_5 = '';
 
-    do{
-     switch($row_comment_paso['id_paso']){
-      case 1:
-      $comment_1 = $row_comment_paso['comentario'];
-      break;
-      case 2:
-      $comment_2 = $row_comment_paso['comentario'];
-      break;
-      case 3:
-      $comment_3 = $row_comment_paso['comentario'];
-      break;
-      case 4:
-      $comment_4 = $row_comment_paso['comentario'];
-      break;
-      case 5:
-      $comment_5 = $row_comment_paso['comentario'];
-      break;
-    }
-  }while($row_comment_paso = mysql_fetch_assoc($comment_paso));   
+        do{
+              switch($row_comment_paso['id_paso']){
+              case 1:
+              $comment_1 = $row_comment_paso['comentario'];
+              break;
+              case 2:
+              $comment_2 = $row_comment_paso['comentario'];
+              break;
+              case 3:
+              $comment_3 = $row_comment_paso['comentario'];
+              break;
+              case 4:
+              $comment_4 = $row_comment_paso['comentario'];
+              break;
+              case 5:
+              $comment_5 = $row_comment_paso['comentario'];
+              break;
+              }
+      }while($row_comment_paso = mysql_fetch_assoc($comment_paso));   
 
-      //--------
-  if($cont % 2){$bg='bgcolor="#F1F1F1"';}else{$bg = '';}
-  ?>
+          //--------
+      if($cont % 2){$bg='bgcolor="#F1F1F1"';}else{$bg = '';}
+      ?>
 
-  <tr <?php echo $bg; ?>>
-   <td align="left" valign="middle" class="celdas">
-    <strong>
-      <?php if($row_paso['comentario_general'] != ''){
-          echo '<a href="#" title="'.utf8_encode(ucfirst(strtolower($row_paso['comentario_general']))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a> ';
-        } ?>
-        <a class="group1" href="preinscrito_detalle.php?id_preinscrito=<?php echo $row_preinscritos['id_preinscrito']; ?>">
-          <?php echo utf8_encode(ucfirst(strtolower($row_preinscritos['a_paterno']))) .' '. utf8_encode(ucfirst(strtolower($row_preinscritos['a_materno']))) .', '.utf8_encode(ucwords(strtolower($row_preinscritos['nombre']))); ?>
-        </a>
-      </strong>
-    </td>
-   <td align="left" valign="middle" class="celdas"><?php echo utf8_encode($row_programa['program_type']).' - '.utf8_encode($row_programa['program_name']); ?></td>
-   <td align="center" valign="middle" class="celdas"><?php echo strftime("%d %B %Y", strtotime($row_preinscritos['fecha_registro'])); ?></td>
-   <td align="center" valign="middle" class="celdas"><?php if($row_preinscritos['codigo'] != NULL){echo $row_preinscritos['codigo'];} ?></td>
-   <td align="center" valign="middle" class="celdas"><?php if($row_paso['primer_contacto'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_1 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_1))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
-   <td align="center" valign="middle" class="celdas"><?php if($row_paso['documentos'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_2 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_2))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
-   <td align="center" valign="middle" class="celdas"><?php if($row_paso['envio_decse'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_3 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_3))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
-   <td align="center" valign="middle" class="celdas"><?php if($row_paso['envio_claves'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_4 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_4))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
-   <td align="center" valign="middle" class="celdas"><?php if($row_paso['pago_realizado'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_5 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_5))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
-   <td align="center" valign="middle" class="celdas">
-     <form method="post" action="preinscrito_eliminar.php" onsubmit="return confirmar();">
-      <input type="submit" name="delete_" id="delete_" value="Eliminar" />
-      <input type="hidden" name="id_preinscrito" value="<?php echo $row_preinscritos['id_preinscrito']; ?>" />
-      <input type="hidden" name="url" value="<?php echo $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']; ?>" />
-    </form>
-  </td>
-</tr>
-<?php 
+      <tr <?php echo $bg; ?>>
+       <td align="left" valign="middle" class="celdas">
+        <strong>
+          <?php if($row_paso['comentario_general'] != ''){
+              echo '<a href="#" title="'.utf8_encode(ucfirst(strtolower($row_paso['comentario_general']))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a> ';
+            } ?>
+            <a class="group1" href="preinscrito_detalle.php?id_preinscrito=<?php echo $row_preinscritos['id_preinscrito']; ?>">
+              <?php echo utf8_encode(ucfirst(strtolower($row_preinscritos['a_paterno']))) .' '. utf8_encode(ucfirst(strtolower($row_preinscritos['a_materno']))) .', '.utf8_encode(ucwords(strtolower($row_preinscritos['nombre']))); ?>
+            </a>
+          </strong>
+        </td>
+       <td align="left" valign="middle" class="celdas"><?php echo utf8_encode($row_programa['program_type']).' - '.utf8_encode($row_programa['program_name']); ?></td>
+       <td align="center" valign="middle" class="celdas"><?php echo strftime("%d %B %Y", strtotime($row_preinscritos['fecha_registro'])); ?></td>
+       <td align="center" valign="middle" class="celdas"><?php if($row_preinscritos['codigo'] != NULL){echo $row_preinscritos['codigo'];} ?></td>
+       <td align="center" valign="middle" class="celdas"><?php if($row_paso['primer_contacto'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_1 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_1))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
+       <td align="center" valign="middle" class="celdas"><?php if($row_paso['documentos'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_2 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_2))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
+       <td align="center" valign="middle" class="celdas"><?php if($row_paso['envio_decse'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_3 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_3))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
+       <td align="center" valign="middle" class="celdas"><?php if($row_paso['envio_claves'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_4 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_4))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
+       <td align="center" valign="middle" class="celdas"><?php if($row_paso['pago_realizado'] == 1){echo '<img src="imagenes/green.png"/>';} if($comment_5 != ''){echo ' <a href="#" title="'.utf8_encode(ucfirst(strtolower($comment_5))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a>';} ?></td>
+       <td align="center" valign="middle" class="celdas">
+         <form method="post" action="preinscrito_eliminar.php" onsubmit="return confirmar();">
+          <input type="submit" name="delete_" id="delete_" value="Eliminar" />
+          <input type="hidden" name="id_preinscrito" value="<?php echo $row_preinscritos['id_preinscrito']; ?>" />
+          <input type="hidden" name="url" value="<?php echo $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']; ?>" />
+        </form>
+      </td>
+    </tr>
+    <?php 
 
-$cont++;
+    $cont++;
 
 } while ($row_preinscritos = mysql_fetch_assoc($preinscritos)); ?>
+
 </table>
 <div class="espacio"> </div>
 <table width="100%" border="0">
