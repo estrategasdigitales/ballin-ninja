@@ -448,7 +448,7 @@ $(document).ready(function() {
        <div id="buscador">
         <form name="buscador" id="buscador" action="resultados_busqueda.php" method="get">         
          <a href="graficas/graficas_area_programa.php">Gr&aacute;ficas</a>
-         <ahref="export_to_xls.php">Exportar a Excel</a>
+         <a href="export_to_xls.php">Exportar a Excel</a>
          <input name="qs" type="text" id="qs" placeholder="Todas las &aacute;reas" value="" size="20" />
          <input type="submit" name="enviar" id="enviar" value="Buscar">
        </form>
