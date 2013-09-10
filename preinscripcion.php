@@ -292,7 +292,16 @@
 				$disciplina_alterna = $row_diplos_names['id_discipline_alterna'];
 
 				mysql_select_db($database_otono2011, $otono2011);
-				$query_coord_alt_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $disciplina_alterna) AND id_access != 1 AND id_access !=2";
+				$query_coord_alt_mails = "SELECT * 
+											FROM ss_users 
+											WHERE id_user 
+											IN(
+												SELECT id_user 
+												FROM ss_users_disciplines 
+												WHERE id_discipline = $disciplina_alterna
+												) 
+											AND id_access !=1 
+											AND id_access !=2";
 				$coord_alt_mails = mysql_query($query_coord_alt_mails, $otono2011) or die(mysql_error());
 				$row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails);
 				$totalRows_coord_alt_mails = mysql_num_rows($coord_alt_mails);
@@ -308,8 +317,8 @@
 					$mensaje_coord .= "<br /><br />";
 					$mensaje_coord .= "<a href='http://www.dec-uia.com/s_preiniscritos/' target='_blank'>http://www.dec-uia.com/s_preiniscritos/</a>";
 					$mensaje_coord .= "<br /><br />donde podr&aacute;s llevar paso a paso el proceso de inscripci&oacute;n y tener un f&aacute;cil acceso a la informaci&oacute;n del usuario.";
-					$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord_mails['username']."</strong>";
-					$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_mails['password']."</strong>";
+					$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord__alt_mails['username']."</strong>";
+					$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_alt_mails['password']."</strong>";
 					mail($to_coord_b_alt, $mail_title, $mensaje_coord, $headers);
 
 				}while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));
@@ -1442,7 +1451,9 @@ No</td>
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
           <tr>
-            <td align="center"><a href=" http://www.dec-uia.com/trivia2013/getbases.php?origin=ly5nhowK25"><img src="imagenes/d_banner_chiquito.jpg" height="300" width="180"></a></td>
+            <td align="center">
+            	<a onclick="parent.location='http://www.diplomados.uia.mx/extras.php'" href="#">
+            		<img src="imagenes/banner_chiquito_cierre_trivia.png" height="300" width="180"></a></td>
           </tr>
           <tr>          
           <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/catalogo.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
