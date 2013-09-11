@@ -16,7 +16,7 @@
             <li><a class="discipline_12" onclick="showMenu(12)">Preparatoria Abierta</a></li>
             <li><a class="discipline_14" onclick="showMenu(14)">Idiomas</a></li>
           </ul>
-         <h4>Harvard Graduate School of Design Executive Education Programs</h4>
+         <h4>Harvard Graduate School </br>of Design Executive Education Programs</h4>
           <ul>
             <li><a class="discipline_23" onclick="showMenu(23)">Oferta Acad&eacute;mica</a></li>
           </ul>
