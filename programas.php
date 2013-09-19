@@ -473,13 +473,22 @@ s.parentNode.insertBefore(ga, s);
 
             </td>
 
-                        <td width="20px" <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> style="display:none;" <?php } ?>><?php if($_GET['id_discipline']==21){ ?>
-                          <a href="http://www.diplomados.uia.mx/preinscripcion.php">Formato de Preinscripci&oacute;n</a>
-                          <?php }else if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
-                           <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
-                          <?php }else{ ?>
-                          <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
-                          <?php } ?></td>
+                        <td width="20px" <?php 
+                        	if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ 
+                        		?> 
+                        		style="display:none;" 
+                        		<?php } ?>>
+
+	                        		<?php if($_GET['id_discipline']==21){ ?>
+	                          			<a href="http://www.diplomados.uia.mx/preinscripcion.php">1Formato de Preinscripci&oacute;n</a>
+	                          		<?php }
+	                          		else if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
+	                           			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">2Formato de Preinscripci&oacute;n</a>
+	                          <?php }
+	                          		else{ ?>
+	                          			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">3Formato de Preinscripci&oacute;n</a>
+	                          <?php } ?>
+                      	</td>
 
                       </tr>
                       <?php } ?>
@@ -503,12 +512,15 @@ s.parentNode.insertBefore(ga, s);
             "0" /></a>
             <?php } ?>
             </td>
-                        <td width="81%" align="left"><?php if($_GET['id_discipline']==21){ ?>
-                          <a href="http://www.diplomados.uia.mx/preinscripcion.php">Formato de Preinscripci&oacute;n</a>
+                        <td width="81%" align="left">
+
+                        <?php if($_GET['id_discipline']==21){ ?>
+                          <a href="http://www.diplomados.uia.mx/preinscripcion.php">4Formato de Preinscripci&oacute;n</a>
                           <?php }else if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
                           <?php }else{ ?>
-                          <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
-                          <?php } ?></td>
+                          <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">5Formato de Preinscripci&oacute;n</a>
+                          <?php } ?>
+                      </td>
 
                 </tr></table></td></tr>
 
