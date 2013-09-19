@@ -480,13 +480,13 @@ s.parentNode.insertBefore(ga, s);
                         		<?php } ?>>
 
 	                        		<?php if($_GET['id_discipline']==21){ ?>
-	                          			<a href="http://www.diplomados.uia.mx/preinscripcion.php">1Formato de Preinscripci&oacute;n</a>
+	                          			<a href="http://www.diplomados.uia.mx/preinscripcion.php">Formato de Preinscripci&oacute;n</a>
 	                          		<?php }
 	                          		else if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
-	                           			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">2Formato de Preinscripci&oacute;n</a>
+	                           			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
 	                          <?php }
 	                          		else{ ?>
-	                          			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">3Formato de Preinscripci&oacute;n</a>
+	                          			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
 	                          <?php } ?>
                       	</td>
 
@@ -515,10 +515,10 @@ s.parentNode.insertBefore(ga, s);
                         <td width="81%" align="left">
 
                         <?php if($_GET['id_discipline']==21){ ?>
-                          <a href="http://www.diplomados.uia.mx/preinscripcion.php">4Formato de Preinscripci&oacute;n</a>
+                          <a href="http://www.diplomados.uia.mx/preinscripcion.php">Formato de Preinscripci&oacute;n</a>
                           <?php }else if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
                           <?php }else{ ?>
-                          <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">5Formato de Preinscripci&oacute;n</a>
+                          <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
                           <?php } ?>
                       </td>
 
@@ -822,10 +822,11 @@ s.parentNode.insertBefore(ga, s);
 
 
 
-                      	    <?php if($_GET['id_discipline'] != 10 && $_GET['id_program'] != 397){ ?>
+                      	    <?php if( $_GET['id_discipline'] != 10 && $_GET['id_program'] != 397 ){ ?>
       				 <td valign="top"></td>
       				 <!-- AddThis Button BEGIN -->
       				 <td valign="top">
+		               	 <?php if( $_GET['id_program'] != 512 ){ ?> <!-- Condición para que se excluyan los programas con sede CAM SAM -->
 		                <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'" style="float:left">
 		                	<img src="imagenes/icono_insc.gif" width="30" height="30" border="0" />
 		            	</a>
@@ -835,6 +836,8 @@ s.parentNode.insertBefore(ga, s);
 		            	<br>
 		            	</b>
             			</font>
+            			<?php } ?>
+            			
             			<?php if($row_programa['program_pdf'] != NULL){ ?>
 	            			<div style="margin-top: -31px;">
 		            			<a href="temarios/<?php echo $row_programa['program_pdf']; ?>" target="_blank" style="margin-left:95px; float:left"> 
