@@ -459,36 +459,36 @@ s.parentNode.insertBefore(ga, s);
           <td align="right">
           	<table border="0">
           		<?php if($_GET['id_program'] != 397 || $_GET['id_program'] != 512){ ?>
-                               	<tr>
+                       <tr>
+                        			<td colspan="2" align="right" valign="top" class="contenido_diploRojo" 
+                        				<?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ 
+                        					?> style="display:none;" <?php } ?>
+                        					>
+                        <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> 
+                        	<a href="#" onclick="parent.location='extras.php'"><img src="imagenes/icono_insc.gif" width="30" height="30" border= "0" />
+                        	</a> <?php 
+                        }else{ ?>
+                        <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'"><img src="imagenes/icono_insc.gif" width="30" height="30" border="0" /></a>
+            			<?php } ?>
 
-                        <td colspan="2" align="right" valign="top" class="contenido_diploRojo" <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> style="display:none;" <?php } ?>>
-                        <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?> <a href="#" onclick="parent.location='extras.php'"><img src=
-            "imagenes/icono_insc.gif" width="30" height="30" border=
-            "0" /></a> <?php }else{ ?>
+            						</td>
 
-                        <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'"><img src=
-            "imagenes/icono_insc.gif" width="30" height="30" border=
-            "0" /></a>
-            <?php } ?>
+			                        <td width="20px" <?php 
+			                        	if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ 
+			                        		?> 
+			                        		style="display:none;" 
+			                        		<?php } ?>>
 
-            </td>
-
-                        <td width="20px" <?php 
-                        	if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ 
-                        		?> 
-                        		style="display:none;" 
-                        		<?php } ?>>
-
-	                        		<?php if($_GET['id_discipline']==21){ ?>
-	                          			<a href="http://www.diplomados.uia.mx/preinscripcion.php">Formato de Preinscripci&oacute;n</a>
-	                          		<?php }
-	                          		else if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
-	                           			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
-	                          <?php }
-	                          		else{ ?>
-	                          			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
-	                          <?php } ?>
-                      	</td>
+				                        		<?php if($_GET['id_discipline']==21){ ?>
+				                          			<a href="http://www.diplomados.uia.mx/preinscripcion.php">1Formato de Preinscripci&oacute;n</a>
+				                          		<?php }
+				                          		else if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
+				                           			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">2Formato de Preinscripci&oacute;n</a>
+				                          <?php }
+				                          		else{ ?>
+				                          			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">3Formato de Preinscripci&oacute;n</a>
+				                          <?php } ?>
+			                      	</td>
 
                       </tr>
                       <?php } ?>
