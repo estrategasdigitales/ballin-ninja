@@ -489,7 +489,7 @@ s.parentNode.insertBefore(ga, s);
       			</tr>
                                  <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
                 <tr><td><table border="0">
-                <tr><td colspan="2"><p><span style="color: red; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 16px">(Exclusivo para  servidores públicos del Poder Judicial de la Federación)</span></p></td></tr>
+                <tr><td colspan="2"><p><span style="color: red; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 16px">(Exclusivo para  servidores p&uacute;blicos del Poder Judicial de la Federaci&oacute;n)</span></p></td></tr>
 
 
                 <tr>
