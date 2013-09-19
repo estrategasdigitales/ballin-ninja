@@ -458,7 +458,8 @@ s.parentNode.insertBefore(ga, s);
 
           <td align="right">
           	<table border="0">
-          		<?php if($_GET['id_program'] != 397 || $_GET['id_program'] != 512){ ?>
+          		
+          		<?php if($_GET['id_program'] != 397 && $_GET['id_program'] != 512){ ?>
                        <tr>
                         			<td colspan="2" align="right" valign="top" class="contenido_diploRojo" 
                         				<?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ 
