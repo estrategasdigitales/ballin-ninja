@@ -481,13 +481,13 @@ s.parentNode.insertBefore(ga, s);
 			                        		<?php } ?>>
 
 				                        		<?php if($_GET['id_discipline']==21){ ?>
-				                          			<a href="http://www.diplomados.uia.mx/preinscripcion.php">1Formato de Preinscripci&oacute;n</a>
+				                          			<a href="http://www.diplomados.uia.mx/preinscripcion.php">Formato de Preinscripci&oacute;n</a>
 				                          		<?php }
 				                          		else if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
-				                           			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">2Formato de Preinscripci&oacute;n</a>
+				                           			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
 				                          <?php }
 				                          		else{ ?>
-				                          			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">3Formato de Preinscripci&oacute;n</a>
+				                          			<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Formato de Preinscripci&oacute;n</a>
 				                          <?php } ?>
 			                      	</td>
 
