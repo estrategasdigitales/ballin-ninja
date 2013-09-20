@@ -91,14 +91,7 @@
 		$ip = $_SERVER['REMOTE_ADDR'];
 		$navegador = $_SERVER['HTTP_USER_AGENT'];
 
-		if(isset($_POST['codigo_promo']) && $_POST['codigo_promo'] != "") //Evaluamos si tenemos capturado un codigo de promo
-		{
-			$codigo_promo = $_POST['codigo_promo'];
-		}
-		else
-		{
-			$codigo_promo = "NO_PROMO"; // En caso de que no se ingrese un codigo de promoción asignaos ensta cadena por default al campo promo
-		}
+		$codigo_promo = $_POST['codigo_promo'];
 		//Información Personal
 		$email = $_POST['correo'];
 		$a_paterno = $_POST['a_paterno'];
@@ -889,6 +882,7 @@ s.parentNode.insertBefore(ga, s);
 	
 		<form name="registro" id="registro" action="preinscripcion.php" method="post" onsubmit="return validate();">
 			<table width="500" border="0" cellspacing="0" cellpadding="5">
+				
 				<tr>
 					<td colspan="2" valign="top">
 						<label for="id_discipline"></label>
@@ -897,13 +891,16 @@ s.parentNode.insertBefore(ga, s);
 								<?php do { ?>
 									<option value="<?php echo $row_disciplines_names['id_discipline']; ?>"><?php echo $row_disciplines_names['discipline']; ?></option>
 								<?php } while($row_disciplines_names = mysql_fetch_assoc($disciplines_names)); ?>
-						</select></td>
-					</tr>
+						</select>
+					</td>
+				</tr>
+				
+
 				<tr>
 					<td colspan="2" valign="top" id="td_programas">
 					
 						
-						<!-- Esto no sirve de nada, todo el HTML se trae via AJAX Request y se inserta en td_programs -- >
+						<!-- Esto no sirve de nada, todo el HTML se trae via AJAX Request y se inserta en td_programs 
 
 						<select name="id_program" id="id_program" style="width:540px; max-width:540px;">
 							<option value="0" selected="selected" disabled="disabled">Selecciona un programa</option>
@@ -915,19 +912,12 @@ s.parentNode.insertBefore(ga, s);
 								echo '<option value="'.$row_programas['id_program'].'">'.$row_programas['program_name'].'</option>';
 								$tipo_ant = $tipo;
 							} while($row_programas = mysql_fetch_assoc($programas)); 
-
 							if($num_rows = mysql_num_rows($query) > 0){
-
-
-	
 							}?>
-
-
-							
-						</select>
-					
+						</select>-- >
 					</td>
-					</tr>
+				</tr>
+				
 				<tr>
 					<td width="148" align="right" valign="top">&iquest;C&oacute;mo se enter&oacute; del programa?</td>
 					<td width="332" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -976,15 +966,21 @@ s.parentNode.insertBefore(ga, s);
 						</tr>
 					</table></td>
 				</tr>
-				<tr>
-					<td align="right" valign="top"><span style="color:#ff0000;">C&oacute;digo de Promo Tianguis IBERO</td>
-					<td valign="top"><label for="codigo_promo"></label> 
-						<input name="codigo_promo" type="hidden" id="codigo_promo" size="10" style="float:left;"/>
-						<span>(Este c&oacute;digo se te env&iacute;a una vez confirmada tu asistencia al evento)</span></td>
-				</tr>
+				
+
+
+				<!--<tr>
+					<td align="right" valign="top"><span style="color:#ff0000;">C&oacute;digo de Promo San Valent&iacute;n</td>
+					<td valign="top"><label for="codigo_promo"></label> -->
+						<!--<input name="codigo_promo" type="hidden" id="codigo_promo" size="10" style="float:left;"/>-->
+						<!--<span>(Debes registraste previamente, 
+el c&oacute;digo comienza con PSV-)</span></td>
+				</tr>-->
+				
+
 				<tr>
 					<td colspan="2" align="center"><strong>Informaci&oacute;n personal</strong></td>
-					</tr>
+				</tr>
 				<tr>
 					<td align="right" valign="top">* A. Paterno</td>
 					<td valign="top"><label for="a_paterno"></label>
@@ -1001,6 +997,16 @@ s.parentNode.insertBefore(ga, s);
 						<input name="nombre" type="text" id="nombre" onchange="populate_rfc_name()" size="30" /><br />
 						*Recuerda que tu diploma quedar&aacute; con el mismo nombre que ingreses aqu&iacute;</td>
 				</tr>
+				<tr>
+					<td align="right" valign="top"><span style="color:#ff0000;">C&oacute;digo de Promo Tianguis IBERO</td>
+					<td valign="top"><label for="codigo_promo"></label>
+						<input name="codigo_promo" type="texto" id="codigo_promo" size="10" style="float:left;"/>
+						<span>(Este c&oacute;digo se te env&iacute;a una vez confirmada tu asistencia al evento)</span>
+					</td>
+				</tr>
+				
+				
+
 				<tr>
 					<td align="right" valign="top">* Fecha de nacimiento</td>
 					<td valign="top"><table width="211" border="0" cellspacing="0" cellpadding="0">
