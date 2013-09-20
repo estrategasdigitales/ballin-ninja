@@ -408,81 +408,40 @@ $(document).ready(function() {
 
   do{ 
     
-      //query para obtener el nombre del programa
-   /* mysql_select_db($database_des_preinscritos, $des_preinscritos);
-    $query_programa = "SELECT program_name, program_type FROM site_programs WHERE id_program = ".$row_preinscritos['id_program'];
-    $programa = mysql_query($query_programa, $des_preinscritos) or die(mysql_error());
-    $row_programa = mysql_fetch_assoc($programa);
-      //query para sacar el paso y el comentario donde se encuentra el interesado   
-      //mysql_select_db($database_des_preinscritos, $des_preinscritos);
-    $query_paso = "SELECT * FROM sp_pasos_status WHERE id_preinscrito = ".$row_preinscritos['id_preinscrito'];
-    $paso = mysql_query($query_paso, $des_preinscritos) or die(mysql_error());
-    $row_paso = mysql_fetch_assoc($paso);
-      //query para sacar los comentarios por paso 
-      //mysql_select_db($database_des_preinscritos, $des_preinscritos);
-    $query_comment_paso = "SELECT * FROM sp_comentarios WHERE id_preinscrito = ".$row_preinscritos['id_preinscrito'];
-    $comment_paso = mysql_query($query_comment_paso, $des_preinscritos) or die(mysql_error());
-    $row_comment_paso = mysql_fetch_assoc($comment_paso);
+      
+      if($cont % 2){$bg='bgcolor="#F1F1F1"';}else{$bg = '';}
+      ?>
 
-    $comment_1 = '';
-    $comment_2 = '';
-    $comment_3 = '';
-    $comment_4 = '';
-    $comment_5 = '';
-
-    do{
-     switch($row_comment_paso['id_paso']){
-      case 1:
-      $comment_1 = $row_comment_paso['comentario'];
-      break;
-      case 2:
-      $comment_2 = $row_comment_paso['comentario'];
-      break;
-      case 3:
-      $comment_3 = $row_comment_paso['comentario'];
-      break;
-      case 4:
-      $comment_4 = $row_comment_paso['comentario'];
-      break;
-      case 5:
-      $comment_5 = $row_comment_paso['comentario'];
-      break;
-    }
-  }while($row_comment_paso = mysql_fetch_assoc($comment_paso));   */
-
-      //--------
-  if($cont % 2){$bg='bgcolor="#F1F1F1"';}else{$bg = '';}
-  ?>
-
-  <tr <? echo $bg; ?>>
-   <td align="left" valign="middle" class="celdas">
-    <strong>
+      <tr <? echo $bg; ?>>
+      <td align="left" valign="middle" class="celdas">
+      <strong>
       <? if($row_paso['comentario_general'] != ''){
-          echo '<a href="#" title="'.utf8_encode(ucfirst(strtolower($row_paso['comentario_general']))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a> ';
-        } ?>
-        <!--a class="group1" href="preinscrito_detalle.php?id_preinscrito=<?php echo $row_preinscritos['id_preinscrito']; ?>"-->
-          <?php echo utf8_encode(ucfirst(strtolower($row_preinscritos['a_paterno']))).', '.utf8_encode(ucwords(strtolower($row_preinscritos['nombre']))); ?>
-        <!--/a-->
+      echo '<a href="#" title="'.utf8_encode(ucfirst(strtolower($row_paso['comentario_general']))).'" class="tooltip_a"><img src="imagenes/informacion.png"/></a> ';
+      } ?>
+      <!--a class="group1" href="preinscrito_detalle.php?id_preinscrito=<?php echo $row_preinscritos['id_preinscrito']; ?>"-->
+      <?php echo utf8_encode(ucfirst(strtolower($row_preinscritos['a_paterno']))).', '.utf8_encode(ucwords(strtolower($row_preinscritos['nombre']))); ?>
+      <!--/a-->
       </strong>
-    </td>
-   <td align="center" valign="middle" class="celdas"><? echo strftime("%d %B %Y", strtotime($row_preinscritos['timestamp'])); ?></td>
-   <td align="center" valign="middle" class="celdas"><? if($row_preinscritos['codigo'] != NULL){echo $row_preinscritos['codigo'];} ?></td>
-   <td align="center" valign="middle" class="celdas"><? echo $row_preinscritos['mail']; ?></td>
-   <td align="center" valign="middle" class="celdas"><? if($row_preinscritos['tipo'] == 1){echo 'S&iacute;';}?></td>
-   
-   <td align="center" valign="middle" class="celdas">
-     <form method="post" action="delete_promo.php" onsubmit="return confirmar();">
+      </td>
+      <td align="center" valign="middle" class="celdas"><? echo strftime("%d %B %Y", strtotime($row_preinscritos['timestamp'])); ?></td>
+      <td align="center" valign="middle" class="celdas"><? if($row_preinscritos['codigo'] != NULL && $row_preinscritos['codigo'] != "NO_PROMO" ){echo $row_preinscritos['codigo'];} ?></td>
+      <td align="center" valign="middle" class="celdas"><? echo $row_preinscritos['mail']; ?></td>
+      <td align="center" valign="middle" class="celdas"><? if($row_preinscritos['tipo'] == 1){echo 'S&iacute;';}?></td>
+
+      <td align="center" valign="middle" class="celdas">
+      <form method="post" action="delete_promo.php" onsubmit="return confirmar();">
       <input type="submit" name="delete_" id="delete_" value="Eliminar" />
       <input type="hidden" name="id_promo" value="<?php echo $row_preinscritos['codigo']; ?>" />
       <input type="hidden" name="url" value="<? echo $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']; ?>" />
-    </form>
-  </td>
-</tr>
-<?php 
+      </form>
+      </td>
+      </tr>
+      <?php 
 
-$cont++;
+      $cont++;
 
-} while ($row_preinscritos = mysql_fetch_assoc($preinscritos)); ?>
+    } while ($row_preinscritos = mysql_fetch_assoc($preinscritos)); ?>
+
 </table>
 <div class="espacio"> </div>
 <table width="100%" border="0">

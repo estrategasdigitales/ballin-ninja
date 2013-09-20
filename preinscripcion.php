@@ -91,7 +91,14 @@
 		$ip = $_SERVER['REMOTE_ADDR'];
 		$navegador = $_SERVER['HTTP_USER_AGENT'];
 
-		$codigo_promo = $_POST['codigo_promo'];
+		if(isset($_POST['codigo_promo']) && $_POST['codigo_promo'] != "") //Evaluamos si tenemos capturado un codigo de promo
+		{
+			$codigo_promo = $_POST['codigo_promo'];
+		}
+		else
+		{
+			$codigo_promo = "NO_PROMO"; // En caso de que no se ingrese un codigo de promoción asignaos ensta cadena por default al campo promo
+		}
 		//Información Personal
 		$email = $_POST['correo'];
 		$a_paterno = $_POST['a_paterno'];
@@ -969,13 +976,12 @@ s.parentNode.insertBefore(ga, s);
 						</tr>
 					</table></td>
 				</tr>
-				<!--<tr>
-					<td align="right" valign="top"><span style="color:#ff0000;">C&oacute;digo de Promo San Valent&iacute;n</td>
-					<td valign="top"><label for="codigo_promo"></label> -->
+				<tr>
+					<td align="right" valign="top"><span style="color:#ff0000;">C&oacute;digo de Promo Tianguis IBERO</td>
+					<td valign="top"><label for="codigo_promo"></label> 
 						<input name="codigo_promo" type="hidden" id="codigo_promo" size="10" style="float:left;"/>
-						<!--<span>(Debes registraste previamente, 
-el c&oacute;digo comienza con PSV-)</span></td>
-				</tr>-->
+						<span>(Este c&oacute;digo se te env&iacute;a una vez confirmada tu asistencia al evento)</span></td>
+				</tr>
 				<tr>
 					<td colspan="2" align="center"><strong>Informaci&oacute;n personal</strong></td>
 					</tr>
