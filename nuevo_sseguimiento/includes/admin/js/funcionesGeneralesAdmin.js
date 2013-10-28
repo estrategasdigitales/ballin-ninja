@@ -1,0 +1,697 @@
+/*
+$.jgrid = {
+                    
+        search : {                
+         caption: "Searchdfdf...",
+         Find: "Find",
+         odata : ['equal', 'not equal', 'less', 'less or equal','greater','greater or equal', 'begins with','does not begin with','is in','is not in','ends with','does not end with','contains','does not contain']
+        }
+};  */              
+           				                                                              
+var users = {                            
+    indice_array:0,                                            
+    onReady:function()
+    {                                               
+      var base_url = $("#base_url").text();
+          $("#list").jqGrid({                                    
+          url:base_url+'/users/jqGrid', //another controller function for generating data
+          mtype : "post",     //Ajax request type. It also could be GET
+          datatype: "json",   //supported formats XML, JSON or Arrray
+          colNames:['Nombre','Rol de usuario','Editar','Notificación','Activo','Borrar'],       //Grid column headings
+          colModel:[                                                                                                                                             
+              {name:'nombre',index:'nombre',width:150,align:'left'},                                                                                                                                                                                                           
+              {name:'rol',index:'rol',width:150,align:'left'},                                                                                                                                                                                                                            
+              {name:'editar',search:false,sortable:false,align:'center',width:50,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
+                return "<a href='edit/" + options.rowId + "'><div class='ui-pg-div ui-inline-edit' onmouseout=\"jQuery(this).removeClass('ui-state-hover')\" onmouseover=\"jQuery(this).addClass('ui-state-hover');\"  style='display:inline-block;cursor:pointer;' title='Modificar fila seleccionada'><span class='ui-icon ui-icon-pencil'></span></div></a>";                
+                /*              
+                <div class="ui-pg-div ui-inline-edit" onmouseout="jQuery(this).removeClass('ui-state-hover')" onmouseover="jQuery(this).addClass('ui-state-hover');" onclick="jQuery.fn.fmatter.rowactions.call(this,'edit');" style="float:left;cursor:pointer;" title="Modificar fila seleccionada">
+                  <span class="ui-icon ui-icon-pencil"></span>
+                </div>*/              
+              }},                                                                                                                                                                                                                                                                                                                                                       
+              {name:'notificacion',search:false,sortable:false,align:'center',width:50,formatter:function(cellValue, options, rowdata, action){                   
+                var checked = (cellValue==1)?'checked':'';                                                                                                                                                          
+                return "<input type='checkbox' name='chk_notificacion' id='"+options.rowId+"' "+checked+">";                                       
+              }},                                                                                                                        
+              {name:'activo',search:false,sortable:false,align:'center',width:50,formatter:function(cellValue, options, rowdata, action){                   
+                var checked = (cellValue==1)?'checked':'';                                                                                                                                                          
+                return "<input type='checkbox' name='chk_activo' id='"+options.rowId+"' "+checked+">";                                       
+              }},                                              
+              {name: 'myac',search:false,width:80,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
+                    keys: true,                                                                  
+                    editbutton: false,             
+                    editformbutton: false,
+                    delbutton: true,                                                                                                                             
+                    delOptions:{                    
+                        url: 'delete',                                                                                                                                             
+                        msg: "Desea eliminar el registro?",                                                          
+                        afterSubmit: function (response, postdata) {
+                            var r = $.parseJSON(response.responseText);
+                            $("#msj").html(r.message);                                 
+                            return [r.success, r.message, null];
+                        }                                                                                                                            
+                    }                     
+                 }
+              },                                                                                                                                                                                                                                                                                                                                                 
+          ],                                                                                                                                                                      
+          rowNum:5,                                    
+          width: 970,		                                                                
+          //height: 300,   
+          //height: '100%',                      
+          rowList:[10,20,30],
+          pager: '#pager',                                              
+          sortname: 'user_uuid',         
+          viewrecords: true,    
+          rownumbers: true,             
+          gridview: true,                                  
+          caption:"Usuarios",
+          loadComplete:function(data){
+            if(data.records == 0){    
+              var msj = $("#msj");    
+              msj.html(data.msg);
+              setTimeout(function(){
+                msj.empty();
+              },5000);                                                                                          
+            }                                                                                                                            
+          }                                                                                                                            
+          //editurl:'delete'                                                                                                                                                                                      
+    }).navGrid('#pager',{edit:false,add:false,del:false}, 
+    {}, //  default settings for edit
+    {}, //  default settings for add
+    {},  // delete instead that del:false we need this
+    {searchOnEnter:true,closeOnEscape:true}, // search options
+    {} /* view parameters*/               
+    );                                                                                                 
+                                                                                                                                                                                                                       
+      $("#list input[name=chk_notificacion]").live("click",users.update_notificacion);  
+      $("#list input[name=chk_activo]").live("click",users.update_activo); 
+      $("#id_discipline").on("change",users.get_tipos_programas_ax); 
+      $("#program_type").on("change",users.get_programas_ax);
+      $("#agregar_programas").on("click",users.agregar_programas);  
+      $("#form_add_users").on("submit",users.add_users); 
+      $("#form_update_users").on("submit",users.update_users);     
+      $("#usuario_programas a").on("click",users.confirm_delete_programa); 
+      $("#usuario_programas .new_program").live("click",users.delete_programa_new);
+    },                                                                                                                              
+                  
+    delete_programa_new:function(e)
+    {                                                                                       
+      e.preventDefault();
+      var indice_array = $(this).attr("id"); 
+      var programas = $.parseJSON($("#programas").val());
+      programas.splice(indice_array,1);    
+      $("#programas").val(JSON.stringify(programas));                                                        
+      $(this).parent().remove();        
+    },                                                                                                                                                                                 
+            
+    confirm_delete_programa:function(e)
+    {                   
+        e.preventDefault();
+        var self = $(this);
+        $("<div></div>").dialog({                                                                                
+              buttons: {            
+                "Eliminar": function () { 
+                  users.delete_usuario_programa(self);          
+                  $(this).dialog("close"); 
+                },                                             
+                "Cancelar": function () { $(this).dialog("close"); } 
+              },                                   
+              close: function (event, ui) { $(this).remove(); },
+              resizable: true,                 
+              title: "Confirmar",
+              modal: true                                                                
+          }).text("¿ Está seguro de eliminar el programa ?");  
+    },              
+    
+    delete_usuario_programa:function(self)
+    {                                                                                                   
+      var li = self.parent();                                                        
+      var id_usuario_programa = self.children().attr("id");                 
+      var url = $("#base_url").text()+"/users/delete_usuario_programa";     
+      var data = "id_usuario_programa="+id_usuario_programa; 
+      $.ajax({                                                                         
+        async:true,              
+        type:"POST",
+        dataType:"json",                    
+        contentType: "application/x-www-form-urlencoded,multipart/form-data",
+        url:url,                                
+        data:data,         
+        success:function(res)    
+        {                         
+          if(res.success){                                                                                                                       
+          $("#msj").html(res.msg); 
+          li.remove();
+          }                                                  
+        },                                                                                                                                                      
+        timeout:4000,             
+        error:function(res)
+        {                                           
+          console.log(res);            
+        }                                                   
+      });                        
+    },                                                                                   
+
+    agregar_programas:function()
+    {                                         
+      if($("#id_discipline").val()!=0 && $("#program_type").val()!=0 && $("#id_program").val()!=0)
+      {                                                                                                              
+        var li = $('<li></li>');                                                              
+        var div = $('<div id="'+users.indice_array+'" class="new_program"><a href="#">X</a></div>');                                                       
+        var id_discipline = $("#id_discipline option:selected").val();
+        var id_program = $("#id_program option:selected").val();
+        var option_program = $("#id_program option:selected").text(); 
+
+        if($("#programas").val()){
+
+          var programas = $.parseJSON($("#programas").val());              
+          programas.push({"id_discipline": id_discipline, "id_program": id_program})                     
+          li.append(option_program);  
+          li.append(div);              
+          $("#usuario_programas ul").append(li);
+
+        }else{                                                      
+
+          var programas = [{"id_discipline": id_discipline, "id_program": id_program}];                      
+          li.append(option_program);   
+          li.append(div);                             
+          $("#usuario_programas ul").append(li);
+              
+        }
+                                                    
+        users.indice_array=users.indice_array+1;                                  
+        programas = JSON.stringify(programas); 
+        $("#programas").val(programas);                                                                                                                                                                                              
+        $("#id_discipline option[value=0]").attr("selected",true);
+        $("#program_type option[value=0]").attr("selected",true);
+        $("#id_program option[value=0]").attr("selected",true);
+        $("#id_program option[value=0]").attr("selected",true);
+      }                                                                                                                                                            
+    },                                                  
+
+    add_users:function(e)
+    {                             
+      e.preventDefault();                     
+      var url = "add";         
+      var data = $(this).serialize(); 
+      $.ajax({                                                 
+        async:true,              
+        type:"POST",            
+        dataType:"json",                    
+        contentType: "application/x-www-form-urlencoded,multipart/form-data",
+        url:url,                    
+        data:data,                
+        success:function(res)    
+        {                   
+          if(res.success==false){         
+            $("#msj").html(res.msg);   
+          }else{                                                                                                                                                                                                
+            document.location.href=res.redirect;                                        
+          }                                                                                                                   
+        },                                                             
+        timeout:4000,             
+        error:function(respuesta)
+        {                                           
+          console.log(respuesta);            
+        }                                           
+      });    
+    },    
+              
+    update_users:function(e)
+    {                                        
+      e.preventDefault();                                
+      var url = $("#base_url").text()+"/users/update";         
+      var data = $(this).serialize();
+
+      $.ajax({                                                 
+        async:true,              
+        type:"POST",            
+        dataType:"json",                    
+        contentType: "application/x-www-form-urlencoded,multipart/form-data",
+        url:url,                    
+        data:data,                
+        success:function(res)    
+        {                         
+          if(res.success==false){         
+          $("#msj").html(res.msg);   
+          }else{                                                                                                                                                                                                            
+            document.location.href=res.redirect;                                        
+          }                                                                                                                                    
+        },                                                                     
+        timeout:4000,             
+        error:function(respuesta)
+        {                                           
+          console.log(respuesta);            
+        }                              
+      });       
+    },                              
+
+    get_tipos_programas_ax:function()
+    {                                                                                            
+        var url = $("#base_url").text()+'/users/get_tipos_programas_ax';
+        var data = '';
+
+        $.ajax({                                     
+          async:true,              
+          type:"GET",   
+          dataType:"html",                    
+          contentType: "application/x-www-form-urlencoded,multipart/form-data",
+          url:url,                    
+          //data:data,     
+          success:function(respuesta)    
+          {                                                                                                                                            
+            $("#program_type").html(respuesta);         
+          },                                                             
+          timeout:4000,             
+          error:function(respuesta)
+          {                                           
+            console.log(respuesta);            
+          }                              
+        });             
+    },             
+
+    get_programas_ax:function()
+    {                                
+        var id_discipline = $("#id_discipline option:selected").val();             
+        var data = "program_type="+$(this).val()+"&id_discipline="+id_discipline;
+        var url = $("#base_url").text()+'/users/get_programas_ax';
+
+        $.ajax({                                 
+          async:true,              
+          type:"POST",
+          dataType:"html",                    
+          contentType: "application/x-www-form-urlencoded,multipart/form-data",
+          url:url,                    
+          data:data,     
+          success:function(respuesta)    
+          {                                                       
+            $("#id_program").html(respuesta);         
+          },                                                             
+          timeout:4000,             
+          error:function(respuesta)
+          {                                                          
+            console.log(respuesta);            
+          }                     
+        });      
+    },                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                                         
+    update_notificacion:function(e)
+    {                              
+      var value = ($(this).attr('checked'))?1:0;                               
+      var data = "user_uuid="+$(this).attr("id")+"&value="+value;
+      var url = $("#base_url").text()+'/users/update_notificacion';
+
+        $.ajax({                                 
+          async:true,              
+          type:"POST",
+          dataType:"json",                    
+          contentType: "application/x-www-form-urlencoded,multipart/form-data",
+          url:url,                    
+          data:data,     
+          success:function(res)    
+          {                                         
+            $("#msj").html(res.message);         
+          },                                                  
+          timeout:4000,             
+          error:function(res)
+          {                                           
+            console.log(res);            
+          }                     
+        });       
+    },                                         
+
+    update_activo:function(e)
+    {                                        
+      var value = ($(this).attr('checked'))?1:0;                               
+      var data = "user_uuid="+$(this).attr("id")+"&value="+value;
+      var url = $("#base_url").text()+'/users/update_activo';
+
+        $.ajax({                                 
+          async:true,              
+          type:"POST",
+          dataType:"json",                    
+          contentType: "application/x-www-form-urlencoded,multipart/form-data",
+          url:url,                    
+          data:data,     
+          success:function(res)    
+          {                                              
+            $("#msj").html(res.message);         
+          },                                                  
+          timeout:4000,             
+          error:function(res)
+          {                                           
+            console.log(res);            
+          }                     
+        });  
+    }                                                                        
+}   
+
+var preinscritos = {
+														
+  onReady:function()
+  {                 		 										
+      var base_url = $("#base_url").text();
+      jQuery("#list_preinscritos").jqGrid({                                                  
+          url:base_url+'/preinscritos/jqGrid', //another controller function for generating data
+          mtype : "post",     //Ajax request type. It also could be GET
+          datatype: "json",   //supported formats XML, JSON or Arrray             
+          colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
+          colModel:[                              		                                               						                                                                                                                                                                                                                                                                                                												                                                                       		
+              {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
+                return "<a href='detalle/" + options.rowId + "' class='group1' name='edit'>"+cellValue+"</a>";                                    
+              }},       		                                                                                                                                                                                           
+              {name:'a_paterno',index:'a_paterno',search:true,sortable:true,width:120,align:'left'}, 
+              {name:'a_materno',index:'a_materno',search:true,sortable:true,width:120,align:'left'},                                                                                                                                                                                                           
+              {name:'program_name',index:'program_name',search:true,sortable:true,width:200,align:'left'},                                                                                                                                                                                                           
+              {name:'fecha_registro',index:'fecha_registro',search:false,sortable:true,width:100,align:'left'},  
+              {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                if(cellValue==1){													
+                  return "<img src='../../includes/admin/images/seguimiento/green.png'>";
+                } 									        		                                          
+                return '';																			                     
+              }},                                       				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+              {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                if(cellValue==1){
+                  return "<img src='../../includes/admin/images/seguimiento/green.png'>";
+                }         						                               
+                return '';                           
+              }},            
+              {name:'envio_decse',index:'envio_decse',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                if(cellValue==1){
+                  return "<img src='../../includes/admin/images/seguimiento/green.png'>";
+                }         						                               			
+                return '';                    
+              }},
+              {name:'envio_claves',index:'envio_claves',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                if(cellValue==1){
+                  return "<img src='../../includes/admin/images/seguimiento/green.png'>";
+                }                                        
+                return ''; 																		                    
+              }},		
+              {name:'pago_realizado',index:'pago_realizado',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                if(cellValue==1){						
+                  return "<img src='../../includes/admin/images/seguimiento/green.png'>";
+                }												       								                                 
+                return '';         
+                                				
+              }},         															
+              {name: 'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
+                    keys: true,                                                                                                                                   
+                    editbutton: false,             
+                    editformbutton: false,
+                    delbutton: true,                                                                                                                             
+                    delOptions:{                                  
+                        url: 'delete_preinscrito',                                                                                                                                             
+                        msg: "Desea eliminar el registro?",                                                          
+                        afterSubmit: function (response, postdata) {
+                            var r = $.parseJSON(response.responseText);
+                            $("#msj").html(r.message);                   
+                            return [r.success, r.message, null];
+                        }                                                                                                                                                
+                    }                                
+                 }                        
+              },                                                                    
+          ],									                                                                                                                                                                                                                         
+          rowNum:10,							                        
+          width: 970,                                    
+          //height: 300,            
+          rowList:[10,20,30],     
+          pager: '#pager_preinscritos',                                              
+          sortname: 'id_preinscrito',                   
+          viewrecords: true,        
+          rownumbers: true,             
+          gridview: true,                               
+          caption:"Preinscritos", 
+          loadComplete:function(data){
+            if(data.records == 0){    
+              var msj = $("#msj");    
+              msj.html(data.msg);
+              setTimeout(function(){
+                msj.empty();           
+              },5000);                                                                                      
+            }                                                                                                                                
+          },                                                               
+         editurl:'edit'                                                                                                                                                                                                    
+      }).navGrid('#pager_preinscritos',{edit:false,add:false,del:false},
+      {}, //  default settings for edit
+    {}, //  default settings for add
+    {},  // delete instead that del:false we need this
+    {searchOnEnter:true,closeOnEscape:true}, // search options
+    {} /* view parameters*/ 
+    );                                                               
+ 
+    $("#list_preinscritos a[name=edit]").live("click",preinscritos.edit); 
+    //$("#form_datos_preinscrito").on("submit",preinscritos.form_datos_preinscrito);
+  },  						                      
+                                                                                                                                                                                                                                                                                                                                                 
+
+  edit:function(e)
+  {
+    e.preventDefault();
+    $.colorbox({href:$(this).attr("href"),iframe:true, width:"850px", height:"90%"});
+  },                                                                                             
+											
+  editar:function(e)
+  {                                                 
+    e.preventDefault(); 
+    var base_url = $("#base_url").text();                              
+    var id_preinscrito = $("#list_preinscritos").jqGrid('getGridParam','selrow');     
+    var url = base_url+"/preinscritos/edit";
+    var data = "id_preinscrito="+id_preinscrito;
+
+    $.ajax({                                                                               
+        async:true,              
+        type:"POST",
+        dataType:"json",                    
+        contentType: "application/x-www-form-urlencoded,multipart/form-data",
+        url:url,                                
+        data:data,         
+        success:function(res)    
+        {                             
+          if(res.success){                                                                                                                       
+          $("#msj").html(res.msg);          
+            console.log(res.msg[0].nombre);  
+            $("#name").val(res.msg[0].nombre); 
+            document.getElementById('modal').style.display='block';
+            document.getElementById('ventana').style.display='block';   
+          }                                                                                                                 
+        },                                                                                                                                                      
+        timeout:4000,             
+        error:function(res)
+        {                                           
+          console.log(res);            
+        }                                                   
+      });                            
+  }                                                                                                                                          
+}
+            
+var inscritos = {
+
+  onReady:function()
+  {                                                                                                                                                                                                                                                                                                                                                                                                                                 
+      var base_url = $("#base_url").text();
+      jQuery("#list_inscritos").jqGrid({                                                
+          url:base_url+'/inscritos/jqGrid', //another controller function for generating data
+          mtype : "post",     //Ajax request type. It also could be GET
+          datatype: "json",   //supported formats XML, JSON or Arrray									
+          colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
+          colModel:[      											                                                                                         		                                                                                                                                                                                                                 
+              {name:'nombre',index:'nombre',width:110,align:'left'}, 
+              {name:'a_paterno',index:'a_paterno',width:120,align:'left'}, 
+              {name:'a_materno',index:'a_materno',width:120,align:'left'},      		                                                                                                                                                                                                     
+              {name:'program_name',index:'program_name',width:200,align:'left'},               					                                                                                                                                                                                            
+              {name:'fecha_registro',index:'fecha_registro',width:100,align:'left',search:false},  		       				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+              {name:'primer_contacto',index:'primer_contacto',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+              {name:'documentos',index:'documentos',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+              {name:'envio_decse',index:'envio_decse',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+              {name:'envio_claves',index:'envio_claves',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+			  {name:'pago_realizado',index:'pago_realizado',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+              {name:'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
+                    keys: true,   													   																		           									          						                                                                                                        
+                    editbutton: false,             
+                    editformbutton: false,
+                    delbutton: true,                                                                                                                             
+                    delOptions:{     			               			              
+                        url: 'delete_inscrito', 				                                                                                                                                            
+                        msg: "Desea eliminar el registro?",                                                          
+                        afterSubmit: function (response, postdata) {
+                            var r = $.parseJSON(response.responseText);
+                            $("#msj").html(r.message);                   
+                            return [r.success, r.message, null];
+                        }                                                                                                                                                
+                    }                               
+                 }                  
+      		}                 												                                        										
+          ],                                                                                                                                                                                                                         
+          rowNum:5,                        
+          width:970,			                                    
+          //height: 300,            
+          rowList:[10,20,30],
+          pager: '#pager_inscritos',                                              
+          sortname: 'id_preinscrito',                   
+          viewrecords: true,        
+          rownumbers: true,                 
+          gridview: true,                                  
+          caption:"inscritos", 
+          loadComplete:function(data){
+            if(data.records == 0){    
+              var msj = $("#msj");    
+              msj.html(data.msg);
+              setTimeout(function(){
+                msj.empty();           
+              },5000);                                                                                        
+            }                                                                                                                                     
+          }                                        
+          //editurl:'delete'                                                                                                                                                                                    
+      }).navGrid('#pager_inscritos',{edit:false,add:false,del:false},
+      {}, //  default settings for edit
+    {}, //  default settings for add
+    {},  // delete instead that del:false we need this
+    {searchOnEnter:true,closeOnEscape:true}, // search options
+    {} /* view parameters*/ 
+    );                                                                                                                                                                                                   
+  }                                                                        
+}   
+
+var caso_cerrado = {
+
+  onReady:function()
+  {                                    				                                                                                                                                                                                                                                                                                                                                                                                                          
+      var base_url = $("#base_url").text();
+      jQuery("#list_caso_cerrado").jqGrid({                                                
+          url:base_url+'/casos_cerrados/jqGrid', //another controller function for generating data
+          mtype : "post", //Ajax request type. It also could be GET
+          datatype: "json", //supported formats XML, JSON or Arrray 					
+          colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
+          colModel:[                   											                                                                                                                                                                                                                                                                                             
+              {name:'nombre',index:'nombre',width:110,align:'left'}, 
+              {name:'a_paterno',index:'a_paterno',width:120,align:'left'}, 
+              {name:'a_materno',index:'a_materno',width:120,align:'left'},                                                                                                                                                                                                           
+              {name:'program_name',index:'program_name',width:200,align:'left'},                                                                                                                                                                                                           
+              {name:'fecha_registro',index:'fecha_registro',width:100,align:'left'},
+              {name:'primer_contacto',index:'primer_contacto',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+              {name:'documentos',index:'documentos',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+              {name:'envio_decse',index:'envio_decse',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+              {name:'envio_claves',index:'envio_claves',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+			  {name:'pago_realizado',index:'pago_realizado',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+              {name:'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
+                    keys: true,                                                                                                                          
+                    editbutton: false,             
+                    editformbutton: false,
+                    delbutton: true,                                                                                                                             
+                    delOptions:{                                  
+                        url: 'delete_caso_cerrado',                                                                                                                                             
+                        msg: "Desea eliminar el registro?",                                                          
+                        afterSubmit: function (response, postdata) {
+                            var r = $.parseJSON(response.responseText);
+                            $("#msj").html(r.message);                   
+                            return [r.success, r.message, null];
+                        }                                                                                                                                                          
+                    }                                    
+                 }                  
+              }																										                                                         
+          ],                                                                                                                                                                                                                                     
+          rowNum:5,                        
+          width: 970,		                                    
+          //height: 300,            
+          rowList:[10,20,30],
+          pager: '#pager_caso_cerrado',                                              
+          sortname: 'id_preinscrito',                   
+          viewrecords: true,        
+          rownumbers: true,                 
+          gridview: true,                                  
+          caption:"inscritos", 
+          loadComplete:function(data){
+            if(data.records == 0){    
+              var msj = $("#msj");    
+              msj.html(data.msg);
+              setTimeout(function(){
+                msj.empty();           
+              },5000);                                                                                        
+            }                                                                                                                                     
+          }                                                   
+          //editurl:'delete'                                                                                                                                                                                    
+      }).navGrid('#pager_caso_cerrado',{edit:false,add:false,del:false},
+      {}, //  default settings for edit
+    {}, //  default settings for add
+    {},  // delete instead that del:false we need this
+    {searchOnEnter:true,closeOnEscape:true}, // search options
+    {} /* view parameters*/ 
+    );                                                                                                                                                                                                   
+  }                                                                        
+}      
+						
+            
+var casos_inconclusos = {
+
+  onReady:function()
+  {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+      var base_url = $("#base_url").text();
+      jQuery("#list_casos_inconclusos").jqGrid({                                                
+          url:base_url+'/casos_inconclusos/jqGrid', //another controller function for generating data
+          mtype : "post", //Ajax request type. It also could be GET
+          datatype: "json", //supported formats XML, JSON or Arrray 											
+          colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
+          colModel:[                                                                                                                                                                                                                                                                                                                         
+              {name:'nombre',index:'nombre',width:110,align:'left'}, 
+              {name:'a_paterno',index:'a_paterno',width:120,align:'left'}, 
+              {name:'a_materno',index:'a_materno',width:120,align:'left'},                                                                                                                                                                                                           
+              {name:'program_name',index:'program_name',width:200,align:'left'},                                                                                                                                                                                                           
+              {name:'fecha_registro',index:'fecha_registro',width:100,align:'left'},
+              {name:'primer_contacto',index:'primer_contacto',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+              {name:'documentos',index:'documentos',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+              {name:'envio_decse',index:'envio_decse',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+              {name:'envio_claves',index:'envio_claves',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+			  {name:'pago_realizado',index:'pago_realizado',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+              {name:'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
+                    keys: true,                                                                                                                          
+                    editbutton: false,             
+                    editformbutton: false,
+                    delbutton: true,                                                                                                                             
+                    delOptions:{                                     
+                        url: 'delete_casos_inconclusos',                                                                                                                                             
+                        msg: "Desea eliminar el registro?",                                                          
+                        afterSubmit: function (response, postdata) {
+                            var r = $.parseJSON(response.responseText);
+                            $("#msj").html(r.message);                   
+                            return [r.success, r.message, null];
+                        }                                                                                                                                                          
+                    }                               
+                 }                  
+              }								                                                         
+          ],                                                                                                                                                                                                                         
+          rowNum:5,                        
+          width: 970,		                                    
+          //height: 300,            
+          rowList:[10,20,30],
+          pager: '#pager_casos_inconclusos',                                              
+          sortname: 'id_preinscrito',                   
+          viewrecords: true,        
+          rownumbers: true,                 
+          gridview: true,                                  
+          caption:"inscritos", 
+          loadComplete:function(data){
+            if(data.records == 0){    
+              var msj = $("#msj");    
+              msj.html(data.msg);
+              setTimeout(function(){
+                msj.empty();           
+              },5000);                                                                                        
+            }                                                                                                                                     
+          }                                                       
+          //editurl:'delete'                                                                                                                                                                                       
+      }).navGrid('#pager_casos_inconclusos',{edit:false,add:false,del:false},
+      {}, //  default settings for edit
+    {}, //  default settings for add
+    {},  // delete instead that del:false we need this
+    {searchOnEnter:true,closeOnEscape:true}, // search options
+    {} /* view parameters*/ 
+    );                                                                                                                                                                                                   
+  }                                                                        
+}                             
+                                                                    
+$(document).ready(function() {  
+    users.onReady(); 
+    preinscritos.onReady(); 
+    inscritos.onReady();   
+    caso_cerrado.onReady();  
+    casos_inconclusos.onReady();                   
+});                                                           

@@ -1,0 +1,154 @@
+.content{
+
+}					
+											
+div.sep{
+	display: block;
+}
+
+input[type=text]{
+	width: 200px;
+}		
+
+input[type=password]{
+	width: 200px;
+}
+
+textarea{
+	width: 250px;
+	height: 100px;		
+}		
+
+#add_user select{		
+	width: 200px;
+}							
+
+#edit_user select{		
+	width: 200px;
+}													
+
+label{	
+	display: block;
+}	
+
+#message{											
+	border-style:solid;								
+	border-color:#DAF2E3;			
+	background-color:#16AA4F;
+	color:#FFFFFF;													
+	display:block;															
+	margin:10px 0px;	
+	font-weight: bold;
+}																																																																								
+										
+#error{										
+	background-color:#DB0D1E;
+	border-style:solid;					
+	border-color:#D1D1CC;		
+	color:#FFFFFF;													
+	display:block;
+	margin:10px 0px;
+	font-weight: bold;					
+}										
+
+#error p{				
+	padding:0px;					
+	margin:0px;				
+}
+																																																
+#pager td{
+	border:0px;		
+}						
+																																																																																	
+.cont_left{
+	float:left;
+	width: 48%;
+}									
+
+.cont_right{
+	float:right;
+	width: 48%;		
+}										
+		
+#m_notificacion label{
+	display: inline;		
+}									
+
+.clear{
+	clear: both;
+}			
+	
+.botones {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9pt; color: #FFFFFF; background-color:red; border-color: #000000 ; border-top-width: 1pix; border-right-width: 1pix; border-bottom-width: 1pix; border-left-width: 1pix}
+.imputbox {  font-size: 10pt; color: #000000; background-color: #d7d7d7; font-family: Verdana, Arial, Helvetica, sans-serif; border: 1pix #000000 solid; border-color: #000000 solid; font-weight: normal}
+#footer {
+font-variant: small-caps;
+padding: 10px 0px 10px 10px;
+width: 950px;
+left: 50%;
+margin: 0 auto;
+font-size: 10px;
+text-align: center;
+}
+#texto-footer {
+width: 100%;
+border-right: #ccc solid 1px;
+float: left;
+padding: 5px 10px 5px 5px;
+text-align: center;
+}
+
+.txt{
+	font-family: Arial;
+	color: #FFFFFF;
+	font-size: 12px;	
+}
+
+.alert{
+	font-family: Arial;
+	color: #000000;
+	font-size: 12px;	
+	text-align: center;
+	width: 100%;
+}
+.red{
+	font-family: Arial;
+	color: red;
+	font-weight: bold;
+	font-size: 12px;	
+	text-align: center;
+}
+.titulo{
+	padding: 20px 0px 20px 0px;
+}
+.bold{
+	font-weight: bold;
+	float: left;
+	text-align: center;
+	width: 100%;
+}
+
+#contenedor{
+	width: 500px;	
+	margin: 0px auto;
+	border: 1px solid #000000;
+	margin-top: 50px;
+	/*padding: 5px;*/
+}					
+
+#button_login{
+	margin:0px auto;
+	text-align: center;			
+}																	
+
+#error_login{
+	margin: 0px auto;
+	text-align: center;
+	padding: 4px;
+}	
+				
+#bpos{						
+	margin:10px;		
+	text-align: center;		
+}																	
+
+				
