@@ -1,0 +1,81 @@
+@charset "UTF-8";
+/* CSS Document */
+body {
+	font-size: 12px;
+	font-family: Helvetica, Arial, sans-serif;
+	color:#666;
+}
+p {
+	margin-top: 0px;
+	margin-bottom:5px;
+	line-height:16px
+}
+#menu_areas {
+	position:relative;
+	width: 170px;
+	background: #eee;
+	font-size: 12px;
+	font-family: Helvetica, Verdana, Geneva, Arial, sans-serif;
+	color:#666;
+	z-index:999;
+}
+#menu_areas a {
+	color: #666;
+	display: block;
+	margin: 0;
+	padding: 4px;
+	text-decoration: none;
+}
+#menu_areas a:hover {
+	color: #333;
+	background: #fff;
+}
+.header_disciplinas {
+	background: url(../imagenes/menu_izq_super.gif) no-repeat;
+	padding:9px;
+	color:#FFF;
+	font-size:14px;
+	font-weight: lighter;
+	text-align:center;
+	display:block;
+}
+#menu_areas ul {
+	list-style: square url(../imagenes/bullets/bullet.gif);
+}
+#menu_areas li {
+	margin-left:-15px;
+}
+h4 {
+	font-size:13px;
+	margin:0;
+	font-weight:lighter;
+	text-align:center;
+	padding:5px 0 0 0;
+	border-top: solid 1px #CCC;
+	display:block;
+}
+
+
+#menu {
+	float:right;
+	margin: 40px 0px 0px 0px;
+}
+#menu li {
+	list-style:none;
+	display: inline;
+	list-style-type:none;
+	text-align:right;
+	padding: 2px 6px;
+}
+#menu a:link {
+	text-decoration:none;
+	color: #666;
+}
+#menu a:visited {
+	text-decoration:none;
+	color:#666;
+}
+#menu a:hover {
+	text-decoration:none;
+	color: #333;
+}
