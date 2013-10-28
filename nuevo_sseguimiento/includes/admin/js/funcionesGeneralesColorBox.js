@@ -9,7 +9,7 @@ var colorBox = {
   },                                                                              
 
   agregar_input_file:function(e)
-  {                                
+  {                                         
   	e.preventDefault();	
     var div = $("<div></div>");	      
   	var file = "<input type='file' name='documento_upload["+colorBox.indice_file+"]'>";
@@ -25,7 +25,7 @@ var colorBox = {
     e.preventDefault();                     
     var rel = $(this).attr("rel");
     $("#"+rel).css("display","block");
-  }                                                                                                                                                                         				   				
+  }          
 };  
 
 $(document).ready(function() {  

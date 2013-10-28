@@ -84,9 +84,12 @@
                         <a href=<?php echo site_url("admin/caso_cerrado/add"); ?>>Casos inconclusos</a>
                         </li>                         
                     </ul>-->                          
-                </li>                                
-                <li>        				           
-                    <a href=<?php echo site_url("admin/users/salir"); ?> class="active">Salir</a>
+                </li>                                         
+                <li>                                                                           
+                <a href=<?php echo site_url("admin/informes/show"); ?> class="active">Informes</a>                         
+                </li>                                                         
+                <li>                                				                
+                    <a href=<?php echo site_url("acceso/login/salir"); ?> class="active">Salir</a>
                 </li>                                           
             </ul>                                           
         </div>          

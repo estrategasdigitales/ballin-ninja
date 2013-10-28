@@ -23,7 +23,7 @@ var users = {
               {name:'rol',index:'rol',width:150,align:'left'},                                                                                                                                                                                                                            
               {name:'editar',search:false,sortable:false,align:'center',width:50,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
                 return "<a href='edit/" + options.rowId + "'><div class='ui-pg-div ui-inline-edit' onmouseout=\"jQuery(this).removeClass('ui-state-hover')\" onmouseover=\"jQuery(this).addClass('ui-state-hover');\"  style='display:inline-block;cursor:pointer;' title='Modificar fila seleccionada'><span class='ui-icon ui-icon-pencil'></span></div></a>";                
-                /*              
+                /*                  
                 <div class="ui-pg-div ui-inline-edit" onmouseout="jQuery(this).removeClass('ui-state-hover')" onmouseover="jQuery(this).addClass('ui-state-hover');" onclick="jQuery.fn.fmatter.rowactions.call(this,'edit');" style="float:left;cursor:pointer;" title="Modificar fila seleccionada">
                   <span class="ui-icon ui-icon-pencil"></span>
                 </div>*/              
@@ -128,6 +128,7 @@ var users = {
       var id_usuario_programa = self.children().attr("id");                 
       var url = $("#base_url").text()+"/users/delete_usuario_programa";     
       var data = "id_usuario_programa="+id_usuario_programa; 
+
       $.ajax({                                                                         
         async:true,              
         type:"POST",
@@ -154,13 +155,15 @@ var users = {
     {                                         
       if($("#id_discipline").val()!=0 && $("#program_type").val()!=0 && $("#id_program").val()!=0)
       {                                                                                                              
-        var li = $('<li></li>');                                                              
+        var li  = $('<li></li>');                                                              
         var div = $('<div id="'+users.indice_array+'" class="new_program"><a href="#">X</a></div>');                                                       
-        var id_discipline = $("#id_discipline option:selected").val();
-        var id_program = $("#id_program option:selected").val();
+                               
+        var id_discipline  = $("#id_discipline option:selected").val();
+        var id_program     = $("#id_program option:selected").val();
         var option_program = $("#id_program option:selected").text(); 
 
-        if($("#programas").val()){
+        if($("#programas").val())
+        {   
 
           var programas = $.parseJSON($("#programas").val());              
           programas.push({"id_discipline": id_discipline, "id_program": id_program})                     
@@ -179,7 +182,7 @@ var users = {
                                                     
         users.indice_array=users.indice_array+1;                                  
         programas = JSON.stringify(programas); 
-        $("#programas").val(programas);                                                                                                                                                                                              
+        $("#programas").val(programas);                                                                                                                                                                                                     
         $("#id_discipline option[value=0]").attr("selected",true);
         $("#program_type option[value=0]").attr("selected",true);
         $("#id_program option[value=0]").attr("selected",true);
@@ -192,6 +195,7 @@ var users = {
       e.preventDefault();                     
       var url = "add";         
       var data = $(this).serialize(); 
+      
       $.ajax({                                                 
         async:true,              
         type:"POST",            
@@ -247,15 +251,13 @@ var users = {
     get_tipos_programas_ax:function()
     {                                                                                            
         var url = $("#base_url").text()+'/users/get_tipos_programas_ax';
-        var data = '';
 
         $.ajax({                                     
           async:true,              
           type:"GET",   
           dataType:"html",                    
           contentType: "application/x-www-form-urlencoded,multipart/form-data",
-          url:url,                    
-          //data:data,     
+          url:url,                     
           success:function(respuesta)    
           {                                                                                                                                            
             $("#program_type").html(respuesta);         
@@ -439,7 +441,6 @@ var preinscritos = {
     );                                                               
  
     $("#list_preinscritos a[name=edit]").live("click",preinscritos.edit); 
-    //$("#form_datos_preinscrito").on("submit",preinscritos.form_datos_preinscrito);
   },  						                      
                                                                                                                                                                                                                                                                                                                                                  
 
@@ -503,9 +504,9 @@ var inscritos = {
               {name:'documentos',index:'documentos',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
               {name:'envio_decse',index:'envio_decse',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
               {name:'envio_claves',index:'envio_claves',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-			  {name:'pago_realizado',index:'pago_realizado',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+			        {name:'pago_realizado',index:'pago_realizado',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
               {name:'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
-                    keys: true,   													   																		           									          						                                                                                                        
+                    keys: true,   		        											   																		           									          						                                                                                                        
                     editbutton: false,             
                     editformbutton: false,
                     delbutton: true,                                                                                                                             
@@ -571,7 +572,7 @@ var caso_cerrado = {
               {name:'documentos',index:'documentos',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
               {name:'envio_decse',index:'envio_decse',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
               {name:'envio_claves',index:'envio_claves',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-			  {name:'pago_realizado',index:'pago_realizado',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+			        {name:'pago_realizado',index:'pago_realizado',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
               {name:'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
                     keys: true,                                                                                                                          
                     editbutton: false,             
@@ -598,7 +599,7 @@ var caso_cerrado = {
           viewrecords: true,        
           rownumbers: true,                 
           gridview: true,                                  
-          caption:"inscritos", 
+          caption:"Casos cerrados", 
           loadComplete:function(data){
             if(data.records == 0){    
               var msj = $("#msj");    
@@ -640,9 +641,9 @@ var casos_inconclusos = {
               {name:'documentos',index:'documentos',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
               {name:'envio_decse',index:'envio_decse',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
               {name:'envio_claves',index:'envio_claves',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-			  {name:'pago_realizado',index:'pago_realizado',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+			        {name:'pago_realizado',index:'pago_realizado',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
               {name:'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
-                    keys: true,                                                                                                                          
+                    keys: true,                                                                                                                                
                     editbutton: false,             
                     editformbutton: false,
                     delbutton: true,                                                                                                                             
@@ -667,7 +668,72 @@ var casos_inconclusos = {
           viewrecords: true,        
           rownumbers: true,                 
           gridview: true,                                  
-          caption:"inscritos", 
+          caption:"Casos inconclusos", 
+          loadComplete:function(data){
+            if(data.records == 0){          
+              var msj = $("#msj");    
+              msj.html(data.msg); 
+              setTimeout(function(){
+                msj.empty();           
+              },5000);                                                                                        
+            }                                                                                                                                     
+          }                                                                                                                                                                                                                                                
+      }).navGrid('#pager_casos_inconclusos',{edit:false,add:false,del:false},
+      {}, //  default settings for edit
+      {}, //  default settings for add
+      {},  // delete instead that del:false we need this
+      {searchOnEnter:true,closeOnEscape:true}, // search options
+      {} /* view parameters*/ 
+      );                                                                                                                                                                                                   
+    }                                                                        
+}     
+
+var informes = {
+
+  onReady:function()
+  {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+      var base_url = $("#base_url").text();
+      jQuery("#list_informes").jqGrid({                                                   
+          url:base_url+'/informes/jqGrid', //another controller function for generating data
+          mtype : "post", //Ajax request type. It also could be GET
+          datatype: "json", //supported formats XML, JSON or Arrray                       
+          colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Atendido','Eliminar'],       //Grid column headings
+          colModel:[                                                                                                                                                                                                                                                                                                                                            
+              {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
+                return "<a href='informes_contacto/" + options.rowId + "' class='group1' name='edit'>"+cellValue+"</a>";                                    
+              }},                                    
+              {name:'a_paterno',index:'a_paterno',width:120,align:'left'}, 
+              {name:'a_materno',index:'a_materno',width:120,align:'left'},                                                                                                                                                                                                           
+              {name:'program_name',index:'program_name',width:200,align:'left'},                                                                                                                                                                                                           
+              {name:'fecha_registro',index:'fecha_registro',width:100,align:'left'},
+              {name:'informes',index:'informes',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:No;1:Si"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+              {name:'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
+                    keys: true,                                                                                                                                             
+                    editbutton: false,             
+                    editformbutton: false,
+                    delbutton: true,                                                                                                                                
+                    delOptions:{                                           
+                        url: 'delete_informes',                                                                                                                                             
+                        msg: "Desea eliminar el registro?",                                                          
+                        afterSubmit: function (response, postdata) {
+                            var r = $.parseJSON(response.responseText);
+                            $("#msj").html(r.message);                   
+                            return [r.success, r.message, null];
+                        }                                                                                                                                                          
+                    }                               
+                 }                  
+              }                                                                           
+          ],                                                                                                                                                                                                                         
+          rowNum:5,                        
+          width: 970,                                       
+          //height: 300,            
+          rowList:[10,20,30],   
+          pager: '#pager_informes',                                              
+          sortname: 'id_preinscrito',                   
+          viewrecords: true,        
+          rownumbers: true,                 
+          gridview: true,                                  
+          caption:"Informes", 
           loadComplete:function(data){
             if(data.records == 0){    
               var msj = $("#msj");    
@@ -675,23 +741,31 @@ var casos_inconclusos = {
               setTimeout(function(){
                 msj.empty();           
               },5000);                                                                                        
-            }                                                                                                                                     
-          }                                                       
-          //editurl:'delete'                                                                                                                                                                                       
-      }).navGrid('#pager_casos_inconclusos',{edit:false,add:false,del:false},
+            }                                                                                                                                            
+          }                                                                                                                                                                                                                                                   
+      }).navGrid('#pager_informes',{edit:false,add:false,del:false},
       {}, //  default settings for edit
     {}, //  default settings for add
     {},  // delete instead that del:false we need this
     {searchOnEnter:true,closeOnEscape:true}, // search options
     {} /* view parameters*/ 
-    );                                                                                                                                                                                                   
-  }                                                                        
-}                             
-                                                                    
-$(document).ready(function() {  
+    );    
+
+    $("#list_informes a[name=edit]").live("click",informes.edit); 
+  },    
+
+  edit:function(e)
+  {       
+    e.preventDefault();
+    $.colorbox({href:$(this).attr("href"),iframe:true, width:"850px", height:"90%"});
+  }                
+}                          
+                                                                       
+$(document).ready(function(){  
     users.onReady(); 
     preinscritos.onReady(); 
     inscritos.onReady();   
     caso_cerrado.onReady();  
-    casos_inconclusos.onReady();                   
-});                                                           
+    casos_inconclusos.onReady();      
+    informes.onReady();              
+});                                                                 

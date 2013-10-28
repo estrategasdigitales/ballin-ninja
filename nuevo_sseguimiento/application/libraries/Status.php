@@ -1,5 +1,4 @@
-<?php  
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Status
 {
@@ -7,21 +6,25 @@ class Status
     function __construct()
     {               
         $this->CI =& get_instance();
-    }		
+    }					
 
-    function acceso($controller)
-    {												
-		$accesos = $this->CI->session->userdata('controllers_acceso') ;					                		       
+    function acceso()
+    {																								
+		$accesos 	= $this->CI->session->userdata('controllers');	
+		$controller = $this->CI->uri->segment(2);								                		       
 		if($this->CI->session->userdata('username'))
-		{
-			
-			return true;
-		}										     
+		{								
+			if($accesos[$controller]){
+				return true;
+			}			
+		}																     
 		return false;
-    }					                 
-	
-	
-																			
-	                                             
+    }
+
+    function menu()
+    {
+
+    }					
+					              																		                                             
 }
 ?> 

@@ -6,9 +6,8 @@ class Preinscritos_model extends CI_Model
     {                                                                   
         parent::__construct();
         $this->load->database();
-    }                                                                                                                                                    
+    }                                                                                                                                                                   
 	
-
     public function total_preinscritos($user_uuid)
     {                                                 
         $this->db->join('seg_dec_usuarios_programas as up','up.id_discipline = pre.id_discipline and up.id_program = pre.id_program', 'inner');
@@ -37,7 +36,7 @@ class Preinscritos_model extends CI_Model
         {                                                                                                                                                                                                   
             return FALSE;            
         }                        
-    }  		               
+    }  	        	               
 							
     public function total_search_preinscritos($where,$user_uuid)
     {                                                                                                                                                                                                                         
@@ -93,9 +92,9 @@ class Preinscritos_model extends CI_Model
     }        
 
     public function get_preinscrito($id_preinscrito)
-    {                                                                
+    {                                                                                                                             
         $this->db->select('pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,pre.como_se_entero,pre.calle_numero,pre.colonia,pre.del_mpo,pre.cp,pre.ciudad,pre.estado,pre.rfc,pre.telefono,pre.celular,pre.correo,pre.nacionalidad,pre.grado_academico,pre.institucion_estudios,pre.exalumno,pre.porque_la_ibero,pre.empresa,pre.puesto,pre.direccion_empresa,pre.telefono_empresa,pre.codigo,pre.edad,up.user_uuid,up.id_discipline,up.id_program,pro.program_name,status.atendido');
-        $this->db->select('status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado,status.caso_cerrado,status.caso_inconcluso,status.informes,status.atendido,status.comentario_general');
+        $this->db->select('status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado,status.caso_cerrado,status.caso_inconcluso,status.informes,status.atendido,status.comentario_general');
         $this->db->from('seg_dec_preinscritos as pre');                                                                                                                    
         $this->db->join('seg_dec_usuarios_programas as up','up.id_discipline = pre.id_discipline and up.id_program = pre.id_program', 'left');
         $this->db->join('seg_dec_programas as pro','up.id_discipline = pro.id_discipline and up.id_program = pro.id_program', 'left');                  

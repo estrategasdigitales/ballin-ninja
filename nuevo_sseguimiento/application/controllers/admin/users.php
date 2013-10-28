@@ -4,17 +4,21 @@ class Users extends CI_Controller {
                                                                                     
     public function __construct()
     {					                                                                                                                                                 
-        parent::__construct();              
+        parent::__construct();  
+        $this->acceso();             
         $this->load->library('layout','layout_main');                                  
-        $this->load->model('admin/users_model');
-        
-		/*
-        if(!$this->session->userdata('username'))
-        {                                                                                                                                                                                                                                                                                                                                      
-            redirect(base_url('acceso/login'));                     
-        } */				                                                    
-    }                                                                                                                                                                                                                                                                                                                                                                          
+        $this->load->model('admin/users_model');  				                                                    
+    }                                                                                                                
 
+    private function acceso()
+    {                      
+        $this->load->library('status');
+        if(!$this->status->acceso())
+        {                                                                         
+              redirect('admin/no_acceso');             
+        }                                                                                                        
+    }                      
+                                                                                                                                                                                                                                                                                                                                                                                                                                   
     public function index()
     {                  
         $this->add();
@@ -23,16 +27,16 @@ class Users extends CI_Controller {
     public function show()
     {                                                                                                          
         $total_users = $this->users_model->total_users();
-        if(empty($total_users)){                            
+        if(empty($total_users))
+        {                            
             $data['msj'] = msj('No se han creado usuarios','message');                                                                                 
             $this->layout->view('admin/msj',$data);  
         }else{                                                                                                                                      
             $data['msj'] = $this->session->flashdata('msj');                                                                                 
             $this->layout->view('admin/users/show_users',$data); 
         }                                                                                                                
-    }                                                                                                           
-                                                      
-
+    }                       
+                                                                                                                                                 
     public function jqGrid()    
     {                                                                                                                                                                                  
         //obtener la página solicitada                          
@@ -312,14 +316,6 @@ class Users extends CI_Controller {
                 echo json_encode(array("success" => true, "redirect" => base_url('admin/users/edit/'.$data['user_uuid'])));
             }                                                                                                                                                                                                                                                                                                                                                                                                                                                           
         }                                                                                                                                    
-    }        
-   
-    public function salir()
-    {                                                             
-        $array_sesiones = array('user_uuid' => '', 'username' => '', 'nombre'=> '');
-        $this->session->unset_userdata($array_sesiones);
-        $this->session->destroy();
-        redirect(base_url('acceso/login'));
-    }                                                                                                                       
+    }                                                                                                                               
                                                                                                                                                                                                                                                               
 }

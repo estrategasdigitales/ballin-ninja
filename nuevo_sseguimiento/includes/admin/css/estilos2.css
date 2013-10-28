@@ -95,11 +95,12 @@ a{
 										
 div.sep{
 	display: block;
-}		
-				
+}				
+
+/*						
 label{	
 	display: block;
-}			
+}*/			
 				
 #msj{		
 	margin-top: 30px;	
@@ -243,3 +244,24 @@ label{
   -moz-transform: scale(1.1,1.1);
 }													
 /**********/
+
+#estatus_proceso textarea{
+	width:500;
+}													
+
+.titulo_cb{				
+	color:red;					
+	font-size:16px;
+}				
+
+#preinscrito_detalle #datos_generales{	
+	float:left;		
+	margin-bottom:10px;		
+}				
+
+#preinscrito_detalle #subir_documentos{	
+	float:left;
+	margin-bottom:10px;					
+}												
+
+														
