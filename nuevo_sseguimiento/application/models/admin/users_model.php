@@ -197,13 +197,33 @@ class Users_model extends CI_Model
     {                    
         if(!empty($programas)){                                                                                                                                                                                                                                                                         
             foreach($programas as $key => $value){
-                    $data[] =array("user_uuid"=>$user_uuid,"id_discipline"=>$value->id_discipline,"id_program"=>$value->id_program); 
-            }                   
-        }else{
+                        $data[] =array("user_uuid"=>$user_uuid,"id_discipline"=>$value->id_discipline,"id_program"=>$value->id_program);
+            }                          
+        }else{                            
             $data='';                   
         }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
         return $data;                                                                                                                                                                                                                                                                                                                                                             
-    }                                                                                                                                                                                                                                                                                                                             
+    }                                         
+
+    public function unico_usuario_programa($user_uuid,$id_discipline,$id_program)
+    {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+        $this->db->select('id_usuario_programa');
+        $this->db->from('seg_dec_usuarios_programas');                
+        $this->db->where('user_uuid',$user_uuid); 
+        $this->db->where('id_discipline',$id_discipline);
+        $this->db->where('id_program',$id_program);
+        $query = $this->db->get();                           
+        if ($query->num_rows()>0)                                                                                         
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+             return $query->row();                             
+        }                                                                                                                                                                                                                                                                    
+        else
+        {                                                                                                                                         
+            return FALSE;            
+        }                                                                                              
+    }    
+
+
 
     public function update_user($data)
     {                           

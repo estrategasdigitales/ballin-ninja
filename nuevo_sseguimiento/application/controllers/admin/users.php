@@ -16,19 +16,8 @@ class Users extends CI_Controller {
         {                                                                                            
               redirect('admin/no_acceso');             
         }                                                                                                                                             
-    }      
-
-    public function ver()
-    {                                            
-        if($this->accesos->admin())
-        {                                                                                                        
-            echo "si";           
-        }                   
-        else{
-            echo "no";      
-        } 
-    }                                         
-                                                                                                                                                                                                                                                                                                                                                                                                                                   
+    }                     
+                                                                                                                                                                                                                                                                                                                                                                                                                          
     public function index()
     {                                    
         $this->show();
@@ -196,7 +185,7 @@ class Users extends CI_Controller {
                 echo json_encode(array("success" => false, "msg" => msj(validation_errors(),'error')));
             }                                                                                
 
-        }else{                                                                      
+        }else{                                                                            
                                                                                                                                                                                                                                                                  
             $data['username']  = $this->input->post('username',true);                     
             $data['pass']      = $this->input->post('pass',true);        
@@ -212,10 +201,10 @@ class Users extends CI_Controller {
             $data['programas'] = json_decode($programas);                         
                                 
             if($user_uuid = $this->users_model->add_user($data))
-            {                                                                                                                                                                              
+            {                                                                                                                                                                                     
                 $this->session->set_flashdata('msj',msj('El registro se agregó correctamente.','message'));                            
                 echo json_encode(array("success" => true, "redirect" => base_url('admin/users/edit/'.$user_uuid))); 
-            }                                                                                                                                                                                                                                                                                                                                                                                                                                  
+            }                                                                                                                                                                                                                                                                                                                                                                                                                                            
         }                                                                              
     }                                                  
 
@@ -305,7 +294,7 @@ class Users extends CI_Controller {
     }                                                               
 
     public function update()
-    {                                                                                                   
+    {                                                                                                                               
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('tipo','Tipo de usuario','required|callback_tipo_usuario_check');                                                                                   
@@ -344,7 +333,7 @@ class Users extends CI_Controller {
             {                                                                                      
                 $this->session->set_flashdata('msj',msj('El registro se actualizó correctamente.','message'));                                   
                 echo json_encode(array("success" => true, "redirect" => base_url('admin/users/edit/'.$data['user_uuid'])));
-            }                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
         }                                                                                                                                                              
     }                                                                                                                               
                                                                                                                                                                                                                                                               

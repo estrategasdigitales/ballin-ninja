@@ -7,7 +7,7 @@
 	</div>																																																																																																																																				
 	<?php echo form_open('admin/users/update',array('id'=>'form_update_users')); ?>																
 	<input type="hidden" name="user_uuid" value="<?php echo $user_uuid; ?>">	
-	<div class="cont_left">		
+	<div class="cont_left">								
 	<div><label>Nombre:</label><input type="text" name="nombre" value="<?php echo $nombre; ?>"></div>			
 	<div><label>Apellido Paterno:</label><input type="text" name="a_paterno" value="<?php echo $a_paterno; ?>"></div>				
 	<div><label>Apellido Materno:</label><input type="text" name="a_materno" value="<?php echo $a_materno; ?>"></div>							

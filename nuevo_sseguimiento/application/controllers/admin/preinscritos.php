@@ -10,10 +10,10 @@ class Preinscritos extends CI_Controller {
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/preinscritos_model');
        	$this->acceso();                                                                   
-    }     
+    }                              
 
     public function show()
-    {                                                                                                                                                   
+    {                                                                                                                                                      
         $this->layout->view('admin/preinscritos/show_preinscritos');                                                           
     }                                                                          																								        					
 
@@ -22,8 +22,8 @@ class Preinscritos extends CI_Controller {
      	if(!$this->accesos->acceso())
         {                                 
 			redirect('acceso/login');     		
-     	}                                    												   				
-    }    	                    		
+     	}                                     												   				
+    }       	                    		
 	                                                                                                                                                        		    		                                                                                                       					
     public function jqGrid()
     {          							                                                                                                                                                                                                              
@@ -35,20 +35,24 @@ class Preinscritos extends CI_Controller {
         $sidx  = ($this->input->post('sidx'))?$this->input->post('sidx'):'id_preinscrito';                         
         //obtiene la dirección                         		                           		      	                                              
         $sord  = ($this->input->post('sord'))?$this->input->post('sord'):'desc';                         
-       	 										                                                
+       	 					              					                                                
         if($this->input->post("_search")=="false")
         {                    	                     	
-            //if($this->accesos->admin())
-            $total_preinscritos = $this->preinscritos_model->total_preinscritos($this->session->userdata('user_uuid'));
+            if($this->accesos->admin())
+            {                                            
+                $total_preinscritos = $this->preinscritos_model->total_preinscritos_admin();
+            }else{
+                $total_preinscritos = $this->preinscritos_model->total_preinscritos($this->session->userdata('user_uuid'));
+            }                                                       
         }else
-        {
+        {                                     
             $searchOper   = $this->input->post('searchOper');
             $searchField  = $this->input->post('searchField');
             $searchString = $this->input->post('searchString');
 							                        
             $where = search($searchOper,$searchField,$searchString);   						                                                                                       
             $total_preinscritos = $this->preinscritos_model->total_search_preinscritos($where,$this->session->userdata('user_uuid'))->total;     
-        }				                                                                            
+        }               				                                                                            
 
         $total_pages = total_pages($total_preinscritos,$limit);                                                                                                                                                                
 
@@ -61,9 +65,16 @@ class Preinscritos extends CI_Controller {
         $start = ($start>0)?$start:0; 
                                                             
         if($this->input->post("_search") == "false")
-        {									                                                                                                     		
-            $preinscritos = $this->preinscritos_model->show_preinscritos($this->session->userdata('user_uuid'),$start,$limit,$sidx,$sord);                                                                                                                                                          
-        
+        {               	
+            if($this->accesos->admin())
+            {                                                        
+                $preinscritos = $this->preinscritos_model->show_preinscritos_admin($start,$limit,$sidx,$sord);
+                                                                                            
+            }else{            
+
+                $preinscritos = $this->preinscritos_model->show_preinscritos($this->session->userdata('user_uuid'),$start,$limit,$sidx,$sord);                                                                                                                                                          
+            }
+
         }else{		 
 
             $searchOper   = $this->input->post('searchOper');

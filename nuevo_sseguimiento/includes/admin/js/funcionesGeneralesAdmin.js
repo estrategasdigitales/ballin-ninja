@@ -2,7 +2,7 @@
 var users = {                            
     indice_array:0,                                            
     onReady:function()
-    {                                                                
+    {                                                                     
       var base_url = $("#base_url").text();
           $("#list").jqGrid({                                        
           url:base_url+'admin/users/jqGrid', //another controller function for generating data
@@ -48,7 +48,8 @@ var users = {
           width: 970,     		                                                                                    
           rowList:[10,20,30],
           pager: '#pager',                                              
-          sortname: 'user_uuid',         
+          sortname: 'user_uuid',
+          sortorder: "desc",                 
           viewrecords: true,    
           rownumbers: true,             
           gridview: true,                                  
@@ -70,7 +71,7 @@ var users = {
     {searchOnEnter:true,closeOnEscape:true}, // search options
     {} /* view parameters*/               
     );                                                                                                 
-                                                                                                                                                                                                                       
+                                                                                                                                                                                                                          
       $("#list input[name=chk_notificacion]").live("click",users.update_notificacion);  
       $("#list input[name=chk_activo]").live("click",users.update_activo); 
       $("#id_discipline").on("change",users.get_tipos_programas_ax); 
@@ -221,8 +222,8 @@ var users = {
             timeout:4000,             
             error:function(respuesta)
             {                                           
-              console.log(respuesta);            
-            }                                                  
+              console.log(respuesta.responseText);            
+            }                                                                                
         });              
     },    
               
@@ -419,12 +420,13 @@ var preinscritos = {
                  }                        
               },                                                                    
           ],									                                                                                                                                                                                                                         
-          rowNum:10,							                        
+          rowNum:20,    							                        
           width: 970,                                    
-          //height: 300,            
+          height: 200,                          
           rowList:[10,20,30],     
           pager: '#pager_preinscritos',                                              
-          sortname: 'id_preinscrito',                   
+          sortname: 'id_preinscrito', 
+          sortorder: "desc",                                  
           viewrecords: true,        
           rownumbers: true,             
           gridview: true,                               
@@ -534,7 +536,8 @@ var inscritos = {
           rowList:[10,20,30],
           pager: '#pager_inscritos',                                              
           sortname: 'id_preinscrito',                   
-          viewrecords: true,        
+          viewrecords: true,
+          sortorder: "desc",            
           rownumbers: true,                 
           gridview: true,                                  
           caption:"inscritos", 
@@ -601,8 +604,9 @@ var caso_cerrado = {
           //height: 300,            
           rowList:[10,20,30],
           pager: '#pager_caso_cerrado',                                              
-          sortname: 'id_preinscrito',                   
-          viewrecords: true,        
+          sortname:"id_preinscrito", 
+          sortorder:"desc",                  
+          viewrecords: true,              
           rownumbers: true,                 
           gridview: true,                                  
           caption:"Casos cerrados", 
@@ -670,7 +674,8 @@ var casos_inconclusos = {
           //height: 300,            
           rowList:[10,20,30],
           pager: '#pager_casos_inconclusos',                                              
-          sortname: 'id_preinscrito',                   
+          sortname: 'id_preinscrito',
+          sortorder: "desc",                         
           viewrecords: true,        
           rownumbers: true,                 
           gridview: true,                                  
@@ -735,7 +740,8 @@ var informes = {
           //height: 300,            
           rowList:[10,20,30],   
           pager: '#pager_informes',                                              
-          sortname: 'id_preinscrito',                   
+          sortname: 'id_preinscrito', 
+          sortorder: "desc",                        
           viewrecords: true,        
           rownumbers: true,                 
           gridview: true,                                  
