@@ -1,20 +1,11 @@
-/*
-$.jgrid = {
-                    
-        search : {                
-         caption: "Searchdfdf...",
-         Find: "Find",
-         odata : ['equal', 'not equal', 'less', 'less or equal','greater','greater or equal', 'begins with','does not begin with','is in','is not in','ends with','does not end with','contains','does not contain']
-        }
-};  */              
-           				                                                              
+                                                          				                                                              
 var users = {                            
     indice_array:0,                                            
     onReady:function()
-    {                                               
+    {                                                                
       var base_url = $("#base_url").text();
-          $("#list").jqGrid({                                    
-          url:base_url+'/users/jqGrid', //another controller function for generating data
+          $("#list").jqGrid({                                        
+          url:base_url+'admin/users/jqGrid', //another controller function for generating data
           mtype : "post",     //Ajax request type. It also could be GET
           datatype: "json",   //supported formats XML, JSON or Arrray
           colNames:['Nombre','Rol de usuario','Editar','Notificación','Activo','Borrar'],       //Grid column headings
@@ -48,15 +39,13 @@ var users = {
                             var r = $.parseJSON(response.responseText);
                             $("#msj").html(r.message);                                 
                             return [r.success, r.message, null];
-                        }                                                                                                                            
+                        }                                                                                                                                           
                     }                     
-                 }
+                 }    
               },                                                                                                                                                                                                                                                                                                                                                 
           ],                                                                                                                                                                      
           rowNum:5,                                    
-          width: 970,		                                                                
-          //height: 300,   
-          //height: '100%',                      
+          width: 970,     		                                                                                    
           rowList:[10,20,30],
           pager: '#pager',                                              
           sortname: 'user_uuid',         
@@ -71,7 +60,7 @@ var users = {
               setTimeout(function(){
                 msj.empty();
               },5000);                                                                                          
-            }                                                                                                                            
+            }                                                                                                                                      
           }                                                                                                                            
           //editurl:'delete'                                                                                                                                                                                      
     }).navGrid('#pager',{edit:false,add:false,del:false}, 
@@ -86,22 +75,39 @@ var users = {
       $("#list input[name=chk_activo]").live("click",users.update_activo); 
       $("#id_discipline").on("change",users.get_tipos_programas_ax); 
       $("#program_type").on("change",users.get_programas_ax);
+      $("#tipo").on("change",users.tipo_usuario);                                                          
       $("#agregar_programas").on("click",users.agregar_programas);  
       $("#form_add_users").on("submit",users.add_users); 
       $("#form_update_users").on("submit",users.update_users);     
       $("#usuario_programas a").on("click",users.confirm_delete_programa); 
       $("#usuario_programas .new_program").live("click",users.delete_programa_new);
-    },                                                                                                                              
+    }, 
+         
+    tipo_usuario:function()
+    {                                   
+      if($(this).val()==1){                            
+        $("#agregar_programas").attr("disabled",true);
+        $("#usuario_programas").empty();
+        $("#programas").val(null);                                                         
+      }else{                                                                    
+        $("#agregar_programas").attr("disabled",false);
+      }                                
+    },                                                                                                                                             
                   
     delete_programa_new:function(e)
-    {                                                                                       
-      e.preventDefault();
-      var indice_array = $(this).attr("id"); 
-      var programas = $.parseJSON($("#programas").val());
-      programas.splice(indice_array,1);    
-      $("#programas").val(JSON.stringify(programas));                                                        
-      $(this).parent().remove();        
-    },                                                                                                                                                                                 
+    {                                                                                                                                           
+        e.preventDefault();
+        var indice_array = $(this).attr("id"); 
+        var programas = $.parseJSON($("#programas").val());
+        programas.splice(indice_array,1); 
+
+        if(programas.length>0){                                                           
+          $("#programas").val(JSON.stringify(programas));
+        }else{                                                                                                     
+          $("#programas").val(null);  
+        }                                                                                                                      
+        $(this).parent().remove();            
+    },                                                                                                                                                                                                
             
     confirm_delete_programa:function(e)
     {                   
@@ -114,7 +120,7 @@ var users = {
                   $(this).dialog("close"); 
                 },                                             
                 "Cancelar": function () { $(this).dialog("close"); } 
-              },                                   
+              },                                       
               close: function (event, ui) { $(this).remove(); },
               resizable: true,                 
               title: "Confirmar",
@@ -123,134 +129,135 @@ var users = {
     },              
     
     delete_usuario_programa:function(self)
-    {                                                                                                   
-      var li = self.parent();                                                        
-      var id_usuario_programa = self.children().attr("id");                 
-      var url = $("#base_url").text()+"/users/delete_usuario_programa";     
-      var data = "id_usuario_programa="+id_usuario_programa; 
+    {                                                                                                       
+        var li = self.parent();                                                        
+        var id_usuario_programa = self.children().attr("id");                 
+        var url = $("#base_url").text()+"admin/users/delete_usuario_programa";     
+        var data = "id_usuario_programa="+id_usuario_programa; 
 
-      $.ajax({                                                                         
-        async:true,              
-        type:"POST",
-        dataType:"json",                    
-        contentType: "application/x-www-form-urlencoded,multipart/form-data",
-        url:url,                                
-        data:data,         
-        success:function(res)    
-        {                         
-          if(res.success){                                                                                                                       
-          $("#msj").html(res.msg); 
-          li.remove();
-          }                                                  
-        },                                                                                                                                                      
-        timeout:4000,             
-        error:function(res)
-        {                                           
-          console.log(res);            
-        }                                                   
-      });                        
-    },                                                                                   
+        $.ajax({                                                                                
+            async:true,              
+            type:"POST",
+            dataType:"json",                    
+            contentType: "application/x-www-form-urlencoded,multipart/form-data",
+            url:url,                                
+            data:data,         
+            success:function(res)    
+            {                         
+              if(res.success){                                                                                                                       
+                $("#msj").html(res.msg); 
+                li.remove();
+              }                                                  
+            },                                                                                                                                                      
+            timeout:4000,             
+            error:function(res)
+            {                                           
+              console.log(res);            
+            }                                                                               
+        });                            
+    },                                                                                           
 
     agregar_programas:function()
-    {                                         
-      if($("#id_discipline").val()!=0 && $("#program_type").val()!=0 && $("#id_program").val()!=0)
-      {                                                                                                              
-        var li  = $('<li></li>');                                                              
-        var div = $('<div id="'+users.indice_array+'" class="new_program"><a href="#">X</a></div>');                                                       
-                               
-        var id_discipline  = $("#id_discipline option:selected").val();
-        var id_program     = $("#id_program option:selected").val();
-        var option_program = $("#id_program option:selected").text(); 
+    {                                                                                      
+          if($("#id_discipline").val()!=0 && $("#program_type").val()!=0 && $("#id_program").val()!=0)
+          {                             
+            var base_url = $("#base_url").text()                                                                                                                
+            var li  = $("<li></li>");                                                                                                    
+            var div = $("<div id='"+users.indice_array+"' class='new_program'><a href='#'><img src='"+base_url+"includes/admin/images/delete.png'></a></div>");         
 
-        if($("#programas").val())
-        {   
+            var id_discipline  = $("#id_discipline option:selected").val();
+            var id_program     = $("#id_program option:selected").val();
+            var option_program = $("#id_program option:selected").text(); 
 
-          var programas = $.parseJSON($("#programas").val());              
-          programas.push({"id_discipline": id_discipline, "id_program": id_program})                     
-          li.append(option_program);  
-          li.append(div);              
-          $("#usuario_programas ul").append(li);
+            if($("#programas").val())
+            {          
 
-        }else{                                                      
+              var programas = $.parseJSON($("#programas").val());              
+              programas.push({"id_discipline": id_discipline, "id_program": id_program})                     
+              li.append(option_program);  
+              li.append(div);              
+              $("#usuario_programas ul").append(li);
 
-          var programas = [{"id_discipline": id_discipline, "id_program": id_program}];                      
-          li.append(option_program);   
-          li.append(div);                             
-          $("#usuario_programas ul").append(li);
-              
-        }
-                                                    
-        users.indice_array=users.indice_array+1;                                  
-        programas = JSON.stringify(programas); 
-        $("#programas").val(programas);                                                                                                                                                                                                     
-        $("#id_discipline option[value=0]").attr("selected",true);
-        $("#program_type option[value=0]").attr("selected",true);
-        $("#id_program option[value=0]").attr("selected",true);
-        $("#id_program option[value=0]").attr("selected",true);
-      }                                                                                                                                                            
+            }else{                                                                
+
+              var programas = [{"id_discipline": id_discipline, "id_program": id_program}];                      
+              li.append(option_program);   
+              li.append(div);                             
+              $("#usuario_programas ul").append(li);
+                  
+            }             
+                                                        
+            users.indice_array=users.indice_array+1;                                  
+            programas = JSON.stringify(programas); 
+            $("#programas").val(programas);                                                                                                                                                                                                     
+            $("#id_discipline option[value=0]").attr("selected",true);
+            $("#program_type option[value=0]").attr("selected",true);
+            $("#id_program option[value=0]").attr("selected",true);
+            $("#id_program option[value=0]").attr("selected",true);
+          }                                                                                                                                                                 
     },                                                  
 
     add_users:function(e)
-    {                             
-      e.preventDefault();                     
-      var url = "add";         
-      var data = $(this).serialize(); 
-      
-      $.ajax({                                                 
-        async:true,              
-        type:"POST",            
-        dataType:"json",                    
-        contentType: "application/x-www-form-urlencoded,multipart/form-data",
-        url:url,                    
-        data:data,                
-        success:function(res)    
-        {                   
-          if(res.success==false){         
-            $("#msj").html(res.msg);   
-          }else{                                                                                                                                                                                                
-            document.location.href=res.redirect;                                        
-          }                                                                                                                   
-        },                                                             
-        timeout:4000,             
-        error:function(respuesta)
-        {                                           
-          console.log(respuesta);            
-        }                                           
-      });    
+    {                                                       
+        e.preventDefault();                         
+        var url = $("#base_url").text()+"admin/users/add";         
+        var data = $(this).serialize();       
+        
+        $.ajax({                                                 
+            async:true,              
+            type:"POST",            
+            dataType:"json",                    
+            contentType: "application/x-www-form-urlencoded,multipart/form-data",
+            url:url,                    
+            data:data,                
+            success:function(res)    
+            {                   
+              if(res.success==false){         
+                $("#msj").html(res.msg);   
+              }else{                                                                                                                                                                                                
+                document.location.href=res.redirect;                                        
+              }                                                                                                                   
+            },                                                             
+            timeout:4000,             
+            error:function(respuesta)
+            {                                           
+              console.log(respuesta);            
+            }                                                  
+        });              
     },    
               
     update_users:function(e)
-    {                                        
-      e.preventDefault();                                
-      var url = $("#base_url").text()+"/users/update";         
-      var data = $(this).serialize();
+    {                                               
+        e.preventDefault();                                
+        var url = $("#base_url").text()+"admin/users/update";         
+        var data = $(this).serialize();
 
-      $.ajax({                                                 
-        async:true,              
-        type:"POST",            
-        dataType:"json",                    
-        contentType: "application/x-www-form-urlencoded,multipart/form-data",
-        url:url,                    
-        data:data,                
-        success:function(res)    
-        {                         
-          if(res.success==false){         
-          $("#msj").html(res.msg);   
-          }else{                                                                                                                                                                                                            
-            document.location.href=res.redirect;                                        
-          }                                                                                                                                    
-        },                                                                     
-        timeout:4000,             
-        error:function(respuesta)
-        {                                           
-          console.log(respuesta);            
-        }                              
-      });       
+        $.ajax({                                                         
+            async:true,              
+            type:"POST",                      
+            dataType:"json",                    
+            contentType: "application/x-www-form-urlencoded,multipart/form-data",
+            url:url,                    
+            data:data,                
+            success:function(res)    
+            {                                
+              if(res.success==false){         
+                $("#msj").html(res.msg);   
+              }else{                                                                                                                                                                                                             
+                document.location.href=res.redirect;                                        
+              }                                                                                                                                    
+            },                                                                     
+            timeout:4000,             
+            error:function(respuesta)
+            {                                           
+              console.log(respuesta);            
+            }                              
+        });       
     },                              
 
     get_tipos_programas_ax:function()
     {                                                                                            
-        var url = $("#base_url").text()+'/users/get_tipos_programas_ax';
+        var url = $("#base_url").text()+'admin/users/get_tipos_programas_ax';
 
         $.ajax({                                     
           async:true,              
@@ -268,80 +275,80 @@ var users = {
             console.log(respuesta);            
           }                              
         });             
-    },             
+    },                         
 
     get_programas_ax:function()
     {                                
         var id_discipline = $("#id_discipline option:selected").val();             
         var data = "program_type="+$(this).val()+"&id_discipline="+id_discipline;
-        var url = $("#base_url").text()+'/users/get_programas_ax';
+        var url = $("#base_url").text()+'admin/users/get_programas_ax';
 
         $.ajax({                                 
-          async:true,              
-          type:"POST",
-          dataType:"html",                    
-          contentType: "application/x-www-form-urlencoded,multipart/form-data",
-          url:url,                    
-          data:data,     
-          success:function(respuesta)    
-          {                                                       
-            $("#id_program").html(respuesta);         
-          },                                                             
-          timeout:4000,             
-          error:function(respuesta)
-          {                                                          
-            console.log(respuesta);            
-          }                     
+            async:true,              
+            type:"POST",
+            dataType:"html",                    
+            contentType: "application/x-www-form-urlencoded,multipart/form-data",
+            url:url,                    
+            data:data,     
+            success:function(respuesta)    
+            {                                                       
+              $("#id_program").html(respuesta);         
+            },                                                             
+            timeout:4000,             
+            error:function(respuesta)
+            {                                                          
+              console.log(respuesta);            
+            }                           
         });      
-    },                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+    },                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
                                          
     update_notificacion:function(e)
-    {                              
+    {                                   
       var value = ($(this).attr('checked'))?1:0;                               
       var data = "user_uuid="+$(this).attr("id")+"&value="+value;
-      var url = $("#base_url").text()+'/users/update_notificacion';
+      var url = $("#base_url").text()+'admin/users/update_notificacion';
 
         $.ajax({                                 
-          async:true,              
-          type:"POST",
-          dataType:"json",                    
-          contentType: "application/x-www-form-urlencoded,multipart/form-data",
-          url:url,                    
-          data:data,     
-          success:function(res)    
-          {                                         
-            $("#msj").html(res.message);         
-          },                                                  
-          timeout:4000,             
-          error:function(res)
-          {                                           
-            console.log(res);            
-          }                     
-        });       
+            async:true,              
+            type:"POST",
+            dataType:"json",                    
+            contentType: "application/x-www-form-urlencoded,multipart/form-data",
+            url:url,                    
+            data:data,     
+            success:function(res)    
+            {                                         
+              $("#msj").html(res.message);         
+            },                                                  
+            timeout:4000,             
+            error:function(res)
+            {                                           
+              console.log(res);            
+            }                     
+        });                  
     },                                         
 
     update_activo:function(e)
-    {                                        
-      var value = ($(this).attr('checked'))?1:0;                               
-      var data = "user_uuid="+$(this).attr("id")+"&value="+value;
-      var url = $("#base_url").text()+'/users/update_activo';
+    {                                           
+        var value = ($(this).attr('checked'))?1:0;                               
+        var data = "user_uuid="+$(this).attr("id")+"&value="+value;
+        var url = $("#base_url").text()+'admin/users/update_activo';
 
         $.ajax({                                 
-          async:true,              
-          type:"POST",
-          dataType:"json",                    
-          contentType: "application/x-www-form-urlencoded,multipart/form-data",
-          url:url,                    
-          data:data,     
-          success:function(res)    
-          {                                              
-            $("#msj").html(res.message);         
-          },                                                  
-          timeout:4000,             
-          error:function(res)
-          {                                           
-            console.log(res);            
-          }                     
+            async:true,                   
+            type:"POST",
+            dataType:"json",                    
+            contentType: "application/x-www-form-urlencoded,multipart/form-data",
+            url:url,                    
+            data:data,     
+            success:function(res)    
+            {                                              
+              $("#msj").html(res.message);         
+            },                                                  
+            timeout:4000,             
+            error:function(res)
+            {                                           
+              console.log(res);            
+            }                     
         });  
     }                                                                        
 }   
@@ -352,7 +359,7 @@ var preinscritos = {
   {                 		 										
       var base_url = $("#base_url").text();
       jQuery("#list_preinscritos").jqGrid({                                                  
-          url:base_url+'/preinscritos/jqGrid', //another controller function for generating data
+          url:base_url+'admin/preinscritos/jqGrid', //another controller function for generating data
           mtype : "post",     //Ajax request type. It also could be GET
           datatype: "json",   //supported formats XML, JSON or Arrray             
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
@@ -369,7 +376,7 @@ var preinscritos = {
                   return "<img src='../../includes/admin/images/seguimiento/green.png'>";
                 } 									        		                                          
                 return '';																			                     
-              }},                                       				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+              }},                                              				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
               {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 if(cellValue==1){
                   return "<img src='../../includes/admin/images/seguimiento/green.png'>";
@@ -443,7 +450,6 @@ var preinscritos = {
     $("#list_preinscritos a[name=edit]").live("click",preinscritos.edit); 
   },  						                      
                                                                                                                                                                                                                                                                                                                                                  
-
   edit:function(e)
   {
     e.preventDefault();
@@ -451,11 +457,11 @@ var preinscritos = {
   },                                                                                             
 											
   editar:function(e)
-  {                                                 
+  {                                                          
     e.preventDefault(); 
     var base_url = $("#base_url").text();                              
     var id_preinscrito = $("#list_preinscritos").jqGrid('getGridParam','selrow');     
-    var url = base_url+"/preinscritos/edit";
+    var url = base_url+"admin/preinscritos/edit";
     var data = "id_preinscrito="+id_preinscrito;
 
     $.ajax({                                                                               
@@ -473,14 +479,14 @@ var preinscritos = {
             $("#name").val(res.msg[0].nombre); 
             document.getElementById('modal').style.display='block';
             document.getElementById('ventana').style.display='block';   
-          }                                                                                                                 
+          }                                                                                                                    
         },                                                                                                                                                      
         timeout:4000,             
         error:function(res)
         {                                           
           console.log(res);            
         }                                                   
-      });                            
+    });                            
   }                                                                                                                                          
 }
             
@@ -490,7 +496,7 @@ var inscritos = {
   {                                                                                                                                                                                                                                                                                                                                                                                                                                 
       var base_url = $("#base_url").text();
       jQuery("#list_inscritos").jqGrid({                                                
-          url:base_url+'/inscritos/jqGrid', //another controller function for generating data
+          url:base_url+'admin/inscritos/jqGrid', //another controller function for generating data
           mtype : "post",     //Ajax request type. It also could be GET
           datatype: "json",   //supported formats XML, JSON or Arrray									
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
@@ -558,7 +564,7 @@ var caso_cerrado = {
   {                                    				                                                                                                                                                                                                                                                                                                                                                                                                          
       var base_url = $("#base_url").text();
       jQuery("#list_caso_cerrado").jqGrid({                                                
-          url:base_url+'/casos_cerrados/jqGrid', //another controller function for generating data
+          url:base_url+'admin/casos_cerrados/jqGrid', //another controller function for generating data
           mtype : "post", //Ajax request type. It also could be GET
           datatype: "json", //supported formats XML, JSON or Arrray 					
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
@@ -627,7 +633,7 @@ var casos_inconclusos = {
   {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
       var base_url = $("#base_url").text();
       jQuery("#list_casos_inconclusos").jqGrid({                                                
-          url:base_url+'/casos_inconclusos/jqGrid', //another controller function for generating data
+          url:base_url+'admin/casos_inconclusos/jqGrid', //another controller function for generating data
           mtype : "post", //Ajax request type. It also could be GET
           datatype: "json", //supported formats XML, JSON or Arrray 											
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
@@ -694,7 +700,7 @@ var informes = {
   {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
       var base_url = $("#base_url").text();
       jQuery("#list_informes").jqGrid({                                                   
-          url:base_url+'/informes/jqGrid', //another controller function for generating data
+          url:base_url+'admin/informes/jqGrid', //another controller function for generating data
           mtype : "post", //Ajax request type. It also could be GET
           datatype: "json", //supported formats XML, JSON or Arrray                       
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Atendido','Eliminar'],       //Grid column headings

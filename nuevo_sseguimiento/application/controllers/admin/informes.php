@@ -12,21 +12,9 @@ class Informes extends CI_Controller {
     }                                                          		
 
     public function show()
-    {           
-        $user_uuid = $this->session->userdata('user_uuid');                                                                             
-        $total_informes = $this->informes_model->total_informes($user_uuid);
-                            
-        if(empty($total_informes))
-        {                                                         
-            $data['msj'] = 'No existen informes.';                                                                                 
-            $this->layout->view('admin/msj',$data);  
-        }                                          
-        else
-        {                                                                                                                                                                                                    
-            $data['msj'] = $this->session->flashdata('msj');                                                                                 
-            $this->layout->view('admin/informes/show_informes',$data); 
-        }                  
-    }       
+    {                                                                                                                                  
+        $this->layout->view('admin/informes/show_informes'); 
+    }                                                 
 
     public function jqGrid()
     {                                                                                                                                                                                                                                                   
@@ -94,7 +82,7 @@ class Informes extends CI_Controller {
         else
         {
             $data->msg = msj('No existen registros.','message');                                                                   
-        }   
+        }          
                                                                                                                                                                                                               
         echo json_encode($data);                                                                                                     
     }

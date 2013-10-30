@@ -10,10 +10,10 @@
 </head>								
 <body>												
 <div><?php echo isset($msj)?$msj:''; ?></div>	
-<div id="preinscrito_detalle">							 								
-<div id="datos_generales">																																																
-	<div class="titulo_cb">Programa:</div></label> <?php echo $preinscrito->program_name; ?>		
-	<div class="titulo_cb">Datos del interesado:</div>	
+<div id="preinscrito_detalle">					
+<div id="datos_programa"><div class="titulo_cb">Programa:</div><label><?php echo $preinscrito->program_name; ?></label></div>								 								
+<div id="datos_generales">																																																																														
+	<div class="titulo_cb">Datos del interesado:</div>			
 	<div><label>Nombre Completo:</label> <?php echo $preinscrito->nombre.' '.$preinscrito->a_paterno.' '.$preinscrito->a_materno; ?></div>		
 	<div><label>Fecha de registro:</label> <?php echo $preinscrito->fecha_registro; ?></div>
 	<div><label>Calle y número:</label> <?php echo $preinscrito->calle_numero; ?></div>
@@ -54,7 +54,7 @@
 	<?php
 		}		  
 	?>																																																																		
-</div>						
+</div>								
 <div class="clear"></div>													
 <div id="estatus_proceso">																									
 	<div class="titulo_cb">Estatus del proceso:</div>																									
@@ -84,13 +84,15 @@
 		<div><input type="checkbox" name="caso_inconcluso"  id="caso_inconcluso" <?php echo ($preinscrito->caso_inconcluso==1)?"checked":""; ?> disabled="disabled"><label>Caso inconcluso</label></div>										 
 		<div><input type="checkbox" name="informes"  id="informes" <?php echo ($preinscrito->informes==1)?"checked":""; ?> disabled="disabled"><label>Informes</label></div>										 
 		<div><input type="checkbox" name="atendido"  id="atendido" <?php echo ($preinscrito->atendido==1)?"checked":""; ?> disabled="disabled"><label>Atendido</label></div>										 
-</div>																					
+</div>																										
 <div id="comentarios">														
 		<div class="titulo_cb">Comentario general</div>																																							
 		<div><a href="#" rel="comentarios_comentario_general">Añadir / editar comentario general</a></div>							
 		<div id="comentarios_comentario_general" style="display:none;"><textarea name="comentario_general"><?php echo $preinscrito->comentario_general; ?></textarea></div>
-</div>																																																																																																																																																																																																																																													
-<a href="<?php echo base_url("admin/preinscritos/editar/".$preinscrito->id_preinscrito); ?>">editar</a>												
-</div>				
+</div>
+<div id="button_editar">																																																																																																																																																																																																																																															
+<a href="<?php echo base_url("admin/preinscritos/editar/".$preinscrito->id_preinscrito); ?>">editar</a>															
+</div>		
+</div>						
 </body>		
 </html>																				

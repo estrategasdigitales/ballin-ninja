@@ -10,20 +10,12 @@ class Casos_cerrados extends CI_Controller {
         if(!$this->session->userdata('username'))
         {                                                                                                                                                                                                                                                                                                                                               
             redirect(base_url('acceso/login'));                     
-        }                                                                                                                         
+        }                                                                                                                                
     }                                                                                                                                                                         
 
     public function show()
-    {                                                                                         
-        $user_uuid = $this->session->userdata('user_uuid');                                                                             
-        $total_casos_cerrados = $this->casos_cerrados_model->total_casos_cerrados($user_uuid);
-        if(empty($total_casos_cerrados)){                                       
-            $data['msj'] = 'No existen inscritos.';                                                                                 
-            $this->layout->view('admin/msj',$data);  
-        }else{                                                                                                                                                                                       
-            $data['msj'] = $this->session->flashdata('msj');                                                                                 
-            $this->layout->view('admin/casos_cerrados/show_casos_cerrados',$data); 
-        }                                                                                                                                      
+    {                                                                                                                                                                                              
+        $this->layout->view('admin/casos_cerrados/show_casos_cerrados');                                                                                                                                    
     }                                                                                                                                                      
 
     public function jqGrid()
@@ -88,7 +80,7 @@ class Casos_cerrados extends CI_Controller {
             $data->msg = msj('No existen registros.','message');                                                                   
         }                                                                                                                                                                                         
         echo json_encode($data);                                                                                                     
-    }                                                 
+    }                                                            
 
     public function delete_caso_cerrado(){                      
         $id_preinscrito = $this->input->post('id');

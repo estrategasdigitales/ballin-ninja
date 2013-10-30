@@ -8,7 +8,7 @@ class Users_model extends CI_Model
     {                                                                                  
         parent::__construct();
         $this->load->database();
-    }                                                                                                                                                
+    }                                                                                                                                                               
 
     public function acceso($username,$pass)
     {                          
@@ -46,7 +46,7 @@ class Users_model extends CI_Model
         else
         {                                                                                                                                                                              
             return FALSE;            
-        }                                       
+        }                                                      
     }                                                                                                                                                                                                                   
                                                        
     public function show_users($start,$limit,$sidx,$sord)
@@ -122,7 +122,7 @@ class Users_model extends CI_Model
         $this->db->from('seg_dec_usuarios');
         $this->db->where('user_uuid',$user_uuid);
         return $this->db->update();
-    }                                                                                                         
+    }                                                                                                               
 
     public function update_activo($user_uuid,$value)
     {                                                                     
@@ -158,7 +158,7 @@ class Users_model extends CI_Model
     }                                                                                               
 
     public function add_user($data)
-    {                   
+    {                                          
         $this->db->trans_start();
 
         $this->db->set('user_uuid', 'UUID()', FALSE); 
@@ -173,12 +173,16 @@ class Users_model extends CI_Model
         $this->db->set('descripcion',$data['descripcion']);                                    
         $this->db->set('notificacion',$data['notificacion']); 
         $this->db->set('activo',1);                                                                      
-        $this->db->insert('seg_dec_usuarios'); 
+        $this->db->insert('seg_dec_usuarios');      
+                                                                
+        $user_uuid = $this->get_user_uuid($this->db->insert_id()); 
+                
+        $programas = $this->array_programas($user_uuid,$data['programas']); 
+                      
+        if(!empty($programas)){  
+            $this->db->insert_batch('seg_dec_usuarios_programas', $programas);                                                                                                 
+        }                                                      
 
-        $user_uuid = $this->get_user_uuid($this->db->insert_id());                                                                                                                                                                                                                                                     
-        $programas = $this->array_programas($user_uuid,$data['programas']);                                
-        $this->db->insert_batch('seg_dec_usuarios_programas', $programas);                                                                                                 
-        
         $this->db->trans_complete();
         if($this->db->trans_status() === FALSE)
         {                                                                                         
@@ -190,10 +194,14 @@ class Users_model extends CI_Model
     }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 
     public function array_programas($user_uuid,$programas)
-    {                                                                                                                                                                                                                                                                           
-        foreach($programas as $key => $value){
-                $data[] =array("user_uuid"=>$user_uuid,"id_discipline"=>$value->id_discipline,"id_program"=>$value->id_program); 
-        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+    {                    
+        if(!empty($programas)){                                                                                                                                                                                                                                                                         
+            foreach($programas as $key => $value){
+                    $data[] =array("user_uuid"=>$user_uuid,"id_discipline"=>$value->id_discipline,"id_program"=>$value->id_program); 
+            }                   
+        }else{
+            $data='';                   
+        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
         return $data;                                                                                                                                                                                                                                                                                                                                                             
     }                                                                                                                                                                                                                                                                                                                             
 

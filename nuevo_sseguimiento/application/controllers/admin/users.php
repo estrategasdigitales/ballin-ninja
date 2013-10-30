@@ -8,34 +8,36 @@ class Users extends CI_Controller {
         $this->acceso();             
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/users_model');  				                                                    
-    }                                                                                                                
+    }                                                                                                                                                                                                                               
 
     private function acceso()
-    {                      
-        $this->load->library('status');
-        if(!$this->status->acceso())
-        {                                                                         
+    {                                                 
+        if(!$this->accesos->acceso())
+        {                                                                                            
               redirect('admin/no_acceso');             
-        }                                                                                                        
-    }                      
+        }                                                                                                                                             
+    }      
+
+    public function ver()
+    {                                            
+        if($this->accesos->admin())
+        {                                                                                                        
+            echo "si";           
+        }                   
+        else{
+            echo "no";      
+        } 
+    }                                         
                                                                                                                                                                                                                                                                                                                                                                                                                                    
     public function index()
-    {                  
-        $this->add();
-    }                                                                                                                                                                                                                        
+    {                                    
+        $this->show();
+    }                                                                                                                                                                                                                                                 
 
     public function show()
-    {                                                                                                          
-        $total_users = $this->users_model->total_users();
-        if(empty($total_users))
-        {                            
-            $data['msj'] = msj('No se han creado usuarios','message');                                                                                 
-            $this->layout->view('admin/msj',$data);  
-        }else{                                                                                                                                      
-            $data['msj'] = $this->session->flashdata('msj');                                                                                 
-            $this->layout->view('admin/users/show_users',$data); 
-        }                                                                                                                
-    }                       
+    {                                                                                                                                                                                                     
+        $this->layout->view('admin/users/show_users');                                                                                                               
+    }                                                         
                                                                                                                                                  
     public function jqGrid()    
     {                                                                                                                                                                                  
@@ -80,12 +82,12 @@ class Users extends CI_Controller {
         $data->records = $total_users;
              
         if(!empty($users))
-        {                                                                                                                                                                                                                                                  
+        {                                                                                                                                                                                                                                                             
             foreach($users as $key => $user){               
                 $data->rows[$key]['id']   = $user->user_uuid;                                                                                                   
                 $data->rows[$key]['cell'] = array($user->nombre,$user->rol,img('includes/admin/images/application_edit.png'),$user->notificacion,$user->activo,"<a href='delete/$user->user_uuid'>".img('includes/admin/images/delete.png')."</a>");
-            }                                                                                             
-        }else{                                                                                                  
+            }       
+        }else{                                                                                                    
             $data->msg = msj('No existen registros.','message');                                                                 
         }                                                                                                                                                                                    
 
@@ -93,17 +95,17 @@ class Users extends CI_Controller {
     }                                                                                                                                                                                                                                                                                                                                                                                                                                       
 
     public function update_notificacion()
-    {
+    {       
         $user_uuid = $this->input->post('user_uuid');
         $value     = $this->input->post('value');
         $user = $this->users_model->get_nombre_user($user_uuid);
-                                
+                                           
         if($this->users_model->update_notificacion($user_uuid,$value))
-        {                                                                                           
-            $msj = ($value == 1)?"El usuario $user->nombre recibirá notificaciones.":"El usuario $user->nombre dejará de recibir notificaciones.";                                                                                                                          
+        {                                                                                                                                                                                           
+            $msj = ($value == 1)?'El usuario '.$user->nombre.' recibirá notificaciones.':'El usuario '.$user->nombre.' dejará de recibir notificaciones.';                                                                                                                          
             echo json_encode(array('success'=>true,'message'=>msj($msj,'message')));   
-        }                                                                                                 
-    }                                                     
+        }                                                                                                            
+    }                                                          
 
     public function update_activo()
     {                                                     
@@ -113,7 +115,7 @@ class Users extends CI_Controller {
         {                                                                                                                                        
             echo json_encode(array('success'=>true,'message'=>msj('El registro se actualizó correctamente','message')));   
         }                                                                                              
-    }                                                              
+    }                                                                 
 
     public function delete()
     {               
@@ -122,13 +124,14 @@ class Users extends CI_Controller {
         if(empty($user))
         {                                                   
             echo json_encode(array('success'=>false,'message'=>msj('El usuario no existe.','error')));
-        }else{          
-
+        }
+        else
+        {          
             if($this->users_model->delete_user($user_uuid))
-            {                              
+            {                                 
                 echo json_encode(array('success'=>true,'message'=>msj('El registro se eliminó correctamente','message')));
             }                                                  
-        }                                                                                                                                                                                      
+        }                                                                                                                                                                                                             
     }                                              
 
     public function get_programas_ax()
@@ -138,7 +141,7 @@ class Users extends CI_Controller {
             show_404();
         }
         else
-        {                                                           
+        {                                                                          
             $id_discipline = $this->input->post('id_discipline'); 
             $program_type  = $this->input->post('program_type');
             $data['programas'] = $this->users_model->get_programas($id_discipline,$program_type);
@@ -155,20 +158,22 @@ class Users extends CI_Controller {
     {                  
         if(!$this->input->is_ajax_request())
         {               
-            show_404();     
-        }else{                                                                 
+            show_404(); 
+
+        }else{
+
             $data['tipos_programas'] = $this->users_model->get_tipos_programas();                                         
             $this->load->view('admin/users/tipos_programas_ax',$data);
         }                            
     }                                                     
 
     public function add()
-    {                                                          
+    {                                                                       
         $this->load->library('form_validation');  
-                                     
-        $this->form_validation->set_rules('tipo','Tipo de usuario','required');                                                                                   
-        $this->form_validation->set_rules('username','Usernamme','required|callback_login_check');
-        $this->form_validation->set_rules('pass','Password','required|matches[repass]'); 
+                                                                                                                                                       
+        $this->form_validation->set_rules('tipo','Tipo de usuario','required|callback_tipo_usuario_check');                                                                                   
+        $this->form_validation->set_rules('username','Username','required|callback_login_check');       
+        $this->form_validation->set_rules('pass','Password','required|matches[repass]');                           
         $this->form_validation->set_rules('repass','Confirmar Password','required');        
         $this->form_validation->set_rules('nombre','Nombre','required');                                                                               
         $this->form_validation->set_rules('a_paterno','Apellido paterno','required');   
@@ -176,24 +181,26 @@ class Users extends CI_Controller {
         $this->form_validation->set_rules('descripcion','Descripción','required');                                       
         $this->form_validation->set_rules('email_1','Correo electronico principal','required|valid_email|callback_email_check['.$this->input->post('email_2').']');         
         $this->form_validation->set_rules('email_2','Correo electronico secundario','valid_email');                          
-        $this->form_validation->set_rules('notificacion','Notificación'); 
-        $this->form_validation->set_rules('programas','Programas','required');                                                                                               
-                                                                                  
+        $this->form_validation->set_rules('notificacion','Notificación');           
+        $this->form_validation->set_rules('programas','Agregar Programas','callback_programas_val['.$this->input->post('tipo').']');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                       
         $data['tipos']       = $this->users_model->users_roles(); 
         $data['disciplinas'] = $this->users_model->get_disciplinas();                                    
                         
         if($this->form_validation->run() == FALSE)        
         {                                                                             
-            if(!$this->input->post()){       
+            if(!$this->input->post())
+            {       
                 $this->layout->view('admin/users/add_user',$data);
             }else{                                    
                 echo json_encode(array("success" => false, "msg" => msj(validation_errors(),'error')));
-            }                                                                                                                     
-        }else{                                                   
+            }                                                                                
+
+        }else{                                                                      
                                                                                                                                                                                                                                                                  
             $data['username']  = $this->input->post('username',true);                     
-            $data['pass']      = $this->input->post('pass'); 
-            $data['tipo']      = $this->input->post('tipo');        
+            $data['pass']      = $this->input->post('pass',true);        
+            $data['tipo']      = $this->input->post('tipo',true);        
             $data['nombre']    = $this->input->post('nombre',true);                                      
             $data['a_paterno'] = $this->input->post('a_paterno',true);
             $data['a_materno'] = $this->input->post('a_materno',true);
@@ -202,23 +209,23 @@ class Users extends CI_Controller {
             $data['descripcion']   = $this->input->post('descripcion',true);
             $data['notificacion']  = $this->input->post('notificacion',true);
             $programas = $this->input->post('programas',true); 
-            $data['programas'] = json_decode($programas);                      
-
+            $data['programas'] = json_decode($programas);                         
+                                
             if($user_uuid = $this->users_model->add_user($data))
-            {                                                                                                                                                            
+            {                                                                                                                                                                              
                 $this->session->set_flashdata('msj',msj('El registro se agregó correctamente.','message'));                            
                 echo json_encode(array("success" => true, "redirect" => base_url('admin/users/edit/'.$user_uuid))); 
-            }                                                                                                                                                                                                                                                                                                                                                                          
-        }                                                     
-    }                    
-        
+            }                                                                                                                                                                                                                                                                                                                                                                                                                                  
+        }                                                                              
+    }                                                  
+
     public function delete_usuario_programa()
-    {                      
+    {                         
         $id_usuario_programa = $this->input->post('id_usuario_programa'); 
         if($this->users_model->delete_usuario_programa($id_usuario_programa))
         {                          
             echo json_encode(array('success'=>true,'msg'=>'El programa se eliminó correctamente'));
-        }                             
+        }                                    
     }                                          
                                                     
     public function login_check($str)
@@ -230,8 +237,30 @@ class Users extends CI_Controller {
             return FALSE;                                   
         }else{                                                                                                                    
             return TRUE;    
-        }                                                                                                                                              
-    }                                                                               
+        }                                                                                                                                                           
+    }   
+
+    public function programas_val($str,$tipo_usuario)
+    {                                                                                                  
+        if($str==false && $tipo_usuario!=1)
+        {                                                                                                                                                                                                                            
+            $this->form_validation->set_message('programas_val', 'Debes agregar programas al usuario.');
+            return FALSE;                                   
+        }else{                  
+            return TRUE;    
+        }                                                                                                                                                                                 
+    }                                                                        
+
+    public function tipo_usuario_check($str)
+    {                                                                                                                             
+        if($str==0)
+        {                                                                                                                                                                        
+            $this->form_validation->set_message('tipo_usuario_check', 'El campo %s es obligatorio');
+            return FALSE;                                   
+        }else{                                                                                                                    
+            return TRUE;    
+        }                                                                                                                                                           
+    }                                                                                   
 
     public function email_check($str1,$str2)
     {                                                                                                                 
@@ -241,8 +270,8 @@ class Users extends CI_Controller {
             return FALSE;                                   
         }else{                                                                                                                                                 
             return TRUE;    
-        }                                                                                                             
-    }                                                                                                                                                     
+        }                                                                                                                                    
+    }                                                                                                                                                                    
 
     public function edit($user_uuid)
     {                                                                                                                                                  
@@ -256,7 +285,7 @@ class Users extends CI_Controller {
             $data['msj'] = msj('El usuario no existe.','error');
             $this->layout->view('admin/msj',$data);
                                 
-        }else{                                                                                                                                                                                                                     
+        }else{                                                                                                                                                                                                                          
 
             $data['tipo_selected']  = $user->tipo;
             $data['user_uuid'] = $user->user_uuid;
@@ -272,14 +301,14 @@ class Users extends CI_Controller {
 
             $data['msj'] = $this->session->flashdata('msj');                
             $this->layout->view('admin/users/edit_user',$data);      
-        }                                                                                                                                                                                                        
+        }                                                                                                                                                                                                              
     }                                                               
 
     public function update()
     {                                                                                                   
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('tipo','Tipo de usuario','required');                                                                        
+        $this->form_validation->set_rules('tipo','Tipo de usuario','required|callback_tipo_usuario_check');                                                                                   
         $this->form_validation->set_rules('username','Usernamme','required');
         $this->form_validation->set_rules('pass','Password','required|matches[repass]'); 
         $this->form_validation->set_rules('repass','Confirmar Password','required');        
@@ -289,7 +318,8 @@ class Users extends CI_Controller {
         $this->form_validation->set_rules('descripcion','Descripción','required');                                                      
         $this->form_validation->set_rules('email_1','Correo electronico principal','required|valid_email|callback_email_check['.$this->input->post('email_2').']');         
         $this->form_validation->set_rules('email_2','Correo electronico secundario','valid_email');   
-        $this->form_validation->set_rules('notificacion','Notificación');                            
+        $this->form_validation->set_rules('notificacion','Notificación'); 
+                           
 
         $data['user_uuid'] = $this->input->post('user_uuid');       
         $data['username']  = $this->input->post('username',true);       
@@ -308,14 +338,14 @@ class Users extends CI_Controller {
         if($this->form_validation->run() == FALSE)        
         {                                                                                          
             echo json_encode(array("success" => false, "msg" =>msj(validation_errors(),'error')));
-        }else{                                                                             
+        }else{                                                                                   
 
             if($this->users_model->update_user($data))
-            {                                                                               
+            {                                                                                      
                 $this->session->set_flashdata('msj',msj('El registro se actualizó correctamente.','message'));                                   
                 echo json_encode(array("success" => true, "redirect" => base_url('admin/users/edit/'.$data['user_uuid'])));
             }                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-        }                                                                                                                                    
+        }                                                                                                                                                              
     }                                                                                                                               
                                                                                                                                                                                                                                                               
 }

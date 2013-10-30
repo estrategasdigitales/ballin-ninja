@@ -94,8 +94,8 @@
             </ul>                                           
         </div>          
         <div class="clear"></div>                                                
-    		<div id="content">                                                                                            
-                <div id="base_url" style="display:none"><?php echo base_url('admin'); ?></div>							
+    		<div id="content">                                                                                                  
+                <div id="base_url" style="display:none"><?php echo base_url(); ?></div>							
     			<?php echo $content_for_layout; ?>			
     		</div>                                                                 	
         </div>       			 					     										

@@ -9,36 +9,22 @@ class Preinscritos extends CI_Controller {
         parent::__construct();          
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/preinscritos_model');
-       	$this->acceso();                                                                       
-    }                                                     																								        					
+       	$this->acceso();                                                                   
+    }     
+
+    public function show()
+    {                                                                                                                                                   
+        $this->layout->view('admin/preinscritos/show_preinscritos');                                                           
+    }                                                                          																								        					
 
     public function acceso()
-    {           
-        $this->load->library('status');
-     	if(!$this->status->acceso())
+    {                                                        
+     	if(!$this->accesos->acceso())
         {                                 
 			redirect('acceso/login');     		
-     	}          												   				
-    }    			
-	                                                                                                                                         
-    public function show()
-    {                                 
-        $user_uuid = $this->session->userdata('user_uuid');             		                                                                
-        $total_preinscritos = $this->preinscritos_model->total_preinscritos($user_uuid);
-        						
-        if(empty($total_preinscritos))
-        {                                        
-            $data['msj'] = 'No existen preinscritos.';                                                                                 
-            $this->layout->view('admin/msj',$data);  
-        }               
-        else
-        {                                                                                                                                                                      
-            $data['msj'] = $this->session->flashdata('msj');                                                                                 
-            $this->layout->view('admin/preinscritos/show_preinscritos',$data); 
-        }                                                                    
-    }               		    		                                                                                                       
-	
-						
+     	}                                    												   				
+    }    	                    		
+	                                                                                                                                                        		    		                                                                                                       					
     public function jqGrid()
     {          							                                                                                                                                                                                                              
         //obtener la página solicitada                          
@@ -51,7 +37,8 @@ class Preinscritos extends CI_Controller {
         $sord  = ($this->input->post('sord'))?$this->input->post('sord'):'desc';                         
        	 										                                                
         if($this->input->post("_search")=="false")
-        { 		
+        {                    	                     	
+            //if($this->accesos->admin())
             $total_preinscritos = $this->preinscritos_model->total_preinscritos($this->session->userdata('user_uuid'));
         }else
         {
@@ -100,19 +87,21 @@ class Preinscritos extends CI_Controller {
                 $data->rows[$key]['cell'] = array($preinscrito->nombre,$preinscrito->a_paterno,$preinscrito->a_materno,$preinscrito->program_name,$preinscrito->fecha_registro,$preinscrito->primer_contacto,$preinscrito->documentos,$preinscrito->envio_decse,$preinscrito->envio_claves,$preinscrito->pago_realizado,'eliminar');
             }  										                                                            
 						
-        }else{
+        }else{      
 
             $data->msg = msj('No existen registros.','message');                                                                   
-        }                                                                                                                                                                                                
+        } 
+
         echo json_encode($data);                                                                                                     
     }                                        
 					
     public function delete_preinscrito()
     {                      
         $id_preinscrito = $this->input->post('id');
-        $preinscrito = $this->preinscritos_model->checar_existe($id_preinscrito); 
+        $preinscrito = $this->preinscritos_model->checar_existe($id_preinscrito);
+
         if(empty($preinscrito))                                    
-        {                                                                                                                      
+        {                                                                                                                             
             echo json_encode(array('success'=>false,'message'=>msj('El registro no existe.','error')));
         }
         else
@@ -135,7 +124,7 @@ class Preinscritos extends CI_Controller {
             $data['msj'] = 'El usuario no existe.';                                                                                 
             $this->layout->view('admin/msj',$data);  
 
-        }else{              
+        }else{                            
 
             $this->load->view('admin/preinscritos/preinscrito_detalle',$data);    
         }                                                                                                                  
@@ -252,23 +241,24 @@ class Preinscritos extends CI_Controller {
         {                                                                            
             $this->load->view('admin/preinscritos/preinscrito_editar',$data);            
 
-        }else{                                                                                                                          
+        }else{                                                                                                                                                        
 
-            if(!empty($_FILES['documento_upload']['name']))
-            {                               
+            if(!empty($_FILES['documento_upload']['name'][0]) OR !empty($_FILES['documento_upload']['name'][1]) OR !empty($_FILES['documento_upload']['name'][2]))                             
+            {                                                                                                                                                            
                 if(!$data['documento_upload'] = $this->upload($data['id_preinscrito'],$this->input->post('doc_type',TRUE)))
-                {                                                                                                                                                                                                                                                                           
+                {                                                                                                                                                                                                                                                                                                  
                     $data['msj']  = msj($this->error,'error');      
                     $this->load->view('admin/preinscritos/preinscrito_editar',$data);
                     return false;                      
                 }
 
-            }else{                                                                                                                                      
+            }else
+            {                   
                 $data['documento_upload'] ='';           
             }                                                                                                                                                                                                                             
 
             if($this->preinscritos_model->update_preinscrito($data))
-            {                                                                  
+            {                                                                                 
                 $this->session->set_flashdata('msj',msj('El registro se modificó correctamente.','message'));                                    
                 redirect('admin/preinscritos/detalle/'.$data['id_preinscrito']);
             }                                                             
@@ -291,7 +281,6 @@ class Preinscritos extends CI_Controller {
         {                                                                          
             for($x=0;$x<$num_archivos;$x++)
             {                                                                             
-
                 if(!empty($doc_type[$x]))
                 {                                                                               
 
@@ -309,7 +298,7 @@ class Preinscritos extends CI_Controller {
                         return false;       
                     }else{                                                                                                                                                                                                                                                                                              
                         $archivos[] = array('id_preinscrito'=>$id_preinscrito,'doc_type'=>$doc_type[$x],'archivo'=>$file);
-                    }                                                                                             
+                    }                                                                                                            
 
                 }else{                 
 

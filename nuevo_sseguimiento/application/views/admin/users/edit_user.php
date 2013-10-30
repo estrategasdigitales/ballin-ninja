@@ -1,55 +1,58 @@
-<div id="edit_user">
-	<div id="msj">
+<div id="add_edit_user">
+	<div id="msj">								
 		<?php 											
 		echo isset($msj)?$msj:'';
 		echo validation_errors();
 		?>																														
-	</div>																																																																																																																				
+	</div>																																																																																																																																				
 	<?php echo form_open('admin/users/update',array('id'=>'form_update_users')); ?>																
 	<input type="hidden" name="user_uuid" value="<?php echo $user_uuid; ?>">	
 	<div class="cont_left">		
-	<label>Nombre:</label><input type="text" name="nombre" value="<?php echo $nombre; ?>">			
-	<label>Apellido Paterno:</label><input type="text" name="a_paterno" value="<?php echo $a_paterno; ?>">				
-	<label>Apellido Materno:</label><input type="text" name="a_materno" value="<?php echo $a_materno; ?>">							
-	<label>Descripción del puesto o rol que funge esta persona:</label><textarea name="descripcion"><?php echo $descripcion; ?></textarea>			
+	<div><label>Nombre:</label><input type="text" name="nombre" value="<?php echo $nombre; ?>"></div>			
+	<div><label>Apellido Paterno:</label><input type="text" name="a_paterno" value="<?php echo $a_paterno; ?>"></div>				
+	<div><label>Apellido Materno:</label><input type="text" name="a_materno" value="<?php echo $a_materno; ?>"></div>							
+	<div><label>Descripción del puesto o rol que funge esta persona:</label><textarea name="descripcion"><?php echo $descripcion; ?></textarea></div>			
 	</div>																												
 	<div class="cont_right">
-	<label>Tipo de usuario: *</label>
-	<select name="tipo">																																	
+	<div><label>Tipo de usuario: *</label>
+	<select name="tipo" id="tipo">													
+		<option value="0">Selecciona el tipo de usuario</option>																																
 		<?php foreach($tipos as $tipo){ 
 			$selected = ($tipo->id_tipo==$tipo_selected)?TRUE:''; 
 		?>																										
 		<option value="<?php echo $tipo->id_tipo; ?>" <?php echo set_select('tipo', $tipo->id_tipo, $selected); ?>><?php echo $tipo->rol; ?></option>												
-		<?php } ?>																														
-	<select/>							
-	<label>Username:</label><input type="text" name="username" value="<?php echo $username; ?>">		
-	<label>Password:</label><input type="password" name="pass" value="<?php echo $pass; ?>">		
-	<label>Confirmar Password:</label><input type="password" name="repass" value="<?php echo $pass; ?>">																					
-	<label>Email 1:</label><input type="text" name="email_1" value="<?php echo $email_1; ?>">
-	<label>Email 2:</label><input type="text" name="email_2" value="<?php echo $email_2; ?>">
-	</div>																			
-	<div class="clear"></div>										
+		<?php } ?>																																	
+	<select/></div>													
+	<div><label>Username:</label><input type="text" name="username" value="<?php echo $username; ?>"></div>		
+	<div><label>Password:</label><input type="password" name="pass" value="<?php echo $pass; ?>"></div>		
+	<div><label>Confirmar Password:</label><input type="password" name="repass" value="<?php echo $pass; ?>"></div>																					
+	<div><label>Email 1:</label><input type="text" name="email_1" value="<?php echo $email_1; ?>"></div>
+	<div><label>Email 2:</label><input type="text" name="email_2" value="<?php echo $email_2; ?>"></div>
+	</div>																							
+	<div class="clear"></div>																		
 	<div id="m_notificacion">																																							
 	<?php $checked = ($notificacion==1)?'checked':''; ?>												 												
 	<input type="checkbox" value="1" name="notificacion" <?php echo $checked; ?>><label>Este usuario recibirá notificaciones vía correo electrónico</label>
-	</div>
-	<div>
+	</div>									
+	<div>														
 		<input type="hidden" id="programas" name="programas">
-	</div>			
+	</div>						
 	<div class="cont_right">																
-	<div id="usuario_programas">			
-		Programas:			
+	<div id="usuario_programas">												
 		<ul>										
 		<?php 			
 			if(!empty($usuarios_programas)){
+		?>												
+				Programas:
+		<?php		
 				foreach($usuarios_programas as $usuario_programa){
-		?>																																																																												
-				<li><?php echo $usuario_programa->program_name; ?><a href="#"><div id="<?php echo $usuario_programa->id_usuario_programa; ?>">X</div></a></li>
+		?>																																																																																									
+				<li><?php echo $usuario_programa->program_name; ?><a href="#"><div id="<?php echo $usuario_programa->id_usuario_programa; ?>"><?php echo img('includes/admin/images/delete.png'); ?></div></a></li>
 		<?php								
 				}						
-			}		
+			}						
 		?>
-		</ul>							
+		</ul>										
 	</div>																	
 	</div>
 	<div>										
@@ -58,7 +61,7 @@
 		<option value="0">Selecciona la disciplina</option>																																											
 		<?php foreach($disciplinas as $disciplina){ ?>		
 		<option value="<?php echo $disciplina->id_discipline; ?>"  <?php echo set_select('id_discipline', $disciplina->id_discipline); ?>><?php echo $disciplina->discipline; ?></option>												
-		<?php } ?>																																																								
+		<?php } ?>																																																												
 	<select/>													
 	</div>							
 	<div>																																																				
@@ -72,8 +75,9 @@
 	<select name="id_program" id="id_program">																																													
 		<option value="0">Selecciona un programa</option>																																																																			
 	<select/>																																			
-	</div>											
-	<div><input type="button" name="agregar_programas" id="agregar_programas" value="Agregar programas"></div>																																																																								
+	</div>																							
+	<?php $disabled = ($tipo_selected==1)?'disabled':''; ?>											
+	<div><input type="button" name="agregar_programas" id="agregar_programas" value="Agregar programas" <?php echo $disabled; ?>></div>																																																																								
 	<div id="bpos"><button name="enviar">Enviar</button></div>				
-	</form>																																																																																																
+	</form>																																																																																																			
 </div>																	

@@ -14,17 +14,9 @@ class Inscritos extends CI_Controller {
     }                                                                                                                
 
     public function show()
-    {                                                                  
-        $user_uuid = $this->session->userdata('user_uuid');                                                                             
-        $total_inscritos = $this->inscritos_model->total_inscritos($user_uuid);
-        if(empty($total_inscritos)){                           
-            $data['msj'] = 'No existen inscritos.';                                                                                 
-            $this->layout->view('admin/msj',$data);  
-        }else{                                                                                                                                                                                       
-            $data['msj'] = $this->session->flashdata('msj');                                                                                 
-            $this->layout->view('admin/inscritos/show_inscritos',$data); 
-        }                                                                       
-    }                                                                                                                  
+    {                                            
+        $this->layout->view('admin/inscritos/show_inscritos');                                                                     
+    }                                                                                                                                      
 
     public function jqGrid()
     {                                                                                                                                                                                                                        

@@ -16,9 +16,10 @@
 	?>											
 </div>																									
 <?php echo form_open_multipart('admin/preinscritos/update',array('id'=>'form_edit_preinscrito')); ?>
-<div>																																															
-	<div><label>Programa:</label> <?php echo $program_name; ?></div>		
-	<div>Datos del interesado:</div>																														
+<div>																																																																					
+	<div id="datos_programa"><div class="titulo_cb">Programa:</div><label><?php echo $program_name; ?></label></div>								 								
+	<div id="datos_generales">						
+	<div class="titulo_cb">Datos del interesado:</div>																														
 	<div><input type="hidden" name="id_preinscrito" value="<?php echo $id_preinscrito; ?>"></div>																																																																																				
 	<div><label>Nombre:</label><input type="text" name="nombre" id="nombre" value="<?php echo $nombre ?>"></div>					
 	<div><label>Apellido paterno:</label><input type="text" name="a_paterno" id="a_paterno" value="<?php echo $a_paterno; ?>"></div>		
@@ -45,9 +46,31 @@
 	<div><label>Puesto: </label><input type="text" name="puesto" id="puesto" value="<?php echo $puesto; ?>"></div>
 	<div><label>Dirección de la empresa: </label><input type="text" name="direccion_empresa" id="direccion_empresa" value="<?php echo $direccion_empresa; ?>"></div>
 	<div><label>Teléfono de la empresa: </label><input type="text" name="telefono_empresa" id="telefono_empresa" value="<?php echo $telefono_empresa; ?>"></div>																				 																																			
-</div>				
+	</div>			
+</div>		
+<div id="subir_documentos">	
+	<div class="titulo_cb">Documentos :</div>				
+	<?php 										
+		 if(!empty($archivos)){
+
+		 	foreach($archivos as $archivo){
+	?>																							
+			<div><a href="<?php echo base_url('includes/admin/documentos/'.$archivo->archivo); ?>" target="_blank"><?php echo $archivo->doc_type; ?></a></div>			
+	<?php 								
+			}																												
+		 }else{		
+	?>	 			
+		<div>No existen documentos.</div>
+	<?php 				
+		 } 						
+	?>																																																																																																							
+	<div>Agregar Archivos: <a href="#" id="agregar_input_file"><?php echo img(array('src'=>'includes/admin/images/seguimiento/archivo.png')); ?></a></div>		
+	<div><input type="file" name="documento_upload[]"  id="documento_upload"></div>
+	<div>Tipo de documento:<input type="text" name="doc_type[]"></div>						 									 																																																																																																			
+</div>							
+<div class="clear"></div>										
 <div id="estatus_proceso">										
-	<div>Estatus del proceso:</div>	
+	<div class="titulo_cb">Estatus del proceso:</div>	
 
 	<div></label><input type="checkbox" value="1" name="primer_contacto" id="primer_contacto" <?php echo ($primer_contacto==1)?"checked":""; ?>><label>Primer contacto</label></div>
 	<a href="#" name="estatus" rel="estatus_primer_contacto"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
@@ -68,40 +91,27 @@
 	<div><input type="checkbox" value="1" name="pago_realizado"  id="pago_realizado" <?php echo ($pago_realizado==1)?"checked":""; ?>><label>Pago realizado</label></div>			
 	<a href="#" name="estatus" rel="estatus_pago_realizado"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
 	<div id="estatus_pago_realizado" style="display:none;"><textarea name="td_comment_pagorealizado"></textarea></div>		
-</div>					
-<div id="subir_documentos">	
-	Documentos :					
-	<?php 							
-		 if(!empty($archivos)){
-
-		 	foreach($archivos as $archivo){
-	?>																							
-			<div><a href="<?php echo base_url('includes/admin/documentos/'.$archivo->archivo); ?>" target="_blank"><?php echo $archivo->doc_type; ?></a></div>			
-	<?php 								
-			}																												
-		 }else{		
-	?>	 			
-		<div>No existen documentos.</div>
-	<?php 				
-		 } 						
-	?>																																																																																																							
-	<div>Agregar Archivos: <a href="#" id="agregar_input_file"><?php echo img(array('src'=>'includes/admin/images/seguimiento/archivo.png')); ?></a></div>		
-	<div><input type="file" name="documento_upload[0]"  id="documento_upload"></div>
-	<div>Tipo de documento:<input type="text" name="doc_type[0]"></div>						 									 																																																																																																			
-</div>																																																																															
-<div id="clasificar_aspirante">
+</div>																																																																																				
+<div id="clasificar_aspirante">		
+		<div class="titulo_cb">Clasificación del aspirante</div>
 		<div><input type="checkbox" value="1" name="caso_cerrado"  id="caso_cerrado" <?php echo ($caso_cerrado==1)?"checked":""; ?>><label>Caso cerrado</label></div>										 
 		<div><input type="checkbox" value="1" name="caso_inconcluso"  id="caso_inconcluso" <?php echo ($caso_inconcluso==1)?"checked":""; ?>><label>Caso inconcluso</label></div>										 
 		<div><input type="checkbox" value="1" name="informes"  id="informes" <?php echo ($informes==1)?"checked":""; ?>><label>Informes</label></div>										 
 		<div><input type="checkbox" value="1" name="atendido"  id="atendido" <?php echo ($atendido==1)?"checked":""; ?>><label>Atendido</label></div>										 
 </div>													
-<div id="comentarios">																
+<div id="comentarios">	
+		<div class="titulo_cb">Comentario general</div>																
 		<div><a href="#" rel="comentarios_comentario_general">Añadir / editar comentario general</a></div>			
 		<div id="comentarios_comentario_general" style="display:none;"><textarea name="comentario_general"><?php echo $comentario_general; ?></textarea></div>
-</div>																																																																																																																																																																																																																																																																																																		
-	<a href="<?php echo base_url("admin/preinscritos/detalle/".$id_preinscrito); ?>">cancelar</a>												
-	<button name="enviar">Enviar</button>
-	</form>																								
+</div>	
+<div class="clear"></div>	
+<div id="editar_preinscrito">									
+	<div id="button_cancelar">																																																																																																																																																																																																																																																																																																				
+		<a href="<?php echo base_url("admin/preinscritos/detalle/".$id_preinscrito); ?>">Cancelar</a>												
+	</div>																																					
+	<input type="submit" name="enviar" id="button_guardar" value="Guardar">	
+</div>																														
+	</form>																											
 </body>					
 </html>														
 																	

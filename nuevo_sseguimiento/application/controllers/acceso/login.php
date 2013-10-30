@@ -24,18 +24,19 @@ class Login extends CI_Controller {
         {						
 			$this->load->view('acceso/login');    
 
-        }else{              				    												
+        }else{                     				    												
  
             $username = $this->input->post('username',TRUE);             
             $pass     = $this->input->post('pass',TRUE);         
 
             if($user = $this->users_model->acceso($username,$pass)) 
-            {                                                                                                                                               					
-                $sesion = array(
+            {                                                                                                                                                                                					
+                $sesion = array(    
                     'username'  => $username,
                     'nombre'    => $user->nombre,
-                    'user_uuid' => $user->user_uuid
-                );          
+                    'user_uuid' => $user->user_uuid,
+                    'tipo'      => $user->tipo
+                );                                
 
                 $controllers = array(
                     'users' => $user->users,
@@ -56,7 +57,7 @@ class Login extends CI_Controller {
                 $data = array('error'=>'Login y password erroneos');  
                 $this->load->view('acceso/login',$data);                  
             }                      
-        }									        
+        }		             							        
 	}
 
     public function salir()

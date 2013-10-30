@@ -14,17 +14,9 @@ class Casos_inconclusos extends CI_Controller {
     }                                                                                      
 
     public function show()
-    {   													                                             
-        $user_uuid = $this->session->userdata('user_uuid');                                                                             
-        $total_casos_inconclusos = $this->casos_inconclusos_model->total_casos_inconclusos($user_uuid);
-        if(empty($total_casos_inconclusos)){                           
-            $data['msj'] = 'No existen preinscritos.';                                                                                 
-            $this->layout->view('admin/msj',$data);  
-        }else{                                                                                                                                                           
-            $data['msj'] = $this->session->flashdata('msj');                                                                                 
-            $this->layout->view('admin/casos_inconclusos/show_casos_inconclusos',$data); 
-        }                                                                                         
-    }                                                             
+    {                  													                                                                                                                          
+        $this->layout->view('admin/casos_inconclusos/show_casos_inconclusos');                                                                                       
+    }                                                                                        
 
     public function jqGrid()
     {                                                                                                                                                                                                                                       
@@ -90,9 +82,11 @@ class Casos_inconclusos extends CI_Controller {
         echo json_encode($data);                                                                                                     
     }                                                               
 
-    public function delete_preinscrito(){                      
+    public function delete_preinscrito()
+    {                                     
         $id_preinscrito = $this->input->post('id');
         $preinscrito = $this->casos_inconclusos_model->checar_existe($id_preinscrito); 
+
         if(empty($preinscrito))                                    
         {                                                                                                                      
             echo json_encode(array('success'=>false,'message'=>msj('El registro no existe.','error')));

@@ -96,12 +96,7 @@ a{
 div.sep{
 	display: block;
 }				
-
-/*						
-label{	
-	display: block;
-}*/			
-				
+						
 #msj{		
 	margin-top: 30px;	
 	margin-bottom: 10px;
@@ -131,32 +126,58 @@ label{
 	padding:0px;					
 	margin:0px;				
 }	
-					
+				
+#add_edit_user{						
+	width:970px;
+	margin: 0 auto;						
+}							
+
+#add_edit_user label{
+	display: inline-block;		
+	width:150px;									
+}						
+
+#add_edit_user div{		
+	margin:4px;								
+}																						
+
+#add_edit_user select{		
+	width: 150px;
+	margin-left: -4px;							
+}																																																																				
+
 .cont_left{
 	float:left;
 	width: 48%;
-}																						
+}																																													
 
-.cont_right{
+.cont_right{		
 	float:right;
 	width: 48%;		
 }			
 
 #m_notificacion label{
-	display: inline;		
+	display: inline;			
 }														
+		
+#usuario_programas{
+	width: 400px; 
+	height: 120px; 
+	overflow-y: scroll;	
+}																																					
 
 .clear{
 	clear: both;
-}	
+}		
 
 #bpos{						
 	margin:10px;		
 	text-align: center;		
-}							
-													
-.jqgrid{    							
-  width: 950px;												
+}																
+																
+.jqgrid
+{								    							
+  width:970px;												
   margin: 0 auto;	
 }     																																																																		
 								
@@ -247,21 +268,83 @@ label{
 
 #estatus_proceso textarea{
 	width:500;
-}													
+}																		
 
 .titulo_cb{				
 	color:red;					
 	font-size:16px;
 }				
 
-#preinscrito_detalle #datos_generales{	
+#datos_generales{	
 	float:left;		
-	margin-bottom:10px;		
-}				
+	margin-bottom:15px;		
+}														
 
-#preinscrito_detalle #subir_documentos{	
-	float:left;
-	margin-bottom:10px;					
-}												
+#subir_documentos{		
+	float:left;															
+	margin-top:-15px;			
+}																																															
+
+#datos_programa{		
+	margin-bottom:15px;							
+}										
+						
+#estatus_proceso{
+	float:left;			
+	margin-bottom:15px;	
+}			
+									
+#clasificar_aspirante{
+	float:right;		
+	margin-right:200px;	
+	display: block;			
+}											
+								
+#comentarios{				
+	float:right;		
+	margin-right:150px;			
+}																				
+	
+#button_editar{		
+	clear: both;
+	width:70px;								
+	display:block;				
+	text-align: center;	
+	margin: auto;	
+	background: red;									
+}							
+
+#button_editar a{		
+	color: white;									
+}			
+			
+#editar_preinscrito{				
+	text-align: center	
+}									
+		
+#button_cancelar{		
+	width:70px;								
+	display:inline;					
+	text-align:center;	
+	background:red;
+	margin-right:80px;								
+}																														
+						
+#button_cancelar a{		
+	color:white;									
+}																																			
+																	
+#button_guardar{		
+	width:70px;												
+	text-align:center;	
+	background:red;
+	color:white;	
+	border:none;	
+	display:inline;
+	margin-left: 80px;																			
+}																						
+
+
+
 
 														
