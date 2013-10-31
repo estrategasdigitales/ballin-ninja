@@ -36,12 +36,11 @@
         <div id="centrado">
         <div id="encabezado">
         	<div id="logo">
-        	<?php echo img('includes/admin/images/seguimiento/logo_UIA.jpg'); ?>				
-        	<?php echo img('includes/admin/images/seguimiento/logo_DEC.jpg'); ?>			
+            	<?php echo img('includes/admin/images/seguimiento/logo_UIA.jpg'); ?>				
+            	<?php echo img('includes/admin/images/seguimiento/logo_DEC.jpg'); ?>			
         	</div>	
         	<h1>Sistema de seguimiento de preinscripciones</h1>						
-        	<h2>Administrador | <a href="#">Cerrar sesión</a></h2>	
-        	</div>																						
+        	<h2>Administrador | <a href="#">Cerrar sesión</a></h2>																							
         </div>							   		      		     																				
         <div>                                                        
             <ul class="menu"> 
