@@ -39,8 +39,8 @@
         	<?php echo img('includes/admin/images/seguimiento/logo_UIA.jpg'); ?>				
         	<?php echo img('includes/admin/images/seguimiento/logo_DEC.jpg'); ?>			
         	</div>	
-        	<div id="titulo">Sistema de seguimiento de preinscripciones						
-        	<div id="salir">Administrador | Cerrar sesión</div>	
+        	<h1>Sistema de seguimiento de preinscripciones</h1>						
+        	<h2>Administrador | <a href="#">Cerrar sesión</a></h2>	
         	</div>																						
         </div>							   		      		     																				
         <div>                                                        
