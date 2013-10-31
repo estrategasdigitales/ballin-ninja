@@ -39,8 +39,11 @@ class Users extends CI_Controller {
         //obtiene la dirección                                                                                                        
         $sord  = ($this->input->post('sord'))?$this->input->post('sord'):'asc';                         
                                                                                                                                      
-        if($this->input->post("_search") == "false"){                       
-            $total_users = $this->users_model->total_users();
+        if($this->input->post("_search") == "false")
+        {                                         
+           
+           $total_users = $this->users_model->total_users();
+
         }else{                                                                                       
             $searchOper   = $this->input->post('searchOper');
             $searchField  = $this->input->post('searchField');

@@ -5,12 +5,12 @@ class Preinscritos extends CI_Controller {
     private $error;                                                                                             
                         
     public function __construct()
-    {                                                                                                                     
+    {                                                                                                                                    
         parent::__construct();          
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/preinscritos_model');
        	$this->acceso();                                                                   
-    }                              
+    }                                                                 
 
     public function show()
     {                                                                                                                                                      
@@ -26,11 +26,11 @@ class Preinscritos extends CI_Controller {
     }       	                    		
 	                                                                                                                                                        		    		                                                                                                       					
     public function jqGrid()
-    {          							                                                                                                                                                                                                              
+    {                     							                                                                                                                                                                                                              
         //obtener la página solicitada                          
         $page = ($this->input->post('page'))?$this->input->post('page'):1;    
         //Número de fila que queremos obtener en el grid                
-        $limit = ($this->input->post('rows'))?$this->input->post('rows'):5;                                
+        $limit = ($this->input->post('rows'))?$this->input->post('rows'):20;                                
         //el campo para ordenar                                                                                                                                                                                       
         $sidx  = ($this->input->post('sidx'))?$this->input->post('sidx'):'id_preinscrito';                         
         //obtiene la dirección                         		                           		      	                                              
@@ -41,23 +41,30 @@ class Preinscritos extends CI_Controller {
             if($this->accesos->admin())
             {                                            
                 $total_preinscritos = $this->preinscritos_model->total_preinscritos_admin();
-            }else{
+            }else{                
                 $total_preinscritos = $this->preinscritos_model->total_preinscritos($this->session->userdata('user_uuid'));
-            }                                                       
+            }                                                                                            
         }else
         {                                     
             $searchOper   = $this->input->post('searchOper');
             $searchField  = $this->input->post('searchField');
             $searchString = $this->input->post('searchString');
 							                        
-            $where = search($searchOper,$searchField,$searchString);   						                                                                                       
-            $total_preinscritos = $this->preinscritos_model->total_search_preinscritos($where,$this->session->userdata('user_uuid'))->total;     
+            $where = search($searchOper,$searchField,$searchString);
+
+            if($this->accesos->admin())
+            {                                                                   						                                                                                       
+                $total_preinscritos = $this->preinscritos_model->total_search_preinscritos_admin($where)->total;     
+            }else
+            {                                 
+                $total_preinscritos = $this->preinscritos_model->total_search_preinscritos($where,$this->session->userdata('user_uuid'))->total;     
+            }                                        
         }               				                                                                            
 
         $total_pages = total_pages($total_preinscritos,$limit);                                                                                                                                                                
 
         if($page>$total_pages)
-        {                               
+        {                                                  
             $page = $total_pages;                         
         }           				                          
 
@@ -81,8 +88,14 @@ class Preinscritos extends CI_Controller {
             $searchField  = $this->input->post('searchField');
             $searchString = $this->input->post('searchString');
 
-            $where = search($searchOper,$searchField,$searchString);                           
-            $preinscritos = $this->preinscritos_model->search_preinscritos($where,$this->session->userdata('user_uuid'),$start,$limit,$sidx,$sord);
+            $where = search($searchOper,$searchField,$searchString);  
+
+            if($this->accesos->admin())
+            {                                      
+                $preinscritos = $this->preinscritos_model->search_preinscritos_admin($where,$start,$limit,$sidx,$sord);
+            }else{                                                                                                                    
+                $preinscritos = $this->preinscritos_model->search_preinscritos($where,$this->session->userdata('user_uuid'),$start,$limit,$sidx,$sord);
+            }                       
         }             							                           	                                                                                                                                                                                                                                                             
 
         $data = new stdClass();                 

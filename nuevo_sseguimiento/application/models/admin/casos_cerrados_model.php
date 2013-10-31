@@ -6,7 +6,7 @@ class Casos_cerrados_model extends CI_Model
     {                                                                   
         parent::__construct();
         $this->load->database();
-    } 												                                                                                                                                                                                     
+    }            												                                                                                                                                                                                     
 
     public function total_casos_cerrados($user_uuid)
     {                                                                                              
@@ -17,10 +17,19 @@ class Casos_cerrados_model extends CI_Model
         $this->db->where('status.caso_cerrado',1);  
         $this->db->from('seg_dec_preinscritos as pre');
         return $this->db->count_all_results();                  
-    }                                                                                                                                                                                                                                                                                                                                    
+    }    
+
+    public function total_casos_cerrados_admin()
+    {                                                                                                                          
+        $this->db->join('seg_dec_programas as pro','pro.id_program = pre.id_program', 'inner');
+        $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito', 'inner');                                                          
+        $this->db->from('seg_dec_preinscritos as pre'); 
+        $this->db->where('status.caso_cerrado',1);                                                                                                                
+        return $this->db->count_all_results();           
+    }                                                                                                                                                                                                                                                                                                                                                           
 
     public function show_casos_cerrados($user_uuid,$start,$limit,$sidx,$sord)
-    {                                                                                                                                                                                                                                                                      
+    {                                                                                                                                                                                                                                                                                             
         $this->db->select('pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,up.user_uuid,up.id_discipline,up.id_program,pro.program_name,status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado');
         $this->db->from('seg_dec_preinscritos as pre');                                      
         $this->db->join('seg_dec_usuarios_programas as up','up.id_discipline = pre.id_discipline and up.id_program = pre.id_program', 'left');
@@ -41,8 +50,28 @@ class Casos_cerrados_model extends CI_Model
         }                        
     } 
 
+    public function show_casos_cerrados_admin($start,$limit,$sidx,$sord)
+    {                                                                                                                                                                                                                                                                                                                                             
+        $this->db->select('pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,pro.program_name,status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado');
+        $this->db->from('seg_dec_preinscritos as pre');                                                                                                                                                                                                                                                                                                                                               
+        $this->db->join('seg_dec_programas as pro','pro.id_program = pre.id_program','inner');                                                          
+        $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito','inner');                                                                                                                                                                                                           
+        $this->db->where('status.caso_cerrado',1);                    
+        $this->db->order_by($sidx,$sord);                                                                                                                                                                                                                           
+        $this->db->limit($limit,$start);                                                            
+        $query = $this->db->get();                                                                                                            
+        if($query->num_rows()>0)                                                                                                                                                   
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+            return $query->result();                             
+        }                                                                                                                                                                                                                                                                                                                                                                                                             
+        else
+        {                                                                                                                                                                                                              
+            return FALSE;            
+        }                                                  
+    }                              
+
     public function total_search_casos_cerrados($where,$user_uuid)
-    {                                                                                                                                                                                                                                                    
+    {                                                                                                                                                                                                                                                                               
         $query = $this->db->query("select COUNT(*) as total 
                                   from seg_dec_preinscritos as pre 
                                   left join seg_dec_usuarios_programas as up on (up.id_discipline=pre.id_discipline and up.id_program=pre.id_program) 

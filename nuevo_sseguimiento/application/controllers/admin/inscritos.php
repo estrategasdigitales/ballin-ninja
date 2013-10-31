@@ -7,11 +7,16 @@ class Inscritos extends CI_Controller {
         parent::__construct();                
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/inscritos_model');
-        if(!$this->session->userdata('username'))
-        {		                                                                                                                                                                                                                                                                                                                                        
-            redirect(base_url('acceso/login'));                     
-        }                                                                     
-    }                                                                                                                
+        $this->acceso();                                                               
+    }               
+
+    public function acceso()
+    {                                                        
+        if(!$this->accesos->acceso())
+        {                                 
+            redirect('acceso/login');           
+        }                                                                                                   
+    }                                                                                                                                       
 
     public function show()
     {                                            
@@ -23,23 +28,36 @@ class Inscritos extends CI_Controller {
         //obtener la página solicitada                          
         $page  = ($this->input->post('page'))?$this->input->post('page'):1;    
         //Número de fila que queremos obtener en el grid                
-        $limit = ($this->input->post('rows'))?$this->input->post('rows'):5;                                
+        $limit = ($this->input->post('rows'))?$this->input->post('rows'):20;                                
         //el campo para ordenar                                                                                                                                                                                       
         $sidx  = ($this->input->post('sidx'))?$this->input->post('sidx'):'user_uuid';                         
         //obtiene la dirección                                                                                                        
         $sord  = ($this->input->post('sord'))?$this->input->post('sord'):'asc';                         
-                                                        
+                                                                           
         $user_uuid = $this->session->userdata('user_uuid');                                                          
         
-        if($this->input->post("_search") == "false"){ 
-            $total_inscritos = $this->inscritos_model->total_inscritos($user_uuid);
-        }else{
+        if($this->input->post("_search") == "false")
+        {                        
+            if($this->accesos->admin())
+            {                           
+                $total_inscritos = $this->inscritos_model->total_inscritos_admin();
+            }else{  
+                $total_inscritos = $this->inscritos_model->total_inscritos($user_uuid);
+            }
+        }else
+        {               
             $searchOper   = $this->input->post('searchOper');
             $searchField  = $this->input->post('searchField');
             $searchString = $this->input->post('searchString');
 
-            $where = search($searchOper,$searchField,$searchString);                                                                         
-            $total_inscritos = $this->inscritos_model->total_search_inscritos($where,$user_uuid)->total;     
+            $where = search($searchOper,$searchField,$searchString); 
+
+            if($this->accesos->admin())
+            {  
+                $total_inscritos = $this->inscritos_model->total_search_inscritos_admin($where)->total;     
+            }else{
+                $total_inscritos = $this->inscritos_model->total_search_inscritos($where,$user_uuid)->total;     
+            }                           
         }                                                                                   
 
         $total_pages = total_pages($total_inscritos,$limit);                                                                                                                                                                
@@ -52,15 +70,21 @@ class Inscritos extends CI_Controller {
         $start = ($start>0)?$start:0; 
                                                             
         if($this->input->post("_search") == "false")
-        {                                                                                                     
-            $inscritos = $this->inscritos_model->show_inscritos($user_uuid,$start,$limit,$sidx,$sord);                                                                                                                                                          
-        }else{                                                                                                                     
-            $searchOper   = $this->input->post('searchOper');
-            $searchField  = $this->input->post('searchField');
-            $searchString = $this->input->post('searchString');
-
-            $where = search($searchOper,$searchField,$searchString);
-            $inscritos = $this->inscritos_model->search_inscritos($where,$user_uuid,$start,$limit,$sidx,$sord);
+        {      
+            if($this->accesos->admin())
+            {  
+                $inscritos = $this->inscritos_model->show_inscritos_admin($start,$limit,$sidx,$sord);                                                                                                                                                          
+            }else{                      
+                $inscritos = $this->inscritos_model->show_inscritos($user_uuid,$start,$limit,$sidx,$sord);                                                                                                                                                          
+            }                                  
+        }else
+        {                                                                                                                           
+            if($this->accesos->admin())
+            {                                                      
+                $inscritos = $this->inscritos_model->search_inscritos_admin($where,$start,$limit,$sidx,$sord);
+            }else{                            
+                $inscritos = $this->inscritos_model->search_inscritos($where,$user_uuid,$start,$limit,$sidx,$sord);
+            }
         }                                                                                                                                                                                                                                                                                        
 
         $data = new stdClass();                 
@@ -68,7 +92,7 @@ class Inscritos extends CI_Controller {
         $data->total   = $total_pages;
         $data->records = $total_inscritos;
         
-        if(!empty($inscritos))		
+        if(!empty($inscritos))                  		
         {                                                                                                                                                                                                                                                                                                                                                            
             foreach($inscritos as $key => $inscrito){               
                 $data->rows[$key]['id']   = $inscrito->id_preinscrito;                                                                                                   

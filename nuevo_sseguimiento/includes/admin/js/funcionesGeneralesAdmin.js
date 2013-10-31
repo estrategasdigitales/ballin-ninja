@@ -1,8 +1,7 @@
-                                                          				                                                              
-var users = {                            
+var users = {                                 
     indice_array:0,                                            
     onReady:function()
-    {                                                                     
+    {                                                                            
       var base_url = $("#base_url").text();
           $("#list").jqGrid({                                        
           url:base_url+'admin/users/jqGrid', //another controller function for generating data
@@ -26,7 +25,7 @@ var users = {
               {name:'activo',search:false,sortable:false,align:'center',width:50,formatter:function(cellValue, options, rowdata, action){                   
                 var checked = (cellValue==1)?'checked':'';                                                                                                                                                          
                 return "<input type='checkbox' name='chk_activo' id='"+options.rowId+"' "+checked+">";                                       
-              }},                                              
+              }},                                                     
               {name: 'myac',search:false,width:80,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
                     keys: true,                                                                  
                     editbutton: false,             
@@ -39,8 +38,8 @@ var users = {
                             var r = $.parseJSON(response.responseText);
                             $("#msj").html(r.message);                                 
                             return [r.success, r.message, null];
-                        }                                                                                                                                           
-                    }                     
+                        }                                                                                                                                              
+                    }                         
                  }    
               },                                                                                                                                                                                                                                                                                                                                                 
           ],                                                                                                                                                                      
@@ -62,16 +61,17 @@ var users = {
                 msj.empty();
               },5000);                                                                                          
             }                                                                                                                                      
-          }                                                                                                                            
-          //editurl:'delete'                                                                                                                                                                                      
-    }).navGrid('#pager',{edit:false,add:false,del:false}, 
+          }                                                                                                                                                    
+          //editurl:'delete'                                                                                                                                                                                                      
+    }).navGrid('#pager',{edit:false,add:false,del:false,excel:true}, 
     {}, //  default settings for edit
     {}, //  default settings for add
     {},  // delete instead that del:false we need this
     {searchOnEnter:true,closeOnEscape:true}, // search options
     {} /* view parameters*/               
-    );                                                                                                 
-                                                                                                                                                                                                                          
+    );          
+
+      $("#exportar").on("click",users.exportar);
       $("#list input[name=chk_notificacion]").live("click",users.update_notificacion);  
       $("#list input[name=chk_activo]").live("click",users.update_activo); 
       $("#id_discipline").on("change",users.get_tipos_programas_ax); 
@@ -82,8 +82,13 @@ var users = {
       $("#form_update_users").on("submit",users.update_users);     
       $("#usuario_programas a").on("click",users.confirm_delete_programa); 
       $("#usuario_programas .new_program").live("click",users.delete_programa_new);
-    }, 
-         
+    },                  
+      
+    exportar:function()
+    {
+        $("#list").jqGrid('excelExport',{url:'grid.php'});       
+    },              
+
     tipo_usuario:function()
     {                                   
       if($(this).val()==1){                            
@@ -430,7 +435,7 @@ var preinscritos = {
           viewrecords: true,        
           rownumbers: true,             
           gridview: true,                               
-          caption:"Preinscritos", 
+          caption:"Preinscritos",       
           loadComplete:function(data){
             if(data.records == 0){    
               var msj = $("#msj");    
@@ -487,7 +492,7 @@ var preinscritos = {
         error:function(res)
         {                                           
           console.log(res);            
-        }                                                   
+        }                                                         
     });                            
   }                                                                                                                                          
 }
@@ -529,18 +534,18 @@ var inscritos = {
                     }                               
                  }                  
       		}                 												                                        										
-          ],                                                                                                                                                                                                                         
-          rowNum:5,                        
+          ],                                                                                                                                                                                                                                
+          rowNum:20,                        
           width:970,			                                    
-          //height: 300,            
+          height:200,                             
           rowList:[10,20,30],
           pager: '#pager_inscritos',                                              
           sortname: 'id_preinscrito',                   
-          viewrecords: true,
+          viewrecords: true,                
           sortorder: "desc",            
           rownumbers: true,                 
           gridview: true,                                  
-          caption:"inscritos", 
+          caption:"Inscritos",       
           loadComplete:function(data){
             if(data.records == 0){    
               var msj = $("#msj");    
@@ -549,8 +554,7 @@ var inscritos = {
                 msj.empty();           
               },5000);                                                                                        
             }                                                                                                                                     
-          }                                        
-          //editurl:'delete'                                                                                                                                                                                    
+          }                                                                                                                                                                                                                                   
       }).navGrid('#pager_inscritos',{edit:false,add:false,del:false},
       {}, //  default settings for edit
     {}, //  default settings for add
@@ -594,15 +598,15 @@ var caso_cerrado = {
                             var r = $.parseJSON(response.responseText);
                             $("#msj").html(r.message);                   
                             return [r.success, r.message, null];
-                        }                                                                                                                                                          
+                        }                                                                                                                                                               
                     }                                    
                  }                  
               }																										                                                         
           ],                                                                                                                                                                                                                                     
-          rowNum:5,                        
+          rowNum:20,                        
           width: 970,		                                    
-          //height: 300,            
-          rowList:[10,20,30],
+          height:200,                                                      
+          rowList:[10,20,30],           
           pager: '#pager_caso_cerrado',                                              
           sortname:"id_preinscrito", 
           sortorder:"desc",                  
@@ -627,7 +631,7 @@ var caso_cerrado = {
     {searchOnEnter:true,closeOnEscape:true}, // search options
     {} /* view parameters*/ 
     );                                                                                                                                                                                                   
-  }                                                                        
+  }                                                                           
 }      
 						
             
