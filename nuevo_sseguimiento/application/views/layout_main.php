@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="<?php echo base_url('includes/admin/js/jquery-ui-1.10.3.custom/css/jquery-ui-themes-1.10.3/themes/smoothness/jquery-ui.min.css'); ?>" media="screen">
     <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url('includes/jqGrid/css/ui.jqgrid.css'); ?>" />								 		   		  	  
     <link rel="stylesheet" href="<?php echo base_url('includes/admin/css/colorbox.css'); ?>" media="screen">				                                                                                                                                                             
-    <link rel="stylesheet" href="<?php echo base_url('includes/admin/css/estilos2.css'); ?>" media="screen">                                                               			  					                                                                 
+    <link rel="stylesheet" href="<?php echo base_url('includes/admin/css/estilos.css'); ?>" media="screen">                                                               			  					                                                                 
 	                                                  				
     <!-- art -->                                        
     <script src="<?php echo base_url('includes/art/jquery.js'); ?>"></script>
@@ -37,12 +37,11 @@
         <div id="centrado">
         <div id="encabezado">
         	<div id="logo">
-        	<?php echo img('includes/admin/images/seguimiento/logo_UIA.jpg'); ?>				
-        	<?php echo img('includes/admin/images/seguimiento/logo_DEC.jpg'); ?>			
+            	<?php echo img('includes/admin/images/seguimiento/logo_UIA.jpg'); ?>				
+            	<?php echo img('includes/admin/images/seguimiento/logo_DEC.jpg'); ?>			
         	</div>	
-        	<div id="titulo">Sistema de seguimiento de preinscripciones						
-        	<div id="salir">Administrador | Cerrar sesión</div>	
-        	</div>																						
+        	<h1>Sistema de seguimiento de preinscripciones</h1>						
+        	<h2>Administrador | <a href="#">Cerrar sesión</a></h2>																							
         </div>							   		      		     																				
         <div>                                                        
             <ul class="menu"> 
