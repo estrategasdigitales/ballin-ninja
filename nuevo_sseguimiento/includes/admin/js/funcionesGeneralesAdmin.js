@@ -62,7 +62,6 @@ var users = {
               },5000);                                                                                          
             }                                                                                                                                      
           }                                                                                                                                                    
-          //editurl:'delete'                                                                                                                                                                                                      
     }).navGrid('#pager',{edit:false,add:false,del:false,excel:true}, 
     {}, //  default settings for edit
     {}, //  default settings for add
@@ -368,45 +367,50 @@ var preinscritos = {
           url:base_url+'admin/preinscritos/jqGrid', //another controller function for generating data
           mtype : "post",     //Ajax request type. It also could be GET
           datatype: "json",   //supported formats XML, JSON or Arrray             
-          colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
-          colModel:[                              		                                               						                                                                                                                                                                                                                                                                                                												                                                                       		
+          colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Código de promoción','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
+          colModel:[                                            		                                               						                                                                                                                                                                                                                                                                                                												                                                                       		
               {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
                 return "<a href='detalle/" + options.rowId + "' class='group1' name='edit'>"+cellValue+"</a>";                                    
-              }},       		                                                                                                                                                                                           
+              }},                     		                                                                                                                                                                                           
               {name:'a_paterno',index:'a_paterno',search:true,sortable:true,width:120,align:'left'}, 
               {name:'a_materno',index:'a_materno',search:true,sortable:true,width:120,align:'left'},                                                                                                                                                                                                           
               {name:'program_name',index:'program_name',search:true,sortable:true,width:200,align:'left'},                                                                                                                                                                                                           
               {name:'fecha_registro',index:'fecha_registro',search:false,sortable:true,width:100,align:'left'},  
+              {name:'codigo',index:'codigo',search:false,sortable:true,width:100,align:'left'},  
               {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
-                if(cellValue==1){													
-                  return "<img src='../../includes/admin/images/seguimiento/green.png'>";
-                } 									        		                                          
-                return '';																			                     
-              }},                                              				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]==1){                                   						
+                  return "<img src='../../includes/admin/images/seguimiento/green.png'>"+cellValue[1];
+                }                                                     	        								        		                                          
+                return '';    																			                     
+              }},                                                           				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
               {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
-                if(cellValue==1){
-                  return "<img src='../../includes/admin/images/seguimiento/green.png'>";
-                }         						                               
-                return '';                           
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]==1){                                              
+                  return "<img src='../../includes/admin/images/seguimiento/green.png'>"+cellValue[1];
+                }                                                                                                                     
+                return '';                              
               }},            
               {name:'envio_decse',index:'envio_decse',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
-                if(cellValue==1){
-                  return "<img src='../../includes/admin/images/seguimiento/green.png'>";
-                }         						                               			
-                return '';                    
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]==1){                                              
+                  return "<img src='../../includes/admin/images/seguimiento/green.png'>"+cellValue[1];
+                }                                                                                                                     
+                return '';                   
               }},
               {name:'envio_claves',index:'envio_claves',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
-                if(cellValue==1){
-                  return "<img src='../../includes/admin/images/seguimiento/green.png'>";
-                }                                        
-                return ''; 																		                    
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]==1){                                              
+                  return "<img src='../../includes/admin/images/seguimiento/green.png'>"+cellValue[1];
+                }                                                                                                                     
+                return '';    																		                    
               }},		
               {name:'pago_realizado',index:'pago_realizado',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
-                if(cellValue==1){						
-                  return "<img src='../../includes/admin/images/seguimiento/green.png'>";
-                }												       								                                 
-                return '';         
-                                				
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]==1){                                              
+                  return "<img src='../../includes/admin/images/seguimiento/green.png'>"+cellValue[1];
+                }                                                                                                                     
+                return '';                       				
               }},         															
               {name: 'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
                     keys: true,                                                                                                                                   
@@ -633,8 +637,7 @@ var caso_cerrado = {
     );                                                                                                                                                                                                   
   }                                                                           
 }      
-						
-            
+						                                      
 var casos_inconclusos = {
 
   onReady:function()
@@ -669,13 +672,13 @@ var casos_inconclusos = {
                             $("#msj").html(r.message);                   
                             return [r.success, r.message, null];
                         }                                                                                                                                                          
-                    }                               
-                 }                  
-              }								                                                         
+                    }                                            
+                 }                      
+              }               								                                                         
           ],                                                                                                                                                                                                                         
-          rowNum:5,                        
-          width: 970,		                                    
-          //height: 300,            
+          rowNum:20,                           
+          width: 970,                  		                                    
+          height:200,                 
           rowList:[10,20,30],
           pager: '#pager_casos_inconclusos',                                              
           sortname: 'id_preinscrito',

@@ -38,9 +38,9 @@ class Users_model extends CI_Model
     {                                                                                                                                                                                                                                                                                                                               
         $query = $this->db->query("select COUNT(*) as total from seg_dec_usuarios 
                                    left join seg_dec_usuarios_roles on seg_dec_usuarios_roles.id_tipo=seg_dec_usuarios.tipo 
-                                   $search");                                                                             
+                                   ".$search."");                                                                             
         if ($query->num_rows()>0)                                                                                                                             
-        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
              return $query->row()->total;                             
         }                                                                                                                                                                                                                                                                                   
         else
@@ -145,16 +145,18 @@ class Users_model extends CI_Model
         $query = $this->db->query("select user_uuid,nombre,notificacion,activo,rol 
                                   from seg_dec_usuarios 
                                   left join seg_dec_usuarios_roles on seg_dec_usuarios_roles.id_tipo=seg_dec_usuarios.tipo 
-                                  $search                       
-                                  order by $sidx $sord");                                                   
-        if ($query->num_rows()>0)                                                                                                                                    
-        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                  ".$search."                       
+                                  order by ".$sidx." 
+                                  ".$sord."                     
+                                  limit ".$start.",".$limit."");                                                   
+        if($query->num_rows()>0)                                                                                                                                                                
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
              return $query->result();                             
         }                                                                                                                                                                                                                                                                            
         else
         {                                                                                                                                                                                  
             return FALSE;            
-        }              
+        }                             
     }                                                                                               
 
     public function add_user($data)
@@ -179,7 +181,7 @@ class Users_model extends CI_Model
                 
         $programas = $this->array_programas($user_uuid,$data['programas']); 
                       
-        if(!empty($programas)){  
+        if(!empty($programas)){                       
             $this->db->insert_batch('seg_dec_usuarios_programas', $programas);                                                                                                 
         }                                                      
 
@@ -278,7 +280,7 @@ class Users_model extends CI_Model
              return $query->row();                             
         }                                                                                                                                                                                                                                                             
         else
-        {                                                                                                                                         
+        {                                                                                                                                            
             return FALSE;            
         }                                                                                        
     }           

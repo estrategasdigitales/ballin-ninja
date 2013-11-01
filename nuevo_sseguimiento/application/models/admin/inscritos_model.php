@@ -6,7 +6,7 @@ class Inscritos_model extends CI_Model
     {                                                                   
         parent::__construct();
         $this->load->database();
-    }                                                                                                                                                                                                                                                           
+    }                                                                                                                                                                                                                                                                          
 
     public function total_inscritos($user_uuid)
     {                                                                                                              

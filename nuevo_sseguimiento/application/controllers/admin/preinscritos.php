@@ -10,7 +10,7 @@ class Preinscritos extends CI_Controller {
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/preinscritos_model');
        	$this->acceso();                                                                   
-    }                                                                 
+    }                                                                                           
 
     public function show()
     {                                                                                                                                                      
@@ -82,20 +82,14 @@ class Preinscritos extends CI_Controller {
                 $preinscritos = $this->preinscritos_model->show_preinscritos($this->session->userdata('user_uuid'),$start,$limit,$sidx,$sord);                                                                                                                                                          
             }
 
-        }else{		 
-
-            $searchOper   = $this->input->post('searchOper');
-            $searchField  = $this->input->post('searchField');
-            $searchString = $this->input->post('searchString');
-
-            $where = search($searchOper,$searchField,$searchString);  
+        }else{		        
 
             if($this->accesos->admin())
             {                                      
                 $preinscritos = $this->preinscritos_model->search_preinscritos_admin($where,$start,$limit,$sidx,$sord);
             }else{                                                                                                                    
                 $preinscritos = $this->preinscritos_model->search_preinscritos($where,$this->session->userdata('user_uuid'),$start,$limit,$sidx,$sord);
-            }                       
+            }                                              
         }             							                           	                                                                                                                                                                                                                                                             
 
         $data = new stdClass();                 
@@ -104,12 +98,18 @@ class Preinscritos extends CI_Controller {
         $data->records = $total_preinscritos;
             
         if(!empty($preinscritos))
-        {                                                                                                                                                                                                                                                                                                                                                                                                         
+        {                                                                                                                                                                                                                                                                                                                                                                                                                
             foreach($preinscritos as $key => $preinscrito)
-            {               
+            {                                                                       
+                $primer_contacto = ($this->get_comentario($preinscrito->id_preinscrito,1))?'*':'';
+                $documentos = ($this->get_comentario($preinscrito->id_preinscrito,2))?'*':'';
+                $envio_decse = ($this->get_comentario($preinscrito->id_preinscrito,3))?'*':'';
+                $envio_claves = ($this->get_comentario($preinscrito->id_preinscrito,4))?'*':'';
+                $pago_realizado = ($this->get_comentario($preinscrito->id_preinscrito,5))?'*':'';
+
                 $data->rows[$key]['id']   = $preinscrito->id_preinscrito;                                                                                                   
-                $data->rows[$key]['cell'] = array($preinscrito->nombre,$preinscrito->a_paterno,$preinscrito->a_materno,$preinscrito->program_name,$preinscrito->fecha_registro,$preinscrito->primer_contacto,$preinscrito->documentos,$preinscrito->envio_decse,$preinscrito->envio_claves,$preinscrito->pago_realizado,'eliminar');
-            }  										                                                            
+                $data->rows[$key]['cell'] = array($preinscrito->nombre,$preinscrito->a_paterno,$preinscrito->a_materno,$preinscrito->program_name,$preinscrito->fecha_registro,$preinscrito->codigo,$preinscrito->primer_contacto.'|'.$primer_contacto,$preinscrito->documentos.'|'.$documentos,$preinscrito->envio_decse.'|'.$envio_decse,$preinscrito->envio_claves.'|'.$envio_claves,$preinscrito->pago_realizado.'|'.$pago_realizado,'eliminar');
+            }                     										                                                            
 						
         }else{      
 
@@ -201,13 +201,19 @@ class Preinscritos extends CI_Controller {
             $data['caso_inconcluso'] = $preinscrito->caso_inconcluso;
             $data['informes'] = $preinscrito->informes;
             $data['atendido'] = $preinscrito->atendido;                 
-                                                  
+                                                                 
             $data['comentario_general'] = $preinscrito->comentario_general;
 
             $data['archivos'] = $this->preinscritos_model->get_documentos($id_preinscrito);
 
+            $data['comment_primercontacto'] =  $this->get_comentario($id_preinscrito,1);
+            $data['comment_documentos'] =  $this->get_comentario($id_preinscrito,2);
+            $data['comment_decse'] =  $this->get_comentario($id_preinscrito,3);                  
+            $data['comment_envioclaves'] =  $this->get_comentario($id_preinscrito,4);
+            $data['comment_pagorealizado'] =  $this->get_comentario($id_preinscrito,5);
+
             $this->load->view('admin/preinscritos/preinscrito_editar',$data);    
-        }                                                                                                                                               
+        }                                                                                                                                                                              
     }                
 
     public function update()
@@ -252,42 +258,93 @@ class Preinscritos extends CI_Controller {
         $data['envio_claves'] = $this->input->post('envio_claves'); 
         $data['pago_realizado'] = $this->input->post('pago_realizado'); 
 
+        $data['comment_primercontacto'] =  $this->input->post('comment_primercontacto');
+        $data['comment_documentos'] =  $this->input->post('comment_documentos');
+        $data['comment_decse'] =  $this->input->post('comment_decse');
+        $data['comment_envioclaves'] =  $this->input->post('comment_envioclaves');
+        $data['comment_pagorealizado'] =  $this->input->post('comment_pagorealizado');
+
         $data['caso_cerrado'] = $this->input->post('caso_cerrado'); 
         $data['caso_inconcluso'] = $this->input->post('caso_inconcluso');
         $data['informes'] = $this->input->post('informes');
-        $data['atendido'] = $this->input->post('atendido');   
+        $data['atendido'] = $this->input->post('atendido'); 
+
 
         $data['comentario_general'] = $this->input->post('comentario_general',TRUE);                       
 
         $data['program_name'] = $this->preinscritos_model->get_program_name($data['id_preinscrito'])->program_name;                                                                                                      
 
-        if($this->form_validation->run() == FALSE)        
-        {                                                                            
+        if($this->form_validation->run() === FALSE)        
+        {                                                                                        
             $this->load->view('admin/preinscritos/preinscrito_editar',$data);            
 
-        }else{                                                                                                                                                        
+        }else{                                                                                                                                                                  
 
             if(!empty($_FILES['documento_upload']['name'][0]) OR !empty($_FILES['documento_upload']['name'][1]) OR !empty($_FILES['documento_upload']['name'][2]))                             
-            {                                                                                                                                                            
+            {                                                                                                                                                                       
                 if(!$data['documento_upload'] = $this->upload($data['id_preinscrito'],$this->input->post('doc_type',TRUE)))
                 {                                                                                                                                                                                                                                                                                                  
                     $data['msj']  = msj($this->error,'error');      
                     $this->load->view('admin/preinscritos/preinscrito_editar',$data);
                     return false;                      
-                }
+                }                   
+            }                                                                                
 
-            }else
-            {                   
-                $data['documento_upload'] ='';           
-            }                                                                                                                                                                                                                             
+            if($id_comentario = $this->get_id_comentario($data['id_preinscrito'],1)){
+                $data['comment_update'][] = array('id_comentario'=>$id_comentario,'comentario'=>$data['comment_primercontacto'],'fecha'=>date('Y-m-d'));      
+            }else{                                                                                                                                                                                                               
+                $data['comment_insert'][] = array('id_preinscrito'=>$data['id_preinscrito'],'id_paso'=>1,'comentario'=>$data['comment_primercontacto'],'fecha'=>date('Y-m-d'));      
+            }                                                                                                                     
+
+            if($id_comentario = $this->get_id_comentario($data['id_preinscrito'],2)){
+                $data['comment_update'][] = array('id_comentario'=>$id_comentario,'comentario'=>$data['comment_documentos'],'fecha'=>date('Y-m-d'));      
+            }else{                                                                                
+                $data['comment_insert'][] = array('id_preinscrito'=>$data['id_preinscrito'],'id_paso'=>2,'comentario'=>$data['comment_documentos'],'fecha'=>date('Y-m-d'));      
+            }
+
+            if($id_comentario = $this->get_id_comentario($data['id_preinscrito'],3)){
+                $data['comment_update'][] = array('id_comentario'=>$id_comentario,'comentario'=>$data['comment_decse'],'fecha'=>date('Y-m-d'));      
+            }else{                  
+                $data['comment_insert'][] = array('id_preinscrito'=>$data['id_preinscrito'],'id_paso'=>3,'comentario'=>$data['comment_decse'],'fecha'=>date('Y-m-d'));      
+            }                                                                       
+
+            if($id_comentario = $this->get_id_comentario($data['id_preinscrito'],4)){
+                $data['comment_update'][] = array('id_comentario'=>$id_comentario,'comentario'=>$data['comment_envioclaves'],'fecha'=>date('Y-m-d'));      
+            }else{                                                                      
+                $data['comment_insert'][] = array('id_preinscrito'=>$data['id_preinscrito'],'id_paso'=>4,'comentario'=>$data['comment_envioclaves'],'fecha'=>date('Y-m-d'));      
+            }                                                                                                                                                             
+
+            if($id_comentario = $this->get_id_comentario($data['id_preinscrito'],5)){
+                $data['comment_update'][] = array('id_comentario'=>$id_comentario,'comentario'=>$data['comment_pagorealizado'],'fecha'=>date('Y-m-d'));      
+            }else{                                                
+                $data['comment_insert'][] = array('id_preinscrito'=>$data['id_preinscrito'],'id_paso'=>5,'comentario'=>$data['comment_pagorealizado'],'fecha'=>date('Y-m-d'));      
+            }                                           
 
             if($this->preinscritos_model->update_preinscrito($data))
-            {                                                                                 
+            {                                                                                                              
                 $this->session->set_flashdata('msj',msj('El registro se modificó correctamente.','message'));                                    
                 redirect('admin/preinscritos/detalle/'.$data['id_preinscrito']);
-            }                                                             
+            }                                                                                                   
         }                                                                                                                                     
+    }           
+
+    public function get_id_comentario($id_preinscrito,$id_paso)
+    {                                                                                                                                                                                                                                              
+        $comentario = $this->preinscritos_model->get_id_comentario($id_preinscrito,$id_paso);   
+        if(!empty($comentario)){
+            return $comentario->id_comentario;
+        }                                                                                                                                                                          
+        return FALSE;                                                                  
     }                                               
+
+    public function get_comentario($id_preinscrito,$id_paso)
+    {                                                                                                                                                                                                                                              
+        $comentario = $this->preinscritos_model->get_comentario($id_preinscrito,$id_paso);   
+        if(!empty($comentario)){
+            return $comentario->comentario;
+        }                                                                                                                                                           
+        return FALSE;                                                            
+    }                                                               
 
     public function upload($id_preinscrito,$doc_type)
     {                                                                                                                                                                                                                                                                                  
@@ -317,10 +374,10 @@ class Preinscritos extends CI_Controller {
                 $_FILES['userfile']['size']     = $_FILES['documento_upload']['size'][$x];
                                                                                                      
                     if(!$this->upload->do_upload())
-                    {                                                              
+                    {                                                                            
                         $this->error = $this->upload->display_errors();
                         return false;       
-                    }else{                                                                                                                                                                                                                                                                                              
+                    }else{                                                                                                                                                                                                                                                                                                
                         $archivos[] = array('id_preinscrito'=>$id_preinscrito,'doc_type'=>$doc_type[$x],'archivo'=>$file);
                     }                                                                                                            
 

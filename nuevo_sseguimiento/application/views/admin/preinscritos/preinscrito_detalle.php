@@ -4,11 +4,11 @@
 <meta charset="utf-8">
     <title></title>				
     <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width">													       	                                                                   
-    <link rel="stylesheet" href="<?php echo base_url('includes/admin/css/estilos2.css'); ?>" media="screen">                                                               			  					                                                                 
+    <link rel="stylesheet" href="<?php echo base_url('includes/admin/css/estilos.css'); ?>" media="screen">                                                               			  					                                                                 
     <script src="<?php echo base_url('includes/admin/js/jquery-1.8.2.js'); ?>"></script> 
     <script src="<?php echo base_url('includes/admin/js/funcionesGeneralesColorBox.js'); ?>"></script> 
-</head>								
-<body>												
+</head>														
+<body>																
 <div><?php echo isset($msj)?$msj:''; ?></div>	
 <div id="preinscrito_detalle">					
 <div id="datos_programa"><div class="titulo_cb">Programa:</div><label><?php echo $preinscrito->program_name; ?></label></div>								 								

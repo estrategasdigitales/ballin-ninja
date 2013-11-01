@@ -8,8 +8,17 @@ class Informes extends CI_Controller {
     {                                                                                                                     
         parent::__construct();          
         $this->load->library('layout','layout_main');                                  
-        $this->load->model('admin/informes_model');                                                                     
-    }                                                          		
+        $this->load->model('admin/informes_model'); 
+        $this->acceso();                                                                        
+    }                                         
+
+    public function acceso()
+    {                                                        
+        if(!$this->accesos->acceso())
+        {                                 
+            redirect('acceso/login');           
+        }                                                                                                   
+    }                                                       		
 
     public function show()
     {                                                                                                                                  
@@ -31,16 +40,26 @@ class Informes extends CI_Controller {
                 
         if($this->input->post("_search") == "false")
         { 
-            $total_informes = $this->informes_model->total_informes($user_uuid);
-        }
+            if($this->accesos->admin())
+            {                                         
+                $total_informes = $this->informes_model->total_informes_admin();
+            }else{                          
+                $total_informes = $this->informes_model->total_informes($user_uuid);
+            }
+        }                       
         else            
-        {                                   
+        {                                                          
             $searchOper   = $this->input->post('searchOper');
             $searchField  = $this->input->post('searchField');
             $searchString = $this->input->post('searchString');
 
-            $where = search($searchOper,$searchField,$searchString);                                                                         
-            $total_informes = $this->informes_model->total_search_informes($where,$user_uuid)->total;     
+            $where = search($searchOper,$searchField,$searchString); 
+            if($this->accesos->admin())
+            {                              
+                $total_informes = $this->informes_model->total_search_informes_admin($where)->total;     
+            }else{                                                                                                                
+                $total_informes = $this->informes_model->total_search_informes($where,$user_uuid)->total;     
+            }
         }                                                                                   
 
         $total_pages = total_pages($total_informes,$limit);                                                                                                                                                                
@@ -54,17 +73,22 @@ class Informes extends CI_Controller {
         $start = ($start>0)?$start:0; 
                                                             
         if($this->input->post("_search") == "false")
-        {                                                                                                                                                                  
-            $informes = $this->informes_model->show_informes($user_uuid,$start,$limit,$sidx,$sord);                                                                                                                                                          
+        {   
+            if($this->accesos->admin())
+            {
+                $informes = $this->informes_model->show_informes_admin($start,$limit,$sidx,$sord);                                                                                                                                                          
+            }else{                                                                                                                                                                              
+                $informes = $this->informes_model->show_informes($user_uuid,$start,$limit,$sidx,$sord);                                                                                                                                                          
+            }
         }       
         else
         {                                                                                                                                
-            $searchOper   = $this->input->post('searchOper');
-            $searchField  = $this->input->post('searchField');
-            $searchString = $this->input->post('searchString');
-
-            $where = search($searchOper,$searchField,$searchString);
-            $informes = $this->informes_model->search_informes($where,$user_uuid,$start,$limit,$sidx,$sord);
+            if($this->accesos->admin())
+            {       
+                $informes = $this->informes_model->search_informes_admin($where,$start,$limit,$sidx,$sord);
+            }else{
+                $informes = $this->informes_model->search_informes($where,$user_uuid,$start,$limit,$sidx,$sord);
+            }               
         }                                                                                                                                                                                                                                                                                        
 
         $data = new stdClass();                 
@@ -77,8 +101,8 @@ class Informes extends CI_Controller {
             foreach($informes as $key => $informe){               
                 $data->rows[$key]['id']   = $informe->id_preinscrito;                                                                                                   
                 $data->rows[$key]['cell'] = array($informe->nombre,$informe->a_paterno,$informe->a_materno,$informe->program_name,$informe->fecha_registro,$informe->atendido,'eliminar');
-            }                                                         
-        }       
+            }                                                                        
+        }                     
         else
         {
             $data->msg = msj('No existen registros.','message');                                                                   

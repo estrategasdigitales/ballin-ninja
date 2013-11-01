@@ -4,13 +4,13 @@
 <meta charset="utf-8">
     <title></title>						
     <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width">													       	                                                                   
-    <link rel="stylesheet" href="<?php echo base_url('includes/admin/css/estilos2.css'); ?>" media="screen">                                                               			  					                                                                 
+    <link rel="stylesheet" href="<?php echo base_url('includes/admin/css/estilos.css'); ?>" media="screen">                                                               			  					                                                                 
     <script src="<?php echo base_url('includes/admin/js/jquery-1.8.2.js'); ?>"></script> 
     <script src="<?php echo base_url('includes/admin/js/funcionesGeneralesColorBox.js'); ?>"></script> 
-</head>																																																																																							 											    		                                                                 
-<body>																					
-<div id="msj_">			
-	<?php 
+</head>																																																																																														 											    		                                                                 
+<body>																								
+<div id="msj_">				
+	<?php 	
 	echo isset($msj)?$msj:''; 
 	echo validation_errors(); 
 	?>											
@@ -57,7 +57,7 @@
 	?>																							
 			<div><a href="<?php echo base_url('includes/admin/documentos/'.$archivo->archivo); ?>" target="_blank"><?php echo $archivo->doc_type; ?></a></div>			
 	<?php 								
-			}																												
+			}																															
 		 }else{		
 	?>	 			
 		<div>No existen documentos.</div>
@@ -74,23 +74,23 @@
 
 	<div></label><input type="checkbox" value="1" name="primer_contacto" id="primer_contacto" <?php echo ($primer_contacto==1)?"checked":""; ?>><label>Primer contacto</label></div>
 	<a href="#" name="estatus" rel="estatus_primer_contacto"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-	<div id="estatus_primer_contacto" style="display:none;"><textarea name="td_comment_primercontacto"></textarea></div>																		
+	<div id="estatus_primer_contacto" style="display:none;"><textarea name="comment_primercontacto"><?php echo $comment_primercontacto; ?></textarea></div>																		
 																													
 	<div><input type="checkbox" value="1" name="documentos"  id="documentos" <?php echo ($documentos==1)?"checked":""; ?>><label>Documento</label></div>			
 	<a href="#" name="estatus" rel="estatus_documentos"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-	<div id="estatus_documentos" style="display:none;"><textarea name="td_comment_documentos"></textarea></div>																								
+	<div id="estatus_documentos" style="display:none;"><textarea name="comment_documentos"><?php echo $comment_documentos; ?></textarea></div>																									
 																
 	<div><input type="checkbox" value="1" name="envio_decse" id="envio_decse" <?php echo ($envio_decse==1)?"checked":""; ?>><label>Enviar a DECSE</label></div>			
 	<a href="#" name="estatus" rel="estatus_envio_decse"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-	<div id="estatus_envio_decse" style="display:none;"><textarea name="td_comment_decse"></textarea></div>		
+	<div id="estatus_envio_decse" style="display:none;"><textarea name="comment_decse"><?php echo $comment_decse; ?></textarea></div>		
 									
 	<div><input type="checkbox" value="1" name="envio_claves"  id="envio_claves" <?php echo ($envio_claves==1)?"checked":""; ?>><label>Envío de claves</label></div>			
 	<a href="#" name="estatus" rel="estatus_envio_claves"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-	<div id="estatus_envio_claves" style="display:none;"><textarea name="td_comment_envioclaves"></textarea></div>				
-																																																													
+	<div id="estatus_envio_claves" style="display:none;"><textarea name="comment_envioclaves"><?php echo $comment_envioclaves; ?></textarea></div>				
+																																																																																									
 	<div><input type="checkbox" value="1" name="pago_realizado"  id="pago_realizado" <?php echo ($pago_realizado==1)?"checked":""; ?>><label>Pago realizado</label></div>			
 	<a href="#" name="estatus" rel="estatus_pago_realizado"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-	<div id="estatus_pago_realizado" style="display:none;"><textarea name="td_comment_pagorealizado"></textarea></div>		
+	<div id="estatus_pago_realizado" style="display:none;"><textarea name="comment_pagorealizado"><?php echo $comment_pagorealizado; ?></textarea></div>		
 </div>																																																																																				
 <div id="clasificar_aspirante">		
 		<div class="titulo_cb">Clasificación del aspirante</div>
