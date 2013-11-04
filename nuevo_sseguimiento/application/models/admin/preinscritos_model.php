@@ -45,7 +45,45 @@ class Preinscritos_model extends CI_Model
         {                                                                                                                                                                                                   
             return FALSE;            
         }                                                            
-    }                     	   
+    }      
+                        
+     public function excel($user_uuid,$sidx,$sord)
+    {                                                                                                                                                                                                                                                                                                                                                                      
+        $this->db->select('pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,pre.codigo,pro.program_name,status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado');
+        $this->db->from('seg_dec_preinscritos as pre');                                                                                                                                                                                                                                                                                                                                                                                              
+        $this->db->join('seg_dec_usuarios_programas as up','up.id_program = pre.id_program', 'inner');
+        $this->db->join('seg_dec_programas as pro','up.id_program = pro.id_program', 'inner');                                                        
+        $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito', 'inner');                                                                                                                                                                                                                                                                                      
+        $this->db->where('up.user_uuid',$user_uuid);                                                                                                                                                                                                                                                                                        
+        $this->db->order_by($sidx,$sord);                                                                                                                                                                                                                            
+        $query = $this->db->get();                                                                                                            
+        if($query->num_rows()>0)                                                                                                                                                   
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+            return $query->result();                             
+        }                                                                                                                                                                                                                                                                                                                                                                      
+        else
+        {                                                                                                                                                                                                   
+            return FALSE;            
+        }                                                            
+    }
+
+    public function excel_admin($sidx,$sord)
+    {                                                                                                                                                                                                                                                                                                                                                                                                              
+        $this->db->select('pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,pro.program_name,pre.codigo,status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado');
+        $this->db->from('seg_dec_preinscritos as pre');                                                                                                                                                                                                                                                                                                                                                        
+        $this->db->join('seg_dec_programas as pro','pro.id_program = pre.id_program','inner');                                                          
+        $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito','inner');                                                                                                                                                                                                           
+        $this->db->order_by($sidx,$sord);                                                                                                                                                                                                                              
+        $query = $this->db->get();                                                                                                            
+        if($query->num_rows()>0)                                                                                                                                                   
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+            return $query->result();                             
+        }                                                                                                                                                                                                                                                                                                                                                                                                             
+        else
+        {                                                                                                                                                                                                              
+            return FALSE;            
+        }                                   
+    }                          	   
 
     public function show_preinscritos_admin($start,$limit,$sidx,$sord)
     {                                                                                                                                                                                                                                                                                                                                                                                                              

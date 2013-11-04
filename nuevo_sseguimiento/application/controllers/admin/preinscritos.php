@@ -15,7 +15,30 @@ class Preinscritos extends CI_Controller {
     public function show()
     {                                                                                                                                                      
         $this->layout->view('admin/preinscritos/show_preinscritos');                                                           
-    }                                                                          																								        					
+    }    
+
+    public function excel()
+    {                                                                   
+        $this->load->helper('php-excel'); 
+        $parametros = $this->input->get();            
+        if($this->accesos->admin())
+        {                                                                                        
+        $preinscritos = $this->preinscritos_model->excel_admin($parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+        }else{                          
+            $preinscritos = $this->preinscritos_model->excel($this->session->userdata('user_uuid'),$parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+        }                                                 
+        $fields = (
+            $field_array[] = array ('nombre','a_paterno','a_materno','fecha_registro','codigo','program_name','primer_contacto','documentos','envio_decse','envio_claves','pago_realizado')
+        );                                      
+        foreach ($preinscritos as $row)
+        {                                                                 
+        $data_array[] = array($row->nombre,$row->a_paterno,$row->a_materno,$row->fecha_registro,$row->codigo,$row->program_name,$row->primer_contacto,$row->documentos,$row->envio_decse,$row->envio_claves,$row->pago_realizado);
+        }                           
+        $xls = new Excel_XML;
+        $xls->addArray ($field_array);
+        $xls->addArray ($data_array);
+        $xls->generateXML("output_name");                                       
+    }                                                                                                     																								        					
 
     public function acceso()
     {                                                        
@@ -100,13 +123,13 @@ class Preinscritos extends CI_Controller {
         if(!empty($preinscritos))
         {                                                                                                                                                                                                                                                                                                                                                                                                                
             foreach($preinscritos as $key => $preinscrito)
-            {                                                                       
-                $primer_contacto = ($this->get_comentario($preinscrito->id_preinscrito,1))?'*':'';
-                $documentos = ($this->get_comentario($preinscrito->id_preinscrito,2))?'*':'';
-                $envio_decse = ($this->get_comentario($preinscrito->id_preinscrito,3))?'*':'';
-                $envio_claves = ($this->get_comentario($preinscrito->id_preinscrito,4))?'*':'';
-                $pago_realizado = ($this->get_comentario($preinscrito->id_preinscrito,5))?'*':'';
-
+            {                              					             																		                            				
+                $primer_contacto = ( $primer_contacto = $this->get_comentario($preinscrito->id_preinscrito,1))?$primer_contacto:'';
+                $documentos = ($documentos = $this->get_comentario($preinscrito->id_preinscrito,2))?$documentos :'';
+                $envio_decse = ($envio_decse = $this->get_comentario($preinscrito->id_preinscrito,3))?$envio_decse:'';
+                $envio_claves = ($envio_claves = $this->get_comentario($preinscrito->id_preinscrito,4))?$envio_claves:'';		
+                $pago_realizado = ($pago_realizado = $this->get_comentario($preinscrito->id_preinscrito,5))?$pago_realizado:'';
+															
                 $data->rows[$key]['id']   = $preinscrito->id_preinscrito;                                                                                                   
                 $data->rows[$key]['cell'] = array($preinscrito->nombre,$preinscrito->a_paterno,$preinscrito->a_materno,$preinscrito->program_name,$preinscrito->fecha_registro,$preinscrito->codigo,$preinscrito->primer_contacto.'|'.$primer_contacto,$preinscrito->documentos.'|'.$documentos,$preinscrito->envio_decse.'|'.$envio_decse,$preinscrito->envio_claves.'|'.$envio_claves,$preinscrito->pago_realizado.'|'.$pago_realizado,'eliminar');
             }                     										                                                            

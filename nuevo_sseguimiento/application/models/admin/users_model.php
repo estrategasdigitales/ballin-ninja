@@ -10,6 +10,7 @@ class Users_model extends CI_Model
         $this->load->database();
     }                                                                                                                                                               
 
+	/*
     public function acceso($username,$pass)
     {                          
         $this->db->select('usu.user_uuid,usu.nombre,usu.tipo,acc.users,acc.preinscritos,acc.inscritos,acc.casos_cerrados,acc.casos_inconclusos,acc.informes');               
@@ -27,8 +28,27 @@ class Users_model extends CI_Model
         {                                                                                                                                                                                 
             return FALSE;            
         }                                                                    
-    }      
-
+    }    */  
+	
+	public function acceso($username,$pass)
+    {           							               
+        $this->db->select('usu.user_uuid,usu.nombre,usu.tipo,acc.users,acc.preinscritos,acc.inscritos,acc.casos_cerrados,acc.casos_inconclusos,acc.informes');               
+        $this->db->from('seg_dec_usuarios as usu');                                   
+        $this->db->join('seg_dec_accesos as acc','acc.id_role = usu.tipo', 'left');                                                 
+        $this->db->where('usu.username',$username);					 		  																																						                   
+        $this->db->where("AES_DECRYPT(usu.pass,'{$this->key}')",$pass);													
+        $this->db->where('usu.activo', 1);																															 								
+        $query = $this->db->get();                                                                                          
+        if ($query->num_rows()>0)                                                                                                                             
+        {						              					 						       				  	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+             return $query->row();                             
+        }                                                                                                                                                                                                                                                                                                                 
+        else
+        {                                                                                                                                                                                 
+            return FALSE;            
+        }		                                                                    
+    } 
+	
     public function total_users()
     {                                                                                                                                                                                                          
         return  $this->db->count_all("seg_dec_usuarios");          
@@ -56,6 +76,23 @@ class Users_model extends CI_Model
         $this->db->join('seg_dec_usuarios_roles as ur','ur.id_tipo = u.tipo', 'left');
         $this->db->order_by($sidx,$sord);   
         $this->db->limit($limit,$start);                                                                                                                                                                           
+        $query = $this->db->get();
+        if ($query->num_rows()>0)                                                                                                                             
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+            return $query->result();                             
+        }                                                                                                                                                                                                                                                                                                                                    
+        else
+        {                                                                                                                                                                                     
+            return FALSE;            
+        }                                        
+    }  
+
+    public function users_excel($sidx,$sord)
+    {                                                                                                                                                                                                                                                                                                          
+        $this->db->select('u.nombre,u.notificacion,u.activo,ur.rol');               
+        $this->db->from('seg_dec_usuarios as u');                                                                                                                                                                               
+        $this->db->join('seg_dec_usuarios_roles as ur','ur.id_tipo = u.tipo', 'left');
+        $this->db->order_by($sidx,$sord);                                                                                                                                                                                         
         $query = $this->db->get();
         if ($query->num_rows()>0)                                                                                                                             
         {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

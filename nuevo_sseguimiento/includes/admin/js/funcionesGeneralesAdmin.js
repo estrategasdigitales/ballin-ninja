@@ -4,24 +4,20 @@ var users = {
     {                                                                            
       var base_url = $("#base_url").text();
           $("#list").jqGrid({                                        
-          url:base_url+'admin/users/jqGrid', //another controller function for generating data
-          mtype : "post",     //Ajax request type. It also could be GET
-          datatype: "json",   //supported formats XML, JSON or Arrray
-          colNames:['Nombre','Rol de usuario','Editar','Notificación','Activo','Borrar'],       //Grid column headings
+          url:base_url+'admin/users/jqGrid', 
+          mtype : "post",   
+          datatype: "json",  
+          colNames:['Nombre','Rol de usuario','Editar','Notificación','Activo','Borrar'], 
           colModel:[                                                                                                                                             
               {name:'nombre',index:'nombre',width:150,align:'left'},                                                                                                                                                                                                           
               {name:'rol',index:'rol',width:150,align:'left'},                                                                                                                                                                                                                            
               {name:'editar',search:false,sortable:false,align:'center',width:50,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
-                return "<a href='edit/" + options.rowId + "'><div class='ui-pg-div ui-inline-edit' onmouseout=\"jQuery(this).removeClass('ui-state-hover')\" onmouseover=\"jQuery(this).addClass('ui-state-hover');\"  style='display:inline-block;cursor:pointer;' title='Modificar fila seleccionada'><span class='ui-icon ui-icon-pencil'></span></div></a>";                
-                /*                  
-                <div class="ui-pg-div ui-inline-edit" onmouseout="jQuery(this).removeClass('ui-state-hover')" onmouseover="jQuery(this).addClass('ui-state-hover');" onclick="jQuery.fn.fmatter.rowactions.call(this,'edit');" style="float:left;cursor:pointer;" title="Modificar fila seleccionada">
-                  <span class="ui-icon ui-icon-pencil"></span>
-                </div>*/              
+                return "<a href='"+base_url+"admin/users/edit/" + options.rowId + "'><div class='ui-pg-div ui-inline-edit' onmouseout=\"jQuery(this).removeClass('ui-state-hover')\" onmouseover=\"jQuery(this).addClass('ui-state-hover');\"  style='display:inline-block;cursor:pointer;' title='Modificar fila seleccionada'><span class='ui-icon ui-icon-pencil'></span></div></a>";                            
               }},                                                                                                                                                                                                                                                                                                                                                       
               {name:'notificacion',search:false,sortable:false,align:'center',width:50,formatter:function(cellValue, options, rowdata, action){                   
                 var checked = (cellValue==1)?'checked':'';                                                                                                                                                          
                 return "<input type='checkbox' name='chk_notificacion' id='"+options.rowId+"' "+checked+">";                                       
-              }},                                                                                                                        
+              }},         												                                                                                                               
               {name:'activo',search:false,sortable:false,align:'center',width:50,formatter:function(cellValue, options, rowdata, action){                   
                 var checked = (cellValue==1)?'checked':'';                                                                                                                                                          
                 return "<input type='checkbox' name='chk_activo' id='"+options.rowId+"' "+checked+">";                                       
@@ -68,8 +64,13 @@ var users = {
     {},  // delete instead that del:false we need this
     {searchOnEnter:true,closeOnEscape:true}, // search options
     {} /* view parameters*/               
-    );          
-
+    ).jqGrid('navButtonAdd',
+    '#pager',																
+    { caption:"Exportar a Excel",
+        buttonicon: "ui-icon-bookmark",
+        onClickButton: this.exportar, position: "last"
+    });													
+						
       $("#exportar").on("click",users.exportar);
       $("#list input[name=chk_notificacion]").live("click",users.update_notificacion);  
       $("#list input[name=chk_activo]").live("click",users.update_activo); 
@@ -81,12 +82,12 @@ var users = {
       $("#form_update_users").on("submit",users.update_users);     
       $("#usuario_programas a").on("click",users.confirm_delete_programa); 
       $("#usuario_programas .new_program").live("click",users.delete_programa_new);
-    },                  
+    },					                  							
       
     exportar:function()
-    {
-        $("#list").jqGrid('excelExport',{url:'grid.php'});       
-    },              
+    {																							
+        $("#list").jqGrid('excelExport',{url:'excel/'});       
+    },						     				         					
 
     tipo_usuario:function()
     {                                   
@@ -378,39 +379,59 @@ var preinscritos = {
               {name:'fecha_registro',index:'fecha_registro',search:false,sortable:true,width:100,align:'left'},  
               {name:'codigo',index:'codigo',search:false,sortable:true,width:100,align:'left'},  
               {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
-                cellValue = cellValue.split('|');   
-                if(cellValue[0]==1){                                   						
-                  return "<img src='../../includes/admin/images/seguimiento/green.png'>"+cellValue[1];
-                }                                                     	        								        		                                          
-                return '';    																			                     
-              }},                                                           				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+                cellValue = cellValue.split('|');							   														
+                if(cellValue[0]){                                   																							
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                  	if(cellValue[1]){																																																						
+                  		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                	}																																																																			
+                	return cell;											
+                }																								                                                     	        								        		        			                                  
+                return '';   								 																					                     
+              }},        						                                          		         				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
               {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]==1){                                              
-                  return "<img src='../../includes/admin/images/seguimiento/green.png'>"+cellValue[1];
-                }                                                                                                                     
-                return '';                              
+                if(cellValue[0]){                                   																	
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                  	if(cellValue[1]){																																																						
+                  		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                	}																																																													
+                	return cell;											
+                }																								                                                     	        								        		        			                                  
+                return '';              			                  																			
               }},            
               {name:'envio_decse',index:'envio_decse',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
-                cellValue = cellValue.split('|');   
-                if(cellValue[0]==1){                                              
-                  return "<img src='../../includes/admin/images/seguimiento/green.png'>"+cellValue[1];
-                }                                                                                                                     
-                return '';                   
+               cellValue = cellValue.split('|');   
+                if(cellValue[0]){                                   																	
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                  	if(cellValue[1]){																																																										
+                  		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                	}																																																													
+                	return cell;											
+                }																								                                                     	        								        		        			                                  
+                return '';                    
               }},
               {name:'envio_claves',index:'envio_claves',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]==1){                                              
-                  return "<img src='../../includes/admin/images/seguimiento/green.png'>"+cellValue[1];
-                }                                                                                                                     
-                return '';    																		                    
+                if(cellValue[0]){                                   																	
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                  	if(cellValue[1]){																																																						
+                  		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                	}																																																													
+                	return cell;											
+                }																								                                                     	        								        		        			                                  
+                return '';     																		                    
               }},		
               {name:'pago_realizado',index:'pago_realizado',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]==1){                                              
-                  return "<img src='../../includes/admin/images/seguimiento/green.png'>"+cellValue[1];
-                }                                                                                                                     
-                return '';                       				
+                if(cellValue[0]){                                   																	
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                  	if(cellValue[1]){																																																										
+                  		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                	}																																																													
+                	return cell;											
+                }																								                                                     	        								        		        			                                  
+                return '';   						                      				
               }},         															
               {name: 'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
                     keys: true,                                                                                                                                   
@@ -456,11 +477,21 @@ var preinscritos = {
     {},  // delete instead that del:false we need this
     {searchOnEnter:true,closeOnEscape:true}, // search options
     {} /* view parameters*/ 
-    );                                                               
- 
+    ).jqGrid('navButtonAdd',
+    '#pager_preinscritos',																
+    { caption:"Exportar a Excel",
+        buttonicon: "ui-icon-bookmark",
+        onClickButton: preinscritos.exportar, position: "last"
+    });				               													                                                
+ 								
     $("#list_preinscritos a[name=edit]").live("click",preinscritos.edit); 
-  },  						                      
-                                                                                                                                                                                                                                                                                                                                                 
+  },  									
+  
+  exportar:function()
+    {																														
+        $("#list_preinscritos").jqGrid('excelExport',{url:'excel/'});       
+    },			                      
+		                                                                                                                                                                                                                                                                                                                                                 
   edit:function(e)
   {
     e.preventDefault();
