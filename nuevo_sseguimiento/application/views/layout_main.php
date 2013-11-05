@@ -43,14 +43,18 @@
         	<h1>Sistema de seguimiento de preinscripciones</h1>						
         	<h2>Administrador | <a href="#">Cerrar sesión</a></h2>																							
         </div>							   		      		     																				
-        <div>                                                        
+        <div id="menu">                                                        
             <ul class="menu"> 
                 <li>                        
                     <a href=<?php echo site_url("admin/users/show"); ?> class="active">Usuarios</a>
                     <ul>
-                        <li>        
-                            <a href=<?php echo site_url("admin/users/add"); ?>>Agregar</a>
-                        </li>              
+
+                         <a href=<?php echo site_url("admin/users/add"); ?>>
+                            <li>
+                                Agregar
+                            </li>     
+                        </a>         
+
                     </ul>                
                 </li>
                 <li>
