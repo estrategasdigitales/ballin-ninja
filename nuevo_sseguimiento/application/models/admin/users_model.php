@@ -85,24 +85,7 @@ class Users_model extends CI_Model
         {                                                                                                                                                                                     
             return FALSE;            
         }                                        
-    }  
-
-    public function users_excel($sidx,$sord)
-    {                                                                                                                                                                                                                                                                                                          
-        $this->db->select('u.nombre,u.notificacion,u.activo,ur.rol');               
-        $this->db->from('seg_dec_usuarios as u');                                                                                                                                                                               
-        $this->db->join('seg_dec_usuarios_roles as ur','ur.id_tipo = u.tipo', 'left');
-        $this->db->order_by($sidx,$sord);                                                                                                                                                                                         
-        $query = $this->db->get();
-        if ($query->num_rows()>0)                                                                                                                             
-        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-            return $query->result();                             
-        }                                                                                                                                                                                                                                                                                                                                    
-        else
-        {                                                                                                                                                                                     
-            return FALSE;            
-        }                                        
-    }                       
+    }               
 
     public function get_disciplinas()
     {                                                    
@@ -395,6 +378,41 @@ class Users_model extends CI_Model
     {       
         $this->db->where('user_uuid',$user_uuid);
         return $this->db->delete('seg_dec_usuarios'); 
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+    }  
+
+    public function excel($sidx,$sord)
+    {                                                                                                                                                                                                                                                                                                          
+        $this->db->select('u.nombre,u.notificacion,u.activo,ur.rol');               
+        $this->db->from('seg_dec_usuarios as u');                                                                                                                                                                               
+        $this->db->join('seg_dec_usuarios_roles as ur','ur.id_tipo = u.tipo', 'left');
+        $this->db->order_by($sidx,$sord);                                                                                                                                                                                         
+        $query = $this->db->get();
+        if ($query->num_rows()>0)                                                                                                                             
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+            return $query->result();                             
+        }                                                                                                                                                                                                                                                                                                                                    
+        else
+        {                                                                                                                                                                                     
+            return FALSE;            
+        }                                                                      
+    }                                      
+
+    public function excel_search($search,$sidx,$sord)
+    {                                                                                                                                                                                                                                                                                                          
+         $query = $this->db->query("select user_uuid,nombre,notificacion,activo,rol 
+                                  from seg_dec_usuarios 
+                                  left join seg_dec_usuarios_roles on seg_dec_usuarios_roles.id_tipo=seg_dec_usuarios.tipo 
+                                  ".$search."                       
+                                  order by ".$sidx." 
+                                  ".$sord."");                                                   
+        if($query->num_rows()>0)                                                                                                                                                                                            
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+             return $query->result();                             
+        }                                                                                                                                                                                                                                                                            
+        else
+        {                                                                                                                                                                                  
+            return FALSE;            
+        }                                                                 
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 
 }

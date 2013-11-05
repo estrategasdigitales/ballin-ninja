@@ -26,16 +26,16 @@ class Informes extends CI_Controller {
     }                                                 
 
     public function jqGrid()
-    {                                                                                                                                                                                                                                                   
+    {                                                                                                                                                                                                                                                                                                 
         //obtener la página solicitada                          
         $page  = ($this->input->post('page'))?$this->input->post('page'):1;    
         //Número de fila que queremos obtener en el grid                
-        $limit = ($this->input->post('rows'))?$this->input->post('rows'):5;                                
+        $limit = ($this->input->post('rows'))?$this->input->post('rows'):20;                                
         //el campo para ordenar                                                                                                                                                                                            
-        $sidx  = ($this->input->post('sidx'))?$this->input->post('sidx'):'id_preinscrito';                         
-        //obtiene la dirección                                                                                                              
+        $sidx  = ($this->input->post('sidx'))?$this->input->post('sidx'):'id';                         
+        //obtiene la dirección                                                                                                                   
         $sord  = ($this->input->post('sord'))?$this->input->post('sord'):'desc';                         
-                                                        
+                                                                                
         $user_uuid = $this->session->userdata('user_uuid');                                                          
                 
         if($this->input->post("_search") == "false")
@@ -43,9 +43,10 @@ class Informes extends CI_Controller {
             if($this->accesos->admin())
             {                                         
                 $total_informes = $this->informes_model->total_informes_admin();
-            }else{                          
+            }else
+            {                          
                 $total_informes = $this->informes_model->total_informes($user_uuid);
-            }
+            }       
         }                       
         else            
         {                                                          
@@ -55,9 +56,9 @@ class Informes extends CI_Controller {
 
             $where = search($searchOper,$searchField,$searchString); 
             if($this->accesos->admin())
-            {                              
+            {                                                     
                 $total_informes = $this->informes_model->total_search_informes_admin($where)->total;     
-            }else{                                                                                                                
+            }else{                                                                                                                                                
                 $total_informes = $this->informes_model->total_search_informes($where,$user_uuid)->total;     
             }
         }                                                                                   
@@ -80,15 +81,14 @@ class Informes extends CI_Controller {
             }else{                                                                                                                                                                              
                 $informes = $this->informes_model->show_informes($user_uuid,$start,$limit,$sidx,$sord);                                                                                                                                                          
             }
-        }       
-        else
-        {                                                                                                                                
+        }else
+        {                                                                                                                                                                           
             if($this->accesos->admin())
             {       
                 $informes = $this->informes_model->search_informes_admin($where,$start,$limit,$sidx,$sord);
             }else{
                 $informes = $this->informes_model->search_informes($where,$user_uuid,$start,$limit,$sidx,$sord);
-            }               
+            }                  
         }                                                                                                                                                                                                                                                                                        
 
         $data = new stdClass();                 
@@ -99,9 +99,9 @@ class Informes extends CI_Controller {
         if(!empty($informes))      
         {                                                                                                                                                                                                                                                                                                                                                            
             foreach($informes as $key => $informe){               
-                $data->rows[$key]['id']   = $informe->id_preinscrito;                                                                                                   
-                $data->rows[$key]['cell'] = array($informe->nombre,$informe->a_paterno,$informe->a_materno,$informe->program_name,$informe->fecha_registro,$informe->atendido,'eliminar');
-            }                                                                        
+                $data->rows[$key]['id']   = $informe->id; 
+                $data->rows[$key]['cell'] = array($informe->nombre,$informe->paterno,$informe->materno,$informe->program_name,$informe->atendido,'eliminar');
+            }                                                                                                                  
         }                     
         else
         {
@@ -111,19 +111,81 @@ class Informes extends CI_Controller {
         echo json_encode($data);                                                                                                     
     }
 
-    public function informes_contacto($id_preinscrito = NULL)
+    public function informes_contacto($id = NULL)
     {
         $data['msj'] = $this->session->flashdata('msj');                                                                
-        $data['preinscrito'] = $this->informes_model->get_contacto($id_preinscrito);
-                                     
-        if(empty($data['preinscrito']))                                                     
-        {                                                                                        
+        $data['contacto'] = $this->informes_model->get_contacto($id);
+                                                     
+        if(empty($data['contacto']))                                                     
+        {                                                                                                           
             $data['msj'] = 'No existen comentarios.';                                                                                 
             $this->load->view('admin/msj',$data); 
             return false;                                      
-        }                                                                                 
+        }                              
 
         $this->load->view('admin/informes/informes_contacto',$data);     
-    }                                  
+    }
 
-}    
+    public function update_contacto()
+    {                                                                                                              
+        $data['comentario_encargado'] = $this->input->post('comentario_encargado',true);
+        $data['atendido'] = $this->input->post('atendido');
+        $data['id'] = $this->input->post('id');
+                                                                                             
+        if($this->informes_model->update_contacto($data))
+        {                                                   
+            $this->session->set_flashdata('msj',msj('El registro se modificó correctamente.','message'));                                    
+            redirect('admin/informes/informes_contacto/'.$data['id']);             
+        }                              
+    }        
+
+    public function excel()
+    {                                                                                                                                                                           
+        $this->load->helper('php-excel'); 
+        $file = 'Informes-'.date('YmdHis');
+        $data_array = array();                           
+        $parametros = $this->input->get(); 
+
+        if($parametros["_search"]=="true")
+        {                                      
+            $informes = search($parametros['searchOper'],$parametros['searchField'],$parametros['searchString']);   
+        }                                                                                                                                                                                                                                   
+
+        if($this->accesos->admin())
+        {    
+            if(!isset($search))
+            {                                                                                                                                                                                                           
+                $informes = $this->informes_model->ex_admin($parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+            }else{          
+                $informes = $this->informes_model->ex_admin_search($search,$parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+            }                                                                    
+        }else{   
+
+            if(!isset($search))
+            {                                                
+                $informes = $this->informes_model->ex_user($this->session->userdata('user_uuid'),$parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+            }else{                                                                                                           
+                $informes = $this->informes_model->ex_user_search($search,$this->session->userdata('user_uuid'),$parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+            }                                                        
+        }                                                                                         
+
+        $fields = (                                         
+            $field_array[] = array ('Nombre','Apellido paterno','Apellido materno','Fecha de registro','Nombre del programa','Atendido')
+        );                                    
+
+        if(!empty($informes))
+        {              
+            foreach ($informes as $row)
+            {                                                                                                               
+                $row->atendido  = ($row->atendido)?'Si':'No';                                                                     
+                $data_array[] = array($row->nombre,$row->a_paterno,$row->a_materno,$row->fecha_registro,$row->program_name,$row->atendido);
+            }                                
+        }                                                                                                                                                                                                                     
+
+        $xls = new Excel_XML;
+        $xls->addArray ($field_array);
+        $xls->addArray ($data_array);
+        $xls->generateXML($file);                                       
+    }                                                       
+}          
+            

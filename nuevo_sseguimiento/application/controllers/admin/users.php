@@ -15,63 +15,9 @@ class Users extends CI_Controller {
         if(!$this->accesos->acceso())
         {                                                                                            
               redirect('admin/no_acceso');             
-        }                                                                                                                                             
-    }  
-	
-	public function exportar(){
-		//$parametros = $this->input->get();			
-		//print_r($parametros);												
-		//echo $parametros['rows'];	
-																	
-		 // Load libreria							
-		$this->load->library('PHPExcel/Classes/PHPExcel');
-		                      
-		// Setiar la solapa que queda actia al abrir el excel
-		$this->phpexcel->setActiveSheetIndex(0);
-		// Solapa excel para trabajar con PHP         
-		$sheet = $this->phpexcel->getActiveSheet();									
-		$sheet->setTitle("Titulo Demo Pestana");												
-		$sheet->getColumnDimension('A')->setWidth(20);
-		$sheet->setCellValue('A1','Nombre');
-		$sheet->setCellValue('B1','Apellido');					
-		$sheet->setCellValue('A2','Pepe Luis');
-		$sheet->setCellValue('B2','Gomez');
-		$sheet->setCellValue('A3','Alejandro');
-		$sheet->setCellValue('B3','Mandre');                         
-		// Salida                                                                                                                     					      
-		header("Content-Type: application/vnd.ms-excel, charset=utf-8");
-		/*$nombreArchivo = 'export_lisatdo_'.date('YmdHis');
-		header("Content-Disposition: attachment; filename=\"$nombreArchivo.xls\"");
-		header("Cache-Control: max-age=0");		*/																											
-		//header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="pruebas.xls"');                                               
-header('Cache-Control: max-age=0');                                 
-        // Genera Excel                                             							                                   			       			     
-		$writer = PHPExcel_IOFactory::createWriter($this->phpexcel, "Excel5");
-		// Escribir												
-		$writer->save('php://output');			
-		exit;										
-	}								
-
-	public function excel()
-	{							       									
-		$this->load->helper('php-excel'); 
-        $parametros = $this->input->get();            
-                                                                                      
-        $users_excel = $this->users_model->users_excel($parametros['sidx'],$parametros['sord']);                          
-                        
-        $fields = (
-            $field_array[] = array ("nombre", "Notificacion", "Activo","Rol")
-        );                                      
-        foreach ($users_excel as $row)
-        {
-        $data_array[] = array($row->nombre,$row->notificacion,$row->activo,$row->rol);
-        }                           
-        $xls = new Excel_XML;
-        $xls->addArray ($field_array);
-        $xls->addArray ($data_array);
-        $xls->generateXML("output_name");                         				
-    }                                                                                                          		                                 		        												       
+        }                                                                                                                                                    
+    }  					
+                                                                                                              		                                 		        												       
                                                                                                                                                                                                                                                                                                                                                                                                                                      
     public function index()
     {                                    
@@ -393,6 +339,42 @@ header('Cache-Control: max-age=0');
                 echo json_encode(array("success" => true, "redirect" => base_url('admin/users/edit/'.$data['user_uuid'])));
             }                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
         }                                                                                                                                                              
-    }                                                                                                                               
+    }  
+
+    public function excel()
+    {                                                                                                                              
+        $this->load->helper('php-excel');
+        $file = 'Usuarios-'.date('YmdHis');
+        $data_array = array();                    
+        $parametros = $this->input->get();                    
+        
+        if($parametros["_search"]=="true")
+        {                                                                             
+            $search = search($parametros['searchOper'],$parametros['searchField'],$parametros['searchString']); 
+            $users  = $this->users_model->excel_search($search,$parametros['sidx'],$parametros['sord']);              
+        }else{                                                           
+            $users  = $this->users_model->excel($parametros['sidx'],$parametros['sord']); 
+        }                                                                                                                                                                                                                                                                                                                                   
+                        
+        $fields = (                                                         
+            $field_array[] = array('Nombre','Notificación de correo','Estatus','Rol')
+        );                                                                                                                                    
+
+        if(!empty($users))
+        {                   
+            foreach($users as $key => $row)
+            {                                                                                                                                         
+                $row->notificacion = ($row->notificacion)?'Si':'No';
+                $row->activo       = ($row->activo)?'Activo':'Inactivo';                    
+
+                $data_array[] = array($row->nombre,$row->notificacion,$row->activo,$row->rol);
+            }                                                        
+        }                                                                                                  
+
+        $xls = new Excel_XML;
+        $xls->addArray ($field_array);
+        $xls->addArray ($data_array);                           
+        $xls->generateXML($file);                                      
+    }                                                                                                                                                               
                                                                                                                                                                                                                                                               
 }

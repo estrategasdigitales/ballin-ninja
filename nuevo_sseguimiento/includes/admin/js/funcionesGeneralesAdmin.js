@@ -113,7 +113,7 @@ var users = {
           $("#programas").val(null);  
         }                                                                                                                      
         $(this).parent().remove();            
-    },                                                                                                                                                                                                
+    },                                                                                                                                                                                                                         
             
     confirm_delete_programa:function(e)
     {                   
@@ -441,7 +441,7 @@ var preinscritos = {
                     delOptions:{                                  
                         url: 'delete_preinscrito',                                                                                                                                             
                         msg: "Desea eliminar el registro?",                                                          
-                        afterSubmit: function (response, postdata) {
+                        afterSubmit: function (response, postdata){       
                             var r = $.parseJSON(response.responseText);
                             $("#msj").html(r.message);                   
                             return [r.success, r.message, null];
@@ -488,48 +488,15 @@ var preinscritos = {
   },  									
   
   exportar:function()
-    {																														
-        $("#list_preinscritos").jqGrid('excelExport',{url:'excel/'});       
-    },			                      
+  {																														
+    $("#list_preinscritos").jqGrid('excelExport',{url:'excel/'});       
+  },	           		                      
 		                                                                                                                                                                                                                                                                                                                                                 
   edit:function(e)
   {
     e.preventDefault();
     $.colorbox({href:$(this).attr("href"),iframe:true, width:"850px", height:"90%"});
-  },                                                                                             
-											
-  editar:function(e)
-  {                                                          
-    e.preventDefault(); 
-    var base_url = $("#base_url").text();                              
-    var id_preinscrito = $("#list_preinscritos").jqGrid('getGridParam','selrow');     
-    var url = base_url+"admin/preinscritos/edit";
-    var data = "id_preinscrito="+id_preinscrito;
-
-    $.ajax({                                                                               
-        async:true,              
-        type:"POST",
-        dataType:"json",                    
-        contentType: "application/x-www-form-urlencoded,multipart/form-data",
-        url:url,                                
-        data:data,         
-        success:function(res)    
-        {                             
-          if(res.success){                                                                                                                       
-          $("#msj").html(res.msg);          
-            console.log(res.msg[0].nombre);  
-            $("#name").val(res.msg[0].nombre); 
-            document.getElementById('modal').style.display='block';
-            document.getElementById('ventana').style.display='block';   
-          }                                                                                                                    
-        },                                                                                                                                                      
-        timeout:4000,             
-        error:function(res)
-        {                                           
-          console.log(res);            
-        }                                                         
-    });                            
-  }                                                                                                                                          
+  }                                                                                                                 			                                                                                                                              
 }
             
 var inscritos = {
@@ -558,7 +525,7 @@ var inscritos = {
                     editbutton: false,             
                     editformbutton: false,
                     delbutton: true,                                                                                                                             
-                    delOptions:{     			               			              
+                    delOptions:{         			               			              
                         url: 'delete_inscrito', 				                                                                                                                                            
                         msg: "Desea eliminar el registro?",                                                          
                         afterSubmit: function (response, postdata) {
@@ -596,7 +563,19 @@ var inscritos = {
     {},  // delete instead that del:false we need this
     {searchOnEnter:true,closeOnEscape:true}, // search options
     {} /* view parameters*/ 
-    );                                                                                                                                                                                                   
+    ).jqGrid('navButtonAdd',
+      '#pager_inscritos',                                   
+      {                 
+        caption:"Exportar a Excel",
+        buttonicon: "ui-icon-bookmark",
+        onClickButton: this.exportar, position: "last"
+      }                           
+    );                                                                                                                                                                                                          
+  },              
+
+  exportar:function()
+  {                                                                        
+      $("#list_inscritos").jqGrid('excelExport',{url:'excel/'});       
   }                                                                        
 }   
 
@@ -605,12 +584,12 @@ var caso_cerrado = {
   onReady:function()
   {                                    				                                                                                                                                                                                                                                                                                                                                                                                                          
       var base_url = $("#base_url").text();
-      jQuery("#list_caso_cerrado").jqGrid({                                                
+      jQuery("#list_casos_cerrados").jqGrid({                                                
           url:base_url+'admin/casos_cerrados/jqGrid', //another controller function for generating data
           mtype : "post", //Ajax request type. It also could be GET
           datatype: "json", //supported formats XML, JSON or Arrray 					
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
-          colModel:[                   											                                                                                                                                                                                                                                                                                             
+          colModel:[                                       											                                                                                                                                                                                                                                                                                             
               {name:'nombre',index:'nombre',width:110,align:'left'}, 
               {name:'a_paterno',index:'a_paterno',width:120,align:'left'}, 
               {name:'a_materno',index:'a_materno',width:120,align:'left'},                                                                                                                                                                                                           
@@ -642,7 +621,7 @@ var caso_cerrado = {
           width: 970,		                                    
           height:200,                                                      
           rowList:[10,20,30],           
-          pager: '#pager_caso_cerrado',                                              
+          pager: '#pager_casos_cerrados',                                              
           sortname:"id_preinscrito", 
           sortorder:"desc",                  
           viewrecords: true,              
@@ -659,14 +638,27 @@ var caso_cerrado = {
             }                                                                                                                                     
           }                                                   
           //editurl:'delete'                                                                                                                                                                                    
-      }).navGrid('#pager_caso_cerrado',{edit:false,add:false,del:false},
+      }).navGrid('#pager_casos_cerrados',{edit:false,add:false,del:false},
       {}, //  default settings for edit
     {}, //  default settings for add
     {},  // delete instead that del:false we need this
     {searchOnEnter:true,closeOnEscape:true}, // search options
     {} /* view parameters*/ 
-    );                                                                                                                                                                                                   
-  }                                                                           
+    ).jqGrid('navButtonAdd',
+      '#pager_casos_cerrados',                                   
+      {                                                  
+        caption:"Exportar a Excel",
+        buttonicon: "ui-icon-bookmark",
+        onClickButton: this.exportar, position: "last"
+      }                           
+    );                                                                                                                                                                                                               
+  },                                       
+
+  exportar:function()
+  {                                                                                     
+      $("#list_casos_cerrados").jqGrid('excelExport',{url:'excel/'});       
+  }        
+
 }      
 						                                      
 var casos_inconclusos = {
@@ -733,8 +725,20 @@ var casos_inconclusos = {
       {},  // delete instead that del:false we need this
       {searchOnEnter:true,closeOnEscape:true}, // search options
       {} /* view parameters*/ 
-      );                                                                                                                                                                                                   
-    }                                                                        
+      ).jqGrid('navButtonAdd',
+        '#pager_casos_inconclusos',                                   
+        {                                                        
+          caption:"Exportar a Excel",
+          buttonicon: "ui-icon-bookmark",
+          onClickButton: this.exportar, position: "last"
+        }                                                           
+      );                                                                                                                                                                                                           
+    },                                                                              
+
+  exportar:function()
+  {                                                                                             
+      $("#list_casos_inconclusos").jqGrid('excelExport',{url:'excel/'});       
+  }                                                                                   
 }     
 
 var informes = {
@@ -746,16 +750,15 @@ var informes = {
           url:base_url+'admin/informes/jqGrid', //another controller function for generating data
           mtype : "post", //Ajax request type. It also could be GET
           datatype: "json", //supported formats XML, JSON or Arrray                       
-          colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Atendido','Eliminar'],       //Grid column headings
-          colModel:[                                                                                                                                                                                                                                                                                                                                            
+          colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Atendido','Eliminar'],       //Grid column headings
+          colModel:[                                                                                                                                                                                                                                                                                                                                                          
               {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
                 return "<a href='informes_contacto/" + options.rowId + "' class='group1' name='edit'>"+cellValue+"</a>";                                    
-              }},                                    
-              {name:'a_paterno',index:'a_paterno',width:120,align:'left'}, 
-              {name:'a_materno',index:'a_materno',width:120,align:'left'},                                                                                                                                                                                                           
+              }},                                                                
+              {name:'paterno',index:'paterno',width:120,align:'left'}, 
+              {name:'materno',index:'materno',width:120,align:'left'},                                                                                                                                                                                                           
               {name:'program_name',index:'program_name',width:200,align:'left'},                                                                                                                                                                                                           
-              {name:'fecha_registro',index:'fecha_registro',width:100,align:'left'},
-              {name:'informes',index:'informes',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:No;1:Si"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+              {name:'atendido',index:'atendido',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:No;1:Si"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
               {name:'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
                     keys: true,                                                                                                                                             
                     editbutton: false,             
@@ -778,7 +781,7 @@ var informes = {
           //height: 300,            
           rowList:[10,20,30],   
           pager: '#pager_informes',                                              
-          sortname: 'id_preinscrito', 
+          sortname: 'id', 
           sortorder: "desc",                        
           viewrecords: true,        
           rownumbers: true,                 
@@ -799,10 +802,21 @@ var informes = {
     {},  // delete instead that del:false we need this
     {searchOnEnter:true,closeOnEscape:true}, // search options
     {} /* view parameters*/ 
-    );    
-
+    ).jqGrid('navButtonAdd',
+        '#pager_informes',                                       
+        {                                                        
+          caption:"Exportar a Excel",
+          buttonicon: "ui-icon-bookmark",
+          onClickButton: this.exportar, position: "last"
+        }                                                              
+    );                         
     $("#list_informes a[name=edit]").live("click",informes.edit); 
-  },    
+  },                                                                              
+
+  exportar:function()
+  {                                                                                                                     
+      $("#list_informes").jqGrid('excelExport',{url:'excel/'});       
+  },          
 
   edit:function(e)
   {       

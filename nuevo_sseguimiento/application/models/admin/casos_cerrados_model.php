@@ -170,7 +170,89 @@ class Casos_cerrados_model extends CI_Model
     {                                                                                     
         $this->db->where('id_preinscrito',$id_preinscrito);
         return $this->db->delete('seg_dec_preinscritos'); 
-    }                           		                                                                                                                                                                              
+    } 
+
+    public function ex_user($user_uuid,$sidx,$sord)
+    {                                                                                                                                                                                                                                                                                                                                                                      
+        $this->db->select('pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,pre.codigo,pro.program_name,status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado');
+        $this->db->from('seg_dec_preinscritos as pre');                                                                                                                                                                                                                                                                                                                                                                                              
+        $this->db->join('seg_dec_usuarios_programas as up','up.id_program = pre.id_program', 'inner');
+        $this->db->join('seg_dec_programas as pro','up.id_program = pro.id_program', 'inner');                                                        
+        $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito', 'inner');                                                                                                                                                                                                                                                                                      
+        $this->db->where('up.user_uuid',$user_uuid);  
+        $this->db->where('status.caso_cerrado',1);                                                                                                                                                                                                                                                                                                         
+        $this->db->order_by($sidx,$sord);                                                                                                                                                                                                                            
+        $query = $this->db->get();                                                                                                            
+        if($query->num_rows()>0)                                                                                                                                                   
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+            return $query->result();                             
+        }                                                                                                                                                                                                                                                                                                                                                                      
+        else
+        {                                                                                                                                                                                                   
+            return FALSE;            
+        }                                                            
+    }
+
+    public function ex_admin($sidx,$sord)
+    {                                                                                                                                                                                                                                                                                                                                                                                                                       
+        $this->db->select('pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,pro.program_name,pre.codigo,status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado');
+        $this->db->from('seg_dec_preinscritos as pre');                                                                                                                                                                                                                                                                                                                                                        
+        $this->db->join('seg_dec_programas as pro','pro.id_program = pre.id_program','inner');                                                          
+        $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito','inner');                                                                                                                                                                                                           
+        $this->db->where('status.caso_cerrado',1);         
+        $this->db->order_by($sidx,$sord);                                                                                                                                                                                                                              
+        $query = $this->db->get();                                                                                                            
+        if($query->num_rows()>0)                                                                                                                                                   
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+            return $query->result();                             
+        }                                                                                                                                                                                                                                                                                                                                                                                                             
+        else
+        {                                                                                                                                                                                                                             
+            return FALSE;            
+        }                                          
+    }                                                                                                  
+
+    public function ex_user_search($where,$user_uuid,$sidx,$sord)
+    {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+        $query = $this->db->query("select pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,pro.program_name,pre.codigo,status.atendido,status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado    
+                                  from seg_dec_preinscritos as pre                  
+                                  inner join seg_dec_usuarios_programas as up on up.id_program = pre.id_program 
+                                  inner join seg_dec_programas as pro on up.id_program = pro.id_program 
+                                  inner join seg_dec_pasos_status as status on status.id_preinscrito = pre.id_preinscrito          
+                                  ".$where."                                                                                                             
+                                  and up.user_uuid='".$user_uuid."'
+                                  and status.caso_cerrado=1       
+                                  order by ".$sidx."         
+                                  ".$sord."");                                                                            
+        if($query->num_rows()>0)                                                                                                                                                                                                                                                                                                     
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+             return $query->result();                             
+        }                                                                                                                                                                                                                                                                                                                                                      
+        else
+        {                                                                                                                                                                                             
+            return FALSE;            
+        }                                    
+    }
+
+    public function ex_admin_search($where,$sidx,$sord)
+    {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+        $query = $this->db->query("select pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,pro.program_name,pre.codigo,status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado    
+                                  from seg_dec_preinscritos as pre                  
+                                  inner join seg_dec_programas as pro on pre.id_program = pro.id_program 
+                                  inner join seg_dec_pasos_status as status on status.id_preinscrito = pre.id_preinscrito          
+                                  ".$where." 
+                                  and status.caso_cerrado=1 
+                                  order by ".$sidx." 
+                                  ".$sord."");                                                         
+        if ($query->num_rows()>0)                                                                                                                                                                                                                                                                                      
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+             return $query->result();                             
+        }                                                                                                                                                                                                                                                                                                                                                                                
+        else
+        {                                                                                                                                                                                             
+            return FALSE;            
+        }                                                                                                     
+    }                                                                 		                                                                                                                                                                              
 } 
 
 ?>              

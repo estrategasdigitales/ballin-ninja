@@ -1,5 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-        
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');      
 class Preinscritos extends CI_Controller {
     
     private $error;                                                                                             
@@ -10,35 +9,12 @@ class Preinscritos extends CI_Controller {
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/preinscritos_model');
        	$this->acceso();                                                                   
-    }                                                                                           
+    }                                                                                                                                                              
 
     public function show()
     {                                                                                                                                                      
         $this->layout->view('admin/preinscritos/show_preinscritos');                                                           
-    }    
-
-    public function excel()
-    {                                                                   
-        $this->load->helper('php-excel'); 
-        $parametros = $this->input->get();            
-        if($this->accesos->admin())
-        {                                                                                        
-        $preinscritos = $this->preinscritos_model->excel_admin($parametros['sidx'],$parametros['sord']);                                                                                                                                                          
-        }else{                          
-            $preinscritos = $this->preinscritos_model->excel($this->session->userdata('user_uuid'),$parametros['sidx'],$parametros['sord']);                                                                                                                                                          
-        }                                                 
-        $fields = (
-            $field_array[] = array ('nombre','a_paterno','a_materno','fecha_registro','codigo','program_name','primer_contacto','documentos','envio_decse','envio_claves','pago_realizado')
-        );                                      
-        foreach ($preinscritos as $row)
-        {                                                                 
-        $data_array[] = array($row->nombre,$row->a_paterno,$row->a_materno,$row->fecha_registro,$row->codigo,$row->program_name,$row->primer_contacto,$row->documentos,$row->envio_decse,$row->envio_claves,$row->pago_realizado);
-        }                           
-        $xls = new Excel_XML;
-        $xls->addArray ($field_array);
-        $xls->addArray ($data_array);
-        $xls->generateXML("output_name");                                       
-    }                                                                                                     																								        					
+    }                                                                                               																								        					
 
     public function acceso()
     {                                                        
@@ -97,11 +73,9 @@ class Preinscritos extends CI_Controller {
         if($this->input->post("_search") == "false")
         {               	
             if($this->accesos->admin())
-            {                                                        
-                $preinscritos = $this->preinscritos_model->show_preinscritos_admin($start,$limit,$sidx,$sord);
-                                                                                            
+            {                                                                                  
+                $preinscritos = $this->preinscritos_model->show_preinscritos_admin($start,$limit,$sidx,$sord);                                                                             
             }else{            
-
                 $preinscritos = $this->preinscritos_model->show_preinscritos($this->session->userdata('user_uuid'),$start,$limit,$sidx,$sord);                                                                                                                                                          
             }
 
@@ -418,7 +392,61 @@ class Preinscritos extends CI_Controller {
         }
 
         return $archivos;                      
-    }                                                                                    
+    }                   
+
+    public function excel()
+    {                                                                                                                  
+        $this->load->helper('php-excel'); 
+        $file = 'preinscritos-'.date('YmdHis');
+        $data_array = array();           
+        $parametros = $this->input->get(); 
+
+        if($parametros["_search"]=="true")
+        {       
+            $search = search($parametros['searchOper'],$parametros['searchField'],$parametros['searchString']);   
+        }                                                                                                                                                         
+
+        if($this->accesos->admin())
+        {    
+            if(!isset($search))
+            {                                                                                                                                                                                                     
+                $preinscritos = $this->preinscritos_model->ex_admin($parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+            }else{          
+                $preinscritos = $this->preinscritos_model->ex_admin_search($search,$parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+            }                                              
+
+        }else{                              
+
+            if(!isset($search))
+            {                                     
+                $preinscritos = $this->preinscritos_model->ex_user($this->session->userdata('user_uuid'),$parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+            }else{                                                                                     
+                $preinscritos = $this->preinscritos_model->ex_user_search($search,$this->session->userdata('user_uuid'),$parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+            }
+        }                                                                                         
+
+        $fields = (         
+            $field_array[] = array ('Nombre','Apellido paterno','Apellido materno','Fecha de registro','Código','Nombre del programa','Primer contacto','Documentos','Enviar a decse','Envio de claves','Pago realizado')
+        );   
+                        
+        if(!empty($preinscritos))
+        {
+            foreach ($preinscritos as $row)
+            {                                                      
+                $row->primer_contacto = ($row->primer_contacto)?'Si':'No';
+                $row->documentos      = ($row->documentos)?'Si':'No';
+                $row->envio_decse     = ($row->envio_decse )?'Si':'No';
+                $row->envio_claves    = ($row->envio_claves )?'Si':'No';
+                $row->pago_realizado  = ($row->pago_realizado)?'Si':'No';                                                                     
+                $data_array[] = array($row->nombre,$row->a_paterno,$row->a_materno,$row->fecha_registro,$row->codigo,$row->program_name,$row->primer_contacto,$row->documentos,$row->envio_decse,$row->envio_claves,$row->pago_realizado);
+            }  
+        }                                                                                         
+
+        $xls = new Excel_XML;
+        $xls->addArray ($field_array);
+        $xls->addArray ($data_array);
+        $xls->generateXML($file);                                       
+    }                                                                                                       
 
     private function ext($file)
     {                                                               

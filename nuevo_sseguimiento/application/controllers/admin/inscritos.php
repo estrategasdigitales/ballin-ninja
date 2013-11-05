@@ -118,5 +118,60 @@ class Inscritos extends CI_Controller {
                 echo json_encode(array('success'=>true,'message'=>msj('El registro se eliminó correctamente','message')));
             }                                                                       
         }   
-    }                                                              
+    }
+
+    public function excel()
+    {                                                                                                                                                      
+        $this->load->helper('php-excel'); 
+        $file = 'Inscritos-'.date('YmdHis'); 
+        $data_array = array();          
+        $parametros = $this->input->get(); 
+
+        if($parametros["_search"]=="true")
+        {       
+            $search = search($parametros['searchOper'],$parametros['searchField'],$parametros['searchString']);   
+        }                                                                                                                                                                                                                
+
+        if($this->accesos->admin())
+        {    
+            if(!isset($search))
+            {                                                                                                                                                                                                     
+                $inscritos = $this->inscritos_model->ex_admin($parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+            }else{          
+                $inscritos = $this->inscritos_model->ex_admin_search($search,$parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+            }
+
+        }else
+        {                 
+            if(!isset($search))
+            {                                                
+                $inscritos = $this->inscritos_model->ex_user($this->session->userdata('user_uuid'),$parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+            }else{                                                                                                                                 
+                $inscritos = $this->inscritos_model->ex_user_search($search,$this->session->userdata('user_uuid'),$parametros['sidx'],$parametros['sord']);                                                                                                                                                          
+            }                                                                       
+        }                                                                                         
+
+        $fields = (                                         
+            $field_array[] = array ('Nombre','Apellido paterno','Apellido materno','Fecha de registro','Nombre del programa','Primer contacto','Documentos','Enviar a decse','Envio de claves','Pago realizado')
+        );                                    
+
+        if(!empty($informes))
+        { 
+            foreach ($inscritos as $row)
+            {                                                                                 
+                $row->primer_contacto = ($row->primer_contacto)?'Si':'No';
+                $row->documentos      = ($row->documentos)?'Si':'No';
+                $row->envio_decse     = ($row->envio_decse )?'Si':'No';
+                $row->envio_claves    = ($row->envio_claves )?'Si':'No';
+                $row->pago_realizado  = ($row->pago_realizado)?'Si':'No';                                                                     
+                $data_array[] = array($row->nombre,$row->a_paterno,$row->a_materno,$row->fecha_registro,$row->program_name,$row->primer_contacto,$row->documentos,$row->envio_decse,$row->envio_claves,$row->pago_realizado);
+            }                
+        }                                                                                                                                                                  
+
+        $xls = new Excel_XML;
+        $xls->addArray ($field_array);
+        $xls->addArray ($data_array);
+        $xls->generateXML($file);                                       
+    }                                                                                                       
+                                                              
 }    
