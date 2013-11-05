@@ -9,7 +9,7 @@ class Preinscritos_model extends CI_Model
     }                                                                                                                                                                                                                                                                                                                                                                                                                                       
 	
     public function total_preinscritos($user_uuid)
-    {                                                                                  
+    {                                                                                             
         $this->db->join('seg_dec_usuarios_programas as up','up.id_program = pre.id_program', 'inner');
         $this->db->join('seg_dec_programas as pro','up.id_program = pro.id_program', 'inner');
         $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito', 'inner');
@@ -293,7 +293,21 @@ class Preinscritos_model extends CI_Model
         }else{                  
             return FALSE;
         }                                 
-    }                      
+    }  
+
+    public function comentarios_pasos($id_preinscrito)
+    {                                                                                                                                                                                                                                                                                                                      
+        $this->db->select('id_paso,comentario');                       
+        $this->db->from('seg_dec_comentarios');                          
+        $this->db->where('id_preinscrito',$id_preinscrito);
+        $query = $this->db->get();                                                                                                      
+        if($query->num_rows()>0)                                                                                
+        {                                                                                                                             
+            return $query->result();
+        }else{                  
+            return FALSE;
+        }                                 
+    }                               
 
     public function get_documentos($id_preinscrito)
     {                       
@@ -407,7 +421,39 @@ class Preinscritos_model extends CI_Model
         {                                                                                                                                                                                             
             return FALSE;            
         }                                                                       
-    }                                       
+    }                                                             
+
+    public function get_disciplinas($user_uuid)
+    {                                                                           
+        $this->db->select('dis.id_discipline,dis.discipline');
+        $this->db->from('seg_dec_disciplinas as dis');                                     
+        $this->db->join('seg_dec_usuarios_programas as up','up.id_discipline = dis.id_discipline','left'); 
+        $this->db->where('up.user_uuid',$user_uuid);                           
+        $this->db->group_by('up.id_discipline');                                                               
+        $query = $this->db->get();                                                                                                                                     
+        if ($query->num_rows()>0)                                                                                                                                                   
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+             return $query->result();                             
+        }                                                                                                                                                                                                                                                                                                                                          
+        else        
+        {                                                                                                                                                                                            
+            return FALSE;            
+        }                       
+    }                  
+
+    public function get_disciplinas_all()
+    {                                                    
+        $this->db->select('id_discipline,discipline');               
+        $query = $this->db->get('seg_dec_disciplinas');
+        if ($query->num_rows()>0)                                                                                                                                    
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             return $query->result();                             
+        }                                                                                                                                                                                                                                                                                                                                          
+        else
+        {                                                                                                                                                                                     
+            return FALSE;            
+        }                       
+    }                                                 
 } 
 
 ?>              

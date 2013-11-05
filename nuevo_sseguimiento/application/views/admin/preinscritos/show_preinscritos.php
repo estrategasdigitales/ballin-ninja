@@ -14,8 +14,8 @@
 		<?php 										
 		echo isset($msj)?$msj:'';
 		?>																										
-	</div>		
-	<div>																
+	</div>											
+	<div>																											
 	<label>Disciplinas: *</label>				
 	<select name="id_discipline" id="id_discipline">
 		<option value="0">Selecciona la disciplina</option>																																											
@@ -35,7 +35,7 @@
 	<select name="id_program" id="id_program">																																													
 		<option value="0">Selecciona un programa</option>																																																																			
 	<select/>																																									
-	</div>																																												
+	</div>																																																
 	<table id="list_preinscritos"></table><!--Grid table-->
     <div id="pager_preinscritos"></div>  <!--pagination div-->
 	</div>	

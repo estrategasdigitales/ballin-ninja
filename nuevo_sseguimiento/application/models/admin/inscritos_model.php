@@ -6,10 +6,10 @@ class Inscritos_model extends CI_Model
     {                                                                   
         parent::__construct();
         $this->load->database();
-    }                                                                                                                                                                                                                                                                          
+    }                                                                                                                                                                                                                                                                                          
 
     public function total_inscritos($user_uuid)
-    {                                                                                                              
+    {                                                                                                                       
         $this->db->join('seg_dec_usuarios_programas as up','up.id_program = pre.id_program', 'inner');
         $this->db->join('seg_dec_programas as pro','up.id_program = pro.id_program', 'inner');                   
         $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito', 'inner');

@@ -33,9 +33,9 @@
 .ie6 .art-post .art-layout-cell {border:none !important; padding:0 !important; }
 /*.ui-widget { font-family: inherit !important; font-size: inherit !important; }*/
 </style></head>                                                                      
-<body>                               					
-        <div id="centrado">
-        <div id="encabezado">
+<body>                                        					
+        <div id="centrado">                          
+        <div id="encabezado">               
         	<div id="logo">
             	<?php echo img('includes/admin/images/seguimiento/logo_UIA.jpg'); ?>				
             	<?php echo img('includes/admin/images/seguimiento/logo_DEC.jpg'); ?>			
@@ -48,7 +48,7 @@
                 <li>                        
                     <a href=<?php echo site_url("admin/users/show"); ?> class="active">Usuarios</a>
                     <ul>
-                        <li>
+                        <li>        
                             <a href=<?php echo site_url("admin/users/add"); ?>>Agregar</a>
                         </li>              
                     </ul>                
@@ -86,15 +86,18 @@
                     </ul>-->                          
                 </li>                                         
                 <li>                                                                           
-                <a href=<?php echo site_url("admin/informes/show"); ?> class="active">Informes</a>                         
-                </li>                                                         
+                    <a href=<?php echo site_url("admin/informes/show"); ?> class="active">Informes</a>                         
+                </li>        
+                <li>                                                                                                                                         
+                    <a href=<?php echo site_url("admin/graficas/show"); ?> class="active">Graficas</a>                         
+                </li>                                                              
                 <li>                                				                
                     <a href=<?php echo site_url("acceso/login/salir"); ?> class="active">Salir</a>
                 </li>                                           
-            </ul>                                           
-        </div>          
+            </ul>                                                 
+        </div>                            
         <div class="clear"></div>                                                
-    		<div id="content">                                                                                                  
+    		<div id="content">                                                                                                                                           
                 <div id="base_url" style="display:none"><?php echo base_url(); ?></div>							
     			<?php echo $content_for_layout; ?>			
     		</div>                                                                 	

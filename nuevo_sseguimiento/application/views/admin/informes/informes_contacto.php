@@ -9,9 +9,9 @@
 </head>																						
 <body>				
 	<?php echo isset($msj)?$msj:''; ?>																																																											
-	<?php echo form_open('admin/informes/update_contacto'); ?>				
+	<?php echo form_open('admin/informes/update_contacto'); ?>									
 	<div><input type="hidden" name="id" value="<?php echo $contacto->id; ?>"></div>																																		
-	<div>Programa: <?php echo $contacto->nombre; ?></div>																							
+	<div>Programa: <?php echo $contacto->program_name; ?></div>																									
 	<div>Nombre completo: <?php echo $contacto->nombre.' '.$contacto->paterno.' '.$contacto->materno; ?></div>
 	<div>Correo electrónico: <?php echo $contacto->correo; ?></div>				
 	<div>Información que solicita: <textarea><?php echo $contacto->comentario; ?></textarea></div>
