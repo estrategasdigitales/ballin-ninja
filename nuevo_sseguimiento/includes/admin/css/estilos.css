@@ -18,6 +18,11 @@ p {
 	margin-top: 4px;
 	line-height:16px;
 }
+
+a{
+	text-decoration: none;
+}	
+
 a:link {
 	text-decoration:none;
 	color: #808080;
@@ -34,7 +39,7 @@ h1 {
 	line-height:20px;
 	font-size: 18px;
 	color: #FF0000;
-	margin-top: 4px;
+	margin-top: 0px;
 	margin-bottom:4px;
 	letter-spacing: .5px;
 	text-align:left;
@@ -77,9 +82,10 @@ h5 {
 	color: #FF0000;
 }
 /*FIN ESTILOS GENERALES*/
+
 #centrado{
-	margin: 0px auto 0px auto; 		
-	width: 90%;
+	margin: 0px auto; 		
+	width: 970px;
 	height: auto;	
 	/*border:1px solid;*/				
 }																																																																			
@@ -93,12 +99,13 @@ h5 {
 	width:970px;
 	margin:auto;							
 	/*border:1px solid;*/
-	padding:5px;		
+	padding:0px;		
 	height:85px;											
 }																																														
 		
 #encabezado #logo{
 	/*border:1px solid;*/
+	margin: 0px 10px 0px 0px;
 	display:inline-block;	
 	float:left;													
 }												
@@ -118,62 +125,90 @@ h5 {
 }
 /************/																				
 																																																																						
-														
+/*ESTILOS DEL MENU*/
+
 ul.menu{
+	font-size: 11px;
 	width:970px;			
-	margin:40px auto;		
+	/*margin:40px auto;*/	
 	list-style: none;
-	/*border:1px solid;*/
-	padding-left:0px;		
+	border-top:1px solid #CCC;
+	border-bottom:1px solid #CCC;
+	padding: 10px 0px 10px 0px;		
 }																												
 										
 ul.menu li{
 	position: relative;
 	width:100px;
-	background: #F4F4F4;
-	/*border:1px solid;*/
-}																												
-
-ul.menu ul{
-	position:absolute; 
-    left:40px;				 
-    top:-1px;
-    display:none;
-    list-style:none;
-    /*border:1px solid;	*/			 
-}									
-		
-ul.menu li:hover > ul
-{		
-	display:block;
-}		
-
-ul.menu> li > ul 
-{
-   position:absolute;
-   left:-41px;
-   top:19px;
-   display:none;
-   list-style:none;
-}								
-
-ul.menu > li 
-{		
-   display:inline;
-   margin-right:5px;
-}									
+	background: #FFF;
+	border-right:1px solid #CCC;
+	padding: 3px 10px 3px 10px;
+}	
 
 ul.menu li a
 {
 	text-decoration: none;
-	background: #F4F4F4;
-	color: black;			
-}	
+	/*background: #F4F4F4;*/
+	/*color: black;*/			
+}																												
 
-a{
-	text-decoration: none;
-}																		
-										
+/*ul.menu ul{
+	position:absolute; 
+    left:0px;				 
+    top:1px;
+    display:none;
+    list-style:none;
+    /*border:1px solid;	*/			 
+/*}*/									
+
+ul.menu li:hover
+{		
+	background: #EEE;
+}		
+
+ul.menu li:hover > ul
+{		
+	display:block;
+	border: 1px solid #EEE;
+	background: #FFF;
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+ul.menu li:hover > ul li
+{		
+	padding: 5px;
+	background: #FFF;
+	margin: 0px;
+	border: none;
+	list-style: none;
+}
+
+ul.menu li:hover > ul li:hover
+{		
+	background: #EEE;
+	border: none;
+}		
+
+ul.menu > li > ul 
+{
+   position:absolute;
+   left:0px;
+   top:19px;
+   display:none;
+   list-style:none;
+   border: none;
+}							
+
+ul.menu > li 
+{		
+   display:inline;
+   /*margin-right:5px;*/
+}																										
+		
+/*TERMINAN ESTILOS DE MENU*/
+
 div.sep{
 	display: block;
 }				
@@ -347,32 +382,40 @@ div.sep{
 }													
 /**********/
 
+/*ESTILOS DETALLE PREINSCRITO*/
 #estatus_proceso textarea{
 	width:500;
 }																		
 
-.titulo_cb{				
+/*.titulo_cb{				
 	color:red;					
 	font-size:16px;
-}				
+}*/				
+
+#datos_programa{		
+	margin-bottom:15px;	
+	width: 100%;						
+}	
 
 #datos_generales{	
-	float:left;		
-	margin-bottom:15px;		
+	float:left;
+	width: 45%;
+	border-right: 2px solid #CCC;	
+	margin:0px 15px 0px 0px;	
+	padding: 15px 0px 15px 0px;	
 }														
 
 #subir_documentos{		
-	float:left;															
-	margin-top:-15px;			
-}																																															
-
-#datos_programa{		
-	margin-bottom:15px;							
-}										
+	float:left;																		
+}																																																						
 						
 #estatus_proceso{
-	float:left;			
-	margin-bottom:15px;	
+	float:left;
+	width: 45%;
+	border-right: 2px solid #CCC;
+	border-top: 2px solid #CCC;
+	margin:0px 15px 0px 0px;
+	padding: 15px 0px 15px 0px;	
 }			
 									
 #clasificar_aspirante{
