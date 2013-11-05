@@ -11,35 +11,39 @@
 <body>																
 <div><?php echo isset($msj)?$msj:''; ?></div>	
 <div id="preinscrito_detalle">					
-<div id="datos_programa"><div class="titulo_cb">Programa:</div><label><?php echo $preinscrito->program_name; ?></label></div>								 								
-<div id="datos_generales">																																																																														
-	<div class="titulo_cb">Datos del interesado:</div>			
-	<div><label>Nombre Completo:</label> <?php echo $preinscrito->nombre.' '.$preinscrito->a_paterno.' '.$preinscrito->a_materno; ?></div>		
-	<div><label>Fecha de registro:</label> <?php echo $preinscrito->fecha_registro; ?></div>
-	<div><label>Calle y número:</label> <?php echo $preinscrito->calle_numero; ?></div>
-	<div><label>Del o mpo: </label> <?php echo $preinscrito->del_mpo; ?></div>
+	<div id="datos_programa">
+		<h1>Programa:</h1>
+		<h2><?php echo $preinscrito->program_name; ?></h2>
+	</div>	
 
-	<div><label>Cp:</label> <?php echo $preinscrito->cp; ?></div>
-	<div><label>Ciudad:</label> <?php echo $preinscrito->ciudad; ?></div>
-	<div><label>Estado:</label> <?php echo $preinscrito->estado; ?></div>
-	<div><label>Teléfono:</label> <?php echo $preinscrito->telefono; ?></div>
-	<div><label>Celular:</label> <?php echo $preinscrito->celular; ?></div>
-	<div><label>RFC:</label> <?php echo $preinscrito->rfc; ?></div>
-	<div><label>Correo electrónico:</label> <?php echo $preinscrito->correo; ?></div>
-	<div><label>Institución de estudios:</label> <?php echo $preinscrito->institucion_estudios; ?></div>
-	<div><label>Nacionalidad:</label> <?php echo $preinscrito->nacionalidad; ?></div>
-	<div><label>Nivel académico:</label> <?php echo $preinscrito->grado_academico; ?></div>
-	<div><label>Exalumno Ibero:</label> <?php echo $preinscrito->exalumno; ?></div>
-	<div><label>¿Cómo se enteró?:</label> <?php echo $preinscrito->como_se_entero; ?></div>
-	<div><label>¿Porqué la Ibero?:</label> <?php echo $preinscrito->porque_la_ibero; ?></div>
-																						
-	<div><label>Empresa:</label> <?php echo $preinscrito->empresa; ?></div>
-	<div><label>Puesto: </label> <?php echo $preinscrito->puesto; ?></div>
-	<div><label>Dirección de la empresa: </label> <?php echo $preinscrito->direccion_empresa; ?></div>
-	<div><label>Teléfono de la empresa: </label> <?php echo $preinscrito->telefono_empresa; ?></div>																				 																																			
-</div>
-<div id="subir_documentos">				
-	<div class="titulo_cb">Documentos :</div>										
+	<div id="datos_generales">																																																																														
+		<h1>Datos del interesado:</h1>			
+		<p><strong>Nombre Completo:</strong> <?php echo $preinscrito->nombre.' '.$preinscrito->a_paterno.' '.$preinscrito->a_materno; ?></p>		
+		<p><strong>Fecha de registro:</strong> <?php echo $preinscrito->fecha_registro; ?></p>
+		<p><strong>Calle y número:</strong> <?php echo $preinscrito->calle_numero; ?></p>
+		<p><strong>Del o mpo: </strong> <?php echo $preinscrito->del_mpo; ?></p>
+
+		<p><strong>Cp:</strong> <?php echo $preinscrito->cp; ?></p>
+		<p><strong>Ciudad:</strong> <?php echo $preinscrito->ciudad; ?></p>
+		<p><strong>Estado:</strong> <?php echo $preinscrito->estado; ?></p>
+		<p><strong>Teléfono:</strong> <?php echo $preinscrito->telefono; ?></p>
+		<p><strong>Celular:</strong> <?php echo $preinscrito->celular; ?></p>
+		<p><strong>RFC:</strong> <?php echo $preinscrito->rfc; ?></p>
+		<p><strong>Correo electrónico:</strong> <?php echo $preinscrito->correo; ?></p>
+		<p><strong>Institución de estudios:</strong> <?php echo $preinscrito->institucion_estudios; ?></p>
+		<p><strong>Nacionalidad:</strong> <?php echo $preinscrito->nacionalidad; ?></p>
+		<p><strong>Nivel académico:</strong> <?php echo $preinscrito->grado_academico; ?></p>
+		<p><strong>Exalumno Ibero:</strong> <?php echo $preinscrito->exalumno; ?></p>
+		<p><strong>¿Cómo se enteró?:</strong> <?php echo $preinscrito->como_se_entero; ?></p>
+		<p><strong>¿Porqué la Ibero?:</strong> <?php echo $preinscrito->porque_la_ibero; ?></p>
+																							
+		<p><strong>Empresa:</strong> <?php echo $preinscrito->empresa; ?></p>
+		<p><strong>Puesto: </strong> <?php echo $preinscrito->puesto; ?></p>
+		<p><strong>Dirección de la empresa: </strong> <?php echo $preinscrito->direccion_empresa; ?></p>
+		<p><strong>Teléfono de la empresa: </strong> <?php echo $preinscrito->telefono_empresa; ?></p>																				 																																			
+	</div>
+	<div id="subir_documentos">				
+	<h1>Documentos :</h1>										
 	<?php
 		 if(!empty($archivos)){
 
@@ -57,26 +61,55 @@
 </div>								
 <div class="clear"></div>													
 <div id="estatus_proceso">																									
-	<div class="titulo_cb">Estatus del proceso:</div>																									
-	<div></label><input type="checkbox" name="primer_contacto" id="primer_contacto" <?php echo ($preinscrito->primer_contacto==1)?"checked":""; ?> disabled="disabled"><label>Primer contacto</label></div>
-	<a href="#" name="estatus" rel="estatus_primer_contacto"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-	<div id="estatus_primer_contacto" style="display:none;"><textarea name="comentarios_primer_contacto"></textarea></div>											
-																				
-	<div><input type="checkbox" name="documentos"  id="documentos" <?php echo ($preinscrito->documentos==1)?"checked":""; ?> disabled="disabled"><label>Documento</label></div>			
-	<a href="#" name="estatus" rel="estatus_documentos"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-	<div id="estatus_documentos" style="display:none;"><textarea name="comentarios_documentos"></textarea></div>																						
-													
-	<div><input type="checkbox" name="envio_decse" id="envio_decse" <?php echo ($preinscrito->envio_decse==1)?"checked":""; ?> disabled="disabled"><label>Enviar a DECSE</label></div>			
-	<a href="#" name="estatus" rel="estatus_envio_decse"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-	<div id="estatus_envio_decse" style="display:none;"><textarea name="comentarios_envio_decse"></textarea></div>
-	
-	<div><input type="checkbox" name="envio_claves"  id="envio_claves" <?php echo ($preinscrito->envio_claves==1)?"checked":""; ?> disabled="disabled"><label>Envío de claves</label></div>			
-	<a href="#" name="estatus" rel="estatus_envio_claves"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-	<div id="estatus_envio_claves" style="display:none;"><textarea  name="comentarios_envio_claves"></textarea></div>
-																																			
-	<div><input type="checkbox" name="pago_realizado"  id="pago_realizado" <?php echo ($preinscrito->pago_realizado==1)?"checked":""; ?> disabled="disabled"><label>Pago realizado</label></div>			
-	<a href="#" name="estatus" rel="estatus_pago_realizado"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-	<div id="estatus_pago_realizado" style="display:none;"><textarea name="comentarios_pago_realizado"></textarea></div>
+	<h1>Estatus del proceso:</h1>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:25px;">
+		<tr>
+			<td valign="top" width="50%" height="50">
+				<input type="checkbox" name="primer_contacto" id="primer_contacto" <?php echo ($preinscrito->primer_contacto==1)?"checked":""; ?> disabled="disabled"><label>Primer contacto</label>
+			</td>
+			<td valign="top" width="50%" height="50">
+				<a href="#" name="estatus" rel="estatus_primer_contacto"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
+				<div id="estatus_primer_contacto" style="display:none;"><textarea name="comentarios_primer_contacto"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" width="50%" height="50">
+				<input type="checkbox" name="documentos"  id="documentos" <?php echo ($preinscrito->documentos==1)?"checked":""; ?> disabled="disabled"><label>Documento</label>
+			</td>
+			<td valign="top" width="50%" height="50">
+				<a href="#" name="estatus" rel="estatus_documentos"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
+				<div id="estatus_documentos" style="display:none;"><textarea name="comentarios_documentos"></textarea></div>	
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" width="50%">
+				<input type="checkbox" name="envio_decse" id="envio_decse" <?php echo ($preinscrito->envio_decse==1)?"checked":""; ?> disabled="disabled"><label>Enviar a DECSE</label>	
+			</td>
+			<td valign="top" width="50%">
+				<a href="#" name="estatus" rel="estatus_envio_decse"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
+				<div id="estatus_envio_decse" style="display:none;"><textarea name="comentarios_envio_decse"></textarea></div>	
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" width="50%">
+				<input type="checkbox" name="envio_claves"  id="envio_claves" <?php echo ($preinscrito->envio_claves==1)?"checked":""; ?> disabled="disabled"><label>Envío de claves</label>	
+			</td>
+			<td valign="top" width="50%">
+				<a href="#" name="estatus" rel="estatus_envio_claves"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
+				<div id="estatus_envio_claves" style="display:none;"><textarea  name="comentarios_envio_claves"></textarea></div>	
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" width="50%">
+				<input type="checkbox" name="pago_realizado"  id="pago_realizado" <?php echo ($preinscrito->pago_realizado==1)?"checked":""; ?> disabled="disabled"><label>Pago realizado</label>	
+			</td>
+			<td valign="top" width="50%">
+				<a href="#" name="estatus" rel="estatus_pago_realizado"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
+	<div id="estatus_pago_realizado" style="display:none;"><textarea name="comentarios_pago_realizado"></textarea></div>	
+			</td>
+		</tr>	
+	</table>																								
+																															
 </div>																																																																																																	
 <div id="clasificar_aspirante">
 		<div class="titulo_cb">Clasificación del aspirante</div>																													
