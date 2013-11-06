@@ -39,9 +39,36 @@
         	<div id="logo">
             	<?php echo img('includes/admin/images/seguimiento/logo_UIA.jpg'); ?>				
             	<?php echo img('includes/admin/images/seguimiento/logo_DEC.jpg'); ?>			
-        	</div>	
-        	<h1>Sistema de seguimiento de preinscripciones</h1>						
-        	<h2>Administrador | <a href="#">Cerrar sesión</a></h2>																							
+        	</div>
+            <div id="titulo">
+            	<h1>Sistema de seguimiento de preinscripciones</h1>						
+            	<h2>Administrador | <a href="#">Cerrar sesión</a></h2>	
+            </div>
+
+            <div id="filtro">                                                               
+                <p>
+                    <label>*Disciplinas:</label>               
+                    <select name="id_discipline" id="id_discipline">
+                        <option value="0">Selecciona la disciplina</option>                                                                                                                                                                         
+                        <?php foreach($disciplinas as $disciplina){ ?>      
+                        <option value="<?php echo $disciplina->id_discipline; ?>"  <?php echo set_select('id_discipline', $disciplina->id_discipline); ?>><?php echo $disciplina->discipline; ?></option>                                               
+                        <?php } ?>                                                                                                                                                                                                                              
+                    <select/>  
+                </p> 
+                <p>                      
+                    <label>*Tipo de programa:</label>                              
+                    <select name="program_type" id="program_type">                                                                                                                                                                                  
+                        <option value="0">Selecciona el tipo de programa</option>                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                    <select/>
+                </p>
+                <p>                                                                                                                                                                                                   
+                    <label>*Programas:</label>                             
+                    <select name="id_program" id="id_program">                                                                                                                                                                                  
+                        <option value="0">Selecciona un programa</option>                                                                                                                                                                                                                                                                           
+                    <select/>
+                </p>                                                                                                                                                                   
+            </div>
+
         </div>							   		      		     																				
         <div id="menu">                                                        
             <ul class="menu"> 
@@ -93,7 +120,8 @@
                 <li>                                				                
                     <a href=<?php echo site_url("acceso/login/salir"); ?> class="active">Salir</a>
                 </li>                                           
-            </ul>                                           
+            </ul> 
+
         </div>          
         <div class="clear"></div>                                                
     		<div id="content">                                                                                                  

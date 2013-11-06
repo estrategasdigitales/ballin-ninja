@@ -95,9 +95,10 @@ h5 {
 	/*border:1px solid;	*/
 }				
 
+/*ESTILOS DEL HEADER*/
 #encabezado{
 	width:970px;
-	margin:auto;							
+	margin:0px 0px 20px 0px;							
 	/*border:1px solid;*/
 	padding:0px;		
 	height:85px;											
@@ -108,22 +109,22 @@ h5 {
 	margin: 0px 10px 0px 0px;
 	display:inline-block;	
 	float:left;													
-}												
-																	
-/*ESTILO INNECESARIOS*/
-#encabezado #titulo{
-	display:inline-block;
-	margin:15px 5px;				
-	/*border:1px solid;*/				
 }
 
-																												
-#salir{															
-	/*border:1px solid;*/		
-	display:block;			
-	margin-left:0px;				
+#encabezado #titulo{
+	float: left;
+	margin: 0px 10px 0px 0px;			
 }
-/************/																				
+
+#encabezado #filtro{
+	float: right;
+	width: 374px;
+	text-align: right;
+}
+
+#encabezado #filtro p{
+	margin: 0px;
+}																															
 																																																																						
 /*ESTILOS DEL MENU*/
 
