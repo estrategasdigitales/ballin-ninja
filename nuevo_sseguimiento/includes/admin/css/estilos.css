@@ -392,7 +392,15 @@ div.sep{
 
 /*ESTILOS DETALLE PREINSCRITO*/
 #estatus_proceso textarea{
-	width:500;
+	width:200px;
+	max-width: 200px;
+	height: 50px;
+	max-height: 50px;
+}
+
+#estatus_proceso .division_pasos{
+	border-top: 1px dotted #CCC;
+	padding: 10px 0px 0px 0px;
 }																		
 
 /*.titulo_cb{				
@@ -409,12 +417,14 @@ div.sep{
 	float:left;
 	width: 45%;
 	border-right: 2px solid #CCC;	
-	margin:0px 15px 0px 0px;	
-	padding: 15px 0px 15px 0px;	
+	margin:0px 0px 0px 0px;	
+	padding: 15px 15px 15px 0px;	
 }														
 
 #subir_documentos{		
-	float:left;																		
+	float:left;
+	width: 45%;
+	padding: 15px;																	
 }																																																						
 						
 #estatus_proceso{
@@ -422,28 +432,34 @@ div.sep{
 	width: 45%;
 	border-right: 2px solid #CCC;
 	border-top: 2px solid #CCC;
-	margin:0px 15px 0px 0px;
-	padding: 15px 0px 15px 0px;	
+	margin:0px 0px 0px 0px;
+	padding: 15px 15px 15px 0px;	
 }			
 									
 #clasificar_aspirante{
-	float:right;		
-	margin-right:200px;	
-	display: block;			
-}											
-								
-#comentarios{				
-	float:right;		
-	margin-right:150px;			
-}																				
+	float:left;	
+	width: 45%;
+	border-top: 2px solid #CCC;
+	/*margin-right:200px;*/
+	display: block;	
+	margin:0px 0px 0px 0px;
+	padding: 15px;		
+}
+
+#clasificar_aspirante textarea{
+	width: 360px;
+	max-width: 360px;
+	height: 100px;
+	max-height: 100px;
+}																													
 	
 #button_editar{		
 	clear: both;
 	width:70px;								
 	display:block;				
 	text-align: center;	
-	margin: auto;	
-	background: red;									
+	margin: 30px auto;	
+	background: #F00;									
 }							
 
 #button_editar a{		
@@ -455,11 +471,12 @@ div.sep{
 }									
 		
 #button_cancelar{		
+	clear: both;
 	width:70px;								
-	display:inline;					
-	text-align:center;	
-	background:red;
-	margin-right:80px;								
+	display:block;				
+	text-align: center;	
+	margin: 0 auto;	
+	background: #F00;								
 }																														
 						
 #button_cancelar a{		
@@ -473,7 +490,8 @@ div.sep{
 	color:white;	
 	border:none;	
 	display:inline;
-	margin-left: 80px;																			
+	margin-left: 0 auto;
+	cursor: pointer;																		
 }																						
 
 

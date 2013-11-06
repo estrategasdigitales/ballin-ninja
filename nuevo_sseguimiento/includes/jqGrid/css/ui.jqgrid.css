@@ -607,6 +607,8 @@ border-left-style:solid;
 float:left;
 position:relative;
 padding:1px 0;
+/*width: 25px;
+height: 25px;*/
 }
 
 .ui-jqgrid .ui-jqgrid-pager .ui-pg-div span.ui-icon,.ui-jqgrid .ui-jqgrid-toppager .ui-pg-div span.ui-icon {

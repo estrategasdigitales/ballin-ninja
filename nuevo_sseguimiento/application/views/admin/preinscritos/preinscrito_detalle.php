@@ -43,89 +43,87 @@
 		<p><strong>Teléfono de la empresa: </strong> <?php echo $preinscrito->telefono_empresa; ?></p>																				 																																			
 	</div>
 	<div id="subir_documentos">				
-	<h1>Documentos :</h1>										
-	<?php
-		 if(!empty($archivos)){
+		<h1>Documentos :</h1>										
+		<?php
+			 if(!empty($archivos)){
 
-		 	foreach($archivos as $archivo){
-	?>																						
-			<div><a href="<?php echo base_url('includes/admin/documentos/'.$archivo->archivo); ?>" target="_blank"><?php echo $archivo->doc_type; ?></a></div>			
-	<?php 								
-			}																							
-		 }else{			
-	?>	 	
-		<div>No existen documentos.</div>
-	<?php
-		}		  
-	?>																																																																		
-</div>								
-<div class="clear"></div>													
-<div id="estatus_proceso">																									
-	<h1>Estatus del proceso:</h1>
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:25px;">
-		<tr>
-			<td valign="top" width="50%" height="50">
-				<input type="checkbox" name="primer_contacto" id="primer_contacto" <?php echo ($preinscrito->primer_contacto==1)?"checked":""; ?> disabled="disabled"><label>Primer contacto</label>
-			</td>
-			<td valign="top" width="50%" height="50">
-				<a href="#" name="estatus" rel="estatus_primer_contacto"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-				<div id="estatus_primer_contacto" style="display:none;"><textarea name="comentarios_primer_contacto"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" width="50%" height="50">
-				<input type="checkbox" name="documentos"  id="documentos" <?php echo ($preinscrito->documentos==1)?"checked":""; ?> disabled="disabled"><label>Documento</label>
-			</td>
-			<td valign="top" width="50%" height="50">
-				<a href="#" name="estatus" rel="estatus_documentos"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-				<div id="estatus_documentos" style="display:none;"><textarea name="comentarios_documentos"></textarea></div>	
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" width="50%">
-				<input type="checkbox" name="envio_decse" id="envio_decse" <?php echo ($preinscrito->envio_decse==1)?"checked":""; ?> disabled="disabled"><label>Enviar a DECSE</label>	
-			</td>
-			<td valign="top" width="50%">
-				<a href="#" name="estatus" rel="estatus_envio_decse"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-				<div id="estatus_envio_decse" style="display:none;"><textarea name="comentarios_envio_decse"></textarea></div>	
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" width="50%">
-				<input type="checkbox" name="envio_claves"  id="envio_claves" <?php echo ($preinscrito->envio_claves==1)?"checked":""; ?> disabled="disabled"><label>Envío de claves</label>	
-			</td>
-			<td valign="top" width="50%">
-				<a href="#" name="estatus" rel="estatus_envio_claves"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-				<div id="estatus_envio_claves" style="display:none;"><textarea  name="comentarios_envio_claves"></textarea></div>	
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" width="50%">
-				<input type="checkbox" name="pago_realizado"  id="pago_realizado" <?php echo ($preinscrito->pago_realizado==1)?"checked":""; ?> disabled="disabled"><label>Pago realizado</label>	
-			</td>
-			<td valign="top" width="50%">
-				<a href="#" name="estatus" rel="estatus_pago_realizado"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-	<div id="estatus_pago_realizado" style="display:none;"><textarea name="comentarios_pago_realizado"></textarea></div>	
-			</td>
-		</tr>	
-	</table>																								
-																															
-</div>																																																																																																	
-<div id="clasificar_aspirante">
-		<div class="titulo_cb">Clasificación del aspirante</div>																													
-		<div><input type="checkbox" name="caso_cerrado"  id="caso_cerrado" <?php echo ($preinscrito->caso_cerrado==1)?"checked":""; ?> disabled="disabled"><label>Caso cerrado</label></div>										 
-		<div><input type="checkbox" name="caso_inconcluso"  id="caso_inconcluso" <?php echo ($preinscrito->caso_inconcluso==1)?"checked":""; ?> disabled="disabled"><label>Caso inconcluso</label></div>										 
-		<div><input type="checkbox" name="informes"  id="informes" <?php echo ($preinscrito->informes==1)?"checked":""; ?> disabled="disabled"><label>Informes</label></div>										 
-		<div><input type="checkbox" name="atendido"  id="atendido" <?php echo ($preinscrito->atendido==1)?"checked":""; ?> disabled="disabled"><label>Atendido</label></div>										 
-</div>																										
-<div id="comentarios">														
-		<div class="titulo_cb">Comentario general</div>																																							
-		<div><a href="#" rel="comentarios_comentario_general">Añadir / editar comentario general</a></div>							
+			 	foreach($archivos as $archivo){
+		?>																						
+				<div><a href="<?php echo base_url('includes/admin/documentos/'.$archivo->archivo); ?>" target="_blank"><?php echo $archivo->doc_type; ?></a></div>			
+		<?php 								
+				}																							
+			 }else{			
+		?>	 	
+			<p>No existen documentos.</p>
+		<?php
+			}		  
+		?>																																																																		
+	</div>								
+	<div class="clear"></div>													
+	<div id="estatus_proceso">																									
+		<h1>Estatus del proceso:</h1>
+		<table width="95%" border="0" cellspacing="0" cellpadding="0" style="margin-top:25px;">
+			<tr>
+				<td valign="top" width="140" height="50">
+					<input type="checkbox" name="primer_contacto" id="primer_contacto" <?php echo ($preinscrito->primer_contacto==1)?"checked":""; ?> disabled="disabled"><label>Primer contacto</label>
+				</td>
+				<td valign="top">
+					<a href="#" name="estatus" rel="estatus_primer_contacto"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
+					<div id="estatus_primer_contacto" style="display:none;"><textarea name="comentarios_primer_contacto"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top" height="50" class="division_pasos">
+					<input type="checkbox" name="documentos"  id="documentos" <?php echo ($preinscrito->documentos==1)?"checked":""; ?> disabled="disabled"><label>Documento</label>
+				</td>
+				<td valign="top" class="division_pasos">
+					<a href="#" name="estatus" rel="estatus_documentos"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
+					<div id="estatus_documentos" style="display:none;"><textarea name="comentarios_documentos"></textarea></div>	
+				</td>
+			</tr>
+			<tr>
+				<td valign="top" height="50" class="division_pasos">
+					<input type="checkbox" name="envio_decse" id="envio_decse" <?php echo ($preinscrito->envio_decse==1)?"checked":""; ?> disabled="disabled"><label>Enviar a DECSE</label>	
+				</td>
+				<td valign="top" class="division_pasos">
+					<a href="#" name="estatus" rel="estatus_envio_decse"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
+					<div id="estatus_envio_decse" style="display:none;"><textarea name="comentarios_envio_decse"></textarea></div>	
+				</td>
+			</tr>
+			<tr>
+				<td valign="top" height="50" class="division_pasos">
+					<input type="checkbox" name="envio_claves"  id="envio_claves" <?php echo ($preinscrito->envio_claves==1)?"checked":""; ?> disabled="disabled"><label>Envío de claves</label>	
+				</td>
+				<td valign="top" class="division_pasos">
+					<a href="#" name="estatus" rel="estatus_envio_claves"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
+					<div id="estatus_envio_claves" style="display:none;"><textarea  name="comentarios_envio_claves"></textarea></div>	
+				</td>
+			</tr>
+			<tr>
+				<td valign="top" height="50" class="division_pasos">
+					<input type="checkbox" name="pago_realizado"  id="pago_realizado" <?php echo ($preinscrito->pago_realizado==1)?"checked":""; ?> disabled="disabled"><label>Pago realizado</label>	
+				</td>
+				<td valign="top" class="division_pasos">
+					<a href="#" name="estatus" rel="estatus_pago_realizado"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
+					<div id="estatus_pago_realizado" style="display:none;"><textarea name="comentarios_pago_realizado"></textarea></div>	
+				</td>
+			</tr>	
+		</table>																								
+	</div>																																																																																																	
+	<div id="clasificar_aspirante">
+		<h1>Clasificación del aspirante</h1>																													
+		<p><input type="checkbox" name="caso_cerrado"  id="caso_cerrado" <?php echo ($preinscrito->caso_cerrado==1)?"checked":""; ?> disabled="disabled"><label>Caso cerrado</label></p>									 
+		<p><input type="checkbox" name="caso_inconcluso"  id="caso_inconcluso" <?php echo ($preinscrito->caso_inconcluso==1)?"checked":""; ?> disabled="disabled"><label>Caso inconcluso</label></p>									 
+		<p><input type="checkbox" name="informes"  id="informes" <?php echo ($preinscrito->informes==1)?"checked":""; ?> disabled="disabled"><label>Informes</label></p>
+		<p><input type="checkbox" name="atendido"  id="atendido" <?php echo ($preinscrito->atendido==1)?"checked":""; ?> disabled="disabled"><label>Atendido</label></p>									 
+		<h2>Comentario general</h2>																																							
+		<p><a href="#" rel="comentarios_comentario_general">Añadir / editar comentario general</a></p>						
 		<div id="comentarios_comentario_general" style="display:none;"><textarea name="comentario_general"><?php echo $preinscrito->comentario_general; ?></textarea></div>
-</div>
-<div id="button_editar">																																																																																																																																																																																																																																															
-<a href="<?php echo base_url("admin/preinscritos/editar/".$preinscrito->id_preinscrito); ?>">editar</a>															
-</div>		
+	</div>
+	<div class="clear"></div>
+	<div id="button_editar">																																																																																																																																																																																																																																															
+		<a href="<?php echo base_url("admin/preinscritos/editar/".$preinscrito->id_preinscrito); ?>">editar</a>															
+	</div>		
 </div>						
 </body>		
 </html>																				

@@ -67,6 +67,8 @@ overflow:hidden;
 background-repeat:no-repeat;
 width:16px;
 height:16px;
+/*width:25px;
+height:25px;*/
 }
 
 .ui-widget-overlay {
@@ -1281,6 +1283,7 @@ background-position:-144px -112px;
 
 .ui-icon-search {
 background-position:-160px -112px;
+/*background-position:0px 0px;*/
 }
 
 .ui-icon-wrench {
@@ -1647,6 +1650,7 @@ color:#cd0a0a;
 
 .ui-icon,.ui-widget-content .ui-icon,.ui-widget-header .ui-icon {
 background-image:url(images/ui-icons_222222_256x240.png);
+/*background-image:url(images/iconos_dec_sseguimiento.jpg);*/
 }
 
 .ui-state-hover .ui-icon,.ui-state-focus .ui-icon,.ui-state-active .ui-icon {
