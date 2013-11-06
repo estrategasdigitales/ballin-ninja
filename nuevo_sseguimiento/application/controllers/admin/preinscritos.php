@@ -4,23 +4,24 @@ class Preinscritos extends CI_Controller
     private $error;
 
     public function __construct()
-    {                                                                                                                                    
+    {                                                                                                                                                       
         parent::__construct();          
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/preinscritos_model');
        	$this->acceso();                                                                   
-    }
+    }                   
 
-    public function index(){
+    public function index()
+    {
         $this->show();
-    }
+    }       
 
 
     public function show()
     {                                                             
         $data['filtro'] = true;                           
         if($this->accesos->admin())
-        {                                                                      
+        {                                                                                              
             $data['disciplinas'] = $this->preinscritos_model->get_disciplinas_all();                                                                                                                                                        
         }else{                                                                                                                                           
             $data['disciplinas'] = $this->preinscritos_model->get_disciplinas($this->session->userdata('user_uuid')); 
@@ -54,18 +55,27 @@ class Preinscritos extends CI_Controller
                 $total_preinscritos = $this->preinscritos_model->total_preinscritos($this->session->userdata('user_uuid'));
             }                                                                                                       
         }else
-        {                                                           
+        {                                                                  
             $searchOper   = $this->input->post('searchOper');
             $searchField  = $this->input->post('searchField');
             $searchString = $this->input->post('searchString');
-				        			                        
-            $where = search($searchOper,$searchField,$searchString);
+				        			                                                                                                            
+            if(is_array($searchField))
+            {                                         
+                                      
+                $where = 'where '.search_filter($searchOper,$searchField[0],$searchString[0]);
+                $where = $where.' and '.search_filter($searchOper,$searchField[1],$searchString[1]);   
+
+            }else{
+
+                $where = search($searchOper,$searchField,$searchString);    
+            }                        
 
             if($this->accesos->admin())
             {                                                                                          						                                                                                       
                 $total_preinscritos = $this->preinscritos_model->total_search_preinscritos_admin($where)->total;     
             }else
-            {                                                   
+            {                                                                          
                 $total_preinscritos = $this->preinscritos_model->total_search_preinscritos($where,$this->session->userdata('user_uuid'))->total;     
             }                                        
         }               				                                                                            
@@ -133,7 +143,7 @@ class Preinscritos extends CI_Controller
                         
                         if($value->id_paso==5){
                             $pasos['pago_realizado'] = $value->comentario;  
-                        }                                                                    
+                        }                                                                                                   
                     }    
                 }                                                                               
 				                                                   											
@@ -147,7 +157,45 @@ class Preinscritos extends CI_Controller
         } 
 
         echo json_encode($data);                                                                                                     
-    }                                        
+    }    
+
+    public function get_tipos_programas()
+    {                                                           
+        if(!$this->input->is_ajax_request()){               
+            show_404(); 
+        }                                                                        
+
+        $id_discipline = $this->input->post('id_discipline'); 
+
+        if($this->accesos->admin()){             
+            $data['tipos_programas'] = $this->preinscritos_model->get_tipos_programas_all($id_discipline);                                         
+        }else{                                                                                                  
+            $data['tipos_programas'] = $this->preinscritos_model->get_tipos_programas($this->session->userdata('user_uuid'),$id_discipline);                                         
+        }                                                                                                 
+        $this->load->view('admin/users/tipos_programas_ax',$data);                         
+    }        
+
+    public function get_programas()
+    {                                                                          
+        if(!$this->input->is_ajax_request()){
+            show_404();
+        }                                                 
+                                                                             
+        $id_discipline = $this->input->post('id_discipline'); 
+        $program_type  = $this->input->post('program_type');
+
+        if($this->accesos->admin()){                         
+            $data['programas'] = $this->preinscritos_model->get_programas_all($id_discipline,$program_type);
+        }else{                                                                           
+            $data['programas'] = $this->preinscritos_model->get_programas($this->session->userdata('user_uuid'),$id_discipline,$program_type);
+        }                                                                                                                                                                                            
+
+        if(!empty($data['programas'])){     
+            $this->load->view('admin/users/programas_ax',$data);
+        }else{      
+            $this->load->view('admin/users/option_select',$data);
+        }                                                                                                                                                 
+    }                               
 					
     public function delete_preinscrito()
     {                      

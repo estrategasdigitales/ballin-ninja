@@ -39,11 +39,13 @@
             <div id="titulo">
             	<h1>Sistema de seguimiento de preinscripciones</h1>						
             	<h2>Administrador | <a href="#">Cerrar sesión</a></h2>	
-            </div>
-            <?php if($filtro){ ?>
+            </div>                                                                            
+            <?php 
+            $filtro = isset($filtro)?$filtro:false;
+            if($filtro){ ?>                                                                                                                                           
             <div id="filtro">                                                                                                                                     
                 <p>                                                                  
-                    <label>*Disciplinas:</label>               
+                    <label>*Disciplinas:</label>                                     
                     <select name="id_discipline" id="id_discipline">
                         <option value="0">Selecciona la disciplina</option>                                                                                                                                                                         
                         <?php foreach($disciplinas as $disciplina){ ?>      
@@ -68,7 +70,7 @@
         </div>	                             						   		      		     																				
         <div id="menu">                                                        
             <ul class="menu"> 
-                <li>                        
+                <li>                                               
                     <a href=<?php echo base_url("admin/users/show"); ?> class="active">Usuarios</a>
                     <ul>
 
@@ -104,10 +106,11 @@
             </ul> 
         </div>          
         <div class="clear"></div>                                                
-    		<div id="content">                                                                                                                                           
-                <div id="base_url" style="display:none"><?php echo base_url(); ?></div>							
-    			<?php echo $content_for_layout; ?>			
-    		</div>                                                                 	
+    		<div id="content">                                                                                                                                                                                                                                                                                    
+                <div id="base_url" style="display:none"><?php echo base_url(); ?></div>     	
+                <div id="controller" style="display:none"><?php echo $this->uri->segment(2); ?></div>						
+    			<?php echo $content_for_layout; ?>                                                    			
+    		</div>                                                                        	
         </div>       			 					     										
 </body>                                            
 </html>		

@@ -6,7 +6,7 @@ class Programas_model extends CI_Model
     {                                                                   
         parent::__construct();
         $this->load->database();
-    }					
+    }           					
 
     public function get_disciplinas($user_uuid)
     {                                                                           

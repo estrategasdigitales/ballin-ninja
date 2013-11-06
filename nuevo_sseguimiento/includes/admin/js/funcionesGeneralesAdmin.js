@@ -1,3 +1,108 @@
+var programas = {              
+
+  onReady:function()            
+  {                                                         
+      programas.controller = $("#controller").text();              
+      $("#filtro #id_discipline").on("change",programas.get_tipos_programas); 
+      $("#filtro #program_type").on("change",programas.get_programas);
+  },                                                                                                                                                                                                                        
+
+  get_tipos_programas:function()
+  {        
+      if($(this).val()==0){
+        return false;   
+      }                           
+
+      var url = $("#base_url").text()+"admin/"+programas.controller+"/get_tipos_programas";
+      var data = "id_discipline="+$(this).val();                                                           
+
+      $.ajax({                                     
+        async:true,              
+        type:"POST",       
+        dataType:"html",                    
+        contentType: "application/x-www-form-urlencoded,multipart/form-data",
+        data:data,                        
+        url:url,                     
+        success:function(respuesta)    
+        {                                                                                                                                            
+          $("#program_type").html(respuesta);         
+        },                                                             
+        timeout:4000,             
+        error:function(respuesta)
+        {                                           
+          console.log(respuesta);            
+        }                                               
+      });
+
+      programas.search_disciplina(programas.controller);                                                  
+  },                                                                                                                                                                                      
+
+  get_programas:function()
+  {          
+      if($(this).val()==0){
+        return false;   
+      }                       
+        
+      var id_discipline = $("#id_discipline option:selected").val();             
+      var data = "program_type="+$(this).val()+"&id_discipline="+id_discipline;
+      var url = $("#base_url").text()+"admin/"+programas.controller+"/get_programas";
+
+      $.ajax({                                                                    
+        async:true,              
+        type:"POST",
+        dataType:"html",                    
+        contentType: "application/x-www-form-urlencoded,multipart/form-data",
+        url:url,                    
+        data:data,     
+        success:function(respuesta)    
+        {                                                                      
+          $("#id_program").html(respuesta);         
+        },                                                             
+        timeout:4000,             
+        error:function(respuesta)
+        {                                                          
+          console.log(respuesta);            
+        }                                                               
+      });            
+
+    programas.search_tipo_programa(programas.controller);                                 
+  },                       
+
+  search_disciplina:function(controller)
+  {                                                                                                                                                                                               
+    var searchString = $("#id_discipline option:selected").val();         
+    var mypostdata = new Object();                             
+    mypostdata.searchField = 'up.id_discipline';     
+    mypostdata.searchOper = 'eq';                                                                   
+    mypostdata.searchString = searchString;                                                    
+    //$("#list_preinscritos").jqGrid('setGridParam',{search:true,postData:"searchField=program_name&searchOper=cn&searchString="+searchString+"&rows=20&page=1&sidx=id_preinscrito&sord=desc"}).trigger("reloadGrid"); 
+    $("#list_"+controller).jqGrid('setGridParam',{search:true,postData:mypostdata}).trigger("reloadGrid"); 
+  },                            
+
+  search_tipo_programa:function(controller)
+  {                                                            
+    var id_discipline = $("#id_discipline option:selected").val();                                                                                                                                                                                                      
+    var program_type = $("#program_type option:selected").val();          
+    var mypostdata = new Object();                                                                                                                             
+    mypostdata.searchField = ['up.id_discipline','pro.program_type'];     
+    mypostdata.searchOper = 'eq';                                                                                                                                                              
+    mypostdata.searchString = [id_discipline,program_type];                                                                                                            
+    $("#list_"+controller).jqGrid('setGridParam',{search:true,postData:mypostdata}).trigger("reloadGrid"); 
+  },                
+
+  search_programa:function(controller)
+  {                                                                                                                                                                   
+    var searchString = $("#id_program option:selected").text();         
+    var mypostdata = new Object();                      
+    mypostdata.searchField = 'program_name';     
+    mypostdata.searchOper = 'eq';                                           
+    mypostdata.searchString = searchString;                                                                
+    //$("#list_preinscritos").jqGrid('setGridParam',{search:true,postData:"searchField=program_name&searchOper=cn&searchString="+searchString+"&rows=20&page=1&sidx=id_preinscrito&sord=desc"}).trigger("reloadGrid"); 
+    $("#list_"+controller).jqGrid('setGridParam',{search:true,postData:mypostdata}).trigger("reloadGrid"); 
+  }
+
+}                           
+
 var users = {                                 
     indice_array:0,                                            
     onReady:function()
@@ -74,8 +179,8 @@ var users = {
       $("#exportar").on("click",users.exportar);
       $("#list input[name=chk_notificacion]").live("click",users.update_notificacion);  
       $("#list input[name=chk_activo]").live("click",users.update_activo); 
-      $("#id_discipline").on("change",users.get_tipos_programas_ax); 
-      $("#program_type").on("change",users.get_programas_ax);
+      //$("#id_discipline").on("change",users.get_tipos_programas_ax); 
+      //$("#program_type").on("change",users.get_programas_ax);
       $("#tipo").on("change",users.tipo_usuario);                                                          
       $("#agregar_programas").on("click",users.agregar_programas);  
       $("#form_add_users").on("submit",users.add_users); 
@@ -490,6 +595,10 @@ var preinscritos = {
     $("#id_program").on("change",preinscritos.search); 
   },  	
 
+  func:function(){            
+    console.log("callld");
+  },
+
   search:function(){                                                                                              
     var searchString = $("#id_program option:selected").text();         
     var mypostdata = new Object();                      
@@ -593,7 +702,7 @@ var inscritos = {
   }                                                                        
 }   
 
-var caso_cerrado = {
+var casos_cerrados = {
 
   onReady:function()
   {                                    				                                                                                                                                                                                                                                                                                                                                                                                                          
@@ -669,7 +778,7 @@ var caso_cerrado = {
   },                                       
 
   exportar:function()
-  {                                                                                     
+  {                                                                                                 
       $("#list_casos_cerrados").jqGrid('excelExport',{url:'excel/'});       
   }        
 
@@ -838,13 +947,13 @@ var informes = {
     $.colorbox({href:$(this).attr("href"),iframe:true, width:"850px", height:"90%"});
   }                
 } 
-                                    
-                                                                       
+                                                                                                                               
 $(document).ready(function(){ 
+    programas.onReady(); 
     users.onReady(); 
     preinscritos.onReady(); 
     inscritos.onReady();   
-    caso_cerrado.onReady();  
+    casos_cerrados.onReady();     
     casos_inconclusos.onReady();      
     informes.onReady();              
 });                                                                 

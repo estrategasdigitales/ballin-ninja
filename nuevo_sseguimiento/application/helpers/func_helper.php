@@ -40,7 +40,35 @@ if(!function_exists('search'))
         $where = sprintf("where %s ".$operations[$searchOper], $searchField, mysql_real_escape_string($searchString));                                     
         return $where;
     }                                                                                                     
-}                                                                                
+}   
+
+if(!function_exists('search_filter'))
+{                                                                               
+    function search_filter($searchOper,$searchField,$searchString)
+    {                                    
+        $operations = array(
+            'eq' => "= '%s'",            // Equal
+            'ne' => "<> '%s'",           // Not equal
+            'lt' => "< '%s'",            // Less than
+            'le' => "<= '%s'",           // Less than or equal
+            'gt' => "> '%s'",            // Greater than
+            'ge' => ">= '%s'",           // Greater or equal
+            'bw' => "like '%s%%'",       // Begins With
+            'bn' => "not like '%s%%'",   // Does not begin with
+            'in' => "in ('%s')",         // In
+            'ni' => "not in ('%s')",     // Not in
+            'ew' => "like '%%%s'",       // Ends with
+            'en' => "not like '%%%s'",   // Does not end with
+            'cn' => "like '%%%s%%'",     // Contains
+            'nc' => "not like '%%%s%%'", // Does not contain
+            'nu' => "is null",           // Is null
+            'nn' => "is not null"        // Is not null
+        );                                                                             
+                                                                          
+        $where = sprintf("%s ".$operations[$searchOper], $searchField, mysql_real_escape_string($searchString));                                     
+        return $where;                          
+    }                                                                                                                        
+}                                                                             
                                                            
 if(!function_exists('msj'))
 {        

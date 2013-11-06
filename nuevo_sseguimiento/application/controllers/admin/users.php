@@ -16,9 +16,8 @@ class Users extends CI_Controller {
         {                                                                                            
               redirect('admin/no_acceso');             
         }                                                                                                                                                    
-    }  					        
-                                                                                                              		                                 		        												       
-                                                                                                                                                                                                                                                                                                                                                                                                                                     
+    }        					        
+                                                                                                              		                                 		        												                                                                                                                                                                                                                                                                                                                                                                                                                               
     public function index()
     {                                    
         $this->show();
