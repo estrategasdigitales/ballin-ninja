@@ -488,14 +488,20 @@ var preinscritos = {
     });				               													                                                
  								
     $("#list_preinscritos a[name=edit]").live("click",preinscritos.edit); 
-    $("#id_program").on("change",preinscritos.filtro); 
+    $("#id_program").on("change",preinscritos.search); 
   },  	
 
-  filtro:function(){                                                              
+  search:function(){                                                                            
     var searchString = $("#id_program option:selected").text();
-    console.log(searchString);                                                                                                                                                               
-    $("#list_preinscritos").jqGrid('setGridParam',{search:true,postData:"searchField=program_name&searchOper=cn&searchString="+searchString+"&rows=20&page=1&sidx=id_preinscrito&sord=desc"}).trigger("reloadGrid"); 
-  },	                                                                 	        		                   	           			
+    console.log(searchString);  
+    var mypostdata = new Object();                      
+    mypostdata.searchField = 'program_name';     
+    mypostdata.searchOper = 'eq';                                         
+    mypostdata.searchString = searchString;                                     
+    //mypostdata.filters = '{"field":"exception","op":"nc","data":"rule number 1"}';                                                                                                                                                     
+    //$("#list_preinscritos").jqGrid('setGridParam',{search:true,postData:"searchField=program_name&searchOper=cn&searchString="+searchString+"&rows=20&page=1&sidx=id_preinscrito&sord=desc"}).trigger("reloadGrid"); 
+    $("#list_preinscritos").jqGrid('setGridParam',{search:true,postData:mypostdata}).trigger("reloadGrid"); 
+  },      	                                                                 	        		                   	           			
               
   exportar:function()
   {																														
