@@ -1,20 +1,26 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');      
-class Preinscritos extends CI_Controller {
-    
-    private $error;                                                                                             
-                        
+class Preinscritos extends CI_Controller 
+{
+    private $error;                                                                                                              
     public function __construct()
     {                                                                                                                                    
         parent::__construct();          
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/preinscritos_model');
        	$this->acceso();                                                                   
-    }                                                                                                                                                              
+    }                                                                                                                                                                                  
 
     public function show()
-    {                                                                                                                                                      
-        $this->layout->view('admin/preinscritos/show_preinscritos');                                                           
-    }                                                                                               																								        					
+    {                               
+        if($this->accesos->admin())
+        {                                                                      
+            $data['disciplinas'] = $this->preinscritos_model->get_disciplinas_all();                                                                                                                                                        
+        }else{                                                                                                                     
+            $data['disciplinas'] = $this->preinscritos_model->get_disciplinas($this->session->userdata('user_uuid')); 
+        }
+
+        $this->layout->view('admin/preinscritos/show_preinscritos',$data);                                                           
+    }                                                                                                                                                                   																								        					
 
     public function acceso()
     {                                                        
@@ -25,37 +31,34 @@ class Preinscritos extends CI_Controller {
     }       	                    		
 	                                                                                                                                                        		    		                                                                                                       					
     public function jqGrid()
-    {                     							                                                                                                                                                                                                              
-        //obtener la página solicitada                          
-        $page = ($this->input->post('page'))?$this->input->post('page'):1;    
-        //Número de fila que queremos obtener en el grid                
-        $limit = ($this->input->post('rows'))?$this->input->post('rows'):20;                                
-        //el campo para ordenar                                                                                                                                                                                       
-        $sidx  = ($this->input->post('sidx'))?$this->input->post('sidx'):'id_preinscrito';                         
-        //obtiene la dirección                         		                           		      	                                              
-        $sord  = ($this->input->post('sord'))?$this->input->post('sord'):'desc';                         
-       	 					              					                                                
+    {                     							                                                                                                                                                                                                                                  
+        $page  = $this->input->post('page');                 
+        $limit = $this->input->post('rows');                                                                                                                                                                                                                  
+        $sidx  = $this->input->post('sidx');                                                             		                           		      	                                              
+        $sord  = $this->input->post('sord');                         
+       	 	                  				              					                                                
         if($this->input->post("_search")=="false")
         {                    	                     	
             if($this->accesos->admin())
             {                                            
                 $total_preinscritos = $this->preinscritos_model->total_preinscritos_admin();
-            }else{                
+            }else
+            {                                    
                 $total_preinscritos = $this->preinscritos_model->total_preinscritos($this->session->userdata('user_uuid'));
-            }                                                                                            
+            }                                                                                                       
         }else
-        {                                     
+        {                                                           
             $searchOper   = $this->input->post('searchOper');
             $searchField  = $this->input->post('searchField');
             $searchString = $this->input->post('searchString');
-							                        
+				        			                        
             $where = search($searchOper,$searchField,$searchString);
 
             if($this->accesos->admin())
             {                                                                   						                                                                                       
                 $total_preinscritos = $this->preinscritos_model->total_search_preinscritos_admin($where)->total;     
             }else
-            {                                 
+            {                                                   
                 $total_preinscritos = $this->preinscritos_model->total_search_preinscritos($where,$this->session->userdata('user_uuid'))->total;     
             }                                        
         }               				                                                                            
@@ -63,7 +66,7 @@ class Preinscritos extends CI_Controller {
         $total_pages = total_pages($total_preinscritos,$limit);                                                                                                                                                                
 
         if($page>$total_pages)
-        {                                                  
+        {                                                             
             $page = $total_pages;                         
         }           				                          
 
@@ -77,16 +80,15 @@ class Preinscritos extends CI_Controller {
                 $preinscritos = $this->preinscritos_model->show_preinscritos_admin($start,$limit,$sidx,$sord);                                                                             
             }else{            
                 $preinscritos = $this->preinscritos_model->show_preinscritos($this->session->userdata('user_uuid'),$start,$limit,$sidx,$sord);                                                                                                                                                          
-            }
-
-        }else{		        
-
+            }       
+        }else
+        {		                 
             if($this->accesos->admin())
             {                                      
                 $preinscritos = $this->preinscritos_model->search_preinscritos_admin($where,$start,$limit,$sidx,$sord);
             }else{                                                                                                                    
                 $preinscritos = $this->preinscritos_model->search_preinscritos($where,$this->session->userdata('user_uuid'),$start,$limit,$sidx,$sord);
-            }                                              
+            }                                                     
         }             							                           	                                                                                                                                                                                                                                                             
 
         $data = new stdClass();                 
@@ -97,16 +99,35 @@ class Preinscritos extends CI_Controller {
         if(!empty($preinscritos))
         {                                                                                                                                                                                                                                                                                                                                                                                                                
             foreach($preinscritos as $key => $preinscrito)
-            {                              					             																		                            				
-                $primer_contacto = ( $primer_contacto = $this->get_comentario($preinscrito->id_preinscrito,1))?$primer_contacto:'';
-                $documentos = ($documentos = $this->get_comentario($preinscrito->id_preinscrito,2))?$documentos :'';
-                $envio_decse = ($envio_decse = $this->get_comentario($preinscrito->id_preinscrito,3))?$envio_decse:'';
-                $envio_claves = ($envio_claves = $this->get_comentario($preinscrito->id_preinscrito,4))?$envio_claves:'';		
-                $pago_realizado = ($pago_realizado = $this->get_comentario($preinscrito->id_preinscrito,5))?$pago_realizado:'';
-															
+            {                      
+                                                            
+                $pasos = array('primer_contacto'=>'','documentos'=>'','envio_decse'=>'','envio_claves'=>'','pago_realizado'=>'');  
+
+                $comentarios_pasos = $this->preinscritos_model->comentarios_pasos($preinscrito->id_preinscrito); 
+                if(!empty($comentarios_pasos))
+                {                                                                                                                     
+                    foreach($comentarios_pasos as $value){          
+                        if($value->id_paso==1){                 
+                            $pasos['primer_contacto'] = $value->comentario;
+                        }                                   
+                         if($value->id_paso==2){
+                            $pasos['documentos'] = $value->comentario;   
+                        }
+                         if($value->id_paso==3){
+                            $pasos['envio_decse'] = $value->comentario;   
+                        }
+                         if($value->id_paso==4){
+                            $pasos['envio_claves'] = $value->comentario;  
+                        }                                                              
+                         if($value->id_paso==5){
+                            $pasos['pago_realizado'] = $value->comentario;  
+                        }                                                                    
+                    }    
+                }                                                                               
+				                                                   											
                 $data->rows[$key]['id']   = $preinscrito->id_preinscrito;                                                                                                   
-                $data->rows[$key]['cell'] = array($preinscrito->nombre,$preinscrito->a_paterno,$preinscrito->a_materno,$preinscrito->program_name,$preinscrito->fecha_registro,$preinscrito->codigo,$preinscrito->primer_contacto.'|'.$primer_contacto,$preinscrito->documentos.'|'.$documentos,$preinscrito->envio_decse.'|'.$envio_decse,$preinscrito->envio_claves.'|'.$envio_claves,$preinscrito->pago_realizado.'|'.$pago_realizado,'eliminar');
-            }                     										                                                            
+                $data->rows[$key]['cell'] = array($preinscrito->nombre,$preinscrito->a_paterno,$preinscrito->a_materno,$preinscrito->program_name,$preinscrito->fecha_registro,$preinscrito->codigo,$preinscrito->primer_contacto.'|'.$pasos['primer_contacto'],$preinscrito->documentos.'|'.$pasos['documentos'],$preinscrito->envio_decse.'|'.$pasos['envio_decse'],$preinscrito->envio_claves.'|'.$pasos['envio_claves'],$preinscrito->pago_realizado.'|'.$pasos['pago_realizado'],'eliminar');
+            }                                                    										                                                            
 						
         }else{      
 

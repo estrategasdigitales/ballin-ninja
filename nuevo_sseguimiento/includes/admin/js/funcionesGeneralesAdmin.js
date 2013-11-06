@@ -262,14 +262,17 @@ var users = {
     },                              
 
     get_tipos_programas_ax:function()
-    {                                                                                            
-        var url = $("#base_url").text()+'admin/users/get_tipos_programas_ax';
+    {                                                                                               
+        var url = $("#base_url").text()+"admin/programas/get_tipos_programas_ax";
+        //var id_discipline = $("#id_discipline option:selected").val();  
+        var data = "id_discipline="+$(this).val();               
 
         $.ajax({                                     
           async:true,              
-          type:"GET",   
+          type:"POST",       
           dataType:"html",                    
           contentType: "application/x-www-form-urlencoded,multipart/form-data",
+          data:data,                        
           url:url,                     
           success:function(respuesta)    
           {                                                                                                                                            
@@ -287,7 +290,7 @@ var users = {
     {                                
         var id_discipline = $("#id_discipline option:selected").val();             
         var data = "program_type="+$(this).val()+"&id_discipline="+id_discipline;
-        var url = $("#base_url").text()+'admin/users/get_programas_ax';
+        var url = $("#base_url").text()+'admin/programas/get_programas_ax';
 
         $.ajax({                                 
             async:true,              
@@ -485,8 +488,15 @@ var preinscritos = {
     });				               													                                                
  								
     $("#list_preinscritos a[name=edit]").live("click",preinscritos.edit); 
-  },  									
-  
+    $("#id_program").on("change",preinscritos.filtro); 
+  },  	
+
+  filtro:function(){                                                              
+    var searchString = $("#id_program option:selected").text();
+    console.log(searchString);                                                                                                                                                               
+    $("#list_preinscritos").jqGrid('setGridParam',{search:true,postData:"searchField=program_name&searchOper=cn&searchString="+searchString+"&rows=20&page=1&sidx=id_preinscrito&sord=desc"}).trigger("reloadGrid"); 
+  },	                                                                 	        		                   	           			
+              
   exportar:function()
   {																														
     $("#list_preinscritos").jqGrid('excelExport',{url:'excel/'});       
@@ -823,9 +833,10 @@ var informes = {
     e.preventDefault();
     $.colorbox({href:$(this).attr("href"),iframe:true, width:"850px", height:"90%"});
   }                
-}                          
+} 
+                                    
                                                                        
-$(document).ready(function(){  
+$(document).ready(function(){ 
     users.onReady(); 
     preinscritos.onReady(); 
     inscritos.onReady();   

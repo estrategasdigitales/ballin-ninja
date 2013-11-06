@@ -73,7 +73,8 @@ h4 {
 	border-top: solid 1px #CCC;
 	display:block;
 }
-h5 {
+		
+h5{
 	font-size:12px;
 	margin-top:5px;
 	margin-bottom:0;
@@ -81,6 +82,12 @@ h5 {
 	text-align:left;
 	color: #FF0000;
 }
+
+select{		
+	width: 150px;			
+}					
+			
+
 /*FIN ESTILOS GENERALES*/
 
 #centrado{

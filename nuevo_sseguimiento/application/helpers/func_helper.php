@@ -48,6 +48,14 @@ if(!function_exists('msj'))
     {                                                                                                                                                                              
         return "<div id='".$div."'>".$msj."</div>";
     }                      		    
-}                                                                                             
+}     
+
+if(!function_exists('get_disciplinas'))
+{                                                  
+    function get_disciplinas($msj,$div)
+    {                                                                                                                                                                              
+        return "<div id='".$div."'>".$msj."</div>";
+    }                               
+}                                                                                        
 /* fin func_helper */
                                      

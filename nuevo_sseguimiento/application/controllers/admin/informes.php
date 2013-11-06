@@ -10,7 +10,7 @@ class Informes extends CI_Controller {
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/informes_model'); 
         $this->acceso();                                                                        
-    }                                         
+    }                                                                                         
 
     public function acceso()
     {                                                        
@@ -101,7 +101,7 @@ class Informes extends CI_Controller {
             foreach($informes as $key => $informe){               
                 $data->rows[$key]['id']   = $informe->id; 
                 $data->rows[$key]['cell'] = array($informe->nombre,$informe->paterno,$informe->materno,$informe->program_name,$informe->atendido,'eliminar');
-            }                                                                                                                  
+            }                                                                                                                             
         }                     
         else
         {
@@ -121,7 +121,7 @@ class Informes extends CI_Controller {
             $data['msj'] = 'No existen comentarios.';                                                                                 
             $this->load->view('admin/msj',$data); 
             return false;                                      
-        }                              
+        }
 
         $this->load->view('admin/informes/informes_contacto',$data);     
     }
@@ -158,7 +158,8 @@ class Informes extends CI_Controller {
                 $informes = $this->informes_model->ex_admin($parametros['sidx'],$parametros['sord']);                                                                                                                                                          
             }else{          
                 $informes = $this->informes_model->ex_admin_search($search,$parametros['sidx'],$parametros['sord']);                                                                                                                                                          
-            }                                                                    
+            }
+
         }else{   
 
             if(!isset($search))

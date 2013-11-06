@@ -8,7 +8,7 @@ class Users extends CI_Controller {
         //$this->acceso();             
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/users_model');  				                                                    
-    }                                    			                   	                                                                                                                                                                                                                          
+    }                                                          			                   	                                                                                                                                                                                                                          
 											
     private function acceso()
     {                           		                      
@@ -16,7 +16,7 @@ class Users extends CI_Controller {
         {                                                                                            
               redirect('admin/no_acceso');             
         }                                                                                                                                                    
-    }  					
+    }  					        
                                                                                                               		                                 		        												       
                                                                                                                                                                                                                                                                                                                                                                                                                                      
     public function index()
@@ -25,9 +25,9 @@ class Users extends CI_Controller {
     }	                                                                                                                                                                                                                                                 
 
     public function show()
-    {                                                                                                                                                                                                     
+    {                                                                                                                                                                                                                                                             
         $this->layout->view('admin/users/show_users');                                                                                                               
-    }                                                         
+    }                                                                
                                                                                                                                                  
     public function jqGrid()    
     {                                                                                                                                                                                  
@@ -45,7 +45,8 @@ class Users extends CI_Controller {
            
            $total_users = $this->users_model->total_users();
 
-        }else{                                                                                       
+        }else{
+
             $searchOper   = $this->input->post('searchOper');
             $searchField  = $this->input->post('searchField');
             $searchString = $this->input->post('searchString');
@@ -63,9 +64,11 @@ class Users extends CI_Controller {
         $start = ($limit * $page) - $limit;               
         $start = ($start>0)?$start:0; 
                                                                                                 
-        if($this->input->post("_search") == "false"){                                                             
+        if($this->input->post("_search") == "false")
+        {
             $users = $this->users_model->show_users($start,$limit,$sidx,$sord);                                        
-        }else{                                                                                                               
+        }else
+        {                                                                                                               
             $users = $this->users_model->search_users($where,$start,$limit,$sidx,$sord);
         }                                                                                                                                                                                                                                  
 
@@ -132,19 +135,18 @@ class Users extends CI_Controller {
         if(!$this->input->is_ajax_request())
         {
             show_404();
-        }
-        else
-        {                                                                          
-            $id_discipline = $this->input->post('id_discipline'); 
-            $program_type  = $this->input->post('program_type');
-            $data['programas'] = $this->users_model->get_programas($id_discipline,$program_type);
+        }               
+                                                                             
+        $id_discipline = $this->input->post('id_discipline'); 
+        $program_type  = $this->input->post('program_type');
+        $data['programas'] = $this->users_model->get_programas($id_discipline,$program_type);
                     
-            if(!empty($data['programas'])){     
-                $this->load->view('admin/users/programas_ax',$data);
-            }else{                          
-                $this->load->view('admin/users/option_select',$data);
-            }                                                                                      
-        }                                                            
+        if(!empty($data['programas']))              
+        {     
+            $this->load->view('admin/users/programas_ax',$data);
+        }else{                          
+            $this->load->view('admin/users/option_select',$data);
+        }                                                                                                                                                 
     }                                                   
 
     public function get_tipos_programas_ax()
@@ -152,12 +154,10 @@ class Users extends CI_Controller {
         if(!$this->input->is_ajax_request())
         {               
             show_404(); 
+        }
 
-        }else{
-
-            $data['tipos_programas'] = $this->users_model->get_tipos_programas();                                         
-            $this->load->view('admin/users/tipos_programas_ax',$data);
-        }                            
+        $data['tipos_programas'] = $this->users_model->get_tipos_programas();                                         
+        $this->load->view('admin/users/tipos_programas_ax',$data);                         
     }                                                     
 
     public function add()
@@ -352,7 +352,9 @@ class Users extends CI_Controller {
         {                                                                             
             $search = search($parametros['searchOper'],$parametros['searchField'],$parametros['searchString']); 
             $users  = $this->users_model->excel_search($search,$parametros['sidx'],$parametros['sord']);              
-        }else{                                                           
+        
+        }else{
+
             $users  = $this->users_model->excel($parametros['sidx'],$parametros['sord']); 
         }                                                                                                                                                                                                                                                                                                                                   
                         
@@ -369,11 +371,11 @@ class Users extends CI_Controller {
 
                 $data_array[] = array($row->nombre,$row->notificacion,$row->activo,$row->rol);
             }                                                        
-        }                                                                                                  
+        }                                                                                                                 
 
         $xls = new Excel_XML;
-        $xls->addArray ($field_array);
-        $xls->addArray ($data_array);                           
+        $xls->addArray($field_array);
+        $xls->addArray($data_array);                                   
         $xls->generateXML($file);                                      
     }                                                                                                                                                               
                                                                                                                                                                                                                                                               

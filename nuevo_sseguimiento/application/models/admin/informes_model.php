@@ -1,11 +1,12 @@
 <?php
+                    
 class Informes_model extends CI_Model
 {                                                             
     function __construct()
     {                                                                                      
         parent::__construct();
         $this->load->database();
-    }                                                                                                                                                                                                                                
+    }                                                                                                                                                                                                                                               
 
     public function total_informes($user_uuid)
     {                                                                                                             
@@ -145,10 +146,11 @@ class Informes_model extends CI_Model
     }      
 
     public function get_contacto($id)
-    {                                                                                     
-        $this->db->select('con.id,con.paterno,con.materno,con.nombre,con.correo,con.comentario,con.comentario_encargado,con.atendido');
-        $this->db->from('seg_dec_contacto as con');                 
-        $this->db->where('con.id',$id);                                                                                                                             
+    {                                                                                                                               
+        $this->db->select('con.id,con.paterno,con.materno,con.nombre,con.correo,con.comentario,con.comentario_encargado,con.atendido,pro.program_name');
+        $this->db->join('seg_dec_programas as pro','pro.id_program = con.id_program','inner'); 
+        $this->db->from('seg_dec_contacto as con');                                                
+        $this->db->where('con.id',$id);                                                                                                                                  
         $query = $this->db->get();                                                                                                                               
         if ($query->num_rows()>0)                                                                                                                                      
         {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
