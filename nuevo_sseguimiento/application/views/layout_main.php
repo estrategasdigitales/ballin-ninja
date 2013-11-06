@@ -2,7 +2,7 @@
 <html>
 <head>                                  																	
 <meta charset="utf-8">		
-    <title>Home</title>
+    <title>Home</title>                                     
     <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width">													       	
 	<!-- gjhj -->                                                                      
 	<link rel="stylesheet" href="<?php echo base_url('includes/admin/js/jquery-ui-1.10.3.custom/css/jquery-ui-themes-1.10.3/themes/smoothness/jquery-ui.min.css'); ?>" media="screen">
@@ -28,11 +28,7 @@
         $(".group1").colorbox({iframe:true, width:"850px", height:"90%"});
         });                                
     </script>                                                        
-<style>.art-content .art-postcontent-0 .layout-item-0 { padding-right: 10px;padding-left: 10px;  }
-.ie7 .art-post .art-layout-cell {border:none !important; padding:0 !important; }
-.ie6 .art-post .art-layout-cell {border:none !important; padding:0 !important; }
-/*.ui-widget { font-family: inherit !important; font-size: inherit !important; }*/
-</style></head>                                                                      
+</head>                                                                      
 <body>                                        					
         <div id="centrado">                          
         <div id="encabezado">               
@@ -44,9 +40,9 @@
             	<h1>Sistema de seguimiento de preinscripciones</h1>						
             	<h2>Administrador | <a href="#">Cerrar sesión</a></h2>	
             </div>
-
-            <div id="filtro">                                                               
-                <p>
+            <?php if($filtro){ ?>
+            <div id="filtro">                                                                                                                                     
+                <p>                                                                  
                     <label>*Disciplinas:</label>               
                     <select name="id_discipline" id="id_discipline">
                         <option value="0">Selecciona la disciplina</option>                                                                                                                                                                         
@@ -66,73 +62,47 @@
                     <select name="id_program" id="id_program">                                                                                                                                                                                  
                         <option value="0">Selecciona un programa</option>                                                                                                                                                                                                                                                                           
                     <select/>
-                </p>                                                                                                                                                                   
-            </div>
-
-        </div>							   		      		     																				
+                </p>                                                                                                                                                                                             
+            </div>                                                                             
+            <?php } ?>                 
+        </div>	                             						   		      		     																				
         <div id="menu">                                                        
             <ul class="menu"> 
                 <li>                        
-                    <a href=<?php echo site_url("admin/users/show"); ?> class="active">Usuarios</a>
+                    <a href=<?php echo base_url("admin/users/show"); ?> class="active">Usuarios</a>
                     <ul>
 
-                         <a href=<?php echo site_url("admin/users/add"); ?>>
+                         <a href=<?php echo base_url("admin/users/add"); ?>>
                             <li>
-                                Agregar
+                                Agregar Usuarios
                             </li>     
                         </a>         
 
                     </ul>                
                 </li>
                 <li>
-                <a href=<?php echo site_url("admin/preinscritos/show"); ?> class="active">Preinscritos</a>
-                    <!--<ul class="active">                                                                      
-                        <li>                
-                        <a href=<?php echo site_url("admin/users/add"); ?>>Mostrar</a>
-                        </li>           
-                    </ul>-->       
-                </li> 
+                    <a href=<?php echo base_url("admin/preinscritos/show"); ?> class="active">Preinscritos</a>     
+                </li>                               
                 <li>                   
-                <a href=<?php echo site_url("admin/inscritos/show"); ?> class="active">Inscritos</a>
-                    <!--<ul class="active">                                                                                       
-                        <li>                                                                           
-                        <a href=<?php echo site_url("admin/users/add"); ?>>Inscritos</a>
-                        </li>           
-                    </ul>-->                      
+                    <a href=<?php echo base_url("admin/inscritos/show"); ?> class="active">Inscritos</a>                    
                 </li> 
                 <li>                                                    
-                <a href=<?php echo site_url("admin/casos_cerrados/show"); ?> class="active">Casos cerrados</a>
-                    <!--<ul class="active">                 				                                                                      
-                        <li>                                                                                                                                                    
-                        <a href=<?php echo site_url("admin/caso_cerrado/add"); ?>>Inscritos</a>
-                        </li>                         
-                    </ul>-->                          
+                    <a href=<?php echo base_url("admin/casos_cerrados/show"); ?> class="active">Casos cerrados</a>                        
                 </li> 
                 <li>                                                                           
-                <a href=<?php echo site_url("admin/casos_inconclusos/show"); ?> class="active">Casos inconclusos</a>
-                    <!--<ul class="active">                                                                                       
-                        <li>                                                                                                                                                    
-                        <a href=<?php echo site_url("admin/caso_cerrado/add"); ?>>Casos inconclusos</a>
-                        </li>                         
-                    </ul>-->                          
+                    <a href=<?php echo base_url("admin/casos_inconclusos/show"); ?> class="active">Casos inconclusos</a>                         
                 </li>                                         
                 <li>                                                                           
-                    <a href=<?php echo site_url("admin/informes/show"); ?> class="active">Informes</a>                         
+                    <a href=<?php echo base_url("admin/informes/show"); ?> class="active">Informes</a>                         
                 </li>        
                 <li>                                                                                                                                         
-                    <a href=<?php echo site_url("admin/graficas/show"); ?> class="active">Graficas</a>                         
+                    <a href=<?php echo base_url("admin/graficas/show"); ?> class="active">Graficas</a>                         
                 </li>                                                              
                 <li>                                				                
-                    <a href=<?php echo site_url("acceso/login/salir"); ?> class="active">Salir</a>
-                </li>                                           
-<<<<<<< HEAD
+                    <a href=<?php echo base_url("acceso/login/salir"); ?> class="active">Salir</a>
+                </li>                                                                             
             </ul> 
-
         </div>          
-=======
-            </ul>                                                 
-        </div>                            
->>>>>>> 3842f8d0d0a4a2192c31e5dfe314d65a0f0312cc
         <div class="clear"></div>                                                
     		<div id="content">                                                                                                                                           
                 <div id="base_url" style="display:none"><?php echo base_url(); ?></div>							

@@ -15,12 +15,13 @@ class Casos_cerrados extends CI_Controller {
         if(!$this->accesos->acceso())
         {                                 
             redirect('acceso/login');           
-        }                                                                                                             
-    }                                                                                                                                                                                                     
+        }                                                                                                                    
+    }                                                                                                                                                                                                                       
 
     public function show()
-    {                                                                                                                                                                                                     
-        $this->layout->view('admin/casos_cerrados/show_casos_cerrados');                                                                                                                                    
+    {                                                            
+        $data['filtro'] = false;                                                                                                                                                                                                 
+        $this->layout->view('admin/casos_cerrados/show_casos_cerrados',$data);                                                                                                                                    
     }                                                                                                                                                                                                                             
 
     public function jqGrid()

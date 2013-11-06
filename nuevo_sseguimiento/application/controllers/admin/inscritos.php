@@ -16,11 +16,12 @@ class Inscritos extends CI_Controller {
         {                                 
             redirect('acceso/login');           
         }                                                                                                   
-    }                                                                                                                                       
+    }                                                                                                                                                              
 
     public function show()
-    {                                            
-        $this->layout->view('admin/inscritos/show_inscritos');                                                                     
+    {                                             
+        $data['filtro'] = false;                
+        $this->layout->view('admin/inscritos/show_inscritos',$data);                                                                     
     }                                                                                                                                      
 
     public function jqGrid()

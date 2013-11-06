@@ -9,7 +9,15 @@ class Graficas extends CI_Controller
         parent::__construct();          
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/graficas_model');
-       	//$this->acceso();                                                                   
+       	$this->acceso();                                                                   
+    }                                   
+
+    public function acceso()
+    {                                                              
+        if(!$this->accesos->acceso())
+        {                                 
+            redirect('acceso/login');           
+        }                                                                                                                                                          
     }														
 
     public function index()
@@ -19,6 +27,7 @@ class Graficas extends CI_Controller
 
     public function show()
     {
+        $data['filtro'] = false;                                        
     	$user_uuid = $this->session->userdata('user_uuid');			
     	if($this->accesos->admin())
         { 											

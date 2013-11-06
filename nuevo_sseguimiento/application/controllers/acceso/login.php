@@ -6,7 +6,7 @@ class Login extends CI_Controller {
     {						
 		parent::__construct();						
 		$this->load->model('admin/users_model');
-	}                   								                                                                                                  					
+	}                                 								                                                                                                  					
 
     public function index()
     {               
@@ -44,14 +44,15 @@ class Login extends CI_Controller {
                     'inscritos' => $user->inscritos,        
                     'casos_inconclusos' => $user->casos_inconclusos,
                     'casos_cerrados' => $user->casos_cerrados,
-                    'informes' => $user->informes
-                );                                                                                                                                                                                                                                
+                    'informes' => $user->informes,
+                    'graficas' => $user->graficas
+                );                                                                                                                                                                                                                                                                                                       
                     
                 $this->session->set_userdata($sesion);
                 $this->session->set_userdata('controllers',$controllers);
                 redirect('admin/preinscritos/show','refresh');
 
-            }else{                                                                                     				  
+            }else{                                                                                                   				  
 
                 $this->session->destroy();
                 $data = array('error'=>'Login y password erroneos');  

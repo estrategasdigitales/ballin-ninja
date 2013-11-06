@@ -8,7 +8,7 @@ class Users extends CI_Controller {
         //$this->acceso();             
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/users_model');  				                                                    
-    }                                                          			                   	                                                                                                                                                                                                                          
+    }                                                                                        			                   	                                                                                                                                                                                                                          
 											
     private function acceso()
     {                           		                      
@@ -25,9 +25,10 @@ class Users extends CI_Controller {
     }	                                                                                                                                                                                                                                                 
 
     public function show()
-    {                                                                                                                                                                                                                                                             
-        $this->layout->view('admin/users/show_users');                                                                                                               
-    }                                                                
+    {                          
+        $data['filtro'] = false;                                                                                                                                                                                                                                                         
+        $this->layout->view('admin/users/show_users',$data);                                                                                                               
+    }                                                                                          
                                                                                                                                                  
     public function jqGrid()    
     {                                                                                                                                                                                  
@@ -45,7 +46,7 @@ class Users extends CI_Controller {
            
            $total_users = $this->users_model->total_users();
 
-        }else{
+        }else{                                    
 
             $searchOper   = $this->input->post('searchOper');
             $searchField  = $this->input->post('searchField');
@@ -209,7 +210,7 @@ class Users extends CI_Controller {
                 $this->session->set_flashdata('msj',msj('El registro se agregó correctamente.','message'));                            
                 echo json_encode(array("success" => true, "redirect" => base_url('admin/users/edit/'.$user_uuid))); 
             }                                                                                                                                                                                                                                                                                                                                                                                                                                            
-        }                                                                              
+        }                                                                                                     
     }                                                  
 
     public function delete_usuario_programa()
@@ -348,13 +349,12 @@ class Users extends CI_Controller {
         $data_array = array();                    
         $parametros = $this->input->get();                    
         
-        if($parametros["_search"]=="true")
-        {                                                                             
+        if($parametros['_search']=='true')      
+        {                                                                                                                
             $search = search($parametros['searchOper'],$parametros['searchField'],$parametros['searchString']); 
             $users  = $this->users_model->excel_search($search,$parametros['sidx'],$parametros['sord']);              
-        
-        }else{
-
+    
+        }else{                                                        
             $users  = $this->users_model->excel($parametros['sidx'],$parametros['sord']); 
         }                                                                                                                                                                                                                                                                                                                                   
                         

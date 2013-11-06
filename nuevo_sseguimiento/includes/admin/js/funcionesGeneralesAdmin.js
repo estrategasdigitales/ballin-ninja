@@ -1,7 +1,7 @@
 var users = {                                 
     indice_array:0,                                            
     onReady:function()
-    {                                                                            
+    {                                                                                            
       var base_url = $("#base_url").text();
           $("#list").jqGrid({                                        
           url:base_url+'admin/users/jqGrid', 
@@ -264,7 +264,6 @@ var users = {
     get_tipos_programas_ax:function()
     {                                                                                               
         var url = $("#base_url").text()+"admin/programas/get_tipos_programas_ax";
-        //var id_discipline = $("#id_discipline option:selected").val();  
         var data = "id_discipline="+$(this).val();               
 
         $.ajax({                                     
@@ -292,7 +291,7 @@ var users = {
         var data = "program_type="+$(this).val()+"&id_discipline="+id_discipline;
         var url = $("#base_url").text()+'admin/programas/get_programas_ax';
 
-        $.ajax({                                 
+        $.ajax({                                         
             async:true,              
             type:"POST",
             dataType:"html",                    
@@ -365,12 +364,12 @@ var users = {
 var preinscritos = {
 														
   onReady:function()
-  {                 		 										
+  {                    		 										
       var base_url = $("#base_url").text();
       jQuery("#list_preinscritos").jqGrid({                                                  
-          url:base_url+'admin/preinscritos/jqGrid', //another controller function for generating data
-          mtype : "post",     //Ajax request type. It also could be GET
-          datatype: "json",   //supported formats XML, JSON or Arrray             
+          url:base_url+'admin/preinscritos/jqGrid', 
+          mtype : "post",   
+          datatype: "json",             
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Código de promoción','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
           colModel:[                                            		                                               						                                                                                                                                                                                                                                                                                                												                                                                       		
               {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
@@ -491,9 +490,8 @@ var preinscritos = {
     $("#id_program").on("change",preinscritos.search); 
   },  	
 
-  search:function(){                                                                            
-    var searchString = $("#id_program option:selected").text();
-    console.log(searchString);  
+  search:function(){                                                                                              
+    var searchString = $("#id_program option:selected").text();         
     var mypostdata = new Object();                      
     mypostdata.searchField = 'program_name';     
     mypostdata.searchOper = 'eq';                                         
@@ -501,12 +499,12 @@ var preinscritos = {
     //mypostdata.filters = '{"field":"exception","op":"nc","data":"rule number 1"}';                                                                                                                                                     
     //$("#list_preinscritos").jqGrid('setGridParam',{search:true,postData:"searchField=program_name&searchOper=cn&searchString="+searchString+"&rows=20&page=1&sidx=id_preinscrito&sord=desc"}).trigger("reloadGrid"); 
     $("#list_preinscritos").jqGrid('setGridParam',{search:true,postData:mypostdata}).trigger("reloadGrid"); 
-  },      	                                                                 	        		                   	           			
-              
+  },                  	                                                                 	        		                   	           			
+                              
   exportar:function()
   {																														
     $("#list_preinscritos").jqGrid('excelExport',{url:'excel/'});       
-  },	           		                      
+  },        	           		                      
 		                                                                                                                                                                                                                                                                                                                                                 
   edit:function(e)
   {

@@ -13,17 +13,18 @@ class Informes extends CI_Controller {
     }                                                                                         
 
     public function acceso()
-    {                                                        
+    {                                                                               
         if(!$this->accesos->acceso())
-        {                                 
+        {                                       
             redirect('acceso/login');           
         }                                                                                                   
     }                                                       		
 
     public function show()
-    {                                                                                                                                  
-        $this->layout->view('admin/informes/show_informes'); 
-    }                                                 
+    {                  
+        $data['filtro'] = false;                                                                                                                               
+        $this->layout->view('admin/informes/show_informes',$data); 
+    }                                                                            
 
     public function jqGrid()
     {                                                                                                                                                                                                                                                                                                 

@@ -8,7 +8,7 @@ class Users_model extends CI_Model
     {                                                                                  
         parent::__construct();
         $this->load->database();
-    }                                                                                                                                                               
+    }                                                                                                                                                                          
 
 	/*
     public function acceso($username,$pass)
@@ -31,8 +31,8 @@ class Users_model extends CI_Model
     }    */  
 	
 	public function acceso($username,$pass)
-    {           							               
-        $this->db->select('usu.user_uuid,usu.nombre,usu.tipo,acc.users,acc.preinscritos,acc.inscritos,acc.casos_cerrados,acc.casos_inconclusos,acc.informes');               
+    {                                                             							               
+        $this->db->select('usu.user_uuid,usu.nombre,usu.tipo,acc.users,acc.preinscritos,acc.inscritos,acc.casos_cerrados,acc.casos_inconclusos,acc.informes,acc.graficas');               
         $this->db->from('seg_dec_usuarios as usu');                                   
         $this->db->join('seg_dec_accesos as acc','acc.id_role = usu.tipo', 'left');                                                 
         $this->db->where('usu.username',$username);					 		  																																						                   
@@ -40,13 +40,13 @@ class Users_model extends CI_Model
         $this->db->where('usu.activo', 1);																															 								
         $query = $this->db->get();                                                                                          
         if ($query->num_rows()>0)                                                                                                                             
-        {						              					 						       				  	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+        {       						              					 						       				  	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
              return $query->row();                             
-        }                                                                                                                                                                                                                                                                                                                 
+        }                                                                                                                                                                                                                                                                                                                                                       
         else
         {                                                                                                                                                                                 
             return FALSE;            
-        }		                                                                    
+        }               		                                                                    
     } 
 	
     public function total_users()
@@ -128,7 +128,7 @@ class Users_model extends CI_Model
         else
         {                                                                                                                                                                                                                          
             return FALSE;            
-        }                                                 
+        }                                                                
     }  
 
     public function add_usuarios_programas($data){
@@ -305,7 +305,8 @@ class Users_model extends CI_Model
         }                                                                                        
     }           
 
-    public function get_usuarios_programas($user_uuid){              
+    public function get_usuarios_programas($user_uuid)
+    {              
         $this->db->select('up.id_discipline');
         $this->db->select('up.id_program');
         $this->db->select('pro.program_name');        
