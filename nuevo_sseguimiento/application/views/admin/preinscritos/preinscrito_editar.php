@@ -141,7 +141,7 @@
 				</div>
 			</td>
 			<td>
-				<input type="submit" name="enviar" id="button_guardar" value="Guardar">	
+				<input type="submit" name="enviar" id="button_guardar" class="boton_general" value="Guardar">	
 			</td>
 		</tr>
 	</table>

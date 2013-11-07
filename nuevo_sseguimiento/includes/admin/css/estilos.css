@@ -262,9 +262,9 @@ div.sep{
 	width:150px;									
 }						
 
-#add_edit_user div{		
+/*#add_edit_user div{		
 	margin:4px;								
-}																						
+}*/																						
 
 #add_edit_user select{		
 	width: 150px;
@@ -274,6 +274,12 @@ div.sep{
 .cont_left{
 	float:left;
 	width: 48%;
+}	
+.cont_left textarea{
+	width: 450px;
+	max-width: 450px;
+	height: 50px;
+	max-height: 50px;
 }																																													
 
 .cont_right{		
@@ -484,7 +490,7 @@ div.sep{
 	color:white;									
 }																																			
 																	
-#button_guardar{		
+/*#button_guardar{		
 	width:70px;												
 	text-align:center;	
 	background:red;
@@ -493,7 +499,17 @@ div.sep{
 	display:inline;
 	margin-left: 0 auto;
 	cursor: pointer;																		
-}																						
+}*/	
+.boton_general{
+	width:70px;												
+	text-align:center;	
+	background:red;
+	color:white;	
+	border:none;	
+	display:inline;
+	margin-left: 0 auto;
+	cursor: pointer;
+}																					
 
 
 
