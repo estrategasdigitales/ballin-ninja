@@ -26,11 +26,6 @@ class Accesos
     	if($this->CI->session->userdata('tipo')==1){			
     		return true;	
     	}																
-    }
-
-    function get_disciplinas(){
-        
-    }					
-					              																		                                             
+    }                                          									              																		                                             
 }
 ?> 

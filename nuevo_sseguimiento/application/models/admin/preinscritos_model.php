@@ -6,10 +6,10 @@ class Preinscritos_model extends CI_Model
     {                                                                   
         parent::__construct();
         $this->load->database();
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 	
     public function total_preinscritos($user_uuid)
-    {                                                                                             
+    {                                                                                                                    
         $this->db->join('seg_dec_usuarios_programas as up','up.id_program = pre.id_program', 'inner');
         $this->db->join('seg_dec_programas as pro','up.id_program = pro.id_program', 'inner');
         $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito', 'inner');
@@ -69,12 +69,11 @@ class Preinscritos_model extends CI_Model
     public function total_search_preinscritos($where,$user_uuid)
     {                                                                                                                                                                                                                                                                                                                                                                          
         $query = $this->db->query("select COUNT(*) as total 
-                                  from seg_dec_preinscritos as pre 
+                                  from seg_dec_preinscritos as pre          
                                   inner join seg_dec_usuarios_programas as up on up.id_program = pre.id_program 
-                                  inner join seg_dec_programas as pro on up.id_program = pro.id_program 
-                                  inner join seg_dec_pasos_status as status on status.id_preinscrito = pre.id_preinscrito
-                                  inner join seg_dec_disciplinas as dis on dis.id_discipline = up.id_discipline         
-                                  ".$where."                                                                                         
+                                  inner join seg_dec_programas as pro on up.id_program = pro.id_program              
+                                  inner join seg_dec_pasos_status as status on status.id_preinscrito = pre.id_preinscrito      
+                                  ".$where."                                                                                                                
                                   and up.user_uuid='".$user_uuid."'");                                                                                            
         if($query->num_rows()>0)                                                                                                                                                                                                                                                                                                                                                                                           
         {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
@@ -87,10 +86,10 @@ class Preinscritos_model extends CI_Model
     }                                     
 
     public function total_search_preinscritos_admin($where)
-    {                                                                                                                                                                                                                                                                                                                   
+    {                                                                                                                                                                                                                                                                                                                                          
         $query = $this->db->query("select COUNT(*) as total                                 
-                                  from seg_dec_preinscritos as pre 
-                                  inner join seg_dec_programas as pro on pre.id_program = pro.id_program 
+                                  from seg_dec_preinscritos as pre                                    
+                                  inner join seg_dec_programas as pro on  pre.id_discipline = pro.id_discipline and pre.id_program = pro.id_program 
                                   inner join seg_dec_pasos_status as status on status.id_preinscrito = pre.id_preinscrito   
                                   ".$where."");                                                                                                                                                                                                                                                  
         if($query->num_rows()>0)                                                                                                                                                                                                                      
@@ -100,41 +99,17 @@ class Preinscritos_model extends CI_Model
         else
         {                                                                                                                                                                                                    
             return FALSE;            
-        }                                                                 
-    }
-
-    /*
-    public function search_preinscritos($where,$user_uuid,$start,$limit,$sidx,$sord)
-    {                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-        $query = $this->db->query("select pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,pro.program_name,pre.codigo,status.atendido,status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado    
-                                  from seg_dec_preinscritos as pre                  
-                                  inner join seg_dec_usuarios_programas as up on up.id_program = pre.id_program 
-                                  inner join seg_dec_programas as pro on up.id_program = pro.id_program 
-                                  inner join seg_dec_pasos_status as status on status.id_preinscrito = pre.id_preinscrito          
-                                  ".$where."                                                                                         
-                                  and up.user_uuid='".$user_uuid."'      
-                                  order by ".$sidx."         
-                                  ".$sord."                                                 
-                                  limit ".$start.",".$limit."");                                                               
-        if($query->num_rows()>0)                                                                                                                                                                                                                                                                                                     
-        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-             return $query->result();                             
-        }                                                                                                                                                                                                                                                                                                                           
-        else
-        {                                                                                                                                                                                             
-            return FALSE;            
-        }                              
-    } */     
+        }                                                                               
+    }                 
 
     public function search_preinscritos($where,$user_uuid,$start,$limit,$sidx,$sord)
     {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
         $query = $this->db->query("select pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,pro.program_name,pre.codigo,status.atendido,status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado    
-                                  from seg_dec_preinscritos as pre                  
-                                  inner join seg_dec_usuarios_programas as up on up.id_program = pre.id_program 
-                                  inner join seg_dec_programas as pro on up.id_program = pro.id_program 
-                                  inner join seg_dec_pasos_status as status on status.id_preinscrito = pre.id_preinscrito 
-                                  inner join seg_dec_disciplinas as dis on dis.id_discipline = up.id_discipline         
-                                  ".$where."                                                                                                                                                                                                                                                                                                     
+                                  from seg_dec_preinscritos as pre                    
+                                  inner join seg_dec_usuarios_programas as up on up.id_program = pre.id_program      
+                                  inner join seg_dec_programas as pro on up.id_program = pro.id_program  
+                                  inner join seg_dec_pasos_status as status on status.id_preinscrito = pre.id_preinscrito             
+                                  ".$where."                                                                                                                                                                                                                                                                                                                                                                                    
                                   and up.user_uuid='".$user_uuid."'      
                                   order by ".$sidx."                
                                   ".$sord."                                                                                                     
@@ -142,7 +117,7 @@ class Preinscritos_model extends CI_Model
         if($query->num_rows()>0)                                                                                                                                                                                                                                                                                                                                                  
         {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
              return $query->result();                             
-        }                                                                                                                                                                                                                                                                                                                           
+        }                                                                                                                                                                                                                                                                                                                                          
         else
         {                                                                                                                                                                                             
             return FALSE;            
@@ -150,13 +125,13 @@ class Preinscritos_model extends CI_Model
     }                                                                                              
 
     public function search_preinscritos_admin($where,$start,$limit,$sidx,$sord)
-    {                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+    {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
         $query = $this->db->query("select pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,pro.program_name,pre.codigo,status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado    
-                                  from seg_dec_preinscritos as pre                  
-                                  inner join seg_dec_programas as pro on pre.id_program = pro.id_program 
+                                  from seg_dec_preinscritos as pre                                                                                                  
+                                  inner join seg_dec_programas as pro on pre.id_discipline = pro.id_discipline and pre.id_program = pro.id_program  
                                   inner join seg_dec_pasos_status as status on status.id_preinscrito = pre.id_preinscrito          
                                   ".$where." 
-                                  order by ".$sidx." 
+                                  order by ".$sidx."         
                                   ".$sord."                           
                                   limit ".$start.",".$limit."");                                                         
         if ($query->num_rows()>0)                                                                                                                                                                                                                                                                               
@@ -187,7 +162,7 @@ class Preinscritos_model extends CI_Model
     {                                                                                                                                                                                                                             
         $this->db->select('pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,pre.como_se_entero,pre.calle_numero,pre.colonia,pre.del_mpo,pre.cp,pre.ciudad,pre.estado,pre.rfc,pre.telefono,pre.celular,pre.correo,pre.nacionalidad,pre.grado_academico,pre.institucion_estudios,pre.exalumno,pre.porque_la_ibero,pre.empresa,pre.puesto,pre.direccion_empresa,pre.telefono_empresa,pre.codigo,pre.edad,pro.program_name,status.atendido');
         $this->db->select('status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado,status.caso_cerrado,status.caso_inconcluso,status.informes,status.atendido,status.comentario_general');
-        $this->db->from('seg_dec_preinscritos as pre');                                                                                                                                                                                                                                              
+        $this->db->from('seg_dec_preinscritos as pre');                                                                                                                                                                                                                                                                   
         $this->db->join('seg_dec_programas as pro','pre.id_program = pro.id_program', 'left');                  
         $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito', 'left');
         $this->db->where('pre.id_preinscrito',$id_preinscrito);                                                                                                                                                                  
@@ -430,7 +405,7 @@ class Preinscritos_model extends CI_Model
     }
 
     public function ex_admin_search($where,$sidx,$sord)
-    {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+    {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
         $query = $this->db->query("select pre.id_preinscrito,pre.nombre,pre.a_paterno,pre.a_materno,pre.fecha_registro,pro.program_name,pre.codigo,status.primer_contacto,status.documentos,status.envio_decse,status.envio_claves,status.pago_realizado    
                                   from seg_dec_preinscritos as pre                  
                                   inner join seg_dec_programas as pro on pre.id_program = pro.id_program 
@@ -445,7 +420,7 @@ class Preinscritos_model extends CI_Model
         else
         {                                                                                                                                                                                             
             return FALSE;            
-        }                                                                       
+        }                                                                                  
     }                                                                            
 
     public function get_disciplinas($user_uuid)
@@ -472,32 +447,32 @@ class Preinscritos_model extends CI_Model
     {                                                    
         $this->db->select('id_discipline,discipline');               
         $query = $this->db->get('seg_dec_disciplinas');
-        if ($query->num_rows()>0)                                                                                                                                    
+        if($query->num_rows()>0)                                                                                                                                    
         {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
              return $query->result();                             
-        }                                                                                                                                                                                                                                                                                                                                          
+        }                                                                                                                                                                                                                                                                                                                                                                        
         else
-        {                                                                                                                                                                                     
+        {                                                                                                                                                                                                        
             return FALSE;            
         }                       
-    }  
+    }                 
 
     public function get_tipos_programas($user_uuid,$id_discipline)
     {                                                                                                                                                                                                                                                                                                                                                           
         $this->db->select('pro_tipos.program_type,pro_tipos.type');
-        $this->db->from('seg_dec_programas_tipos as pro_tipos');                                                                                                  
+        $this->db->from('seg_dec_programas_tipos as pro_tipos');                                                                                                                
         $this->db->join('seg_dec_programas as pro','pro.program_type = pro_tipos.program_type','inner');
         $this->db->join('seg_dec_usuarios_programas as up','up.id_discipline = pro.id_discipline and up.id_program = pro.id_program','inner');
         $this->db->join('seg_dec_preinscritos as pre','up.id_discipline = pre.id_discipline and up.id_program = pre.id_program','inner');
         $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito','inner'); 
-        $this->db->where('up.user_uuid',$user_uuid);                                                                                                                              
-        $this->db->where('pro.id_discipline',$id_discipline);                                                                                                                                                                                                                    
+        $this->db->where('up.user_uuid',$user_uuid);                                                                                                                                                                      
+        $this->db->where('pro.id_discipline',$id_discipline);                                                                                                                                                                                                                          
         $this->db->group_by('pro_tipos.program_type');                                                                                                                                                                                                                                           
         $query = $this->db->get();                                                                                             
         if($query->num_rows()>0)                                                                                                                                                              
         {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
              return $query->result();                             
-        }                                                                                                                                                                                                                                                                                                                                                                                      
+        }                                                                                                                                                                                                                                                                                                                                                                                                         
         else                
         {                                                                                                                                                                                                                                                                           
             return FALSE;            
@@ -508,33 +483,36 @@ class Preinscritos_model extends CI_Model
     {                                                                                                                                                                                                                                 
         $this->db->select('pro_tipos.program_type,pro_tipos.type');     
         $this->db->from('seg_dec_programas_tipos as pro_tipos');                                                                     
-        $this->db->join('seg_dec_programas as pro','pro.program_type = pro_tipos.program_type','inner');
-        $this->db->where('pro.id_discipline',$id_discipline);         
+        $this->db->join('seg_dec_programas as pro','pro.program_type = pro_tipos.program_type','inner');                            
+        $this->db->join('seg_dec_preinscritos as pre','pro.id_discipline = pre.id_discipline and pro.id_program = pre.id_program','inner');
+        $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito','inner');
+        $this->db->where('pro.id_discipline',$id_discipline);                                                                       
         $this->db->group_by("pro_tipos.program_type");                                                                                                                                     
         $query = $this->db->get();                                                                                       
         if($query->num_rows()>0)                                                                                                                                                                 
         {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
              return $query->result();                             
-        }                                                                                                                                                                                                                                                                                                                                                  
+        }                                                                                                                                                                                                                                                                                                                                                                 
         else                
         {                                                                                                                                                                                                                                                                       
             return FALSE;            
-        }                   
+        }                          
     }
 
     public function get_programas($user_uuid,$id_discipline,$program_type)
-    {                                                                                                                                                                                                        
+    {                                                                                                                                                                                                                       
         $this->db->select('pro.id_program,pro.program_name');                       
         $this->db->from('seg_dec_programas as pro');                                                                                                                                                           
         $this->db->join('seg_dec_usuarios_programas as up','up.id_discipline = pro.id_discipline and up.id_program = pro.id_program','inner');                        
         $this->db->join('seg_dec_preinscritos as pre','up.id_discipline = pre.id_discipline and up.id_program = pre.id_program','inner');
         $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito','inner');
-        $this->db->where('up.id_discipline',$id_discipline);                                                                                                       
+        $this->db->where('up.id_discipline',$id_discipline);                              
+        $this->db->where('up.user_uuid',$user_uuid);                                                                                                                                                                   
         $this->db->where('pro.program_type',$program_type);
-        $this->db->group_by("pro.id_program");                                             
-        $query = $this->db->get();                                                                        
+        $this->db->group_by("pro.id_program");                                                           
+        $query = $this->db->get();                                                                                                                 
         if($query->num_rows()>0)                                                                                                                                              
-        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
             return $query->result();                             
         }                                                                                                                                                                                                                                                                                                                                                            
         else
@@ -544,17 +522,21 @@ class Preinscritos_model extends CI_Model
     }                                         
 
     public function get_programas_all($id_discipline,$program_type)
-    {                                                                                                                                                                                     
-        $this->db->select('id_program,program_name'); 
-        $this->db->where('id_discipline',$id_discipline); 
-        $this->db->where('program_type',$program_type);             
-        $query = $this->db->get('seg_dec_programas');
+    {                                                                                                                                                                                                                                                                    
+        $this->db->select('pro.id_program,pro.program_name'); 
+        $this->db->from('seg_dec_programas as pro'); 
+        $this->db->join('seg_dec_preinscritos as pre','pro.id_discipline = pre.id_discipline and pro.id_program = pre.id_program','inner');
+        $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito','inner');                        
+        $this->db->where('pro.id_discipline',$id_discipline);                                                                                                    
+        $this->db->where('pro.program_type',$program_type); 
+        $this->db->group_by("pro.id_program");                                          
+        $query = $this->db->get();                                   
         if($query->num_rows()>0)                                                                                                                                           
         {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
              return $query->result();                             
-        }                                                                                                                                                                                                                                                                                                                                
+        }                                                                                                                                                                                                                                                                                                                                       
         else
-        {                                                                                                                                                                                                                          
+        {                                                                                                                                                                                                                                                 
             return FALSE;            
         }                                                                        
     }                                                                                                  

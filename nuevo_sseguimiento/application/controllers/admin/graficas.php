@@ -29,7 +29,8 @@ class Graficas extends CI_Controller
     {
         $data['filtro'] = false;                                        
     	$user_uuid = $this->session->userdata('user_uuid');			
-    	if($this->accesos->admin())
+    	           
+        if($this->accesos->admin())
         { 											
     		$data['disciplinas'] = $this->graficas_model->get_disciplinas_all();                                                                                                                                                        
         }else{																			
@@ -66,6 +67,21 @@ class Graficas extends CI_Controller
 
         $data['tipos_programas'] = $this->graficas_model->get_tipos_programas();                                         
         $this->load->view('admin/users/tipos_programas_ax',$data);                         
-    }				   				   
+    }
+
+    public function area_grafica()
+    {                           
+        $id_discipline = $this->input->get('id_discipline'); 
+        
+        if($id_discipline==0){                                                                 
+            $disciplinas = $this->graficas_model->disciplinas_graficas($this->session->userdata('user_uuid')); 
+            
+            foreach ($disciplinas as $value) {      
+               $disciplina[] = $value->discipline;   
+               $total[] = $value->total;              
+            }                                                                                                                                                                                                                        
+        }                                                                                                                                                                                                                
+        echo json_encode(array('disciplinas'=>$disciplina,'total'=>$total));                                           
+    }                       				   				   
 }					
 ?>	    		

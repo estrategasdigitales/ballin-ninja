@@ -11,7 +11,7 @@ class Inscritos extends CI_Controller {
     }               
 
     public function acceso()
-    {                                                        
+    {                                                                           
         if(!$this->accesos->acceso())
         {                                 
             redirect('acceso/login');           

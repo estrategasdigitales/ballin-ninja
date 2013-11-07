@@ -14,7 +14,7 @@ class Programas extends CI_Controller
     {                  
         if(!$this->input->is_ajax_request()){               
             show_404(); 
-        }                                             
+        }                                                            
 
         $id_discipline = $this->input->post('id_discipline'); 
 

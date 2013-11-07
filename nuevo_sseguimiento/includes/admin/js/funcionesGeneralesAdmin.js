@@ -1,19 +1,20 @@
-var programas = {              
+var filtro = {              
 
   onReady:function()            
-  {                                                         
-      programas.controller = $("#controller").text();              
-      $("#filtro #id_discipline").on("change",programas.get_tipos_programas); 
-      $("#filtro #program_type").on("change",programas.get_programas);
-  },                                                                                                                                                                                                                        
+  {                                                                        
+      filtro.controller = $("#controller").text();              
+      $("#filtro #id_discipline").on("change",filtro.get_tipos_programas); 
+      $("#filtro #program_type").on("change",filtro.get_programas);
+      $("#filtro #id_program").on("change",filtro.search_programa);
+  },                                                                                                                                                                                                                                                                                                                                                   
 
   get_tipos_programas:function()
-  {        
+  {             
       if($(this).val()==0){
         return false;   
       }                           
 
-      var url = $("#base_url").text()+"admin/"+programas.controller+"/get_tipos_programas";
+      var url = $("#base_url").text()+"admin/"+filtro.controller+"/get_tipos_programas";
       var data = "id_discipline="+$(this).val();                                                           
 
       $.ajax({                                     
@@ -32,9 +33,9 @@ var programas = {
         {                                           
           console.log(respuesta);            
         }                                               
-      });
+      });    
 
-      programas.search_disciplina(programas.controller);                                                  
+      filtro.search_disciplina(filtro.controller);                                                  
   },                                                                                                                                                                                      
 
   get_programas:function()
@@ -45,7 +46,7 @@ var programas = {
         
       var id_discipline = $("#id_discipline option:selected").val();             
       var data = "program_type="+$(this).val()+"&id_discipline="+id_discipline;
-      var url = $("#base_url").text()+"admin/"+programas.controller+"/get_programas";
+      var url = $("#base_url").text()+"admin/"+filtro.controller+"/get_programas";
 
       $.ajax({                                                                    
         async:true,              
@@ -62,46 +63,43 @@ var programas = {
         error:function(respuesta)
         {                                                          
           console.log(respuesta);            
-        }                                                               
-      });            
+        }                                                                        
+      });                     
 
-    programas.search_tipo_programa(programas.controller);                                 
+    filtro.search_tipo_programa(filtro.controller);                                 
   },                       
 
   search_disciplina:function(controller)
   {                                                                                                                                                                                               
     var searchString = $("#id_discipline option:selected").val();         
-    var mypostdata = new Object();                             
-    mypostdata.searchField = 'up.id_discipline';     
-    mypostdata.searchOper = 'eq';                                                                   
-    mypostdata.searchString = searchString;                                                    
-    //$("#list_preinscritos").jqGrid('setGridParam',{search:true,postData:"searchField=program_name&searchOper=cn&searchString="+searchString+"&rows=20&page=1&sidx=id_preinscrito&sord=desc"}).trigger("reloadGrid"); 
-    $("#list_"+controller).jqGrid('setGridParam',{search:true,postData:mypostdata}).trigger("reloadGrid"); 
-  },                            
+    var data = new Object();                                                
+    data.searchField = 'pre.id_discipline';     
+    data.searchOper = 'eq';                                                                                                                        
+    data.searchString = searchString;                                                        
+    $("#list_"+controller).jqGrid('setGridParam',{search:true,postData:data,page:1}).trigger("reloadGrid"); 
+  },                                                                                     
 
   search_tipo_programa:function(controller)
   {                                                            
     var id_discipline = $("#id_discipline option:selected").val();                                                                                                                                                                                                      
     var program_type = $("#program_type option:selected").val();          
-    var mypostdata = new Object();                                                                                                                             
-    mypostdata.searchField = ['up.id_discipline','pro.program_type'];     
-    mypostdata.searchOper = 'eq';                                                                                                                                                              
-    mypostdata.searchString = [id_discipline,program_type];                                                                                                            
-    $("#list_"+controller).jqGrid('setGridParam',{search:true,postData:mypostdata}).trigger("reloadGrid"); 
-  },                
+    var data = new Object();                                                                                                                                    
+    data.searchField = ['pre.id_discipline','pro.program_type'];     
+    data.searchOper = 'eq';                                                                                                                                                                                                                             
+    data.searchString = [id_discipline,program_type];                                                                                                                
+    $("#list_"+controller).jqGrid('setGridParam',{search:true,postData:data,page:1}).trigger("reloadGrid"); 
+  },                                                              
 
-  search_programa:function(controller)
-  {                                                                                                                                                                   
-    var searchString = $("#id_program option:selected").text();         
-    var mypostdata = new Object();                      
-    mypostdata.searchField = 'program_name';     
-    mypostdata.searchOper = 'eq';                                           
-    mypostdata.searchString = searchString;                                                                
-    //$("#list_preinscritos").jqGrid('setGridParam',{search:true,postData:"searchField=program_name&searchOper=cn&searchString="+searchString+"&rows=20&page=1&sidx=id_preinscrito&sord=desc"}).trigger("reloadGrid"); 
-    $("#list_"+controller).jqGrid('setGridParam',{search:true,postData:mypostdata}).trigger("reloadGrid"); 
-  }
-
-}                           
+  search_programa:function()
+  {                                                                                                                                                                      
+    var searchString = $("#id_program option:selected").val();         
+    var data = new Object();                                                 
+    data.searchField = 'pro.id_program';     
+    data.searchOper = 'eq';                                                                                                                                                                           
+    data.searchString = searchString;                                                                                          
+    $("#list_"+filtro.controller).jqGrid('setGridParam',{search:true,postData:data,page:1}).trigger("reloadGrid"); 
+  }                                          
+}                                    
 
 var users = {                                 
     indice_array:0,                                            
@@ -118,7 +116,7 @@ var users = {
               {name:'rol',index:'rol',width:150,align:'left'},                                                                                                                                                                                                                            
               {name:'editar',search:false,sortable:false,align:'center',width:50,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
                 return "<a href='"+base_url+"admin/users/edit/" + options.rowId + "'><div class='ui-pg-div ui-inline-edit' onmouseout=\"jQuery(this).removeClass('ui-state-hover')\" onmouseover=\"jQuery(this).addClass('ui-state-hover');\"  style='display:inline-block;cursor:pointer;' title='Modificar fila seleccionada'><span class='ui-icon ui-icon-pencil'></span></div></a>";                            
-              }},                                                                                                                                                                                                                                                                                                                                                       
+              }},                                                                                                                                                                                                                                                                                                                                                              
               {name:'notificacion',search:false,sortable:false,align:'center',width:50,formatter:function(cellValue, options, rowdata, action){                   
                 var checked = (cellValue==1)?'checked':'';                                                                                                                                                          
                 return "<input type='checkbox' name='chk_notificacion' id='"+options.rowId+"' "+checked+">";                                       
@@ -181,13 +179,13 @@ var users = {
       $("#list input[name=chk_activo]").live("click",users.update_activo); 
       //$("#id_discipline").on("change",users.get_tipos_programas_ax); 
       //$("#program_type").on("change",users.get_programas_ax);
-      $("#tipo").on("change",users.tipo_usuario);                                                          
+      $("#tipo").on("change",users.tipo_usuario);                                                                                             
       $("#agregar_programas").on("click",users.agregar_programas);  
       $("#form_add_users").on("submit",users.add_users); 
       $("#form_update_users").on("submit",users.update_users);     
       $("#usuario_programas a").on("click",users.confirm_delete_programa); 
       $("#usuario_programas .new_program").live("click",users.delete_programa_new);
-    },					                  							
+    },					                             							
       
     exportar:function()
     {																							
@@ -368,10 +366,10 @@ var users = {
 
     get_tipos_programas_ax:function()
     {                                                                                               
-        var url = $("#base_url").text()+"admin/programas/get_tipos_programas_ax";
+        var url = $("#base_url").text()+"admin/users/get_tipos_programas_ax";
         var data = "id_discipline="+$(this).val();               
 
-        $.ajax({                                     
+        $.ajax({                                                 
           async:true,              
           type:"POST",       
           dataType:"html",                    
@@ -391,10 +389,10 @@ var users = {
     },                         
 
     get_programas_ax:function()
-    {                                
+    {                                                   
         var id_discipline = $("#id_discipline option:selected").val();             
         var data = "program_type="+$(this).val()+"&id_discipline="+id_discipline;
-        var url = $("#base_url").text()+'admin/programas/get_programas_ax';
+        var url = $("#base_url").text()+'admin/users/get_programas_ax';
 
         $.ajax({                                         
             async:true,              
@@ -592,24 +590,8 @@ var preinscritos = {
     });				               													                                                
  								
     $("#list_preinscritos a[name=edit]").live("click",preinscritos.edit); 
-    $("#id_program").on("change",preinscritos.search); 
-  },  	
-
-  func:function(){            
-    console.log("callld");
-  },
-
-  search:function(){                                                                                              
-    var searchString = $("#id_program option:selected").text();         
-    var mypostdata = new Object();                      
-    mypostdata.searchField = 'program_name';     
-    mypostdata.searchOper = 'eq';                                         
-    mypostdata.searchString = searchString;                                     
-    //mypostdata.filters = '{"field":"exception","op":"nc","data":"rule number 1"}';                                                                                                                                                     
-    //$("#list_preinscritos").jqGrid('setGridParam',{search:true,postData:"searchField=program_name&searchOper=cn&searchString="+searchString+"&rows=20&page=1&sidx=id_preinscrito&sord=desc"}).trigger("reloadGrid"); 
-    $("#list_preinscritos").jqGrid('setGridParam',{search:true,postData:mypostdata}).trigger("reloadGrid"); 
-  },                  	                                                                 	        		                   	           			
-                              
+  },  	                           
+                                  
   exportar:function()
   {																														
     $("#list_preinscritos").jqGrid('excelExport',{url:'excel/'});       
@@ -781,7 +763,6 @@ var casos_cerrados = {
   {                                                                                                 
       $("#list_casos_cerrados").jqGrid('excelExport',{url:'excel/'});       
   }        
-
 }      
 						                                      
 var casos_inconclusos = {
@@ -867,7 +848,7 @@ var casos_inconclusos = {
 var informes = {
 
   onReady:function()
-  {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+  {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
       var base_url = $("#base_url").text();
       jQuery("#list_informes").jqGrid({                                                   
           url:base_url+'admin/informes/jqGrid', //another controller function for generating data
@@ -949,7 +930,7 @@ var informes = {
 } 
                                                                                                                                
 $(document).ready(function(){ 
-    programas.onReady(); 
+    filtro.onReady();                
     users.onReady(); 
     preinscritos.onReady(); 
     inscritos.onReady();   
