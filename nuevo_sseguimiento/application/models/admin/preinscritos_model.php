@@ -6,7 +6,7 @@ class Preinscritos_model extends CI_Model
     {                                                                   
         parent::__construct();
         $this->load->database();
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 	
     public function total_preinscritos($user_uuid)
     {                                                                                                                    
@@ -19,8 +19,8 @@ class Preinscritos_model extends CI_Model
     }                                                                                                                                                    
 
     public function total_preinscritos_admin()
-    {                                                                                              
-        $this->db->join('seg_dec_programas as pro','pro.id_program = pre.id_program', 'inner');
+    {                                                                                                                                             
+        $this->db->join('seg_dec_programas as pro','pre.id_discipline = pro.id_discipline and pro.id_program = pre.id_program', 'inner');
         $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito', 'inner');                                                          
         $this->db->from('seg_dec_preinscritos as pre');                                                                                             
         return $this->db->count_all_results();           
@@ -40,7 +40,7 @@ class Preinscritos_model extends CI_Model
         if($query->num_rows()>0)				                                                                                                                                   
         {                               		             																																			                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
             return $query->result();                             
-        }                                                                                                                                                                                                                                                                                                                                                                                                               
+        }                                                                                                                                                                                                                                                                                                                                                                                                                          
         else
         {                                                                                                                                                                                                      
             return FALSE;            
@@ -78,7 +78,7 @@ class Preinscritos_model extends CI_Model
         if($query->num_rows()>0)                                                                                                                                                                                                                                                                                                                                                                                           
         {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
              return $query->row();                             
-        }                                                                                                                                                                                                                                                                                   
+        }                                                                                                                                                                                                                                                                                          
         else
         {                                                                                                                                                                                                                             
             return FALSE;            
@@ -117,7 +117,7 @@ class Preinscritos_model extends CI_Model
         if($query->num_rows()>0)                                                                                                                                                                                                                                                                                                                                                  
         {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
              return $query->result();                             
-        }                                                                                                                                                                                                                                                                                                                                          
+        }                                                                                                                                                                                                                                                                                                                                                                            
         else
         {                                                                                                                                                                                             
             return FALSE;            
@@ -141,7 +141,7 @@ class Preinscritos_model extends CI_Model
         else
         {                                                                                                                                                                                             
             return FALSE;            
-        }                                         
+        }                                                        
     }           						
 
     public function checar_existe($id_preinscrito)
@@ -155,7 +155,7 @@ class Preinscritos_model extends CI_Model
             return $query->row();
         }else{        
             return FALSE;
-        }
+        }                           
     }                           
 
     public function get_preinscrito($id_preinscrito)
@@ -421,7 +421,7 @@ class Preinscritos_model extends CI_Model
         {                                                                                                                                                                                             
             return FALSE;            
         }                                                                                  
-    }                                                                            
+    }                                                                                  
 
     public function get_disciplinas($user_uuid)
     {                                                                                                                                                                                                                                               

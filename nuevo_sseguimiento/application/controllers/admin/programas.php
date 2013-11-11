@@ -4,17 +4,15 @@ class Programas extends CI_Controller
 {
 	public function __construct()
     {					                                                                                                                                                 
-        parent::__construct();  
-        //$this->acceso();             
-        $this->load->library('layout','layout_main');                                  
+        parent::__construct();               
         $this->load->model('admin/programas_model');  				                                                    
     }
 
-    public function get_tipos_programas_ax()
+    public function get_tipos_programas()
     {                  
         if(!$this->input->is_ajax_request()){               
             show_404(); 
-        }                                                            
+        }                                                                              
 
         $id_discipline = $this->input->post('id_discipline'); 
 
@@ -22,12 +20,12 @@ class Programas extends CI_Controller
             $data['tipos_programas'] = $this->programas_model->get_tipos_programas_all($id_discipline);                                         
         }else{                                                                                                  
             $data['tipos_programas'] = $this->programas_model->get_tipos_programas($this->session->userdata('user_uuid'),$id_discipline);                                         
-        }                                                                        
+        }                                                                                                       
         $this->load->view('admin/users/tipos_programas_ax',$data);                         
     }                       			
 
-    public function get_programas_ax()
-    {                                    
+    public function get_programas()
+    {                                                        
         if(!$this->input->is_ajax_request()){
             show_404();
         }                          
@@ -41,12 +39,13 @@ class Programas extends CI_Controller
             $data['programas'] = $this->programas_model->get_programas($this->session->userdata('user_uuid'),$id_discipline,$program_type);
         }                                                                                                                                                            
 
-        if(!empty($data['programas'])){     
+        if(!empty($data['programas']))
+        {               
             $this->load->view('admin/users/programas_ax',$data);
         }else{
             $this->load->view('admin/users/option_select',$data);
         }                                                                                                                                                 
-    }                                                   			
+    }                                                			
 
 }
 ?>

@@ -6,11 +6,11 @@ var filtro = {
       $("#filtro #id_discipline").on("change",filtro.get_tipos_programas); 
       $("#filtro #program_type").on("change",filtro.get_programas);
       $("#filtro #id_program").on("change",filtro.search_programa);
-  },                                                                                                                                                                                                                                                                                                                                                   
+  },                                                                                                                                                                                                                                                                                                                                                               
 
   get_tipos_programas:function()
-  {             
-      if($(this).val()==0){
+  {              
+      if($(this).val()==0){             
         return false;   
       }                           
 
@@ -216,7 +216,7 @@ var users = {
           $("#programas").val(null);  
         }                                                                                                                      
         $(this).parent().remove();            
-    },                                                                                                                                                                                                                         
+    },                                                                                                                                                                                                                                            
             
     confirm_delete_programa:function(e)
     {                   
@@ -301,7 +301,6 @@ var users = {
             $("#programas").val(programas);                                                                                                                                                                                                     
             $("#id_discipline option[value=0]").attr("selected",true);
             $("#program_type option[value=0]").attr("selected",true);
-            $("#id_program option[value=0]").attr("selected",true);
             $("#id_program option[value=0]").attr("selected",true);
           }                                                                                                                                                                 
     },                                                  

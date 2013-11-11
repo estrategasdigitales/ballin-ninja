@@ -3,7 +3,6 @@
 <head>                                  																	
 <meta charset="utf-8">		
     <title>Home</title>                                     
-    <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width">													       	
 	<!-- gjhj -->                                                                      
 	<link rel="stylesheet" href="<?php echo base_url('includes/admin/js/jquery-ui-1.10.3.custom/css/jquery-ui-themes-1.10.3/themes/smoothness/jquery-ui.min.css'); ?>" media="screen">
     <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url('includes/jqGrid/css/ui.jqgrid.css'); ?>" />								 		   		  	  
@@ -71,7 +70,7 @@
         <div id="menu">                                                        
             <ul class="menu"> 
                 <li>                                               
-                    <a href=<?php echo base_url("admin/users/show"); ?> class="active">Usuarios</a>
+                    <a href=<?php echo base_url("admin/users/show"); ?>>Usuarios</a>
                     <ul>
 
                          <a href=<?php echo base_url("admin/users/add"); ?>>
@@ -83,25 +82,25 @@
                     </ul>                
                 </li>
                 <li>
-                    <a href=<?php echo base_url("admin/preinscritos/show"); ?> class="active">Preinscritos</a>     
+                    <a href=<?php echo base_url("admin/preinscritos/show"); ?>>Preinscritos</a>     
                 </li>                               
                 <li>                   
-                    <a href=<?php echo base_url("admin/inscritos/show"); ?> class="active">Inscritos</a>                    
+                    <a href=<?php echo base_url("admin/inscritos/show"); ?>>Inscritos</a>                    
                 </li> 
                 <li>                                                    
-                    <a href=<?php echo base_url("admin/casos_cerrados/show"); ?> class="active">Casos cerrados</a>                        
+                    <a href=<?php echo base_url("admin/casos_cerrados/show"); ?>>Casos cerrados</a>                        
                 </li> 
                 <li>                                                                           
-                    <a href=<?php echo base_url("admin/casos_inconclusos/show"); ?> class="active">Casos inconclusos</a>                         
+                    <a href=<?php echo base_url("admin/casos_inconclusos/show"); ?>>Casos inconclusos</a>                         
                 </li>                                         
                 <li>                                                                           
-                    <a href=<?php echo base_url("admin/informes/show"); ?> class="active">Informes</a>                         
+                    <a href=<?php echo base_url("admin/informes/show"); ?>>Informes</a>                         
                 </li>        
                 <li>                                                                                                                                         
-                    <a href=<?php echo base_url("admin/graficas/show"); ?> class="active">Graficas</a>                         
-                </li>                                                              
-                <li>                                				                
-                    <a href=<?php echo base_url("acceso/login/salir"); ?> class="active">Salir</a>
+                    <a href=<?php echo base_url("admin/graficas/area"); ?>>Graficas</a>                         
+                </li>                                                                                                                    
+                <li>                                                				                
+                    <a href=<?php echo base_url("acceso/login/salir"); ?>>Salir</a>
                 </li>                                                                             
             </ul> 
         </div>          
