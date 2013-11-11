@@ -1,37 +1,26 @@
 <?php echo $this->load->view('admin/graficas/menu_graficas'); ?>
 <header>
 <script src="<?php echo base_url('includes/highcharts/js/highcharts.js'); ?>"></script>
-<script src="<?php echo base_url('includes/highcharts/js/modules/exporting.js'); ?>"></script>		
+<script src="<?php echo base_url('includes/highcharts/js/modules/exporting.js'); ?>"></script>	
+<script src="<?php echo base_url('includes/admin/js/graficas.js'); ?>"></script>		
 </header>																	
-Grafica del <input type="text" name="fecha_inicio"> al <input type="text" name="fecha_fin"><input type="button" name="graficar_historico" id="graficar_historico" value="Graficar histórico">
-<div id="graficas">																								
-	<div>																														
-	<label>Disciplinas: *</label>				
+Grafica del <input type="text" name="fecha_inicio" id="fecha_inicio"> al <input type="text" name="fecha_fin" id="fecha_fin"><input type="button" name="his_area_programa" id="his_area_programa" value="Graficar histórico">
+<div id="area_programa">																								
+	<div>																																						
+	<label>Disciplinas: *</label>						
 	<select name="id_discipline" id="id_discipline">		
 		<option value="0">Todas las disciplinas</option>																																											
 		<?php foreach($disciplinas as $disciplina){ ?>		
 		<option value="<?php echo $disciplina->id_discipline; ?>"  <?php echo set_select('id_discipline', $disciplina->id_discipline); ?>><?php echo $disciplina->discipline; ?></option>												
-		<?php } ?>																																																								
+		<?php } ?>																																																										
 	</select>																		
-	</div>															
-	<div>																																																					
-	<label>Tipo de programa: *</label>								
-	<select name="program_type" id="program_type">																																													
-		<option value="0">Selecciona el tipo de programa</option>																																																																																																																
-	</select>																																																					
-	</div>																			
-	<div>																																																														
-	<label>Programas: *</label>								
-	<select name="id_program" id="id_program">																																													
-		<option value="0">Selecciona un programa</option>																																																																			
-	</select>																																							
-	</div>													
-</div>																	
-<input type="button" name="graficar" id="graficar" value="Graficar">
+	</div>																																
+</div>																								
+<input type="button" name="b_area_programa" id="b_area_programa" value="Graficar">
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<script>				
-	$("#graficar_historico").on("click",gen_grafico);
-
+<script>					
+																																	
+	/*				
 	function graficar_historico(){
 
 	 $('#container').highcharts({
@@ -101,28 +90,30 @@ Grafica del <input type="text" name="fecha_inicio"> al <input type="text" name="
             }]
         });			
       }
-
-    function gen_grafico(){	
+				
+    function gen_grafico(){					
 
     var base_url = $("#base_url").text();
 	var id_discipline = $("#id_discipline option:selected").val();  
-    var data = "id_discipline="+id_discipline;
+											
+    var data = "id_discipline="+id_discipline+"&fecha_inicio="+$("#fecha_inicio").val()+"&fecha_fin="+$("#fecha_fin").val();
+   
 
-    $.get(base_url+'admin/graficas/area_grafica/?'+data, function (csv) {
-        
+    $.get(base_url+'admin/graficas/area_grafica/?'+data, function (csv) {		
+ 		   												
         console.log(csv);													
         var csv = eval('(' + csv + ')');						
         console.log(csv.disciplinas);																				
-
+					
         $('#container').highcharts({						
         	chart: {																				
-				renderTo: 'graficaLineal', 	// Le doy el nombre a la gráfica
+				//renderTo: 'graficaLineal', 	// Le doy el nombre a la gráfica
 				defaultSeriesType: 'line'	// Pongo que tipo de gráfica es
-			},
+			},												
 			title: {		
-				text: 'Datos de las Visitas'	// Titulo (Opcional)
+				text: 'Datos de las Disciplinas'	// Titulo (Opcional)
 			},
-			subtitle: {
+			subtitle: {				
 				text: 'Jarroba.com'		// Subtitulo (Opcional)
 			},
 			// Pongo los datos en el eje de las 'X'
@@ -130,30 +121,13 @@ Grafica del <input type="text" name="fecha_inicio"> al <input type="text" name="
 				categories: csv.disciplinas,		
 				// Pongo el título para el eje de las 'X'
 				title: {
-					text: 'Meses'
+					text: 'Disciplinas'
 				}
 			},
-			yAxis: {
+			yAxis: {					
 				// Pongo el título para el eje de las 'Y'
-				title: {
-					text: 'Nº Visitas'
-				}
-			},
-			// Doy formato al la "cajita" que sale al pasar el ratón por encima de la gráfica
-			tooltip: {
-				enabled: true,
-				formatter: function() {
-					return '<b>'+ this.series.name +'</b><br/>'+
-						this.x +': '+ this.y +' '+this.series.name;
-				}		
-			},
-			// Doy opciones a la gráfica
-			plotOptions: {
-				line: {
-					dataLabels: {
-						enabled: true
-					},
-					enableMouseTracking: true
+				title: {					
+					text: 'Nº preinscritos'
 				}
 			},
 			// Doy los datos de la gráfica para dibujarlas
@@ -166,5 +140,43 @@ Grafica del <input type="text" name="fecha_inicio"> al <input type="text" name="
         });
     });
 
-    }  							 		
+    }  		
+    
+    function prueba(){	
+
+    var base_url = $("#base_url").text();
+	var id_discipline = $("#id_discipline option:selected").val();  
+    var data = "id_discipline="+id_discipline;
+
+    $.get(base_url+'admin/graficas/area_grafica/?'+data, function (csv) {
+        					
+        //console.log(csv);													
+        //var csv = eval('(' + csv + ')');						
+															
+        var csv = $.parseJSON(csv); 																				
+		//console.log(csv);
+													
+																																														
+     	$('#container').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: csv																						
+    });			   
+        					
+        
+    });
+
+    } */				 									 		
 </script>

@@ -20,10 +20,18 @@ class Inscritos extends CI_Controller {
 
     public function show()
     {                                             
-        $data['filtro'] = false;                
+        $data['filtro'] = true;   
+											
+		if($this->accesos->admin())
+        {                                                                                              
+            $data['disciplinas'] = $this->inscritos_model->get_disciplinas_all();                                                                                                                                                        
+        }else{                            					                                                                                                               
+            $data['disciplinas'] = $this->inscritos_model->get_disciplinas($this->session->userdata('user_uuid')); 
+        }											                       
+		             
         $this->layout->view('admin/inscritos/show_inscritos',$data);                                                                     
-    }                                                                                                                                      
-
+    }
+												                                                                                                                                      
     public function jqGrid()
     {                                                                                                                                                                                                                        
         //obtener la página solicitada                          
@@ -51,8 +59,16 @@ class Inscritos extends CI_Controller {
             $searchField  = $this->input->post('searchField');
             $searchString = $this->input->post('searchString');
 
-            $where = search($searchOper,$searchField,$searchString); 
+			if(is_array($searchField))
+            {                                                                
+                $where = 'where '.search_filter($searchOper,$searchField[0],$searchString[0]);
+                $where = $where.' and '.search_filter($searchOper,$searchField[1],$searchString[1]);   
 
+            }else{                                                                                                        
+
+                $where = 'where '.search_filter($searchOper,$searchField,$searchString);    
+            }					  
+																
             if($this->accesos->admin())
             {  
                 $total_inscritos = $this->inscritos_model->total_search_inscritos_admin($where)->total;     
@@ -103,7 +119,50 @@ class Inscritos extends CI_Controller {
             $data->msg = msj('No existen registros.','message');                                                                   
         }                                                                                                                                                                                         
         echo json_encode($data);                                                                                                     
-    }                                                 
+    }      
+
+	public function get_tipos_programas()
+    {                                                           
+        if(!$this->input->is_ajax_request()){               
+            show_404(); 
+        }				                                                                        
+
+        $id_discipline = $this->input->post('id_discipline'); 
+
+        if($this->accesos->admin()){                             
+            $data['tipos_programas'] = $this->inscritos_model->get_tipos_programas_all($id_discipline);                                         
+        }else{                                                                                                  
+            $data['tipos_programas'] = $this->inscritos_model->get_tipos_programas($this->session->userdata('user_uuid'),$id_discipline);                                         
+        }                                   
+
+        if(!empty($data['tipos_programas'])){     
+            $this->load->view('admin/users/tipos_programas_ax',$data);
+        }else{                                                
+            $this->load->view('admin/users/option_select',$data);
+        }                                         
+    }        
+
+    public function get_programas()
+    {                                                                          
+        if(!$this->input->is_ajax_request()){
+            show_404();
+        }                                                 
+                                                                             
+        $id_discipline = $this->input->post('id_discipline'); 
+        $program_type  = $this->input->post('program_type');
+
+        if($this->accesos->admin()){																	                         						
+            $data['programas'] = $this->inscritos_model->get_programas_all($id_discipline,$program_type);
+        }else{					                                                                                 
+            $data['programas'] = $this->inscritos_model->get_programas($this->session->userdata('user_uuid'),$id_discipline,$program_type);
+        }     			                                												                                                                                                                                                                  
+										
+        if(!empty($data['programas'])){     
+            $this->load->view('admin/users/programas_ax',$data);
+        }else{      
+            $this->load->view('admin/users/option_select',$data);
+        }                                                                                                                                                 
+    }                                                            
 
     public function delete_inscrito()
     {				                      
@@ -122,15 +181,22 @@ class Inscritos extends CI_Controller {
     }
 
     public function excel()
-    {                                                                                                                                                      
+    {    																                                                                                                                                                  
         $this->load->helper('php-excel'); 
         $file = 'Inscritos-'.date('YmdHis'); 
         $data_array = array();          
         $parametros = $this->input->get(); 
 
         if($parametros["_search"]=="true")
-        {       
-            $search = search($parametros['searchOper'],$parametros['searchField'],$parametros['searchString']);   
+        {
+        	if(is_array($parametros['searchField']))
+            {                                                                                                                                                                                                                                                                                                          
+                $search = 'where '.search_filter($parametros['searchOper'],$parametros['searchField'][0],$parametros['searchString'][0]);
+                $search = $search.' and '.search_filter($parametros['searchOper'],$parametros['searchField'][1],$parametros['searchString'][1]);   
+            }else
+            {                                                                                                                                                                                        
+                $search = 'where '.search_filter($parametros['searchOper'],$parametros['searchField'],$parametros['searchString']);    
+            }   						       
         }                                                                                                                                                                                                                
 
         if($this->accesos->admin())
@@ -150,13 +216,13 @@ class Inscritos extends CI_Controller {
             }else{                                                                                                                                 
                 $inscritos = $this->inscritos_model->ex_user_search($search,$this->session->userdata('user_uuid'),$parametros['sidx'],$parametros['sord']);                                                                                                                                                          
             }                                                                       
-        }                                                                                         
-
+        }                                     
+									
         $fields = (                                         
             $field_array[] = array ('Nombre','Apellido paterno','Apellido materno','Fecha de registro','Nombre del programa','Primer contacto','Documentos','Enviar a decse','Envio de claves','Pago realizado')
         );                                    
-
-        if(!empty($informes))
+				
+        if(!empty($inscritos))
         { 
             foreach ($inscritos as $row)
             {                                                                                 

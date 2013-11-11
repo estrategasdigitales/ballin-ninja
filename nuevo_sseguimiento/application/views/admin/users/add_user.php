@@ -35,7 +35,7 @@
 		<div>																																
 			<input type="hidden" id="programas" name="programas">
 		</div>
-
+		<div id="filtro_users">
 		<p>
 			<label>Disciplinas: *</label>				
 			<select name="id_discipline" id="id_discipline">
@@ -57,6 +57,7 @@
 				<option value="0">Selecciona un programa</option>																																																																			
 			<select/>
 		</p>
+		</div>								
 		<p><input type="button" name="agregar_programas" id="agregar_programas" value="Agregar programa"></p>
 	</div>									
 										

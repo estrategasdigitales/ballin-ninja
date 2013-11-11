@@ -173,12 +173,12 @@ var users = {
         buttonicon: "ui-icon-bookmark",
         onClickButton: this.exportar, position: "last"
     });													
-						
+																															
       $("#exportar").on("click",users.exportar);
       $("#list input[name=chk_notificacion]").live("click",users.update_notificacion);  
       $("#list input[name=chk_activo]").live("click",users.update_activo); 
-      //$("#id_discipline").on("change",users.get_tipos_programas_ax); 
-      //$("#program_type").on("change",users.get_programas_ax);
+      $("#filtro_users #id_discipline").on("change",users.get_tipos_programas_ax); 
+      $("#filtro_users #program_type").on("change",users.get_programas_ax);
       $("#tipo").on("change",users.tipo_usuario);                                                                                             
       $("#agregar_programas").on("click",users.agregar_programas);  
       $("#form_add_users").on("submit",users.add_users); 
@@ -186,7 +186,7 @@ var users = {
       $("#usuario_programas a").on("click",users.confirm_delete_programa); 
       $("#usuario_programas .new_program").live("click",users.delete_programa_new);
     },					                             							
-      
+      						
     exportar:function()
     {																							
         $("#list").jqGrid('excelExport',{url:'excel/'});       
@@ -926,7 +926,7 @@ var informes = {
   {       
     e.preventDefault();
     $.colorbox({href:$(this).attr("href"),iframe:true, width:"850px", height:"90%"});
-  }                
+  }				                
 } 
                                                                                                                                
 $(document).ready(function(){ 
