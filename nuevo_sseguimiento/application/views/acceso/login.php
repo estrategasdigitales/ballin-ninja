@@ -8,13 +8,13 @@
 			<div id="error_login">					
 			<span class="red"><?php echo validation_errors(); ?></span>  
 			<span class="red"><?php echo isset($error)?$error:''; ?></span>			
-			</div>			
+			</div>										
 			<table align="center">
 				<tr>									
-					<td align="center" colspan="2">				
+					<td colspan="2" align="center">				
 						Administrador
 					</td>											
-				</tr>			
+				</tr>															
 				<tr>
 					<td>	
 						<span class="alert cont">Usuario</span>
@@ -24,18 +24,19 @@
 					</td>		
 				</tr>
 				<tr>
-					<td>
-
+					<td>				
 						<span class="alert">Password</span>
 					</td>
 					<td>
 						<input type="password" name="pass" id="pass"/>
 					</td>
 				</tr>
-			</table>							
-			<div id="button_login">																		
-			<input name=submit type=submit value="Entrar" class="botones">
-			</div>					
+				<tr>							
+					<td colspan="2" align="center">																		
+						<input name=submit type=submit value="Entrar" class="botones">
+					</td>																		
+				</tr>									
+			</table>											
 	</form>							
  </div>	
 </body>
