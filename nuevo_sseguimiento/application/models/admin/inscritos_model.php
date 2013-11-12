@@ -130,7 +130,7 @@ class Inscritos_model extends CI_Model
         {                                                                                                                                                                              
             return FALSE;            
         }                                                         
-    }                                      
+    }                                                   
 
     public function search_inscritos_admin($where,$start,$limit,$sidx,$sord)
     {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
@@ -256,7 +256,7 @@ class Inscritos_model extends CI_Model
     } 
 					
 	public function get_disciplinas($user_uuid)
-    {                                                                                                                                                                                                                                               
+  {                                                                                                                                                                                                                                               
         $this->db->select('dis.id_discipline,dis.discipline');
         $this->db->from('seg_dec_disciplinas as dis');                                                                                                                                                                                                    
         $this->db->join('seg_dec_usuarios_programas as up','up.id_discipline = dis.id_discipline','inner');               
@@ -298,7 +298,7 @@ class Inscritos_model extends CI_Model
         $this->db->join('seg_dec_usuarios_programas as up','up.id_discipline = pro.id_discipline and up.id_program = pro.id_program','inner');
         $this->db->join('seg_dec_preinscritos as pre','up.id_discipline = pre.id_discipline and up.id_program = pre.id_program','inner');
         $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito','inner');
-		$this->db->where('status.pago_realizado',1);  				 
+		    $this->db->where('status.pago_realizado',1);         				 
         $this->db->where('up.user_uuid',$user_uuid);                                                                                                                                                                      
         $this->db->where('pro.id_discipline',$id_discipline);                                                                                                                                                                                                                          
         $this->db->group_by('pro_tipos.program_type');                                                                                                                                                                                                                                           
@@ -376,9 +376,20 @@ class Inscritos_model extends CI_Model
         {                                                                                                                                                                                                                                                 
             return FALSE;            
         }                                                                        
-    }                  
-
-	
-                                  
+    }
+                          
+    public function comentarios_pasos($id_preinscrito)
+    {                                                                                                                                                                                                                                                                                                                      
+        $this->db->select('id_paso,comentario');                       
+        $this->db->from('seg_dec_comentarios');                          
+        $this->db->where('id_preinscrito',$id_preinscrito);
+        $query = $this->db->get();                                                                                                      
+        if($query->num_rows()>0)                                                                                
+        {                                                                                                                             
+            return $query->result();
+        }else{                  
+            return FALSE;
+        }                                 
+    }                                                              
 } 
 ?>              

@@ -2,7 +2,7 @@
 var graficas = {				
 						
  	onReady:function()            
-  	{																
+  	{																																
   		$.datepicker.regional['es'] = {
 		      closeText: 'Cerrar',
 		      prevText: '<Ant',
@@ -93,22 +93,12 @@ var graficas = {
     }, 		  																																																																																
  																							 									
   	area_programa:function(){												
-																									
+																																		
     var base_url = $("#base_url").text();
 	var id_discipline = $("#id_discipline option:selected").val();  
 												
-	var data = "id_discipline="+id_discipline;	
-		
-	/*																												
-	if($(this).attr("id")=="b_area_programa"){
-		if($("#fecha_inicio").val()=='' && $("#fecha_fin").val()==''){
-			alert("los campos fecha no deben quedar vacios");	
-			return false;		
-		}										
-		data+= "&fecha_inicio="+$("#fecha_inicio").val()+"&fecha_fin="+$("#fecha_fin").val();										
-	}*/																											
-	data+= "&fecha_inicio="+$("#fecha_inicio").val()+"&fecha_fin="+$("#fecha_fin").val();										
-  																				 													   															
+	var data = "id_discipline="+id_discipline+"&fecha_inicio="+$("#fecha_inicio").val()+"&fecha_fin="+$("#fecha_fin").val();	
+																																															 													   															
     $.post(base_url+'admin/graficas/area_grafica/?'+data, function (area_programa) {		
  		  														 																									
         var area_programa = eval('(' + area_programa + ')');
@@ -376,7 +366,7 @@ var graficas = {
 	},					
 
 	status_proceso:function()
-	{							
+	{												
 		var base_url = $("#base_url").text();
 		var id_discipline = $("#id_discipline option:selected").val();  
 													
@@ -385,52 +375,140 @@ var graficas = {
 		var program_type = $("#program_type option:selected").val();			
 		if($("#program_type option:selected").val()!=0){
 			data+="&program_type="+program_type;			 									
-		}																				
+		}																						
 
 		var id_program = $("#id_program option:selected").val();
 		if($("#id_program option:selected").val()!=0){
 			data+="&id_program="+id_program;			 									
 		}																																															
 																																									 													   															
-	    $.post(base_url+'admin/graficas/status_proceso_grafica/?'+data, function (area_programa){				
+	    $.post(base_url+'admin/graficas/status_proceso_grafica/?'+data, function (proceso){				
 	 		  																																																 																									
-	        var area_programa = eval('(' + area_programa + ')');
-	        			
-	        if(area_programa.success==false)
-	        {																																				
-	        	alert("No existen datos");
-	        	return false;
-	        }																																																					
-																
-	        $('#container').highcharts({						
-	        	chart: {																																	
-					defaultSeriesType: 'line'
-				},																
-				title: {					
-					text: area_programa.title	
-				},											
-				xAxis: {																											
-					categories: area_programa.dis_pro,		
-					title: {																	
-						text: 'Nivel de estudios'		
-					}			
-				},
-				yAxis: {					
+	        var proceso = eval('(' + proceso + ')');				
+
+	        if(proceso.status.success==true)
+	        {																																												
+	        																																																																																						
+		        $('#status').highcharts({						
+		        	chart: {																																	
+						defaultSeriesType: 'line'
+					},																
 					title: {					
-						text: 'Nº preinscritos'
-					}
-				},
-				series: [{					
-								
-			                name: 'totales',		
-			                data: area_programa.total						
-			            }																														
-			         ],					
-	        	});
-	    	});												
-	}
+						text: proceso.status.title	
+					},											
+					xAxis: {																															
+						categories: proceso.status.dis_pro,		
+						title: {																			
+							text: 'Nivel de estudios'		
+						}			
+					},
+					yAxis: {					
+						title: {					
+							text: 'Nº preinscritos'
+						}
+					},
+					series: [{					
+									
+				                name: 'totales',		
+				                data: proceso.status.total						
+				            }																																			
+				         ],					
+		        });	
 
+	        }				
 
+	        if(proceso.casos_abiertos.success==true)
+	        {										
+
+		    	$('#casos_abiertos').highcharts({						
+		        	chart: {																																	
+						defaultSeriesType: 'line'
+					},																
+					title: {					
+						text: proceso.casos_abiertos.title	
+					},											
+					xAxis: {																											
+						categories: proceso.casos_abiertos.dis_pro,		
+						title: {																	
+							text: 'Casos abiertos'		
+						}			
+					},
+					yAxis: {					
+						title: {					
+							text: 'Nº preinscritos'
+						}
+					},
+					series: [{					
+									
+				                name: 'totales',		
+				                data: proceso.casos_abiertos.total						
+				            }																														
+				         ],					
+		        });	
+	        }												
+
+	        if(proceso.casos_cerrados.success==true)
+	        {							
+		        $('#casos_cerrados').highcharts({						
+		        	chart: {																																	
+						defaultSeriesType: 'line'
+					},																
+					title: {					
+						text:  proceso.casos_cerrados.title	
+					},											
+					xAxis: {																											
+						categories: proceso.casos_cerrados.dis_pro,		
+						title: {																	
+							text: 'Casos cerrados'		
+						}			
+					},
+					yAxis: {					
+						title: {					
+							text: 'Nº preinscritos'
+						}
+					},
+					series: [{													
+									
+				                name: 'totales',		
+				                data: proceso.casos_cerrados.total							
+				            }																														
+				         ],							
+		        });			
+
+	    	}
+
+	        				
+	        if(proceso.casos_inconclusos.success==true)
+	        {															
+		        $('#casos_inconclusos').highcharts({						
+		        	chart: {																																						
+						defaultSeriesType: 'line'
+					},																
+					title: {					
+						text: proceso.casos_inconclusos.title	
+					},											
+					xAxis: {																											
+						categories: proceso.casos_inconclusos.dis_pro,		
+						title: {																	
+							text: 'Casos inconclusos'		
+						}							
+					},
+					yAxis: {					
+						title: {					
+							text: 'Nº preinscritos'
+						}
+					},							
+					series: [{										
+									
+				                name: 'totales',		
+				                data: proceso.casos_inconclusos.total						
+				            }																														
+				         ],							
+		        });
+	        }								
+	        	    
+	    });																
+	}							
 }
 
 $(document).ready(function(){ 

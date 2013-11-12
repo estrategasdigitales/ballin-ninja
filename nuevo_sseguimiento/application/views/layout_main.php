@@ -2,22 +2,18 @@
 <html>
 <head>                                  																	
 <meta charset="utf-8">		
-    <title>Home</title>                                     
-	<!-- gjhj -->                                                                      
+    <title>Home</title>                                                 
 	<link rel="stylesheet" href="<?php echo base_url('includes/admin/js/jquery-ui-1.10.3.custom/css/jquery-ui-themes-1.10.3/themes/smoothness/jquery-ui.min.css'); ?>" media="screen">
     <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url('includes/jqGrid/css/ui.jqgrid.css'); ?>" />								 		   		  	  
     <link rel="stylesheet" href="<?php echo base_url('includes/admin/css/colorbox.css'); ?>" media="screen">				                                                                                                                                                             
     <link rel="stylesheet" href="<?php echo base_url('includes/admin/css/estilos.css'); ?>" media="screen">                                                               			  					                                                                 
-	                                                  				
-    <!-- art -->                                        
+	                                                                                      				
     <script src="<?php echo base_url('includes/art/jquery.js'); ?>"></script>
     <!--<script src="<?php echo base_url('includes/jqGrid/js/jquery-1.7.2.min.js'); ?>" type="text/javascript"></script>--> 
-	<!-- gjhj -->                                                                                                           
 	<script src="<?php echo base_url('includes/admin/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js'); ?>" type="text/javascript"></script>
     <script src="<?php echo base_url('includes/admin/js/jquery.colorbox.js'); ?>" type="text/javascript"></script>
     <script src="<?php echo base_url('includes/admin/js/jquery.validate.js'); ?>" type="text/javascript"></script>                                
     <script src="<?php echo base_url('includes/admin/js/funcionesGeneralesAdmin.js'); ?>" type="text/javascript"></script>
-    <!-- grid -->       												                					
     <script src="<?php echo base_url('includes/jqGrid/js/jquery.jqGrid.min.js'); ?>" type="text/javascript"></script> 
     <script src="<?php echo base_url('includes/jqGrid/js/i18n/grid.locale-es.js'); ?>" type="text/javascript"></script>                                                                                                      
 
@@ -37,8 +33,8 @@
         	</div>
             <div id="titulo">
             	<h1>Sistema de seguimiento de preinscripciones</h1>						
-            	<h2>Administrador | <a href="#">Cerrar sesión</a></h2>	
-            </div>                                                                            
+            	<h2>Administrador | <a href=<?php echo base_url("acceso/login/salir"); ?>>Cerrar sesión</a></h2>	
+            </div>                                                                                                                   
             <?php 
             $filtro = isset($filtro)?$filtro:false;
             if($filtro){ ?>                                                                                                                                           

@@ -484,22 +484,12 @@ div.sep{
 	text-align: center;	
 	margin: 0 auto;	
 	background: #F00;								
-}																														
+}																																	
 						
 #button_cancelar a{		
 	color:white;									
 }																																			
-																	
-/*#button_guardar{		
-	width:70px;												
-	text-align:center;	
-	background:red;
-	color:white;	
-	border:none;	
-	display:inline;
-	margin-left: 0 auto;
-	cursor: pointer;																		
-}*/	
+																								
 .boton_general{
 	width:70px;												
 	text-align:center;	
@@ -509,7 +499,11 @@ div.sep{
 	display:inline;
 	margin-left: 0 auto;
 	cursor: pointer;
-}																					
+}						
+												
+.comment_i{		
+	display:inline;
+}																			
 
 
 

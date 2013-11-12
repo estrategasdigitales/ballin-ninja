@@ -14,20 +14,17 @@ class Preinscritos extends CI_Controller
     public function index()
     {
         $this->show();
-    }       
-
+    }                    
 
     public function show()
-    {                                                             
+    {                                                                            
         $data['filtro'] = true; 
 
-        if($this->accesos->admin())
-        {                                                                                              
+        if($this->accesos->admin()){                                                                                                                 
             $data['disciplinas'] = $this->preinscritos_model->get_disciplinas_all();                                                                                                                                                        
         }else{                                                                                                                                           
             $data['disciplinas'] = $this->preinscritos_model->get_disciplinas($this->session->userdata('user_uuid')); 
         }                       
-
         $this->layout->view('admin/preinscritos/show_preinscritos',$data);                                                           
     }    
 
@@ -36,7 +33,7 @@ class Preinscritos extends CI_Controller
         if(!$this->accesos->acceso())
         {                                 
             redirect('acceso/login');           
-        }                                                                                                   
+        }                                                                                                                                                                      
     }                                                                                                                                                                                  																								        					                                   	                    		
 	                                                                                                                                                        		    		                                                                                                       					
     public function jqGrid()
@@ -132,11 +129,11 @@ class Preinscritos extends CI_Controller
                         
                         if($value->id_paso==2){
                             $pasos['documentos'] = $value->comentario;   
-                        }
+                        }              
                         
                         if($value->id_paso==3){
                             $pasos['envio_decse'] = $value->comentario;   
-                        }
+                        }                               
                         
                         if($value->id_paso==4){
                             $pasos['envio_claves'] = $value->comentario;  
@@ -146,11 +143,11 @@ class Preinscritos extends CI_Controller
                             $pasos['pago_realizado'] = $value->comentario;  
                         }                                                                                                   
                     }    
-                }                                                                               
+                }                                                                                                                                                                              
 				                                                   											
                 $data->rows[$key]['id']   = $preinscrito->id_preinscrito;                                                                                                   
                 $data->rows[$key]['cell'] = array($preinscrito->nombre,$preinscrito->a_paterno,$preinscrito->a_materno,$preinscrito->program_name,$preinscrito->fecha_registro,$preinscrito->codigo,$preinscrito->primer_contacto.'|'.$pasos['primer_contacto'],$preinscrito->documentos.'|'.$pasos['documentos'],$preinscrito->envio_decse.'|'.$pasos['envio_decse'],$preinscrito->envio_claves.'|'.$pasos['envio_claves'],$preinscrito->pago_realizado.'|'.$pasos['pago_realizado'],'eliminar');
-            }                                                    										                                                            
+            }                                                                       										                                                            
 						
         }else{      
 
@@ -158,7 +155,7 @@ class Preinscritos extends CI_Controller
         } 
 
         echo json_encode($data);                                                                                                     
-    }    
+    }                           
 
     public function get_tipos_programas()
     {                                                           
@@ -176,10 +173,10 @@ class Preinscritos extends CI_Controller
 
         if(!empty($data['tipos_programas'])){     
             $this->load->view('admin/users/tipos_programas_ax',$data);
-        }else{                                                
+        }else{                                                      
             $this->load->view('admin/users/option_select',$data);
         }                                         
-    }        
+    }                       
 
     public function get_programas()
     {                                                                          
@@ -208,19 +205,36 @@ class Preinscritos extends CI_Controller
         $id_preinscrito = $this->input->post('id');
         $preinscrito = $this->preinscritos_model->checar_existe($id_preinscrito);
 
-        if(empty($preinscrito))                                    
-        {                                                                                                                                                    
+        if(empty($preinscrito)){                                                                                                                                                    
             echo json_encode(array('success'=>false,'message'=>msj('El registro no existe.','error')));
-        }
-        else
+        }else
         {                                                                             
             if($this->preinscritos_model->delete_preinscrito($id_preinscrito))
             {                                                   
                 echo json_encode(array('success'=>true,'message'=>msj('El registro se eliminó correctamente','message')));
             }                                                                       
         }   
-    }                                                                     
+    }                                
 
+    public function detalle($id_preinscrito=NULL)
+    {                                                     
+        $this->load->library('detalle_preinscrito');        
+        $this->detalle_preinscrito->detalle($id_preinscrito);                                                                                                                 
+    }                                                                                                                          
+
+    public function editar($id_preinscrito=NULL)
+    {                                                                                                   
+        $this->load->library('detalle_preinscrito');  
+        $this->detalle_preinscrito->editar($id_preinscrito);                                                                                                                                                                               
+    }                     
+
+    public function update()
+    {                                                                         
+        $this->load->library('detalle_preinscrito');  
+        $this->detalle_preinscrito->update();                                                                                                                                                          
+    }                                                                      
+                                                                
+    /*
     public function detalle($id_preinscrito = NULL)
     {                                               
         $data['msj'] = $this->session->flashdata('msj');                                                                
@@ -428,7 +442,7 @@ class Preinscritos extends CI_Controller
             return $comentario->comentario;
         }                                                                                                                                                           
         return FALSE;                                                            
-    }                                                               
+    }                                                                                        
 
     public function upload($id_preinscrito,$doc_type)
     {                                                                                                                                                                                                                                                                                  
@@ -479,12 +493,20 @@ class Preinscritos extends CI_Controller
         }
 
         return $archivos;                      
-    }                   
+    }    
+                
+    private function ext($file)
+    {                                                               
+        $ext   = explode('.',$file);
+        $count = count($ext);
+        return $ext[$count-1];
+    }                       
+    */                                                            
 
     public function excel()
     {                                                                                                                  
         $this->load->helper('php-excel'); 
-        $file = 'preinscritos-'.date('YmdHis');
+        $file = 'Preinscritos-'.date('YmdHis');
         $data_array = array();           
         $parametros = $this->input->get(); 
 
@@ -541,13 +563,5 @@ class Preinscritos extends CI_Controller
         $xls->addArray ($data_array);
         $xls->generateXML($file);                                       
     }                                                                                                       
-
-    private function ext($file)
-    {                                                               
-        $ext   = explode('.',$file);
-        $count = count($ext);
-        return $ext[$count-1];
-    }        
-
 
 }    

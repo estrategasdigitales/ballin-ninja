@@ -4,16 +4,16 @@ class Inscritos extends CI_Controller {
                                                                                     
     public function __construct()
     {                                                                                                                     
-        parent::__construct();                
+        parent::__construct(); 
+        $this->acceso();                               
         $this->load->library('layout','layout_main');                                  
-        $this->load->model('admin/inscritos_model');
-        $this->acceso();                                                               
-    }               
+        $this->load->model('admin/inscritos_model');                                                              
+    }                                                           
 
     public function acceso()
     {                                                                           
         if(!$this->accesos->acceso())
-        {                                 
+        {                                                   
             redirect('acceso/login');           
         }                                                                                                   
     }                                                                                                                                                              
@@ -22,33 +22,27 @@ class Inscritos extends CI_Controller {
     {                                             
         $data['filtro'] = true;   
 											
-		if($this->accesos->admin())
-        {                                                                                              
+		if($this->accesos->admin()){                                                                                                    
             $data['disciplinas'] = $this->inscritos_model->get_disciplinas_all();                                                                                                                                                        
         }else{                            					                                                                                                               
             $data['disciplinas'] = $this->inscritos_model->get_disciplinas($this->session->userdata('user_uuid')); 
-        }											                       
+        }                                                    											                       
 		             
         $this->layout->view('admin/inscritos/show_inscritos',$data);                                                                     
-    }
-												                                                                                                                                      
+    }                         
+		      										                                                                                                                                      
     public function jqGrid()
-    {                                                                                                                                                                                                                        
-        //obtener la página solicitada                          
+    {                                                                                                                                                                                                                                                              
         $page  = ($this->input->post('page'))?$this->input->post('page'):1;    
-        //Número de fila que queremos obtener en el grid                
         $limit = ($this->input->post('rows'))?$this->input->post('rows'):20;                                
-        //el campo para ordenar                                                                                                                                                                                       
-        $sidx  = ($this->input->post('sidx'))?$this->input->post('sidx'):'user_uuid';                         
-        //obtiene la dirección                                                                                                        
+        $sidx  = ($this->input->post('sidx'))?$this->input->post('sidx'):'id_preinscrito';                         
         $sord  = ($this->input->post('sord'))?$this->input->post('sord'):'asc';                         
-                                                                           
+                                                                                                         
         $user_uuid = $this->session->userdata('user_uuid');                                                          
         
         if($this->input->post("_search") == "false")
-        {                        
-            if($this->accesos->admin())
-            {                           
+        {                                               
+            if($this->accesos->admin()){                           
                 $total_inscritos = $this->inscritos_model->total_inscritos_admin();
             }else{  
                 $total_inscritos = $this->inscritos_model->total_inscritos($user_uuid);
@@ -64,7 +58,7 @@ class Inscritos extends CI_Controller {
                 $where = 'where '.search_filter($searchOper,$searchField[0],$searchString[0]);
                 $where = $where.' and '.search_filter($searchOper,$searchField[1],$searchString[1]);   
 
-            }else{                                                                                                        
+            }else{                                                                                                              
 
                 $where = 'where '.search_filter($searchOper,$searchField,$searchString);    
             }					  
@@ -74,7 +68,7 @@ class Inscritos extends CI_Controller {
                 $total_inscritos = $this->inscritos_model->total_search_inscritos_admin($where)->total;     
             }else{
                 $total_inscritos = $this->inscritos_model->total_search_inscritos($where,$user_uuid)->total;     
-            }                           
+            }                                              
         }                                                                                   
 
         $total_pages = total_pages($total_inscritos,$limit);                                                                                                                                                                
@@ -110,10 +104,40 @@ class Inscritos extends CI_Controller {
         $data->records = $total_inscritos;
         
         if(!empty($inscritos))                  		
-        {                                                                                                                                                                                                                                                                                                                                                            
-            foreach($inscritos as $key => $inscrito){               
+        {                                                                                                                                                                                                                                                                                                                                                                                                                       
+            foreach($inscritos as $key => $inscrito){ 
+                                
+                $pasos = array('primer_contacto'=>'','documentos'=>'','envio_decse'=>'','envio_claves'=>'','pago_realizado'=>'');  
+                                                                                                                
+                $comentarios_pasos = $this->inscritos_model->comentarios_pasos($inscrito->id_preinscrito); 
+                if(!empty($comentarios_pasos))                                                                               
+                {                                                                                                                                                      
+                    foreach($comentarios_pasos as $value){           
+                                                
+                        if($value->id_paso==1){                 
+                            $pasos['primer_contacto'] = $value->comentario;
+                        }                                   
+                        
+                        if($value->id_paso==2){
+                            $pasos['documentos'] = $value->comentario;   
+                        }                             
+                        
+                        if($value->id_paso==3){
+                            $pasos['envio_decse'] = $value->comentario;   
+                        }                                                  
+                        
+                        if($value->id_paso==4){
+                            $pasos['envio_claves'] = $value->comentario;  
+                        }                                                              
+                        
+                        if($value->id_paso==5){
+                            $pasos['pago_realizado'] = $value->comentario;  
+                        }                                                                                                                  
+                    }                           
+                }                                          
+
                 $data->rows[$key]['id']   = $inscrito->id_preinscrito;                                                                                                   
-                $data->rows[$key]['cell'] = array($inscrito->nombre,$inscrito->a_paterno,$inscrito->a_materno,$inscrito->program_name,$inscrito->fecha_registro,$inscrito->primer_contacto,$inscrito->documentos,$inscrito->envio_decse,$inscrito->envio_claves,$inscrito->pago_realizado,'eliminar');
+                $data->rows[$key]['cell'] = array($inscrito->nombre,$inscrito->a_paterno,$inscrito->a_materno,$inscrito->program_name,$inscrito->fecha_registro,$inscrito->primer_contacto.'|'.$pasos['primer_contacto'],$inscrito->documentos.'|'.$pasos['documentos'],$inscrito->envio_decse.'|'.$pasos['envio_decse'],$inscrito->envio_claves.'|'.$pasos['envio_claves'],$inscrito->pago_realizado.'|'.$pasos['pago_realizado'],'eliminar');
             }      									                                                                                  					
         }else{										                                                                                 
             $data->msg = msj('No existen registros.','message');                                                                   
@@ -133,7 +157,7 @@ class Inscritos extends CI_Controller {
             $data['tipos_programas'] = $this->inscritos_model->get_tipos_programas_all($id_discipline);                                         
         }else{                                                                                                  
             $data['tipos_programas'] = $this->inscritos_model->get_tipos_programas($this->session->userdata('user_uuid'),$id_discipline);                                         
-        }                                   
+        }                                          
 
         if(!empty($data['tipos_programas'])){     
             $this->load->view('admin/users/tipos_programas_ax',$data);
@@ -151,9 +175,9 @@ class Inscritos extends CI_Controller {
         $id_discipline = $this->input->post('id_discipline'); 
         $program_type  = $this->input->post('program_type');
 
-        if($this->accesos->admin()){																	                         						
+        if($this->accesos->admin()){                            																	                         						
             $data['programas'] = $this->inscritos_model->get_programas_all($id_discipline,$program_type);
-        }else{					                                                                                 
+        }else{                      					                                                                                 
             $data['programas'] = $this->inscritos_model->get_programas($this->session->userdata('user_uuid'),$id_discipline,$program_type);
         }     			                                												                                                                                                                                                                  
 										
@@ -168,10 +192,9 @@ class Inscritos extends CI_Controller {
     {				                      
         $id_preinscrito = $this->input->post('id');
         $preinscrito = $this->inscritos_model->checar_existe($id_preinscrito); 
-        if(empty($inscrito))                                    
-        {                                                                                                                      
+        if(empty($inscrito)){                                                                                                                      
             echo json_encode(array('success'=>false,'message'=>msj('El registro no existe.','error')));
-        }else{                        
+        }else{                          
 
             if($this->inscritos_model->delete_inscrito($id_preinscrito))
             {                                                   
@@ -180,7 +203,25 @@ class Inscritos extends CI_Controller {
         }   
     }
 
-    public function excel()
+    public function detalle($id_preinscrito)
+    {                                                     
+        $this->load->library('detalle_preinscrito');        
+        $this->detalle_preinscrito->detalle($id_preinscrito);                                                                                                                 
+    }                                                                                                                    
+
+    public function editar($id_preinscrito)
+    {                                                                                                                          
+        $this->load->library('detalle_preinscrito');  
+        $this->detalle_preinscrito->editar($id_preinscrito);                                                                                                                                                                               
+    }                     
+
+    public function update()
+    {                                                                         
+        $this->load->library('detalle_preinscrito');  
+        $this->detalle_preinscrito->update();                                                                                                                                                          
+    }                                        
+
+    public function excel()                 
     {    																                                                                                                                                                  
         $this->load->helper('php-excel'); 
         $file = 'Inscritos-'.date('YmdHis'); 
@@ -232,7 +273,7 @@ class Inscritos extends CI_Controller {
                 $row->envio_claves    = ($row->envio_claves )?'Si':'No';
                 $row->pago_realizado  = ($row->pago_realizado)?'Si':'No';                                                                     
                 $data_array[] = array($row->nombre,$row->a_paterno,$row->a_materno,$row->fecha_registro,$row->program_name,$row->primer_contacto,$row->documentos,$row->envio_decse,$row->envio_claves,$row->pago_realizado);
-            }                
+            }                      
         }                                                                                                                                                                  
 
         $xls = new Excel_XML;

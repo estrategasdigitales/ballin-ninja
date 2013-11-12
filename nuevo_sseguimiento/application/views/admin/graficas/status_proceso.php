@@ -26,7 +26,10 @@ Grafica del <input type="text" name="fecha_inicio" id="fecha_inicio"> al <input 
 			<select name="id_program" id="id_program">																																																	
 				<option value="0">Selecciona un programa</option>																																																																					
 			</select>								
-		</p>																							
+		</p>																											
 </div>																																				     																																																										
 <input type="button" name="b_status_proceso" id="b_status_proceso" value="Graficar">
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="status" style="min-width: 310px; height: 400px; margin: 0 auto"></div>		
+<div id="casos_abiertos" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="casos_cerrados" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="casos_inconclusos" style="min-width: 310px; height: 400px; margin: 0 auto"></div>								

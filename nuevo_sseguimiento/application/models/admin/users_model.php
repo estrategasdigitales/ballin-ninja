@@ -373,13 +373,25 @@ class Users_model extends CI_Model
     {                               
         $this->db->where('id_usuario_programa',$id_usuario_programa);
         return $this->db->delete('seg_dec_usuarios_programas');   
-    }                       
+    }                                                                     
 
     public function delete_user($user_uuid)
-    {       
+    {              
+        $this->db->trans_start();
+
+        $delete = array('seg_dec_usuarios','seg_dec_usuarios_programas');
         $this->db->where('user_uuid',$user_uuid);
-        return $this->db->delete('seg_dec_usuarios'); 
-    }  
+        $this->db->delete($delete);   
+
+        $this->db->trans_complete();
+        if($this->db->trans_status() === FALSE)
+        {                                                                                                
+            return FALSE;
+        }else
+        {                                                                                           
+            return TRUE; 
+        }                                                                                                                     
+    }                                                                                                                                                                                     
 
     public function excel($sidx,$sord)
     {                                                                                                                                                                                                                                                                                                          

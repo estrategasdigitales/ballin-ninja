@@ -8,12 +8,12 @@ class Users extends CI_Controller {
         //$this->acceso();             
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/users_model');  				                                                    
-    }                                                                                        			                   	                                                                                                                                                                                                                          
+    }                                                                                                       			                   	                                                                                                                                                                                                                          
 											
     private function acceso()
     {                           		                      
         if(!$this->accesos->acceso())
-        {                                                                                            
+        {                                                                                                               
               redirect('admin/no_acceso');             
         }                                                                                                                                                    
     }        					        
@@ -34,14 +34,14 @@ class Users extends CI_Controller {
         //obtener la página solicitada                          
         $page  = ($this->input->post('page'))?$this->input->post('page'):1;    
         //Número de fila que queremos obtener en el grid                
-        $limit = ($this->input->post('rows'))?$this->input->post('rows'):5;                                
-        //el campo para ordenar                                                                                                      
+        $limit = ($this->input->post('rows'))?$this->input->post('rows'):20;                                
+        //el campo para ordenar                                                                                                                        
         $sidx  = ($this->input->post('sidx'))?$this->input->post('sidx'):'user_uuid';                         
         //obtiene la dirección                                                                                                        
-        $sord  = ($this->input->post('sord'))?$this->input->post('sord'):'asc';                         
+        $sord  = ($this->input->post('sord'))?$this->input->post('sord'):'desc';                         
                                                                                                                                      
         if($this->input->post("_search") == "false")
-        {                                         
+        {                                                       
            
            $total_users = $this->users_model->total_users();
 
@@ -120,14 +120,16 @@ class Users extends CI_Controller {
         if(empty($user))
         {                                                   
             echo json_encode(array('success'=>false,'message'=>msj('El usuario no existe.','error')));
-        }
+        }           
         else
         {          
             if($this->users_model->delete_user($user_uuid))
-            {                                 
+            {                                       
                 echo json_encode(array('success'=>true,'message'=>msj('El registro se eliminó correctamente','message')));
+            }else{              
+                echo json_encode(array('success'=>false,'message'=>msj('Fallo','error')));
             }                                                  
-        }                                                                                                                                                                                                             
+        }                                                                                                                                                                                                                       
     }                                              
 
     public function get_programas_ax()
@@ -156,8 +158,13 @@ class Users extends CI_Controller {
             show_404(); 
         }
 
-        $data['tipos_programas'] = $this->users_model->get_tipos_programas();                                         
-        $this->load->view('admin/users/tipos_programas_ax',$data);                         
+        $data['tipos_programas'] = $this->users_model->get_tipos_programas();  
+        if(!empty($data['tipos_programas']))              
+        {                                                
+            $this->load->view('admin/users/tipos_programas_ax',$data); 
+        }else{
+            $this->load->view('admin/users/option_select',$data);
+        }                                                   
     }                                                     
 
     public function add()
@@ -331,10 +338,10 @@ class Users extends CI_Controller {
         if($this->form_validation->run() == FALSE)        
         {                                                                                          
             echo json_encode(array("success" => false, "msg" =>msj(validation_errors(),'error')));
-        }else{                                                                                   
+        }else{                                                                                                                                     
 
             if($this->users_model->update_user($data))
-            {                                                                                      
+            {                                                                                                     
                 $this->session->set_flashdata('msj',msj('El registro se actualizó correctamente.','message'));                                   
                 echo json_encode(array("success" => true, "redirect" => base_url('admin/users/edit/'.$data['user_uuid'])));
             }                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
@@ -352,8 +359,8 @@ class Users extends CI_Controller {
         {                                                                                                                
             $search = search($parametros['searchOper'],$parametros['searchField'],$parametros['searchString']); 
             $users  = $this->users_model->excel_search($search,$parametros['sidx'],$parametros['sord']);              
-    
-        }else{                                                        
+                
+        }else{                                                                                      
             $users  = $this->users_model->excel($parametros['sidx'],$parametros['sord']); 
         }                                                                                                                                                                                                                                                                                                                                   
                         

@@ -45,7 +45,7 @@ class Preinscritos_model extends CI_Model
         {                                                                                                                                                                                                      
             return FALSE;            
         }                                                                           
-    }                                	   
+    }                                                       	   
 
     public function show_preinscritos_admin($start,$limit,$sidx,$sord)
     {                                                                                                                                                                                                                                                                                                                                                                                                              
@@ -339,9 +339,21 @@ class Preinscritos_model extends CI_Model
     }                                                                                     
 
     public function delete_preinscrito($id_preinscrito)
-    {                                                                                
+    {                                                                                            
+        $this->db->trans_start();
+
+        $delete = array('seg_dec_preinscritos','seg_dec_pasos_status');
         $this->db->where('id_preinscrito',$id_preinscrito);
-        return $this->db->delete('seg_dec_preinscritos'); 
+        $this->db->delete($delete);             
+
+        $this->db->trans_complete();
+        if($this->db->trans_status() === FALSE)
+        {                                                                                                                                                      
+            return FALSE;
+        }else
+        {                                                                                                      
+            return TRUE; 
+        }                   
     }               
 
 

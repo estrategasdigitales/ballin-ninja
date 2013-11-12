@@ -11,19 +11,16 @@ class Graficas extends CI_Controller
         $this->load->model('admin/graficas_model');
        	$this->acceso();     
 
-        if($this->accesos->admin())
-        {                                                          
+        if($this->accesos->admin()){                                                          
             $this->disciplinas = $this->graficas_model->get_disciplinas_all();                                                                                                                                                        
-        }else
-        {                                                                                                                                                    
+        }else{                                                                                                                                                    
             $this->disciplinas = $this->graficas_model->get_disciplinas($this->session->userdata('user_uuid')); 
-        }                                                                                                                              
+        }                                                                                                                                                             
     }                                                     
 
     public function acceso()
     {                                                              
-        if(!$this->accesos->acceso())
-        {                                 
+        if(!$this->accesos->acceso()){                                 
             redirect('acceso/login');           
         }                                                                                                                                                          
     }														
@@ -104,7 +101,7 @@ class Graficas extends CI_Controller
         }else{      
             $this->load->view('admin/users/option_select',$data);
         }                                                                                                                                                 
-    }                                                                                   									
+    }                                                                                                      									
 
     public function area_grafica()
     {		
@@ -145,8 +142,7 @@ class Graficas extends CI_Controller
     	            foreach($disciplinas_graficas as $value) {      
     	               $dis_pro[] = $value->discipline;   
     	               $total[]   = (int)$value->total; 	             
-    	            }      
-    										
+    	            }                        					
     				$success = TRUE;
     			}								
 																																							    										            						                    						                                                                                                                                                                                   								
@@ -194,9 +190,12 @@ class Graficas extends CI_Controller
             $fecha_fin    = $fecha_fin->format('Y-m-d');                                
         }                           
 
-                                                                                                                                                         
-        $nacionalidad = $this->graficas_model->get_nacionalidad($id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
-
+        if($this->accesos->admin())
+        {                                                                                                                                                 
+            $nacionalidad = $this->graficas_model->nacionalidad_ad($id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+        }else{                      
+            $nacionalidad = $this->graficas_model->nacionalidad_us($this->session->userdata('user_uuid'),$id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+        }           
                 
         $title = "Nacionalidad";                       
                                                                                                                         
@@ -230,10 +229,15 @@ class Graficas extends CI_Controller
             $fecha_inicio = $fecha_inicio->format('Y-m-d'); 
             $fecha_fin    = new DateTime($fecha_fin);
             $fecha_fin    = $fecha_fin->format('Y-m-d');                                
-        }                                                             
-                                                                                                                                                                                                                                  
-        $nivel_academico = $this->graficas_model->get_nivel_academico($id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
-      
+        }      
+
+        if($this->accesos->admin())
+        {                                                                                                                                                                                                                           
+            $nivel_academico = $this->graficas_model->nivel_academico_ad($id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+        }else{                                  
+            $nivel_academico = $this->graficas_model->nivel_academico_us($this->session->userdata('user_uuid'),$id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+        }
+
         $title = "Nivel academico";                       
                                                                                                                                  
         if(!empty($nivel_academico))                          
@@ -266,9 +270,15 @@ class Graficas extends CI_Controller
             $fecha_fin    = new DateTime($fecha_fin);
             $fecha_fin    = $fecha_fin->format('Y-m-d');                                
         }                                      
-                                                                                                                                                                                                                                  
-        $exalumno = $this->graficas_model->get_exalumno($id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
-      
+        
+        if($this->accesos->admin())
+        {                                                                                                                                                                                                                           
+            $exalumno = $this->graficas_model->exalumno_ad($id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+        }else{
+            $exalumno = $this->graficas_model->exalumno_us($this->session->userdata('user_uuid'),$id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+        }                               
+
+
         $title = "Ex alumno";                                            
                                                                                                                                  
         if(!empty($exalumno))                          
@@ -276,7 +286,7 @@ class Graficas extends CI_Controller
             foreach($exalumno as $value){            
                 $dis_pro[] = ($value->exalumno)?$value->exalumno:'No especificado';                         
                 $total[]   = (int)$value->total;                                  
-            }                                                                                                                                                                                                                     
+            }                                                                                                                                                                                                                                                    
             $success = TRUE;
         }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
         echo json_encode(array('success' => $success,'title' => $title,'dis_pro'=>$dis_pro,'total'=>$total));       
@@ -301,9 +311,14 @@ class Graficas extends CI_Controller
             $fecha_fin    = new DateTime($fecha_fin);
             $fecha_fin    = $fecha_fin->format('Y-m-d');                                
         }                                      
-                                                                                                                                                                                                                                                                                      
-        $como_se_entero = $this->graficas_model->get_se_entero($id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
-      
+        
+        if($this->accesos->admin())
+        {                                                                                                                                                                                                                                                                                   
+            $como_se_entero = $this->graficas_model->se_entero_ad($id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+        }else{
+            $como_se_entero = $this->graficas_model->se_entero_us($this->session->userdata('user_uuid'),$id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+        }
+
         $title = "Ex alumno";                                            
                                                                                                                                  
         if(!empty($como_se_entero))                          
@@ -329,29 +344,67 @@ class Graficas extends CI_Controller
         $success = FALSE;              
         $dis_pro = array();
         $total   = array();
-                                                                                                            
+                                                                                                                                
         if($fecha_inicio!=FALSE && $fecha_fin!=FALSE)
-        {                                                                                         
+        {                                                                                                                               
             $fecha_inicio = new DateTime($fecha_inicio);
             $fecha_inicio = $fecha_inicio->format('Y-m-d'); 
             $fecha_fin    = new DateTime($fecha_fin);
             $fecha_fin    = $fecha_fin->format('Y-m-d');                                
-        }                                                                               
-                                                                                                                                                                                                                                                                                      
-        $status = $this->graficas_model->get_status($id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
-                        
-        $title = "Estatus";                                                                                                       
+        }                                                                                      
+        
+        if($this->accesos->admin())
+        {                                                                                                                                                                                                                                                                                                
+            $status = $this->graficas_model->status_ad($id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+            $casos_abiertos = $this->graficas_model->casos_abiertos_ad($id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+            $casos_cerrados = $this->graficas_model->casos_cerrados_ad($id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+            $casos_inconclusos = $this->graficas_model->casos_inconclusos_ad($id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+                                                                                                                                                                                                 
+        }else
+        {                                                       
+            $status = $this->graficas_model->status_us($this->session->userdata('user_uuid'),$id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+            $casos_abiertos = $this->graficas_model->casos_abiertos_us($this->session->userdata('user_uuid'),$id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+            $casos_cerrados = $this->graficas_model->casos_cerrados_us($this->session->userdata('user_uuid'),$id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+            $casos_inconclusos = $this->graficas_model->casos_inconclusos_us($this->session->userdata('user_uuid'),$id_discipline,$program_type,$id_program,$fecha_inicio,$fecha_fin); 
+        }                                                                                                                                                                                                                                                                                                                                          
                                                                                                                                                          
         if(!empty($status))                          
-        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
             $dis_pro   = array('Preinscritos','Inscritos','Casos cerrados','Casos inconclusos','informes');                                              
             $total     = array((int)$status->preinscritos,(int)$status->inscritos,(int)$status->casos_cerrados,(int)$status->casos_inconclusos,(int)$status->informes);                      
+            $title = "Estatus";              
+            $success = TRUE;        
+            $array_status['status'] = array('success' => $success,'title' => $title,'dis_pro'=>$dis_pro,'total'=>$total);
+        }                                                                                                
 
-            $success = TRUE;
-        }                                                                         
-                                 
-        echo json_encode(array('success' => $success,'title' => $title,'dis_pro'=>$dis_pro,'total'=>$total));       
-    
-    } 
+        if(!empty($casos_abiertos))                          
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+            $dis_pro   = array('Primer contacto','Documentos','Enviar a decse','Envio de claves','Pago realizado','Informes');                                              
+            $total     = array((int)$casos_abiertos->primer_contacto,(int)$casos_abiertos->documentos,(int)$casos_abiertos->envio_decse,(int)$casos_abiertos->envio_claves,(int)$casos_abiertos->pago_realizado,(int)$casos_abiertos->informes);                      
+            $title = "Casos Abiertos";                                                                                       
+            $success = TRUE;                                                                                                            
+            $array_status['casos_abiertos'] = array('success' => $success,'title' => $title,'dis_pro'=>$dis_pro,'total'=>$total);
+        }     
+
+        if(!empty($casos_cerrados))                          
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+            $dis_pro   = array('Primer contacto','Documentos', 'Envio de claves');                                                    
+            $total     = array((int)$casos_cerrados->primer_contacto,(int)$casos_cerrados->documentos,(int)$casos_cerrados->envio_claves);                      
+            $title = "Casos Cerrados";                                                                                                                                
+            $success = TRUE;                                                                                                                                    
+            $array_status['casos_cerrados'] = array('success' => $success,'title' => $title,'dis_pro'=>$dis_pro,'total'=>$total);
+        }                     
+
+        if(!empty($casos_inconclusos))                          
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+            $dis_pro   = array('Primer contacto','Documentos', 'Envio de claves');                                                    
+            $total     = array((int)$casos_inconclusos->primer_contacto,(int)$casos_inconclusos->documentos,(int)$casos_inconclusos->envio_claves);                      
+            $title = "Casos Inconclusos";                                                                                                                                       
+            $success = TRUE;                                                                                                                                                             
+            $array_status['casos_inconclusos'] = array('success' => $success,'title' => $title,'dis_pro'=>$dis_pro,'total'=>$total);
+        }                                                                                         
+                                                                                                                                                                       
+        echo json_encode($array_status);       
+    }                    
 }					
 ?>	    		

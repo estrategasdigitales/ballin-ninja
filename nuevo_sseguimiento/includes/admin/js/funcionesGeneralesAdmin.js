@@ -1,12 +1,17 @@
-var filtro = {              
 
+$(function() {
+      $(document).tooltip();
+});                                                                      
+
+var filtro = {              
+                    
   onReady:function()            
-  {                                                                        
+  {                                                                                   
       filtro.controller = $("#controller").text();              
       $("#filtro #id_discipline").on("change",filtro.get_tipos_programas); 
       $("#filtro #program_type").on("change",filtro.get_programas);
       $("#filtro #id_program").on("change",filtro.search_programa);
-  },                                                                                                                                                                                                                                                                                                                                                               
+  },                                                                                                                                                                                                                                                                                                                                                                                
 
   get_tipos_programas:function()
   {              
@@ -18,25 +23,25 @@ var filtro = {
       var data = "id_discipline="+$(this).val();                                                           
 
       $.ajax({                                     
-        async:true,              
-        type:"POST",       
-        dataType:"html",                    
-        contentType: "application/x-www-form-urlencoded,multipart/form-data",
-        data:data,                        
-        url:url,                     
-        success:function(respuesta)    
-        {                                                                                                                                            
-          $("#program_type").html(respuesta);         
-        },                                                             
-        timeout:4000,             
-        error:function(respuesta)
-        {                                           
-          console.log(respuesta);            
-        }                                               
+          async:true,              
+          type:"POST",       
+          dataType:"html",                    
+          contentType: "application/x-www-form-urlencoded,multipart/form-data",
+          data:data,                        
+          url:url,                     
+          success:function(respuesta)    
+          {                                                                                                                                            
+              $("#program_type").html(respuesta);         
+          },                                                             
+          timeout:4000,             
+          error:function(respuesta)
+          {                                               
+              console.log(respuesta);            
+          }                                                         
       });    
 
       filtro.search_disciplina(filtro.controller);                                                  
-  },                                                                                                                                                                                      
+  },                                                                                                                                                                                                
 
   get_programas:function()
   {          
@@ -49,21 +54,21 @@ var filtro = {
       var url = $("#base_url").text()+"admin/"+filtro.controller+"/get_programas";
 
       $.ajax({                                                                    
-        async:true,              
-        type:"POST",
-        dataType:"html",                    
-        contentType: "application/x-www-form-urlencoded,multipart/form-data",
-        url:url,                    
-        data:data,     
-        success:function(respuesta)    
-        {                                                                      
-          $("#id_program").html(respuesta);         
-        },                                                             
-        timeout:4000,             
-        error:function(respuesta)
-        {                                                          
-          console.log(respuesta);            
-        }                                                                        
+          async:true,              
+          type:"POST",
+          dataType:"html",                    
+          contentType: "application/x-www-form-urlencoded,multipart/form-data",
+          url:url,                    
+          data:data,     
+          success:function(respuesta)    
+          {                                                                      
+            $("#id_program").html(respuesta);         
+          },                                                             
+          timeout:4000,             
+          error:function(respuesta)
+          {                                                          
+            console.log(respuesta);            
+          }                                                                                   
       });                     
 
     filtro.search_tipo_programa(filtro.controller);                                 
@@ -80,10 +85,10 @@ var filtro = {
   },                                                                                     
 
   search_tipo_programa:function(controller)
-  {                                                            
+  {                                                                   
     var id_discipline = $("#id_discipline option:selected").val();                                                                                                                                                                                                      
     var program_type = $("#program_type option:selected").val();          
-    var data = new Object();                                                                                                                                    
+    var data = new Object();                                                                                                                                            
     data.searchField = ['pre.id_discipline','pro.program_type'];     
     data.searchOper = 'eq';                                                                                                                                                                                                                             
     data.searchString = [id_discipline,program_type];                                                                                                                
@@ -130,24 +135,24 @@ var users = {
                     editbutton: false,             
                     editformbutton: false,
                     delbutton: true,                                                                                                                             
-                    delOptions:{                    
+                    delOptions:{                     
                         url: 'delete',                                                                                                                                             
                         msg: "Desea eliminar el registro?",                                                          
                         afterSubmit: function (response, postdata) {
                             var r = $.parseJSON(response.responseText);
-                            $("#msj").html(r.message);                                 
+                            $("#msj").html(r.message);                                       
                             return [r.success, r.message, null];
                         }                                                                                                                                              
                     }                         
                  }    
               },                                                                                                                                                                                                                                                                                                                                                 
           ],                                                                                                                                                                      
-          rowNum:5,                                    
+          rowNum:20,                                                   
           width: 970,     		                                                                                    
           rowList:[10,20,30],
           pager: '#pager',                                              
           sortname: 'user_uuid',
-          sortorder: "desc",                 
+          sortorder: "desc",                     
           viewrecords: true,    
           rownumbers: true,             
           gridview: true,                                  
@@ -158,35 +163,35 @@ var users = {
               msj.html(data.msg);
               setTimeout(function(){
                 msj.empty();
-              },5000);                                                                                          
-            }                                                                                                                                      
-          }                                                                                                                                                    
-    }).navGrid('#pager',{edit:false,add:false,del:false,excel:true}, 
-    {}, //  default settings for edit
-    {}, //  default settings for add
-    {},  // delete instead that del:false we need this
-    {searchOnEnter:true,closeOnEscape:true}, // search options
-    {} /* view parameters*/               
-    ).jqGrid('navButtonAdd',
-    '#pager',																
-    { caption:"Exportar a Excel",
-        buttonicon: "ui-icon-bookmark",
-        onClickButton: this.exportar, position: "last"
-    });													
+              },5000);                                                                                              
+            }                                                                                                                                         
+          }                                                                                                                                                       
+        }).navGrid('#pager',{edit:false,add:false,del:false,excel:true}, 
+        {}, //  default settings for edit
+        {}, //  default settings for add
+        {},  // delete instead that del:false we need this
+        {searchOnEnter:true,closeOnEscape:true}, // search options
+        {} /* view parameters*/               
+        ).jqGrid('navButtonAdd',
+        '#pager',																
+        { caption:"Exportar a Excel",
+            buttonicon: "ui-icon-bookmark",
+            onClickButton: this.exportar, position: "last"
+        });	                												
 																															
-      $("#exportar").on("click",users.exportar);
-      $("#list input[name=chk_notificacion]").live("click",users.update_notificacion);  
-      $("#list input[name=chk_activo]").live("click",users.update_activo); 
-      $("#filtro_users #id_discipline").on("change",users.get_tipos_programas_ax); 
-      $("#filtro_users #program_type").on("change",users.get_programas_ax);
-      $("#tipo").on("change",users.tipo_usuario);                                                                                             
-      $("#agregar_programas").on("click",users.agregar_programas);  
-      $("#form_add_users").on("submit",users.add_users); 
-      $("#form_update_users").on("submit",users.update_users);     
-      $("#usuario_programas a").on("click",users.confirm_delete_programa); 
-      $("#usuario_programas .new_program").live("click",users.delete_programa_new);
+        $("#exportar").on("click",users.exportar);
+        $("#list input[name=chk_notificacion]").live("click",users.update_notificacion);  
+        $("#list input[name=chk_activo]").live("click",users.update_activo); 
+        $("#filtro_users #id_discipline").on("change",users.get_tipos_programas_ax); 
+        $("#filtro_users #program_type").on("change",users.get_programas_ax);
+        $("#tipo").on("change",users.tipo_usuario);                                                                                             
+        $("#agregar_programas").on("click",users.agregar_programas);  
+        $("#form_add_users").on("submit",users.add_users); 
+        $("#form_update_users").on("submit",users.update_users);     
+        $("#usuario_programas a").on("click",users.confirm_delete_programa); 
+        $("#usuario_programas .new_program").live("click",users.delete_programa_new);
     },					                             							
-      						
+      						      
     exportar:function()
     {																							
         $("#list").jqGrid('excelExport',{url:'excel/'});       
@@ -194,7 +199,8 @@ var users = {
 
     tipo_usuario:function()
     {                                   
-      if($(this).val()==1){                            
+      if($(this).val()==1)
+      {                            
         $("#agregar_programas").attr("disabled",true);
         $("#usuario_programas").empty();
         $("#programas").val(null);                                                         
@@ -294,7 +300,7 @@ var users = {
               li.append(div);                             
               $("#usuario_programas ul").append(li);
                   
-            }             
+            }                     
                                                         
             users.indice_array=users.indice_array+1;                                  
             programas = JSON.stringify(programas); 
@@ -471,12 +477,12 @@ var preinscritos = {
       jQuery("#list_preinscritos").jqGrid({                                                  
           url:base_url+'admin/preinscritos/jqGrid', 
           mtype : "post",   
-          datatype: "json",             
+          datatype: "json",                           
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Código de promoción','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
           colModel:[                                            		                                               						                                                                                                                                                                                                                                                                                                												                                                                       		
               {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
                 return "<a href='detalle/" + options.rowId + "' class='group1' name='edit'>"+cellValue+"</a>";                                    
-              }},                     		                                                                                                                                                                                           
+              }},                        		                                                                                                                                                                                           
               {name:'a_paterno',index:'a_paterno',search:true,sortable:true,width:120,align:'left'}, 
               {name:'a_materno',index:'a_materno',search:true,sortable:true,width:120,align:'left'},                                                                                                                                                                                                           
               {name:'program_name',index:'program_name',search:true,sortable:true,width:200,align:'left'},                                                                                                                                                                                                           
@@ -594,7 +600,7 @@ var preinscritos = {
   exportar:function()
   {																														
     $("#list_preinscritos").jqGrid('excelExport',{url:'excel/'});       
-  },        	           		                      
+  },                    	           		                      
 		                                                                                                                                                                                                                                                                                                                                                 
   edit:function(e)
   {
@@ -613,24 +619,76 @@ var inscritos = {
           mtype : "post",     //Ajax request type. It also could be GET
           datatype: "json",   //supported formats XML, JSON or Arrray									
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
-          colModel:[      											                                                                                         		                                                                                                                                                                                                                 
-              {name:'nombre',index:'nombre',width:110,align:'left'}, 
+          colModel:[       
+              {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
+                return "<a href='detalle/" + options.rowId + "' class='group1' name='edit'>"+cellValue+"</a>";                                    
+              }},                      											                                                                                         		                                                                                                                                                                                                                 
               {name:'a_paterno',index:'a_paterno',width:120,align:'left'}, 
               {name:'a_materno',index:'a_materno',width:120,align:'left'},      		                                                                                                                                                                                                     
               {name:'program_name',index:'program_name',width:200,align:'left'},               					                                                                                                                                                                                            
               {name:'fecha_registro',index:'fecha_registro',width:100,align:'left',search:false},  		       				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-              {name:'primer_contacto',index:'primer_contacto',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-              {name:'documentos',index:'documentos',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-              {name:'envio_decse',index:'envio_decse',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-              {name:'envio_claves',index:'envio_claves',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-			        {name:'pago_realizado',index:'pago_realizado',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
+              {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                cellValue = cellValue.split('|');                                           
+                if(cellValue[0]){                                                                                 
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                           
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                                               
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                                                                                 
+              }},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+              {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]){                                                                     
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                           
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                                      
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                                                                            
+              }},            
+              {name:'envio_decse',index:'envio_decse',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+               cellValue = cellValue.split('|');   
+                if(cellValue[0]){                                                                     
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                                   
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                         
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                    
+              }},
+              {name:'envio_claves',index:'envio_claves',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]){                                                                     
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                           
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                                              
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                                                            
+              }},   
+              {name:'pago_realizado',index:'pago_realizado',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]){                                                                     
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                                   
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                         
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                                            
+              }},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        	
               {name:'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
-                    keys: true,   		        											   																		           									          						                                                                                                        
+                    keys: true,   		                   											   																		           									          						                                                                                                        
                     editbutton: false,             
                     editformbutton: false,
                     delbutton: true,                                                                                                                             
                     delOptions:{         			               			              
-                        url: 'delete_inscrito', 				                                                                                                                                            
+                        url: "delete_inscrito",        				                                                                                                                                            
                         msg: "Desea eliminar el registro?",                                                          
                         afterSubmit: function (response, postdata) {
                             var r = $.parseJSON(response.responseText);
@@ -638,49 +696,57 @@ var inscritos = {
                             return [r.success, r.message, null];
                         }                                                                                                                                                
                     }                               
-                 }                  
-      		}                 												                                        										
-          ],                                                                                                                                                                                                                                
-          rowNum:20,                        
-          width:970,			                                    
-          height:200,                             
-          rowList:[10,20,30],
-          pager: '#pager_inscritos',                                              
-          sortname: 'id_preinscrito',                   
-          viewrecords: true,                
-          sortorder: "desc",            
-          rownumbers: true,                 
-          gridview: true,                                  
-          caption:"Inscritos",       
-          loadComplete:function(data){
-            if(data.records == 0){    
-              var msj = $("#msj");    
-              msj.html(data.msg);
-              setTimeout(function(){
-                msj.empty();           
-              },5000);                                                                                        
-            }                                                                                                                                     
-          }                                                                                                                                                                                                                                   
-      }).navGrid('#pager_inscritos',{edit:false,add:false,del:false},
-      {}, //  default settings for edit
-    {}, //  default settings for add
-    {},  // delete instead that del:false we need this
-    {searchOnEnter:true,closeOnEscape:true}, // search options
-    {} /* view parameters*/ 
-    ).jqGrid('navButtonAdd',
-      '#pager_inscritos',                                   
-      {                 
-        caption:"Exportar a Excel",
-        buttonicon: "ui-icon-bookmark",
-        onClickButton: this.exportar, position: "last"
-      }                           
-    );                                                                                                                                                                                                          
-  },              
+                 }                                     
+      		    }                               												                                        										
+            ],                                                                                                                                                                                                                                
+            rowNum:20,                            
+            width:970,			                                    
+            height:200,                                                    
+            rowList:[10,20,30],
+            pager: '#pager_inscritos',                                              
+            sortname: 'id_preinscrito',                        
+            viewrecords: true,                           
+            sortorder: 'desc',               
+            rownumbers: true,                 
+            gridview: true,                                  
+            caption:'Inscritos',       
+            loadComplete:function(data){
+              if(data.records == 0){    
+                var msj = $("#msj");    
+                msj.html(data.msg);
+                setTimeout(function(){
+                  msj.empty();           
+                },5000);                                                                                        
+              }                                                                                                                                     
+            }                                                                                                                                                                                                                                   
+        }).navGrid('#pager_inscritos',{edit:false,add:false,del:false},
+        {}, //  default settings for edit
+      {}, //  default settings for add
+      {},  // delete instead that del:false we need this
+      {searchOnEnter:true,closeOnEscape:true}, // search options
+      {} /* view parameters*/ 
+      ).jqGrid('navButtonAdd',
+        '#pager_inscritos',                                   
+        {                 
+          caption:"Exportar a Excel",
+          buttonicon: "ui-icon-bookmark",
+          onClickButton: this.exportar, position: "last"
+        }                                         
+      );
+
+      $("#list_inscritos a[name=edit]").live("click",inscritos.edit);                                                                                                                                                                                                   
+  },                                         
 
   exportar:function()
   {                                                                        
       $("#list_inscritos").jqGrid('excelExport',{url:'excel/'});       
-  }                                                                        
+  },            
+
+  edit:function(e)
+  {
+    e.preventDefault();
+    $.colorbox({href:$(this).attr("href"),iframe:true, width:"850px", height:"90%"});
+  }                                                                         
 }   
 
 var casos_cerrados = {
@@ -693,17 +759,69 @@ var casos_cerrados = {
           mtype : "post", //Ajax request type. It also could be GET
           datatype: "json", //supported formats XML, JSON or Arrray 					
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
-          colModel:[                                       											                                                                                                                                                                                                                                                                                             
-              {name:'nombre',index:'nombre',width:110,align:'left'}, 
+          colModel:[ 
+              {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
+                return "<a href='detalle/" + options.rowId + "' class='group1' name='edit'>"+cellValue+"</a>";                                    
+              }},                                                        											                                                                                                                                                                                                                                                                                             
               {name:'a_paterno',index:'a_paterno',width:120,align:'left'}, 
               {name:'a_materno',index:'a_materno',width:120,align:'left'},                                                                                                                                                                                                           
               {name:'program_name',index:'program_name',width:200,align:'left'},                                                                                                                                                                                                           
               {name:'fecha_registro',index:'fecha_registro',width:100,align:'left'},
-              {name:'primer_contacto',index:'primer_contacto',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-              {name:'documentos',index:'documentos',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-              {name:'envio_decse',index:'envio_decse',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-              {name:'envio_claves',index:'envio_claves',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-			        {name:'pago_realizado',index:'pago_realizado',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+              {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                cellValue = cellValue.split('|');                                           
+                if(cellValue[0]){                                                                                 
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                           
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                                     
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                                                                                 
+              }},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+              {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]){                                                                     
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                           
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                         
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                                                                            
+              }},            
+              {name:'envio_decse',index:'envio_decse',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+               cellValue = cellValue.split('|');   
+                if(cellValue[0]){                                                                     
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                                   
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                         
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                    
+              }},
+              {name:'envio_claves',index:'envio_claves',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]){                                                                     
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                           
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                         
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                                                            
+              }},   
+              {name:'pago_realizado',index:'pago_realizado',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]){                                                                     
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                                   
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                         
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                                            
+              }},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
               {name:'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
                     keys: true,                                                                                                                          
                     editbutton: false,             
@@ -755,13 +873,21 @@ var casos_cerrados = {
         buttonicon: "ui-icon-bookmark",
         onClickButton: this.exportar, position: "last"
       }                           
-    );                                                                                                                                                                                                               
-  },                                       
+    );                        
+
+    $("#list_casos_cerrados a[name=edit]").live("click",casos_cerrados.edit);                                                                                                                                                                                                   
+  },                                                   
 
   exportar:function()
   {                                                                                                 
       $("#list_casos_cerrados").jqGrid('excelExport',{url:'excel/'});       
-  }        
+  },
+
+  edit:function(e)
+  {
+    e.preventDefault();
+    $.colorbox({href:$(this).attr("href"),iframe:true, width:"850px", height:"90%"});
+  }          
 }      
 						                                      
 var casos_inconclusos = {
@@ -774,17 +900,69 @@ var casos_inconclusos = {
           mtype : "post", //Ajax request type. It also could be GET
           datatype: "json", //supported formats XML, JSON or Arrray 											
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
-          colModel:[                                                                                                                                                                                                                                                                                                                         
-              {name:'nombre',index:'nombre',width:110,align:'left'}, 
+          colModel:[   
+              {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
+                return "<a href='detalle/" + options.rowId + "' class='group1' name='edit'>"+cellValue+"</a>";                                    
+              }},                                                                                                                                                                                                                                                                                                                                                                   
               {name:'a_paterno',index:'a_paterno',width:120,align:'left'}, 
               {name:'a_materno',index:'a_materno',width:120,align:'left'},                                                                                                                                                                                                           
               {name:'program_name',index:'program_name',width:200,align:'left'},                                                                                                                                                                                                           
               {name:'fecha_registro',index:'fecha_registro',width:100,align:'left'},
-              {name:'primer_contacto',index:'primer_contacto',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-              {name:'documentos',index:'documentos',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-              {name:'envio_decse',index:'envio_decse',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-              {name:'envio_claves',index:'envio_claves',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           	
-			        {name:'pago_realizado',index:'pago_realizado',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:;1:<img src='../../includes/admin/images/seguimiento/green.png'>"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+              {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                cellValue = cellValue.split('|');                                           
+                if(cellValue[0]){                                                                                        
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                           
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                                     
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                                                                                                    
+              }},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+              {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]){                                                                     
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                           
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                         
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                                                                            
+              }},            
+              {name:'envio_decse',index:'envio_decse',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+               cellValue = cellValue.split('|');   
+                if(cellValue[0]){                                                                     
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                                   
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                         
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                    
+              }},
+              {name:'envio_claves',index:'envio_claves',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]){                                                                     
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                           
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                         
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                                                            
+              }},   
+              {name:'pago_realizado',index:'pago_realizado',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
+                cellValue = cellValue.split('|');   
+                if(cellValue[0]){                                                                     
+                  var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
+                    if(cellValue[1]){                                                                                                                   
+                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                         
+                  return cell;                      
+                }                                                                                                                                                                                         
+                return '';                                            
+              }},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
               {name:'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
                     keys: true,                                                                                                                                
                     editbutton: false,             
@@ -835,13 +1013,20 @@ var casos_inconclusos = {
           buttonicon: "ui-icon-bookmark",
           onClickButton: this.exportar, position: "last"
         }                                                           
-      );                                                                                                                                                                                                           
-    },                                                                              
-
+      );
+      $("#list_casos_inconclusos a[name=edit]").live("click",casos_inconclusos.edit);                                                                                                                                                                                                                                                                                                                                                                                                      
+    },                                                                                              
+                
   exportar:function()
   {                                                                                             
       $("#list_casos_inconclusos").jqGrid('excelExport',{url:'excel/'});       
-  }                                                                                   
+  },
+
+  edit:function(e)
+  {
+    e.preventDefault();
+    $.colorbox({href:$(this).attr("href"),iframe:true, width:"850px", height:"90%"});
+  }                                                                                                
 }     
 
 var informes = {
@@ -897,7 +1082,7 @@ var informes = {
               setTimeout(function(){
                 msj.empty();           
               },5000);                                                                                        
-            }                                                                                                                                            
+            }                                                                                                                                                     
           }                                                                                                                                                                                                                                                   
       }).navGrid('#pager_informes',{edit:false,add:false,del:false},
       {}, //  default settings for edit
