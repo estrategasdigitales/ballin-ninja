@@ -14,7 +14,7 @@
 	<div id="datos_programa">
 		<h1>Programa:</h1>
 		<h2><?php echo $preinscrito->program_name; ?></h2>
-	</div>	
+	</div>								
 
 	<div id="datos_generales">																																																																														
 		<h1>Datos del interesado:</h1>			
@@ -69,7 +69,9 @@
 				</td>
 				<td valign="top">
 					<a href="#" name="estatus" rel="estatus_primer_contacto"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-					<div id="estatus_primer_contacto" style="display:none;"><textarea name="comentarios_primer_contacto"></textarea>
+					<div id="estatus_primer_contacto" style="display:none;">
+						<textarea name="comentarios_primer_contacto"><?php echo $comment_primercontacto; ?></textarea>																
+					</div>																																														
 				</td>
 			</tr>
 			<tr>
@@ -78,16 +80,20 @@
 				</td>
 				<td valign="top" class="division_pasos">
 					<a href="#" name="estatus" rel="estatus_documentos"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-					<div id="estatus_documentos" style="display:none;"><textarea name="comentarios_documentos"></textarea></div>	
+					<div id="estatus_documentos" style="display:none;">
+						<textarea name="comentarios_documentos"><?php echo $comment_documentos; ?></textarea>												
+					</div>	
 				</td>
-			</tr>
+			</tr>		
 			<tr>
 				<td valign="top" height="50" class="division_pasos">
 					<input type="checkbox" name="envio_decse" id="envio_decse" <?php echo ($preinscrito->envio_decse==1)?"checked":""; ?> disabled="disabled"><label>Enviar a DECSE</label>	
 				</td>
 				<td valign="top" class="division_pasos">
 					<a href="#" name="estatus" rel="estatus_envio_decse"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-					<div id="estatus_envio_decse" style="display:none;"><textarea name="comentarios_envio_decse"></textarea></div>	
+					<div id="estatus_envio_decse" style="display:none;">
+						<textarea name="comentarios_envio_decse"><?php echo $comment_decse; ?></textarea>
+					</div>	
 				</td>
 			</tr>
 			<tr>
@@ -96,7 +102,9 @@
 				</td>
 				<td valign="top" class="division_pasos">
 					<a href="#" name="estatus" rel="estatus_envio_claves"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-					<div id="estatus_envio_claves" style="display:none;"><textarea  name="comentarios_envio_claves"></textarea></div>	
+					<div id="estatus_envio_claves" style="display:none;">
+						<textarea  name="comentarios_envio_claves"><?php echo $comment_envioclaves; ?></textarea>
+					</div>	
 				</td>
 			</tr>
 			<tr>
@@ -105,7 +113,9 @@
 				</td>
 				<td valign="top" class="division_pasos">
 					<a href="#" name="estatus" rel="estatus_pago_realizado"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-					<div id="estatus_pago_realizado" style="display:none;"><textarea name="comentarios_pago_realizado"></textarea></div>	
+					<div id="estatus_pago_realizado" style="display:none;">
+						<textarea name="comentarios_pago_realizado"><?php echo $comment_pagorealizado; ?></textarea>
+					</div>	
 				</td>
 			</tr>	
 		</table>																								
@@ -118,9 +128,11 @@
 		<p><input type="checkbox" name="atendido"  id="atendido" <?php echo ($preinscrito->atendido==1)?"checked":""; ?> disabled="disabled"><label>Atendido</label></p>									 
 		<h2>Comentario general</h2>																																							
 		<p><a href="#" rel="comentarios_comentario_general">Añadir / editar comentario general</a></p>						
-		<div id="comentarios_comentario_general" style="display:none;"><textarea name="comentario_general"><?php echo $preinscrito->comentario_general; ?></textarea></div>
+		<div id="comentarios_comentario_general" style="display:none;">
+			<textarea name="comentario_general"><?php echo $preinscrito->comentario_general; ?></textarea>
+		</div>
 	</div>
-	<div class="clear"></div>
+	<div class="clear"></div>					
 	<div id="button_editar">																																																																																																																																																																																																																																															
 		<a href="<?php echo base_url("admin/preinscritos/editar/".$preinscrito->id_preinscrito); ?>">editar</a>															
 	</div>		

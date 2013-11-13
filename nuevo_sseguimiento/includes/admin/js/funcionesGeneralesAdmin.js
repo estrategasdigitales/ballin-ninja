@@ -11,7 +11,7 @@ var filtro = {
       $("#filtro #id_discipline").on("change",filtro.get_tipos_programas); 
       $("#filtro #program_type").on("change",filtro.get_programas);
       $("#filtro #id_program").on("change",filtro.search_programa);
-  },                                                                                                                                                                                                                                                                                                                                                                                
+  },                                                                                                                                                                                                                                                                                                                                                                                                   
 
   get_tipos_programas:function()
   {              
@@ -140,8 +140,8 @@ var users = {
                         msg: "Desea eliminar el registro?",                                                          
                         afterSubmit: function (response, postdata) {
                             var r = $.parseJSON(response.responseText);
-                            $("#msj").html(r.message);                                       
-                            return [r.success, r.message, null];
+                            $("#msj").html(r.message);                                                                    
+                            return [r.success, r.message];
                         }                                                                                                                                              
                     }                         
                  }    
@@ -174,10 +174,11 @@ var users = {
         {} /* view parameters*/               
         ).jqGrid('navButtonAdd',
         '#pager',																
-        { caption:"Exportar a Excel",
-            buttonicon: "ui-icon-bookmark",
-            onClickButton: this.exportar, position: "last"
-        });	                												
+        { 
+          caption:"Exportar a Excel",
+          buttonicon: "ui-icon-bookmark",
+          onClickButton: this.exportar, position: "last"
+        });	                                      												
 																															
         $("#exportar").on("click",users.exportar);
         $("#list input[name=chk_notificacion]").live("click",users.update_notificacion);  
@@ -200,14 +201,14 @@ var users = {
     tipo_usuario:function()
     {                                   
       if($(this).val()==1)
-      {                            
+      {                                                
         $("#agregar_programas").attr("disabled",true);
-        $("#usuario_programas").empty();
+        $("#usuario_programas ul").empty();     
         $("#programas").val(null);                                                         
       }else{                                                                    
         $("#agregar_programas").attr("disabled",false);
-      }                                
-    },                                                                                                                                             
+      }                                                    
+    },                                                                                                                                                          
                   
     delete_programa_new:function(e)
     {                                                                                                                                           
@@ -328,7 +329,7 @@ var users = {
             {                   
               if(res.success==false){         
                 $("#msj").html(res.msg);   
-              }else{                                                                                                                                                                                                
+              }else{                                                                                                                                                                                                          
                 document.location.href=res.redirect;                                        
               }                                                                                                                   
             },                                                             
@@ -414,8 +415,8 @@ var users = {
             error:function(respuesta)
             {                                                          
               console.log(respuesta);            
-            }                           
-        });      
+            }                                  
+        });                 
     },                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
                                          
     update_notificacion:function(e)
@@ -554,8 +555,8 @@ var preinscritos = {
                         afterSubmit: function (response, postdata){       
                             var r = $.parseJSON(response.responseText);
                             $("#msj").html(r.message);                   
-                            return [r.success, r.message, null];
-                        }                                                                                                                                                
+                            return [r.success, r.message];
+                        }                                                                                                                                                                        
                     }                                
                  }                        
               },                                                                    
@@ -583,18 +584,19 @@ var preinscritos = {
          editurl:'edit'                                                                                                                                                                                                    
       }).navGrid('#pager_preinscritos',{edit:false,add:false,del:false},
       {}, //  default settings for edit
-    {}, //  default settings for add
-    {},  // delete instead that del:false we need this
-    {searchOnEnter:true,closeOnEscape:true}, // search options
-    {} /* view parameters*/ 
-    ).jqGrid('navButtonAdd',
-    '#pager_preinscritos',																
-    { caption:"Exportar a Excel",
+      {}, //  default settings for add
+      {}, // delete instead that del:false we need this
+      {searchOnEnter:true,closeOnEscape:true}, // search options
+      {} /* view parameters*/ 
+      ).jqGrid('navButtonAdd',
+      '#pager_preinscritos',																
+      {                           
+        caption:"Exportar a Excel",
         buttonicon: "ui-icon-bookmark",
         onClickButton: preinscritos.exportar, position: "last"
-    });				               													                                                
- 								
-    $("#list_preinscritos a[name=edit]").live("click",preinscritos.edit); 
+      });           				               													                                                
+ 					          			     
+      $("#list_preinscritos a[name=edit]").live("click",preinscritos.edit); 
   },  	                           
                                   
   exportar:function()
@@ -693,8 +695,8 @@ var inscritos = {
                         afterSubmit: function (response, postdata) {
                             var r = $.parseJSON(response.responseText);
                             $("#msj").html(r.message);                   
-                            return [r.success, r.message, null];
-                        }                                                                                                                                                
+                            return [r.success, r.message];
+                        }                                                                                                                                                                         
                     }                               
                  }                                     
       		    }                               												                                        										
@@ -720,21 +722,20 @@ var inscritos = {
               }                                                                                                                                     
             }                                                                                                                                                                                                                                   
         }).navGrid('#pager_inscritos',{edit:false,add:false,del:false},
-        {}, //  default settings for edit
-      {}, //  default settings for add
-      {},  // delete instead that del:false we need this
-      {searchOnEnter:true,closeOnEscape:true}, // search options
-      {} /* view parameters*/ 
-      ).jqGrid('navButtonAdd',
+        {},//  default settings for edit
+        {}, //  default settings for add
+        {}, // delete instead that del:false we need this
+        {searchOnEnter:true,closeOnEscape:true}, // search options
+        {} /* view parameters*/ 
+        ).jqGrid('navButtonAdd',
         '#pager_inscritos',                                   
         {                 
           caption:"Exportar a Excel",
           buttonicon: "ui-icon-bookmark",
           onClickButton: this.exportar, position: "last"
-        }                                         
-      );
+        });     
 
-      $("#list_inscritos a[name=edit]").live("click",inscritos.edit);                                                                                                                                                                                                   
+        $("#list_inscritos a[name=edit]").live("click",inscritos.edit);                                                                                                                                                                                                   
   },                                         
 
   exportar:function()
@@ -833,7 +834,7 @@ var casos_cerrados = {
                         afterSubmit: function (response, postdata) {
                             var r = $.parseJSON(response.responseText);
                             $("#msj").html(r.message);                   
-                            return [r.success, r.message, null];
+                            return [r.success, r.message];
                         }                                                                                                                                                               
                     }                                    
                  }                  
@@ -862,18 +863,18 @@ var casos_cerrados = {
           //editurl:'delete'                                                                                                                                                                                    
       }).navGrid('#pager_casos_cerrados',{edit:false,add:false,del:false},
       {}, //  default settings for edit
-    {}, //  default settings for add
-    {},  // delete instead that del:false we need this
-    {searchOnEnter:true,closeOnEscape:true}, // search options
-    {} /* view parameters*/ 
-    ).jqGrid('navButtonAdd',
-      '#pager_casos_cerrados',                                   
-      {                                                  
-        caption:"Exportar a Excel",
-        buttonicon: "ui-icon-bookmark",
-        onClickButton: this.exportar, position: "last"
-      }                           
-    );                        
+      {}, //  default settings for add
+      {}, // delete instead that del:false we need this
+      {searchOnEnter:true,closeOnEscape:true}, // search options
+      {} /* view parameters*/ 
+      ).jqGrid('navButtonAdd',
+        '#pager_casos_cerrados',                                   
+        {                                                  
+          caption:"Exportar a Excel",
+          buttonicon: "ui-icon-bookmark",
+          onClickButton: this.exportar, position: "last"
+        }                                          
+      );                           
 
     $("#list_casos_cerrados a[name=edit]").live("click",casos_cerrados.edit);                                                                                                                                                                                                   
   },                                                   
@@ -974,7 +975,7 @@ var casos_inconclusos = {
                         afterSubmit: function (response, postdata) {
                             var r = $.parseJSON(response.responseText);
                             $("#msj").html(r.message);                   
-                            return [r.success, r.message, null];
+                            return [r.success, r.message];
                         }                                                                                                                                                          
                     }                                            
                  }                      
@@ -1058,7 +1059,7 @@ var informes = {
                         afterSubmit: function (response, postdata) {
                             var r = $.parseJSON(response.responseText);
                             $("#msj").html(r.message);                   
-                            return [r.success, r.message, null];
+                            return [r.success, r.message];
                         }                                                                                                                                                          
                     }                               
                  }                  
@@ -1087,7 +1088,7 @@ var informes = {
       }).navGrid('#pager_informes',{edit:false,add:false,del:false},
       {}, //  default settings for edit
     {}, //  default settings for add
-    {},  // delete instead that del:false we need this
+    {}, // delete instead that del:false we need this
     {searchOnEnter:true,closeOnEscape:true}, // search options
     {} /* view parameters*/ 
     ).jqGrid('navButtonAdd',
@@ -1110,8 +1111,8 @@ var informes = {
   {       
     e.preventDefault();
     $.colorbox({href:$(this).attr("href"),iframe:true, width:"850px", height:"90%"});
-  }				                
-} 
+  }                          				                
+}              
                                                                                                                                
 $(document).ready(function(){ 
     filtro.onReady();                

@@ -10,7 +10,7 @@ class Users_model extends CI_Model
         $this->load->database();
     }                                                                                                                                                                          
 
-	/*
+	/*                     
     public function acceso($username,$pass)
     {                          
         $this->db->select('usu.user_uuid,usu.nombre,usu.tipo,acc.users,acc.preinscritos,acc.inscritos,acc.casos_cerrados,acc.casos_inconclusos,acc.informes');               
@@ -28,7 +28,8 @@ class Users_model extends CI_Model
         {                                                                                                                                                                                 
             return FALSE;            
         }                                                                    
-    }    */  
+    }    
+    */  
 	
 	public function acceso($username,$pass)
     {                                                             							               
@@ -47,7 +48,7 @@ class Users_model extends CI_Model
         {                                                                                                                                                                                 
             return FALSE;            
         }               		                                                                    
-    } 
+    }                        
 	
     public function total_users()
     {                                                                                                                                                                                                          
@@ -170,7 +171,7 @@ class Users_model extends CI_Model
                                   ".$sord."                     
                                   limit ".$start.",".$limit."");                                                   
         if($query->num_rows()>0)                                                                                                                                                                
-        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
              return $query->result();                             
         }                                                                                                                                                                                                                                                                            
         else
@@ -244,8 +245,6 @@ class Users_model extends CI_Model
             return FALSE;            
         }                                                                                              
     }    
-
-
 
     public function update_user($data)
     {                           
@@ -388,7 +387,7 @@ class Users_model extends CI_Model
         {                                                                                                
             return FALSE;
         }else
-        {                                                                                           
+        {                                                                                                  
             return TRUE; 
         }                                                                                                                     
     }                                                                                                                                                                                     
@@ -427,5 +426,4 @@ class Users_model extends CI_Model
             return FALSE;            
         }                                                                 
     }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-
 }

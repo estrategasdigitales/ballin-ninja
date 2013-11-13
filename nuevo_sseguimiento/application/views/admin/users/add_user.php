@@ -4,7 +4,7 @@
 		echo isset($msj)?$msj:'';
 		echo validation_errors();
 		?>																						
-	</div>
+	</div>						
 	<h2>Añadir usuario</h2>																																																																																								
 	<?php echo form_open('admin/users/add',array('id'=>'form_add_users')); ?>	
 	<div class="cont_left">																													
@@ -34,7 +34,7 @@
 		<div id="m_notificacion"><input type="checkbox" name="notificacion" value="1"><label>Este usuario recibirá notificaciones vía correo electrónico</label></div>
 		<div>																																
 			<input type="hidden" id="programas" name="programas">
-		</div>
+		</div>																
 		<div id="filtro_users">
 		<p>
 			<label>Disciplinas: *</label>				
@@ -65,8 +65,8 @@
 		<div id="usuario_programas">
 			Programas:				
 			<ul></ul>
-		</div>		
-	</div>																																																																									
+		</div>				
+	</div>																																																																													
 	<div id="bpos">
 		<button name="enviar">Enviar</button>
 	</div>																									

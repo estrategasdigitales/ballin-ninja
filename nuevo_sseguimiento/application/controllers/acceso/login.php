@@ -36,7 +36,7 @@ class Login extends CI_Controller {
                     'nombre'    => $user->nombre,
                     'user_uuid' => $user->user_uuid,
                     'tipo'      => $user->tipo
-                );                                
+                );                                        
 
                 $controllers = array(
                     'users' => $user->users,

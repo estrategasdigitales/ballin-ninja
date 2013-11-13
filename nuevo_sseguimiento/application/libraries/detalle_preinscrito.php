@@ -7,23 +7,56 @@ class Detalle_preinscrito
     {               
         $this->CI =& get_instance();
         $this->CI->load->model('admin/preinscritos_model');
-    }																																											
+    }                                                                         																																											
 
     function detalle($id_preinscrito)				
     {                                  							             
         $data['msj'] = $this->CI->session->flashdata('msj');                                                                
         $data['preinscrito'] = $this->CI->preinscritos_model->get_preinscrito($id_preinscrito);
         $data['archivos'] = $this->CI->preinscritos_model->get_documentos($id_preinscrito);
-                            													
+       													
         if(empty($data['preinscrito']))                                                     
         {     
             $data['msj'] = 'El usuario no existe.';                                                                                 
             $this->CI->layout->view('admin/msj',$data);  
 
-        }else{															                            
+        }else{   
+
+            $comentarios_pasos = $this->CI->preinscritos_model->comentarios_pasos($id_preinscrito);                 
+                                                                                                                                                                                                                                         															                            
+            $data['comment_primercontacto'] = '';
+            $data['comment_documentos'] = '';
+            $data['comment_decse'] = '';                  
+            $data['comment_envioclaves'] = '';
+            $data['comment_pagorealizado'] = '';
+
+            if(!empty($comentarios_pasos)){                                                                                                    
+                foreach($comentarios_pasos as $comentario_paso){                
+                    
+                    if($comentario_paso->id_paso==1){                 
+                        $data['comment_primercontacto'] = $comentario_paso->comentario;
+                    }                                                                         
+                        
+                    if($comentario_paso->id_paso==2){
+                        $data['comment_documentos'] = $comentario_paso->comentario;   
+                    }              
+                        
+                    if($comentario_paso->id_paso==3){
+                        $data['comment_decse'] = $comentario_paso->comentario;   
+                    }                               
+                        
+                    if($comentario_paso->id_paso==4){
+                        $data['comment_envioclaves'] = $comentario_paso->comentario;  
+                    }                                                              
+                        
+                    if($comentario_paso->id_paso==5){
+                        $data['comment_pagorealizado'] = $comentario_paso->comentario;  
+                    }                                       
+                }               
+            }                                                                                                                                                                                  
 
             $this->CI->load->view('admin/preinscritos/preinscrito_detalle',$data);    
-        }                                                                                                                  
+        }                                                                                                                             
     }  
 
    	function editar($id_preinscrito = NULL)
@@ -78,12 +111,40 @@ class Detalle_preinscrito
             $data['comentario_general'] = $preinscrito->comentario_general;
 
             $data['archivos'] = $this->CI->preinscritos_model->get_documentos($id_preinscrito);
-
-            $data['comment_primercontacto'] =  $this->get_comentario($id_preinscrito,1);
-            $data['comment_documentos'] =  $this->get_comentario($id_preinscrito,2);
-            $data['comment_decse'] =  $this->get_comentario($id_preinscrito,3);                  
-            $data['comment_envioclaves'] =  $this->get_comentario($id_preinscrito,4);
-            $data['comment_pagorealizado'] =  $this->get_comentario($id_preinscrito,5);
+           
+            $comentarios_pasos = $this->CI->preinscritos_model->comentarios_pasos($id_preinscrito);                 
+                                                                                                                                                                                                                                                                                                                                
+            $data['comment_primercontacto'] = '';
+            $data['comment_documentos'] = '';
+            $data['comment_decse'] = '';                  
+            $data['comment_envioclaves'] = '';
+            $data['comment_pagorealizado'] = '';
+                                    
+            if(!empty($comentarios_pasos))
+            {                                                                                                                                           
+                foreach($comentarios_pasos as $comentario_paso){                
+                    
+                    if($comentario_paso->id_paso==1){                 
+                        $data['comment_primercontacto'] = $comentario_paso->comentario;
+                    }                                                                                                           
+                        
+                    if($comentario_paso->id_paso==2){
+                        $data['comment_documentos'] = $comentario_paso->comentario;   
+                    }                                        
+                        
+                    if($comentario_paso->id_paso==3){
+                        $data['comment_decse'] = $comentario_paso->comentario;   
+                    }                               
+                        
+                    if($comentario_paso->id_paso==4){
+                        $data['comment_envioclaves'] = $comentario_paso->comentario;  
+                    }                                                              
+                        
+                    if($comentario_paso->id_paso==5){
+                        $data['comment_pagorealizado'] = $comentario_paso->comentario;  
+                    }                                                                                                   
+                }                     
+            }                                
 
             $this->CI->load->view('admin/preinscritos/preinscrito_editar',$data);    
         }                                                                                                                                                                             
@@ -197,7 +258,7 @@ class Detalle_preinscrito
             {						                                                                                                              
                 $this->CI->session->set_flashdata('msj',msj('El registro se modificó correctamente.','message'));                                    
                 redirect('admin/preinscritos/detalle/'.$data['id_preinscrito']);
-            }      									                                                                                             
+            }                                                                    									                                                                                             
         }								                                                                                                                                     
     }					           
 
@@ -210,7 +271,7 @@ class Detalle_preinscrito
         return FALSE;                                                                  
     }                                               
 
-   function get_comentario($id_preinscrito,$id_paso)
+    function get_comentario($id_preinscrito,$id_paso)
     {                                                                                                                                                                                                                                              
         $comentario = $this->CI->preinscritos_model->get_comentario($id_preinscrito,$id_paso);   
         if(!empty($comentario)){		

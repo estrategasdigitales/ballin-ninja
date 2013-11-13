@@ -8,14 +8,14 @@ class Users extends CI_Controller {
         //$this->acceso();             
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/users_model');  				                                                    
-    }                                                                                                       			                   	                                                                                                                                                                                                                          
+    }                                                                                                                      			                   	                                                                                                                                                                                                                          
 											
     private function acceso()
     {                           		                      
         if(!$this->accesos->acceso())
         {                                                                                                               
               redirect('admin/no_acceso');             
-        }                                                                                                                                                    
+        }                                                                                                                                                                                   
     }        					        
                                                                                                               		                                 		        												                                                                                                                                                                                                                                                                                                                                                                                                                               
     public function index()
@@ -31,17 +31,13 @@ class Users extends CI_Controller {
                                                                                                                                                  
     public function jqGrid()    
     {                                                                                                                                                                                  
-        //obtener la página solicitada                          
         $page  = ($this->input->post('page'))?$this->input->post('page'):1;    
-        //Número de fila que queremos obtener en el grid                
         $limit = ($this->input->post('rows'))?$this->input->post('rows'):20;                                
-        //el campo para ordenar                                                                                                                        
         $sidx  = ($this->input->post('sidx'))?$this->input->post('sidx'):'user_uuid';                         
-        //obtiene la dirección                                                                                                        
         $sord  = ($this->input->post('sord'))?$this->input->post('sord'):'desc';                         
                                                                                                                                      
         if($this->input->post("_search") == "false")
-        {                                                       
+        {                                                                                                         
            
            $total_users = $this->users_model->total_users();
 
@@ -68,7 +64,7 @@ class Users extends CI_Controller {
         {
             $users = $this->users_model->show_users($start,$limit,$sidx,$sord);                                        
         }else
-        {                                                                                                               
+        {                                                                                                                              
             $users = $this->users_model->search_users($where,$start,$limit,$sidx,$sord);
         }                                                                                                                                                                                                                                  
 
@@ -101,7 +97,7 @@ class Users extends CI_Controller {
             $msj = ($value == 1)?'El usuario '.$user->nombre.' recibirá notificaciones.':'El usuario '.$user->nombre.' dejará de recibir notificaciones.';                                                                                                                          
             echo json_encode(array('success'=>true,'message'=>msj($msj,'message')));   
         }                                                                                                            
-    }                                                          
+    }                                                                             
 
     public function update_activo()
     {                                                     
@@ -116,9 +112,16 @@ class Users extends CI_Controller {
     public function delete()
     {               
         $user_uuid = $this->input->post('id');
-        $user = $this->users_model->checar_existe($user_uuid);                                                     
+        $user = $this->users_model->checar_existe($user_uuid);   
+
+        if($user_uuid == $this->session->userdata('user_uuid'))
+        {           
+            echo json_encode(array('success'=>false,'message'=>msj('Imposible eliminarte.','error')));
+            return false;                   
+        }                                                                                                                                      
+
         if(empty($user))
-        {                                                   
+        {                                                           
             echo json_encode(array('success'=>false,'message'=>msj('El usuario no existe.','error')));
         }           
         else
@@ -126,16 +129,13 @@ class Users extends CI_Controller {
             if($this->users_model->delete_user($user_uuid))
             {                                       
                 echo json_encode(array('success'=>true,'message'=>msj('El registro se eliminó correctamente','message')));
-            }else{              
-                echo json_encode(array('success'=>false,'message'=>msj('Fallo','error')));
-            }                                                  
+            }                                                                       
         }                                                                                                                                                                                                                       
     }                                              
 
     public function get_programas_ax()
     {                                    
-        if(!$this->input->is_ajax_request())
-        {
+        if(!$this->input->is_ajax_request()){
             show_404();
         }               
                                                                              
@@ -143,8 +143,7 @@ class Users extends CI_Controller {
         $program_type  = $this->input->post('program_type');
         $data['programas'] = $this->users_model->get_programas($id_discipline,$program_type);
                     
-        if(!empty($data['programas']))              
-        {     
+        if(!empty($data['programas'])){     
             $this->load->view('admin/users/programas_ax',$data);
         }else{                          
             $this->load->view('admin/users/option_select',$data);
@@ -153,14 +152,12 @@ class Users extends CI_Controller {
 
     public function get_tipos_programas_ax()
     {                  
-        if(!$this->input->is_ajax_request())
-        {               
+        if(!$this->input->is_ajax_request()){               
             show_404(); 
         }
 
         $data['tipos_programas'] = $this->users_model->get_tipos_programas();  
-        if(!empty($data['tipos_programas']))              
-        {                                                
+        if(!empty($data['tipos_programas'])){                                                
             $this->load->view('admin/users/tipos_programas_ax',$data); 
         }else{
             $this->load->view('admin/users/option_select',$data);
@@ -189,8 +186,7 @@ class Users extends CI_Controller {
                         
         if($this->form_validation->run() == FALSE)        
         {                                                                             
-            if(!$this->input->post())
-            {       
+            if(!$this->input->post()){       
                 $this->layout->view('admin/users/add_user',$data);
             }else{                                    
                 echo json_encode(array("success" => false, "msg" => msj(validation_errors(),'error')));
@@ -216,23 +212,24 @@ class Users extends CI_Controller {
                 $this->session->set_flashdata('msj',msj('El registro se agregó correctamente.','message'));                            
                 echo json_encode(array("success" => true, "redirect" => base_url('admin/users/edit/'.$user_uuid))); 
             }                                                                                                                                                                                                                                                                                                                                                                                                                                            
-        }                                                                                                     
+        }                                                                                                                                
     }                                                  
 
     public function delete_usuario_programa()
     {                         
         $id_usuario_programa = $this->input->post('id_usuario_programa'); 
+
         if($this->users_model->delete_usuario_programa($id_usuario_programa))
         {                          
             echo json_encode(array('success'=>true,'msg'=>'El programa se eliminó correctamente'));
-        }                                    
+        }                                          
     }                                          
                                                     
     public function login_check($str)
     {                                               
         $login = $this->users_model->login_check($str);                                     
         if(!empty($login))
-        {                                                                                                                                  
+        {                                                                                                                                                         
             $this->form_validation->set_message('login_check', 'El login ingresado ya existe.');
             return FALSE;                                   
         }else{                                                                                                                    

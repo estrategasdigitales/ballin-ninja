@@ -68,13 +68,12 @@
 		</p>	
 	</div>				
 	<div class="cont_right">																
-		<div id="usuario_programas">												
-			<ul>										
-			<?php 			
+		<div id="usuario_programas">
+			Programas:																							
+			<ul>																
+			<?php 						
 				if(!empty($usuarios_programas)){
-			?>												
-					Programas:
-			<?php		
+
 					foreach($usuarios_programas as $usuario_programa){
 			?>																																																																																									
 					<li><?php echo $usuario_programa->program_name; ?><a href="#"><div id="<?php echo $usuario_programa->id_usuario_programa; ?>"><?php echo img('includes/admin/images/delete.png'); ?></div></a></li>
@@ -82,7 +81,7 @@
 					}						
 				}						
 			?>
-			</ul>										
+			</ul>												
 		</div>																	
 	</div>
 	<div class="clear"></div>																																																																																												
