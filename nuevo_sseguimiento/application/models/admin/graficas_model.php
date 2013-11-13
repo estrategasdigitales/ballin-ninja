@@ -5,7 +5,7 @@ class Graficas_model extends CI_Model
     {                                                                   
         parent::__construct();
         $this->load->database();
-    }                                                                                												
+    }                                                                                                 												
 
     public function get_disciplinas($user_uuid)
     {                                                                                                                 
@@ -16,7 +16,7 @@ class Graficas_model extends CI_Model
         $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito','inner'); 
         $this->db->where('up.user_uuid',$user_uuid);                                                                                                                                                                                                                                                                         
         $this->db->group_by('up.id_discipline');                                                                                                  
-        $query = $this->db->get();                                                                                                                                                                 
+        $query = $this->db->get();                                                                                                                                                                            
         if ($query->num_rows()>0)                                                                                                                                                   
         {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
              return $query->result();                             
@@ -25,7 +25,7 @@ class Graficas_model extends CI_Model
         {                                                                                                                                                                                                                                                                                                                                   
             return FALSE;            
         }                                  
-    }                  
+    }                                 
 
     public function get_disciplinas_all()
     {                                                               
@@ -42,21 +42,21 @@ class Graficas_model extends CI_Model
     }           	
 
     public function get_tipos_programas($user_uuid,$id_discipline)
-    {                                                                                                                                                                                                                                                                                                                                                           
+    {                                                                                                                                                                                                                                                                                                                                                                      
         $this->db->select('pro_tipos.program_type,pro_tipos.type');
         $this->db->from('seg_dec_programas_tipos as pro_tipos');                                                                                                                
         $this->db->join('seg_dec_programas as pro','pro.program_type = pro_tipos.program_type','inner');
-        $this->db->join('seg_dec_usuarios_programas as up','up.id_discipline = pro.id_discipline and up.id_program = pro.id_program','inner');
+        $this->db->join('seg_dec_usuarios_programas as up','up.id_program = pro.id_program  and (up.id_discipline = pro.id_discipline OR up.id_discipline = pro.id_discipline_alterna)','inner');
         $this->db->join('seg_dec_preinscritos as pre','up.id_discipline = pre.id_discipline and up.id_program = pre.id_program','inner');
         $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito','inner'); 
-        $this->db->where('up.user_uuid',$user_uuid);                                                                                                                                                                      
-        $this->db->where('pro.id_discipline',$id_discipline);                                                                                                                                                                                                                          
+        $this->db->where('up.user_uuid',$user_uuid);                                                                                                                                                                                 
+        $this->db->where('pre.id_discipline',$id_discipline);                                                                                                                                                                                                                          
         $this->db->group_by('pro_tipos.program_type');                                                                                                                                                                                                                                           
-        $query = $this->db->get();                                                                                             
+        $query = $this->db->get();                                                                                                                  
         if($query->num_rows()>0)                                                                                                                                                              
-        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
              return $query->result();                             
-        }                                                                                                                                                                                                                                                                                                                                                                                                         
+        }                                                                                                                                                                                                                                                                                                                                                                                                                            
         else                
         {                                                                                                                                                                                                                                                                           
             return FALSE;            
@@ -66,11 +66,11 @@ class Graficas_model extends CI_Model
     public function get_tipos_programas_all($id_discipline)
     {                                                                                                                                                                                                                                 
         $this->db->select('pro_tipos.program_type,pro_tipos.type');     
-        $this->db->from('seg_dec_programas_tipos as pro_tipos');                                                                     
+        $this->db->from('seg_dec_programas_tipos as pro_tipos');                                                                                     
         $this->db->join('seg_dec_programas as pro','pro.program_type = pro_tipos.program_type','inner');                            
-        $this->db->join('seg_dec_preinscritos as pre','pro.id_discipline = pre.id_discipline and pro.id_program = pre.id_program','inner');
+        $this->db->join('seg_dec_preinscritos as pre','pro.id_program = pre.id_program and (pre.id_discipline = pro.id_discipline OR pre.id_discipline = pro.id_discipline_alterna)','inner');
         $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito','inner');
-        $this->db->where('pro.id_discipline',$id_discipline);                                                                       
+        $this->db->where('pre.id_discipline',$id_discipline);                                                                                                                       
         $this->db->group_by("pro_tipos.program_type");                                                                                                                                     
         $query = $this->db->get();                                                                                       
         if($query->num_rows()>0)                                                                                                                                                                 
@@ -87,11 +87,11 @@ class Graficas_model extends CI_Model
     {                                                                                                                                                                                                                       
         $this->db->select('pro.id_program,pro.program_name');                       
         $this->db->from('seg_dec_programas as pro');                                                                                                                                                           
-        $this->db->join('seg_dec_usuarios_programas as up','up.id_discipline = pro.id_discipline and up.id_program = pro.id_program','inner');                        
+        $this->db->join('seg_dec_usuarios_programas as up','up.id_program = pro.id_program and (up.id_discipline = pro.id_discipline OR up.id_discipline = pro.id_discipline_alterna)','inner');                        
         $this->db->join('seg_dec_preinscritos as pre','up.id_discipline = pre.id_discipline and up.id_program = pre.id_program','inner');
         $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito','inner');
         $this->db->where('up.id_discipline',$id_discipline);                              
-        $this->db->where('up.user_uuid',$user_uuid);                                                                                                                                                                   
+        $this->db->where('up.user_uuid',$user_uuid);                                                                                                                                                                        
         $this->db->where('pro.program_type',$program_type);
         $this->db->group_by("pro.id_program");                                                           
         $query = $this->db->get();                                                                                                                 
@@ -108,15 +108,15 @@ class Graficas_model extends CI_Model
     public function get_programas_all($id_discipline,$program_type)
     {                                                                                                                                                                                                                                                                    
         $this->db->select('pro.id_program,pro.program_name'); 
-        $this->db->from('seg_dec_programas as pro'); 
-        $this->db->join('seg_dec_preinscritos as pre','pro.id_discipline = pre.id_discipline and pro.id_program = pre.id_program','inner');
+        $this->db->from('seg_dec_programas as pro');                            
+        $this->db->join('seg_dec_preinscritos as pre','pro.id_program = pre.id_program and (pre.id_discipline = pro.id_discipline OR pre.id_discipline = pro.id_discipline_alterna)','inner');
         $this->db->join('seg_dec_pasos_status as status','status.id_preinscrito = pre.id_preinscrito','inner');                        
-        $this->db->where('pro.id_discipline',$id_discipline);                                                                                                    
+        $this->db->where('pre.id_discipline',$id_discipline);                                                                                                    
         $this->db->where('pro.program_type',$program_type); 
         $this->db->group_by("pro.id_program");                                          
         $query = $this->db->get();                                   
         if($query->num_rows()>0)                                                                                                                                           
-        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
              return $query->result();                             
         }                                                                                                                                                                                                                                                                                                                                       
         else

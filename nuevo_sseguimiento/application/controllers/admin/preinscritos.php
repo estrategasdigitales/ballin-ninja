@@ -22,7 +22,7 @@ class Preinscritos extends CI_Controller
 
         if($this->accesos->admin()){                                                                                                                 
             $data['disciplinas'] = $this->preinscritos_model->get_disciplinas_all();                                                                                                                                                        
-        }else{                                                                                                                                           
+        }else{                                                                                                                                                                 
             $data['disciplinas'] = $this->preinscritos_model->get_disciplinas($this->session->userdata('user_uuid')); 
         }                       
         $this->layout->view('admin/preinscritos/show_preinscritos',$data);                                                           
@@ -125,7 +125,7 @@ class Preinscritos extends CI_Controller
                         
                         if($value->id_paso==1){                 
                             $pasos['primer_contacto'] = $value->comentario;
-                        }                                   
+                        }                                              
                         
                         if($value->id_paso==2){
                             $pasos['documentos'] = $value->comentario;   
@@ -201,7 +201,7 @@ class Preinscritos extends CI_Controller
     }                               
 					
     public function delete_preinscrito()
-    {                      
+    {                           
         $id_preinscrito = $this->input->post('id');
         $preinscrito = $this->preinscritos_model->checar_existe($id_preinscrito);
 

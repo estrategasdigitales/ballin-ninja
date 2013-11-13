@@ -32,7 +32,7 @@ class Users_model extends CI_Model
     */  
 	
 	public function acceso($username,$pass)
-    {                                                             							               
+    {                                                                            							               
         $this->db->select('usu.user_uuid,usu.nombre,usu.tipo,acc.users,acc.preinscritos,acc.inscritos,acc.casos_cerrados,acc.casos_inconclusos,acc.informes,acc.graficas');               
         $this->db->from('seg_dec_usuarios as usu');                                   
         $this->db->join('seg_dec_accesos as acc','acc.id_role = usu.tipo', 'left');                                                 

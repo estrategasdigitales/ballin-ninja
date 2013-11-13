@@ -4,9 +4,9 @@
 <script src="<?php echo base_url('includes/highcharts/js/modules/exporting.js'); ?>"></script>	
 <script src="<?php echo base_url('includes/admin/js/graficas.js'); ?>"></script>		
 </header>																	
-Grafica del <input type="text" name="fecha_inicio" id="fecha_inicio"> al <input type="text" name="fecha_fin" id="fecha_fin"><input type="button" name="his_area_programa" id="his_area_programa" value="Graficar histórico">
+Grafica del <input type="text" name="fecha_inicio" id="fecha_inicio"> al <input type="text" name="fecha_fin" id="fecha_fin">
 <div id="area_programa">																								
-	<div>																																						
+	<div>																																														
 	<label>Disciplinas: *</label>						
 	<select name="id_discipline" id="id_discipline">		
 		<option value="0">Todas las disciplinas</option>																																											

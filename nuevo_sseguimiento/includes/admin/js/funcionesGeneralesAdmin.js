@@ -3,7 +3,7 @@ $(function() {
       $(document).tooltip();
 });                                                                      
 
-var filtro = {              
+var filtro = {                          
                     
   onReady:function()            
   {                                                                                   
@@ -11,14 +11,12 @@ var filtro = {
       $("#filtro #id_discipline").on("change",filtro.get_tipos_programas); 
       $("#filtro #program_type").on("change",filtro.get_programas);
       $("#filtro #id_program").on("change",filtro.search_programa);
-  },                                                                                                                                                                                                                                                                                                                                                                                                   
+  },                                                                                                                                                                                                                                                                                                                                                                                                                     
 
   get_tipos_programas:function()
   {              
-      if($(this).val()==0){             
-        return false;   
-      }                           
-
+      if($(this).val()!=0){             
+                              
       var url = $("#base_url").text()+"admin/"+filtro.controller+"/get_tipos_programas";
       var data = "id_discipline="+$(this).val();                                                           
 
@@ -40,15 +38,15 @@ var filtro = {
           }                                                         
       });    
 
-      filtro.search_disciplina(filtro.controller);                                                  
+      filtro.search_disciplina(filtro.controller); 
+
+      }                                                                         
   },                                                                                                                                                                                                
 
   get_programas:function()
-  {          
-      if($(this).val()==0){
-        return false;   
-      }                       
-        
+  {                     
+      if($(this).val()!=0){
+                            
       var id_discipline = $("#id_discipline option:selected").val();             
       var data = "program_type="+$(this).val()+"&id_discipline="+id_discipline;
       var url = $("#base_url").text()+"admin/"+filtro.controller+"/get_programas";
@@ -68,10 +66,12 @@ var filtro = {
           error:function(respuesta)
           {                                                          
             console.log(respuesta);            
-          }                                                                                   
+          }                                                                                                
       });                     
 
-    filtro.search_tipo_programa(filtro.controller);                                 
+      filtro.search_tipo_programa(filtro.controller); 
+
+      }                                    
   },                       
 
   search_disciplina:function(controller)
@@ -96,14 +96,19 @@ var filtro = {
   },                                                              
 
   search_programa:function()
-  {                                                                                                                                                                      
-    var searchString = $("#id_program option:selected").val();         
-    var data = new Object();                                                 
-    data.searchField = 'pro.id_program';     
-    data.searchOper = 'eq';                                                                                                                                                                           
-    data.searchString = searchString;                                                                                          
-    $("#list_"+filtro.controller).jqGrid('setGridParam',{search:true,postData:data,page:1}).trigger("reloadGrid"); 
-  }                                          
+  {                                                                                         
+    var id_discipline = $("#id_discipline option:selected").val();                                                                                                                                                                                                      
+    var program_type = $("#program_type option:selected").val();  
+    if(id_discipline!=0 && program_type!=0){                                                                                                                                                                                                                                                               
+      var searchString = $("#id_program option:selected").val();         
+      var data = new Object();                                                                                      
+      data.searchField = 'pro.id_program';             
+      data.searchOper = 'eq';                                                                                                                                                                                            
+      data.searchString = searchString;                                                                                          
+      $("#list_"+filtro.controller).jqGrid('setGridParam',{search:true,postData:data,page:1}).trigger("reloadGrid"); 
+    }                                
+  }
+
 }                                    
 
 var users = {                                 
@@ -196,7 +201,7 @@ var users = {
     exportar:function()
     {																							
         $("#list").jqGrid('excelExport',{url:'excel/'});       
-    },						     				         					
+    },              						     				         					
 
     tipo_usuario:function()
     {                                   
@@ -271,7 +276,7 @@ var users = {
               console.log(res);            
             }                                                                               
         });                            
-    },                                                                                           
+    },                                                                                                           
 
     agregar_programas:function()
     {                                                                                      

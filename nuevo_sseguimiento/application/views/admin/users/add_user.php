@@ -59,8 +59,7 @@
 		</p>
 		</div>								
 		<p><input type="button" name="agregar_programas" id="agregar_programas" value="Agregar programa"></p>
-	</div>									
-										
+	</div>																			
 	<div class="cont_right">			
 		<div id="usuario_programas">
 			Programas:				
