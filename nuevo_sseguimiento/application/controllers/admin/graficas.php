@@ -1,7 +1,6 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');      
-		
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');      		
 class Graficas extends CI_Controller 
-{		
+{	      	
     private $disciplinas;   
 	               		                 			
     public function __construct()
@@ -405,6 +404,5 @@ class Graficas extends CI_Controller
         }                                                                                         
                                                                                                                                                                        
         echo json_encode($array_status);       
-    }                    
-}					
-?>	    		
+    }                     
+} 		
