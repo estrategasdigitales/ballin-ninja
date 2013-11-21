@@ -157,7 +157,7 @@ class Inscritos extends CI_Controller {
             $data['tipos_programas'] = $this->inscritos_model->get_tipos_programas_all($id_discipline);                                         
         }else{                                                                                                  
             $data['tipos_programas'] = $this->inscritos_model->get_tipos_programas($this->session->userdata('user_uuid'),$id_discipline);                                         
-        }                                          
+        }                                                     
 
         if(!empty($data['tipos_programas'])){     
             $this->load->view('admin/users/tipos_programas_ax',$data);

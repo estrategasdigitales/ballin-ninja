@@ -14,7 +14,7 @@ class Preinscritos extends CI_Controller
     public function index()
     {
         $this->show();
-    }                    
+    }                            
 
     public function show()
     {                                                                            
@@ -24,7 +24,7 @@ class Preinscritos extends CI_Controller
             $data['disciplinas'] = $this->preinscritos_model->get_disciplinas_all();                                                                                                                                                        
         }else{                                                                                                                                                                 
             $data['disciplinas'] = $this->preinscritos_model->get_disciplinas($this->session->userdata('user_uuid')); 
-        }                       
+        }                                                        
         $this->layout->view('admin/preinscritos/show_preinscritos',$data);                                                           
     }    
 
@@ -114,7 +114,7 @@ class Preinscritos extends CI_Controller
         if(!empty($preinscritos))
         {                                                                                                                                                                                                                                                                                                                                                                                                                
             foreach($preinscritos as $key => $preinscrito)
-            {                      
+            {                                    
                                                             
                 $pasos = array('primer_contacto'=>'','documentos'=>'','envio_decse'=>'','envio_claves'=>'','pago_realizado'=>'');  
 

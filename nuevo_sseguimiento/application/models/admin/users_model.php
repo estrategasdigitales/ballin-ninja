@@ -3,12 +3,12 @@
 class Users_model extends CI_Model
 {                                          
     private $key = 'sistema_seguimiento';
-
+                
     function __construct()
     {                                                                                  
         parent::__construct();
         $this->load->database();
-    }                                                                                                                                                                          
+    }                                                                                                                                                                                          
 
 	/*                     
     public function acceso($username,$pass)

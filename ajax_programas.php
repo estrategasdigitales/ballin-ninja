@@ -196,7 +196,7 @@ $response .= '
 					if($tipo != $tipo_ant){$response .= '<option disabled="disabled">-----PROGRAMAS COMPARTIDOS---</option>';}
 					$response .= '<option value="'.$row_programas_alternativa['id_program'].'">'.utf8_encode($row_programas_alternativa['program_name']).'</option>';
 					$tipo_ant = $tipo;
-				}
+				}				
 				if(($row_programas_alternativa['id_discipline_alterna']==2) && ($row_programas_alternativa['id_discipline_alterna']==2)){
 					$tipo = $row_programas_alternativa['program_type'];
 					if($tipo != $tipo_ant){$response .= '<option disabled="disabled">-----PROGRAMAS COMPARTIDOS---</option>';}
