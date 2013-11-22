@@ -165,19 +165,19 @@
 		//nombre del programa y disciplina
 		$programas = $db->query("SELECT pro.program_name,dis.discipline FROM seg_dec_programas as pro INNER JOIN seg_dec_disciplinas as dis ON pro.id_discipline = dis.id_discipline WHERE pro.id_program=".$id_program." AND (pro.id_discipline=".$id_discipline." OR pro.id_discipline_alterna=".$id_discipline." )");																																																																																			
 		$programas = $programas->fetchAll(PDO::FETCH_CLASS);																																			
-																															
+																																					
 		//usuarios asignados al programa	
 		$key = 'sistema_seguimiento';																																																																											
 		$usuarios_programas = $db->query("SELECT u.email_1,u.email_2,u.username,AES_DECRYPT(u.pass,'{$key}') AS pass FROM seg_dec_usuarios AS u INNER JOIN seg_dec_usuarios_programas AS up ON up.user_uuid = u.user_uuid WHERE up.id_discipline=".$id_discipline." AND up.id_program=".$id_program." AND u.notificacion='1' and u.activo='1'");																																																																																			
 		$usuarios_programas = $usuarios_programas->fetchAll(PDO::FETCH_ASSOC);
-
+			
 		try{																					
 			/*CONSTRUCCION DEL MENSAJE PARA ENVIAR EN EL MAIL*/
 																		
 			$mensaje="<strong>&Aacute;rea:</strong> ".$programas[0]->discipline."<br />";
 			$mensaje.="<strong>Nombre del programa:</strong> ".$programas[0]->program_name."<br />";
-			$mensaje.="<strong>Se enteró del programa através de:</strong><br />";
-			$mensaje.="Otro medio: ".$como_se_entero."<br />";
+			$mensaje.="<strong>Se enter&oacute; del programa atrav&eacute;s de:</strong><br />";
+			$mensaje.="Otro medio: ".$como_se_entero."<br />";								
 			$mensaje.="<br /><strong>Información Personal:</strong><br /><br />";
 			$mensaje.="<strong>A. Paterno:</strong> ".$a_paterno."<br />";
 			$mensaje.="<strong>A. Materno:</strong> ".$a_materno."<br />";
@@ -195,15 +195,15 @@
 			$mensaje.="<strong>Email:</strong> ".$correo."<br />";
 			$mensaje.="<strong>Nacionalidad:</strong> ".$nacionalidad."<br />";
 
-			$mensaje.="<br /><strong>Información Académica:</strong><br /><br />";
-			$mensaje.="<strong>Grado académico:</strong> ".$grado_academico."<br />";
-			$mensaje.="<strong>Institución de estudios:</strong> ".$institucion_estudios."<br />";
-			$mensaje.="<strong>Porqué eligió a la Ibero:</strong> ".$porque_la_ibero."<br />";
+			$mensaje.="<br /><strong>Informac&oacute;n Acad&eacute;mica:</strong><br /><br />";
+			$mensaje.="<strong>Grado acad&eacute;mico:</strong> ".$grado_academico."<br />";
+			$mensaje.="<strong>Instituci&oacute;n de estudios:</strong> ".$institucion_estudios."<br />";
+			$mensaje.="<strong>Porqu&eacute; eligi&oacute; a la Ibero:</strong> ".$porque_la_ibero."<br />";
 			$mensaje.="<strong>Ex Alumno UIA:</strong> ".$exalumno."<br />";
 
-			$mensaje.="<br /><strong>Información Laboral:</strong><br /><br />";
+			$mensaje.="<br /><strong>Informaci&oacute;n Laboral:</strong><br /><br />";
 			$mensaje.="<strong>Empresa:</strong> ".$empresa."<br />";
-			$mensaje.="<strong>Teléfono:</strong> ".$telefono_empresa."<br />";
+			$mensaje.="<strong>Tel&eacute;fono:</strong> ".$telefono_empresa."<br />";
 			$mensaje.="<strong>Fax:</strong> ".$direccion_empresa."<br /><br /><br />";
 
 			$headers = "From: " . strip_tags($email) . "\r\n";
@@ -212,7 +212,7 @@
 			$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";				
 
 			//echo "ANTES: " . $mensaje;
-
+					
 			$mensaje = str_replace("á", "&aacute;", $mensaje);
 			$mensaje = str_replace("é", "&eacute;", $mensaje);
 			$mensaje = str_replace("í", "&iacute;", $mensaje);
@@ -225,8 +225,9 @@
 
 			$mail_title = "DEC - Preinscripción";
 
-			mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);	
-							
+			//mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);	
+			mail("guillermojoel.huerta.com", $mail_title, $mensaje, $headers);	
+																				
 			//mensaje para usuarios encargados del programa		
 			$mensaje_coord = '';																																																																																		
 			foreach ($usuarios_programas as $usuario){ 	
@@ -244,10 +245,10 @@
 				$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$usuario['username']."</strong>";
 				$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$usuario['pass']."</strong>";
 				mail($to_coord_b, $mail_title, $mensaje_coord, $headers);
-			}												
+			}																				
 
-			$to_coord = "Ibero";																				
-			$mensaje_user = 'Tu preinscripción al '.$programas[0]->program_name.' ha sido recibida';
+			$to_coord = "Ibero";				
+			$mensaje_user = 'Tu preinscripci&oacute;n al '.$programas[0]->program_name.' ha sido recibida';
 			$mensaje_user .= '<br /><br />En breve nos comunicaremos contigo.';
 			$mensaje_user .= '<br /><br />Gracias.';
 			$mensaje_user .= '<br /><br />';

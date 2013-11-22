@@ -476,7 +476,7 @@ var users = {
 }   
 
 var preinscritos = {
-														
+				    										
   onReady:function()
   {                    		 										
       var base_url = $("#base_url").text();
@@ -495,19 +495,19 @@ var preinscritos = {
               {name:'fecha_registro',index:'fecha_registro',search:false,sortable:true,width:100,align:'left'},  
               {name:'codigo',index:'codigo',search:false,sortable:true,width:100,align:'left'},  
               {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
-                cellValue = cellValue.split('|');							   														
-                if(cellValue[0]){                                   																							
+                cellValue = cellValue.split('|');		
+                if(cellValue[0]==1){                                   																							
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                   	if(cellValue[1]){																																																						
                   		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
-                	}																																																																			
+                	}					   																																																														
                 	return cell;											
                 }																								                                                     	        								        		        			                                  
                 return '';   								 																					                     
-              }},        						                                          		         				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+              }},                  						                                          		         				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
               {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
-                cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                   																	
+                cellValue = cellValue.split('|');  
+                if(cellValue[0]==1){                                                                                                         																	
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                   	if(cellValue[1]){																																																						
                   		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -518,7 +518,7 @@ var preinscritos = {
               }},            
               {name:'envio_decse',index:'envio_decse',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                   																	
+                if(cellValue[0]==1){                                   																	
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                   	if(cellValue[1]){																																																										
                   		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -529,7 +529,7 @@ var preinscritos = {
               }},
               {name:'envio_claves',index:'envio_claves',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                   																	
+                if(cellValue[0]==1){                                   																	
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                   	if(cellValue[1]){																																																						
                   		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -540,7 +540,7 @@ var preinscritos = {
               }},		
               {name:'pago_realizado',index:'pago_realizado',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                   																	
+                if(cellValue[0]==1){                                   																	
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                   	if(cellValue[1]){																																																										
                   		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -636,7 +636,7 @@ var inscritos = {
               {name:'fecha_registro',index:'fecha_registro',width:100,align:'left',search:false},  		       				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
               {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');                                           
-                if(cellValue[0]){                                                                                 
+                if(cellValue[0]==1){                                                                                 
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -647,7 +647,7 @@ var inscritos = {
               }},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
               {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                                                     
+                if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -658,7 +658,7 @@ var inscritos = {
               }},            
               {name:'envio_decse',index:'envio_decse',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                                                     
+                if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                                   
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -669,7 +669,7 @@ var inscritos = {
               }},
               {name:'envio_claves',index:'envio_claves',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                                                     
+                if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -680,7 +680,7 @@ var inscritos = {
               }},   
               {name:'pago_realizado',index:'pago_realizado',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                                                     
+                if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                                   
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -775,7 +775,7 @@ var casos_cerrados = {
               {name:'fecha_registro',index:'fecha_registro',width:100,align:'left'},
               {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');                                           
-                if(cellValue[0]){                                                                                 
+                if(cellValue[0]==1){                                                                                 
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -786,7 +786,7 @@ var casos_cerrados = {
               }},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
               {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                                                     
+                if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -797,7 +797,7 @@ var casos_cerrados = {
               }},            
               {name:'envio_decse',index:'envio_decse',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                                                     
+                if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                                   
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -808,7 +808,7 @@ var casos_cerrados = {
               }},
               {name:'envio_claves',index:'envio_claves',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                                                     
+                if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -819,7 +819,7 @@ var casos_cerrados = {
               }},   
               {name:'pago_realizado',index:'pago_realizado',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                                                     
+                if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                                   
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -916,7 +916,7 @@ var casos_inconclusos = {
               {name:'fecha_registro',index:'fecha_registro',width:100,align:'left'},
               {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');                                           
-                if(cellValue[0]){                                                                                        
+                if(cellValue[0]==1){                                                                                        
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -927,7 +927,7 @@ var casos_inconclusos = {
               }},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
               {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                                                     
+                if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -938,7 +938,7 @@ var casos_inconclusos = {
               }},            
               {name:'envio_decse',index:'envio_decse',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                                                     
+                if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                                   
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -949,7 +949,7 @@ var casos_inconclusos = {
               }},
               {name:'envio_claves',index:'envio_claves',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                                                     
+                if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -960,7 +960,7 @@ var casos_inconclusos = {
               }},   
               {name:'pago_realizado',index:'pago_realizado',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
-                if(cellValue[0]){                                                                     
+                if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                                   
                       cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -1105,7 +1105,7 @@ var informes = {
         }                                                              
     );                         
     $("#list_informes a[name=edit]").live("click",informes.edit); 
-  },                                                                              
+  },                                                                                      
 
   exportar:function()
   {                                                                                                                     
@@ -1118,7 +1118,7 @@ var informes = {
     $.colorbox({href:$(this).attr("href"),iframe:true, width:"850px", height:"90%"});
   }                          				                
 }              
-                                                                                                                               
+                                                                                                                                              
 $(document).ready(function(){ 
     filtro.onReady();                
     users.onReady(); 

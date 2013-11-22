@@ -5,7 +5,7 @@ try{
 }catch(PDOException $e){															
 	echo "Error !!: " . $e->getMessage() . "<br/>";
 	die();																																									
-}																																														
+}																																																								
 																																				
 if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 
@@ -67,8 +67,8 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
     $mensaje.="<br /><strong>Han solicitado Informaci&oacute;n:</strong><br /><br />";
 	$mensaje="<strong>&Aacute;rea:</strong> ".$programas[0]->discipline."<br />";
 	$mensaje.="<strong>Nombre del programa:</strong> ".$programas[0]->program_name."<br />";
-														
-	$mensaje.="<br /><strong>Información Personal:</strong><br /><br />";
+																						
+	$mensaje.="<br /><strong>Informaci&oacute;n Personal:</strong><br /><br />";
 	$mensaje.="<strong>Apellido Paterno:</strong> ".$paterno."<br />";
 	$mensaje.="<strong>Apellido Materno:</strong> ".$materno."<br />";
 	$mensaje.="<strong>Nombre:</strong> ".$nombre."<br />";
@@ -95,12 +95,10 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	
 	$mail_title = "DEC - Solicitud de informes";
 																											
-	mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);
-	//mail("erika.medina@uia.mx", $mail_title, $mensaje, $headers);
-	//mail("jorge@estrategasdigitales.com", $mail_title, $mensaje, $headers);
-	//mail("jlaa2774@hotmail.com", utf8_decode($mail_title), $mensaje, $headers);
+	//mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);
+	mail("guillermojoel.huerta@gmail.com", $mail_title, $mensaje, $headers);
 
-	$mensaje_coord = '';							
+	$mensaje_coord = '';									
 	foreach($usuarios_programas as $usuario){ 
 
 		$to_coord_b = $usuario['email_1'];								
@@ -110,13 +108,13 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 		$mensaje_coord .= "Para darle seguimiento visita la siguiente liga:";
 		$mensaje_coord .= "<br /><br />";
 		$mensaje_coord .= "<a href='http://www.dec-uia.com/s_preiniscritos/' target='_blank'>http://www.dec-uia.com/s_preiniscritos/</a>";
-		$mensaje_coord .= "<br /><br />donde podrás llevar paso a paso el proceso de inscripción y tener un fácil acceso a la información del usuario.";
+		$mensaje_coord .= "<br /><br />donde podr&aacute;s llevar paso a paso el proceso de inscripci&oacute;n y tener un f&aacute;cil acceso a la informaci&oacute;n del usuario.";
 		$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$usuario['username']."</strong>";
-		$mensaje_coord .= "<br /><br />Tu contraseña: <strong>".$usuario['pass']."</strong>";
-		mail($to_coord_b, $mail_title, $mensaje_coord, $headers);				
-	}																																																		
+		$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$usuario['pass']."</strong>";
+		mail($to_coord_b, $mail_title, $mensaje_coord, $headers);															
+	}															 																																													
 	//mail('pvazquezdiaz@gmail.com', $mail_title, $mensaje_coord, $headers);
-?>	
+?>									
 
 <script type="text/javascript">
 alert("Sus Datos han sido enviado satisfactoriamente");
