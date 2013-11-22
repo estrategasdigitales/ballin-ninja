@@ -212,7 +212,7 @@
 			$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";				
 
 			//echo "ANTES: " . $mensaje;
-					
+
 			$mensaje = str_replace("á", "&aacute;", $mensaje);
 			$mensaje = str_replace("é", "&eacute;", $mensaje);
 			$mensaje = str_replace("í", "&iacute;", $mensaje);
@@ -227,25 +227,28 @@
 
 			//mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);	
 			mail("guillermojoel.huerta.com", $mail_title, $mensaje, $headers);	
-																				
+																						
 			//mensaje para usuarios encargados del programa		
-			$mensaje_coord = '';																																																																																		
-			foreach ($usuarios_programas as $usuario){ 	
+			$mensaje_coord = '';	
+			if(!empty($usuarios_programas)){	
 
-				$to_coord_b = $usuario['email_1'];
-				$mensaje_coord .= "<br /><br />";
-				$mensaje_coord = "Tienes un nuevo <strong>preinscrito</strong> en el <strong>".$programas[0]->program_name."</strong>";
-				$mensaje_coord .= "<br /><br />";														
-				$mensaje_coord .= "Su nombre:<strong>".$nombre."&nbsp;".$a_paterno."</strong><br /><br />";
-				$mensaje_coord .= "Su correo electr&oacute;nico:<strong>".$correo."</strong><br /><br />";
-				$mensaje_coord .= "Para darle seguimiento visita la siguiente liga:";
-				$mensaje_coord .= "<br /><br />";
-				$mensaje_coord .= "<a href='http://www.dec-uia.com/s_preiniscritos/' target='_blank'>http://www.dec-uia.com/s_preiniscritos/</a>";
-				$mensaje_coord .= "<br /><br />donde podr&aacute;s llevar paso a paso el proceso de inscripci&oacute;n y tener un f&aacute;cil acceso a la informaci&oacute;n del usuario.";
-				$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$usuario['username']."</strong>";
-				$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$usuario['pass']."</strong>";
-				mail($to_coord_b, $mail_title, $mensaje_coord, $headers);
-			}																				
+				foreach($usuarios_programas as $usuario){ 	
+
+					$to_coord_b = $usuario['email_1'];
+					$mensaje_coord .= "<br /><br />";
+					$mensaje_coord = "Tienes un nuevo <strong>preinscrito</strong> en el <strong>".$programas[0]->program_name."</strong>";
+					$mensaje_coord .= "<br /><br />";														
+					$mensaje_coord .= "Su nombre:<strong>".$nombre."&nbsp;".$a_paterno."</strong><br /><br />";
+					$mensaje_coord .= "Su correo electr&oacute;nico:<strong>".$correo."</strong><br /><br />";
+					$mensaje_coord .= "Para darle seguimiento visita la siguiente liga:";
+					$mensaje_coord .= "<br /><br />";
+					$mensaje_coord .= "<a href='http://www.dec-uia.com/s_preiniscritos/' target='_blank'>http://www.dec-uia.com/s_preiniscritos/</a>";
+					$mensaje_coord .= "<br /><br />donde podr&aacute;s llevar paso a paso el proceso de inscripci&oacute;n y tener un f&aacute;cil acceso a la informaci&oacute;n del usuario.";
+					$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$usuario['username']."</strong>";
+					$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$usuario['pass']."</strong>";
+					mail($to_coord_b, $mail_title, $mensaje_coord, $headers);
+				}
+			}																															
 
 			$to_coord = "Ibero";				
 			$mensaje_user = 'Tu preinscripci&oacute;n al '.$programas[0]->program_name.' ha sido recibida';

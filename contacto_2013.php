@@ -98,27 +98,30 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	//mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);
 	mail("guillermojoel.huerta@gmail.com", $mail_title, $mensaje, $headers);
 
-	$mensaje_coord = '';									
-	foreach($usuarios_programas as $usuario){ 
+	$mensaje_coord = '';	
+	if(!empty($usuarios_programas)){
+																											
+		foreach($usuarios_programas as $usuario){ 
 
-		$to_coord_b = $usuario['email_1'];								
-		$mensaje_coord .= "<br /><br />";
-		$mensaje_coord = "Hay una nueva solicitud de informes para el <strong>".$programas[0]->program_name."</strong>";
-		$mensaje_coord .= "<br /><br />";				
-		$mensaje_coord .= "Para darle seguimiento visita la siguiente liga:";
-		$mensaje_coord .= "<br /><br />";
-		$mensaje_coord .= "<a href='http://www.dec-uia.com/s_preiniscritos/' target='_blank'>http://www.dec-uia.com/s_preiniscritos/</a>";
-		$mensaje_coord .= "<br /><br />donde podr&aacute;s llevar paso a paso el proceso de inscripci&oacute;n y tener un f&aacute;cil acceso a la informaci&oacute;n del usuario.";
-		$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$usuario['username']."</strong>";
-		$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$usuario['pass']."</strong>";
-		mail($to_coord_b, $mail_title, $mensaje_coord, $headers);															
-	}															 																																													
+			$to_coord_b = $usuario['email_1'];								
+			$mensaje_coord .= "<br /><br />";
+			$mensaje_coord = "Hay una nueva solicitud de informes para el <strong>".$programas[0]->program_name."</strong>";
+			$mensaje_coord .= "<br /><br />";				
+			$mensaje_coord .= "Para darle seguimiento visita la siguiente liga:";
+			$mensaje_coord .= "<br /><br />";
+			$mensaje_coord .= "<a href='http://www.dec-uia.com/s_preiniscritos/' target='_blank'>http://www.dec-uia.com/s_preiniscritos/</a>";
+			$mensaje_coord .= "<br /><br />donde podr&aacute;s llevar paso a paso el proceso de inscripci&oacute;n y tener un f&aacute;cil acceso a la informaci&oacute;n del usuario.";
+			$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$usuario['username']."</strong>";
+			$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$usuario['pass']."</strong>";
+			mail($to_coord_b, $mail_title, $mensaje_coord, $headers);															
+		}														
+	}													 																																													
 	//mail('pvazquezdiaz@gmail.com', $mail_title, $mensaje_coord, $headers);
 ?>									
 
 <script type="text/javascript">
 alert("Sus Datos han sido enviado satisfactoriamente");
-window.location = "index.php";
+//window.location = "index.php";						
 </script>
 
 <?php
