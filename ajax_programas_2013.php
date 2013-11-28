@@ -11,7 +11,7 @@
 	}																																																																																				
 
 	$stmt = $db->prepare("SELECT id_program,program_name,program_type from seg_dec_programas where (id_discipline='".$id_discipline."' OR id_discipline_alterna='".$id_discipline."')"); 
-    $stmt->execute();																																																						
+    $stmt->execute();																																																							
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);					
     $response .= '<select name="id_program" id="id_program" style="width:540px; max-width:540px;">
 		<option value="0" selected="selected" disabled="disabled">Selecciona un programa</option>';

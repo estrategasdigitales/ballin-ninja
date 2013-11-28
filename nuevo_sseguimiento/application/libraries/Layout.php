@@ -1,6 +1,5 @@
 <?php  
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-
 class Layout
 {
                 
@@ -11,7 +10,7 @@ class Layout
     {               
         $this->obj =& get_instance();
         $this->layout = 'layout_main';
-    }
+    }               
 
     function setLayout($layout)
     {
@@ -34,4 +33,4 @@ class Layout
         }
     }           
 }
-?> 
+?>

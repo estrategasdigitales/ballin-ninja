@@ -1,7 +1,9 @@
-
+      /*                         
 $(function() {
       $(document).tooltip();
-});                                                                      
+}); */
+   
+
 
 var filtro = {                          
                     
@@ -11,8 +13,10 @@ var filtro = {
       $("#filtro #id_discipline").on("change",filtro.get_tipos_programas); 
       $("#filtro #program_type").on("change",filtro.get_programas);
       $("#filtro #id_program").on("change",filtro.search_programa);
-  },                                                                                                                                                                                                                                                                                                                                                                                                                     
+  },       
 
+
+  
   get_tipos_programas:function()
   {              
       if($(this).val()!=0){             
@@ -119,14 +123,14 @@ var users = {
           $("#list").jqGrid({                                        
           url:base_url+'admin/users/jqGrid', 
           mtype : "post",   
-          datatype: "json",  
-          colNames:['Nombre','Rol de usuario','Editar','Notificación','Activo','Borrar'], 
-          colModel:[                                                                                                                                             
-              {name:'nombre',index:'nombre',width:150,align:'left'},                                                                                                                                                                                                           
+          datatype: "json",                             
+          colNames:['Usuario','Rol de usuario','Editar','Notificación','Activo','Borrar'], 
+          colModel:[                                                                                                                                               
+              {name:'username',index:'username',width:150,align:'left'},                                                                                                                                                                                                           
               {name:'rol',index:'rol',width:150,align:'left'},                                                                                                                                                                                                                            
               {name:'editar',search:false,sortable:false,align:'center',width:50,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
                 return "<a href='"+base_url+"admin/users/edit/" + options.rowId + "'><div class='ui-pg-div ui-inline-edit' onmouseout=\"jQuery(this).removeClass('ui-state-hover')\" onmouseover=\"jQuery(this).addClass('ui-state-hover');\"  style='display:inline-block;cursor:pointer;' title='Modificar fila seleccionada'><span class='ui-icon ui-icon-pencil'></span></div></a>";                            
-              }},                                                                                                                                                                                                                                                                                                                                                              
+              }},                                                                                                                                                                                                                                                                                                                                                                                                                                                      
               {name:'notificacion',search:false,sortable:false,align:'center',width:50,formatter:function(cellValue, options, rowdata, action){                   
                 var checked = (cellValue==1)?'checked':'';                                                                                                                                                          
                 return "<input type='checkbox' name='chk_notificacion' id='"+options.rowId+"' "+checked+">";                                       
@@ -188,16 +192,17 @@ var users = {
         $("#exportar").on("click",users.exportar);
         $("#list input[name=chk_notificacion]").live("click",users.update_notificacion);  
         $("#list input[name=chk_activo]").live("click",users.update_activo); 
-        $("#filtro_users #id_discipline").on("change",users.get_tipos_programas_ax); 
-        $("#filtro_users #program_type").on("change",users.get_programas_ax);
-        $("#tipo").on("change",users.tipo_usuario);                                                                                             
+        //$("#filtro_users #id_discipline").on("change",users.get_tipos_programas_ax); 
+        //$("#filtro_users #program_type").on("change",users.get_programas_ax);
+        $("#filtro_users #id_discipline").on("change",users.get_programas);
+        $("#tipo").on("change",users.tipo_usuario);                                                                                                                   
         $("#agregar_programas").on("click",users.agregar_programas);  
         $("#form_add_users").on("submit",users.add_users); 
         $("#form_update_users").on("submit",users.update_users);     
         $("#usuario_programas a").on("click",users.confirm_delete_programa); 
         $("#usuario_programas .new_program").live("click",users.delete_programa_new);
-    },					                             							
-      						      
+    },                                          
+                                                   					                             						 						      
     exportar:function()
     {																							
         $("#list").jqGrid('excelExport',{url:'excel/'});       
@@ -212,7 +217,7 @@ var users = {
         $("#programas").val(null);                                                         
       }else{                                                                    
         $("#agregar_programas").attr("disabled",false);
-      }                                                    
+      }                                                                       
     },                                                                                                                                                          
                   
     delete_programa_new:function(e)
@@ -220,11 +225,15 @@ var users = {
         e.preventDefault();
         var indice_array = $(this).attr("id"); 
         var programas = $.parseJSON($("#programas").val());
-        programas.splice(indice_array,1); 
+        console.log(programas[0].id_program);            
+        programas.splice(indice_array,1);
+                  
+        console.log(indice_array);  
+        console.log(programas);  
 
-        if(programas.length>0){                                                           
+        if(programas.length>0){                                                                    
           $("#programas").val(JSON.stringify(programas));
-        }else{                                                                                                     
+        }else{                                                                                                          
           $("#programas").val(null);  
         }                                                                                                                      
         $(this).parent().remove();            
@@ -278,33 +287,68 @@ var users = {
         });                            
     },                                                                                                           
 
+    /*
     agregar_programas:function()
     {                                                                                      
-          if($("#id_discipline").val()!=0 && $("#program_type").val()!=0 && $("#id_program").val()!=0)
-          {                             
+          if($("#id_discipline").val()!=0)
+          {                                                                 
             var base_url = $("#base_url").text()                                                                                                                
             var li  = $("<li></li>");                                                                                                    
             var div = $("<div id='"+users.indice_array+"' class='new_program'><a href='#'><img src='"+base_url+"includes/admin/images/delete.png'></a></div>");         
 
             var id_discipline  = $("#id_discipline option:selected").val();
             var id_program     = $("#id_program option:selected").val();
-            var option_program = $("#id_program option:selected").text(); 
+            var option_program = $("#id_program option:selected").text();
 
+            var programas_dis = $("#id_program");
+            //console.log(programas_dis);
+            //console.log(programas_dis[0].length);                     
+            //console.log(programas_dis[0].options[1].value);  
+                                                                           
             if($("#programas").val())
-            {          
+            {                              
+              var programas = $.parseJSON($("#programas").val());  
+                                                                                                                                                                       
+              if(id_program!=0){                                                
+                programas.push({"id_discipline": id_discipline, "id_program": id_program})                     
+                li.append(option_program);  
+                li.append(div);              
+                $("#usuario_programas ul").append(li);
+              }else{
 
-              var programas = $.parseJSON($("#programas").val());              
-              programas.push({"id_discipline": id_discipline, "id_program": id_program})                     
-              li.append(option_program);  
-              li.append(div);              
-              $("#usuario_programas ul").append(li);
+                $.each($("#id_program"), function(index, val) {
 
-            }else{                                                                
+                   console.log(index);    
+                   console.log(val);              
+                });                           
+              }  
 
-              var programas = [{"id_discipline": id_discipline, "id_program": id_program}];                      
-              li.append(option_program);   
-              li.append(div);                             
-              $("#usuario_programas ul").append(li);
+            }else{       
+
+              if(id_program!=0){ 
+
+                var programas = [{"id_discipline": id_discipline, "id_program": id_program}];                      
+                li.append(option_program);   
+                li.append(div);                             
+                $("#usuario_programas ul").append(li);
+
+              }else{        
+
+                $.each(programas_dis[0], function(index, val) {               
+                  console.log(val.value);       
+                  console.log(val.text); 
+                  var li  = $("<li></li>");                                                                                                                                                              
+                  var div = $("<div id='"+users.indice_array+"' class='new_program'><a href='#'><img src='"+base_url+"includes/admin/images/delete.png'></a></div>");         
+                  if(!$("#programas").val()){
+                    var programas = [{"id_discipline": id_discipline, "id_program": val.value}]; 
+                  }else{                                                                                  
+                    programas.push({"id_discipline": id_discipline, "id_program": val.value});                     
+                  }                                     
+                  li.append(val.text);  
+                  li.append(div);                                                                                                                                                              
+                  $("#usuario_programas ul").append(li);
+                });                                
+              }                 
                   
             }                     
                                                         
@@ -315,7 +359,67 @@ var users = {
             $("#program_type option[value=0]").attr("selected",true);
             $("#id_program option[value=0]").attr("selected",true);
           }                                                                                                                                                                 
-    },                                                  
+    },  */                                                
+
+    agregar_programas:function()
+    {                                                                                      
+          if($("#id_discipline").val()!=0)
+          {                                                                 
+            var base_url = $("#base_url").text()                                                                                                                
+            var li  = $("<li></li>");                                                                                                    
+            var div = $("<div id='"+users.indice_array+"' class='new_program'><a href='#'><img src='"+base_url+"includes/admin/images/delete.png'></a></div>");         
+
+            var id_discipline  = $("#id_discipline option:selected").val();
+            var id_program     = $("#id_program option:selected").val();
+            var option_program = $("#id_program option:selected").text();
+             
+            if($("#programas").val()){ 
+              var programas = $.parseJSON($("#programas").val());                                                                           
+            }             
+
+            if(id_program!=0){ 
+                                                                                                        
+                if($("#programas").val()){      
+                  var programas = $.parseJSON($("#programas").val());  
+                  programas.push({"id_discipline": id_discipline, "id_program": id_program})                     
+                }else{
+                  var programas = [{"id_discipline": id_discipline, "id_program": id_program}];                      
+                }                                                             
+                li.append(option_program);   
+                li.append(div);                             
+                $("#usuario_programas ul").append(li);
+                users.indice_array = users.indice_array+1;
+
+            }else{                              
+
+                var programas_dis = $("#id_program");
+                var num = 0;                                                                      
+                var programas = new Array();                                                                                        
+                $.each(programas_dis[0],function(index, val){               
+                  if(val.value!=0){                                         
+                    var li  = $("<li></li>");    
+                    //console.log(users.indice_array);                                                                                                                                                                         
+                    var div = $("<div id='"+users.indice_array+"' class='new_program'><a href='#'><img src='"+base_url+"includes/admin/images/delete.png'></a></div>");                                                        
+                    programas.push({"id_discipline": id_discipline, "id_program": val.value});                                                                                                                           
+                    //programas["indice_"+users.indice_array]={"id_discipline": id_discipline, "id_program": val.value};                                                                                                                           
+                    li.append(val.text);                                                               
+                    li.append(div);                                                                                                        
+                    num++;                                                                                                                                                                                                                                                                                                                                                                                                                 
+                    $("#usuario_programas ul").append(li);
+                    users.indice_array = users.indice_array+1; 
+                  }                                                                                                                             
+                });                                                                                                                       
+            }            
+
+            console.log(programas['id_program'].indexOf("2"));
+                                                                                    
+            programas = JSON.stringify(programas);                                                                                                                                                                  
+            $("#programas").val(bar);                                                                                                                                                                                                                                 
+            $("#id_discipline option[value=0]").attr("selected",true);
+            $("#program_type option[value=0]").attr("selected",true);
+            $("#id_program option[value=0]").attr("selected",true);
+          }                                                                                                                                                                 
+    },                                           
 
     add_users:function(e)
     {                                                       
@@ -375,6 +479,7 @@ var users = {
         });       
     },                              
 
+    /*
     get_tipos_programas_ax:function()
     {                                                                                               
         var url = $("#base_url").text()+"admin/users/get_tipos_programas_ax";
@@ -397,13 +502,12 @@ var users = {
             console.log(respuesta);            
           }                              
         });             
-    },                         
+    },   */                      
 
-    get_programas_ax:function()
-    {                                                   
-        var id_discipline = $("#id_discipline option:selected").val();             
-        var data = "program_type="+$(this).val()+"&id_discipline="+id_discipline;
-        var url = $("#base_url").text()+'admin/users/get_programas_ax';
+    get_programas:function()
+    {                                                                                         
+        var data = "id_discipline="+$(this).val();
+        var url = $("#base_url").text()+'admin/users/get_programas';
 
         $.ajax({                                         
             async:true,              
@@ -415,14 +519,14 @@ var users = {
             success:function(respuesta)    
             {                                                       
               $("#id_program").html(respuesta);         
-            },                                                             
+            },                                                                    
             timeout:4000,             
             error:function(respuesta)
             {                                                          
               console.log(respuesta);            
             }                                  
         });                 
-    },                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
                                          
     update_notificacion:function(e)
     {                                   
@@ -498,31 +602,31 @@ var preinscritos = {
                 cellValue = cellValue.split('|');		
                 if(cellValue[0]==1){                                   																							
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
-                  	if(cellValue[1]){																																																						
-                  		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
-                	}					   																																																														
+                  	if(cellValue[1]){                            																																																						
+                  		cell+="<div title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                	}		                			                                                                     																																																														
                 	return cell;											
-                }																								                                                     	        								        		        			                                  
+                }																					              			                                                     	        								        		        			                                  
                 return '';   								 																					                     
               }},                  						                                          		         				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
               {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');  
-                if(cellValue[0]==1){                                                                                                         																	
+                if(cellValue[0]==1){                                           
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
-                  	if(cellValue[1]){																																																						
-                  		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
-                	}																																																													
+                  	if(cellValue[1]){										                                													   																															
+                  		cell+="<div title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                	}                          																																																													
                 	return cell;											
-                }																								                                                     	        								        		        			                                  
-                return '';              			                  																			
+                }							                        																	                                                     	        								        		        			                                  
+                return '';                               			                  																			
               }},            
               {name:'envio_decse',index:'envio_decse',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                cellValue = cellValue.split('|');   
-                if(cellValue[0]==1){                                   																	
+                if(cellValue[0]==1){                                          																	
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
-                  	if(cellValue[1]){																																																										
-                  		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
-                	}																																																													
+                  	if(cellValue[1]){																		      																																								
+                  		cell+="<a href='' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></a>";
+                	}			                                              																																																										
                 	return cell;											
                 }																								                                                     	        								        		        			                                  
                 return '';                    
@@ -532,19 +636,19 @@ var preinscritos = {
                 if(cellValue[0]==1){                                   																	
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                   	if(cellValue[1]){																																																						
-                  		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  		cell+="<div class='comment_i' title='"+cellValue[1]+"' class='tooltip_a'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
                 	}																																																													
                 	return cell;											
                 }																								                                                     	        								        		        			                                  
                 return '';     																		                    
-              }},		
+              }},		                 
               {name:'pago_realizado',index:'pago_realizado',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
                 if(cellValue[0]==1){                                   																	
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                   	if(cellValue[1]){																																																										
-                  		cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
-                	}																																																													
+                  		cell+="<div class='comment_i' title='"+cellValue[1]+"' class='tooltip_a'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                	}							                                   																																																						
                 	return cell;											
                 }																								                                                     	        								        		        			                                  
                 return '';   						                      				

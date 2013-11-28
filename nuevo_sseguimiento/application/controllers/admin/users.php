@@ -5,10 +5,10 @@ class Users extends CI_Controller {
     public function __construct()
     {					                                                                                                                                                 
         parent::__construct();  
-        //$this->acceso();             
+        $this->acceso();             
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/users_model');  				                                                    
-    }                                                                                                                      			                   	                                                                                                                                                                                                                          
+    }                                                                                                                                                                    			                   	                                                                                                                                                                                                                          
 											
     private function acceso()
     {                           		                      
@@ -16,7 +16,7 @@ class Users extends CI_Controller {
         {                                                                                                               
               redirect('admin/no_acceso');             
         }                                                                                                                                                                                   
-    }        					        
+    }                                             					        
                                                                                                               		                                 		        												                                                                                                                                                                                                                                                                                                                                                                                                                               
     public function index()
     {                                    
@@ -30,12 +30,12 @@ class Users extends CI_Controller {
     }                                                                                          
                                                                                                                                                  
     public function jqGrid()    
-    {                                                                                                                                                                                  
+    {                                                                                                                                                                                                         
         $page  = ($this->input->post('page'))?$this->input->post('page'):1;    
         $limit = ($this->input->post('rows'))?$this->input->post('rows'):20;                                
         $sidx  = ($this->input->post('sidx'))?$this->input->post('sidx'):'user_uuid';                         
         $sord  = ($this->input->post('sord'))?$this->input->post('sord'):'desc';                         
-                                                                                                                                     
+                                                                                                                                                             
         if($this->input->post("_search") == "false")
         {                                                                                                         
            
@@ -74,10 +74,10 @@ class Users extends CI_Controller {
         $data->records = $total_users;
              
         if(!empty($users))
-        {                                                                                                                                                                                                                                                             
+        {                                                                                                                                                                                                                                                                                                                   
             foreach($users as $key => $user){               
                 $data->rows[$key]['id']   = $user->user_uuid;                                                                                                   
-                $data->rows[$key]['cell'] = array($user->nombre,$user->rol,img('includes/admin/images/application_edit.png'),$user->notificacion,$user->activo,"<a href='delete/$user->user_uuid'>".img('includes/admin/images/delete.png')."</a>");
+                $data->rows[$key]['cell'] = array($user->username,$user->rol,img('includes/admin/images/application_edit.png'),$user->notificacion,$user->activo,"<a href='delete/$user->user_uuid'>".img('includes/admin/images/delete.png')."</a>");
             }       
         }else{                                                                                                    
             $data->msg = msj('No existen registros.','message');                                                                 
@@ -133,18 +133,67 @@ class Users extends CI_Controller {
         }                                                                                                                                                                                                                       
     }                                              
 
-    public function get_programas_ax()
+    public function get_programas()
     {                                    
         if(!$this->input->is_ajax_request()){
             show_404();
-        }               
-                                                                             
-        $id_discipline = $this->input->post('id_discipline'); 
-        $program_type  = $this->input->post('program_type');
-        $data['programas'] = $this->users_model->get_programas($id_discipline,$program_type);
-                    
-        if(!empty($data['programas'])){     
-            $this->load->view('admin/users/programas_ax',$data);
+        }                                                        
+                                                               
+        $id_discipline = $this->input->post('id_discipline',true); 
+        $data['programas'] = $this->users_model->get_programas($id_discipline);
+                                                                                   
+        if(!empty($data['programas']))
+        {     
+            $response  = '';                                                                 
+            $response .= '<option value="0">Selecciona un programa</option>';                                                                               
+                                                                                                                                                                
+            foreach($data['programas'] as $value){                                                                                  
+
+                if($value->program_type=='diplomado'){
+                    $diplomado[]= '<option value="'.$value->id_program.'">'.$value->program_name.'</option>'; 
+                }           
+
+                if($value->program_type=='curso'){
+                    $curso[]= '<option value="'.$value->id_program.'">'.$value->program_name.'</option>'; 
+                }   
+
+                if($value->program_type=='programa'){
+                    $programa[]= '<option value="'.$value->id_program.'">'.$value->program_name.'</option>'; 
+                }    
+
+                if($value->program_type=='programahp'){                   
+                    $programahp[]= '<option value="'.$value->id_program.'">'.$value->program_name.'</option>'; 
+                }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+            }                                                                                                    
+
+            if(isset($diplomado))
+            {                                                                                                                                                       
+                $response.= '<option value="0" disabled="disabled">-----DIPLOMADO---</option>';   
+                $response.= implode(' ',$diplomado);                    
+            }               
+
+            if(isset($curso))
+            {                                                                   
+                $response.= '<option value="0" disabled="disabled">-----CURSO---</option>';   
+                $response.= implode(' ',$curso);                    
+            }                   
+
+            if(isset($programa))
+            {                                                                   
+                $response.= '<option value="0" disabled="disabled">-----PROGRAMA---</option>';    
+                $response.= implode(' ',$programa);                 
+            }                                       
+
+            if(isset($programahp))
+            {                                                                                                                                       
+                $response.= '<option value="0" disabled="disabled">-----PROGRAMAS HP---</option>';    
+                $response.= implode(' ',$programahp);                   
+            }                                                                                                                                
+
+            $response .= '</select>';
+
+            echo $response;                      
+
         }else{                          
             $this->load->view('admin/users/option_select',$data);
         }                                                                                                                                                 

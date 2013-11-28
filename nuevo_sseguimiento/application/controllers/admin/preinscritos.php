@@ -9,12 +9,12 @@ class Preinscritos extends CI_Controller
         $this->load->library('layout','layout_main');                                  
         $this->load->model('admin/preinscritos_model');
        	$this->acceso();                                                                   
-    }                   
+    }                      
 
     public function index()
-    {
+    {       
         $this->show();
-    }                            
+    }                                       
 
     public function show()
     {                                                                            

@@ -166,7 +166,7 @@ if (id_discipline=="")
   {
   document.getElementById('td_programas').innerHTML="";
   return;
-  }
+  }       
 if (window.XMLHttpRequest)
   {// code for IE7+, Firefox, Chrome, Opera, Safari
   xmlhttp=new XMLHttpRequest();
@@ -193,6 +193,7 @@ xmlhttp.send();
 </script>
 <!-- InstanceBeginEditable name="head" -->
 <script>
+    
 function simple_tooltip(target_items, name){
  $(target_items).each(function(i){
 		$("body").append("<div class='"+name+"' id='"+name+i+"'><p>"+$(this).attr('title')+"</p></div>");
@@ -206,7 +207,8 @@ function simple_tooltip(target_items, name){
 				my_tooltip.fadeOut(200);
 		});
 	});
-}
+}       
+
 $(document).ready(function() {
 	
 	simple_tooltip("a.tooltip_a","tooltip");

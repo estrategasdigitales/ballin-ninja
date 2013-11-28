@@ -1,12 +1,11 @@
 <?php
-
 class Preinscritos_model extends CI_Model
-{                                          
+{                                                          
     function __construct()
     {                                                                   
         parent::__construct();
         $this->load->database();
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 	
     public function total_preinscritos($user_uuid)
     {                                                                                                                                                                                                             
@@ -552,6 +551,4 @@ class Preinscritos_model extends CI_Model
             return FALSE;            
         }                                                                        
     }                                                                                                                 
-} 
-
-?>              
+}

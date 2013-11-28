@@ -1,5 +1,4 @@
-<?php
-    
+<?php 
 class Users_model extends CI_Model
 {                                          
     private $key = 'sistema_seguimiento';
@@ -8,29 +7,8 @@ class Users_model extends CI_Model
     {                                                                                  
         parent::__construct();
         $this->load->database();
-    }                                                                                                                                                                                          
+    }                                                                                                                                                                                                                
 
-	/*                     
-    public function acceso($username,$pass)
-    {                          
-        $this->db->select('usu.user_uuid,usu.nombre,usu.tipo,acc.users,acc.preinscritos,acc.inscritos,acc.casos_cerrados,acc.casos_inconclusos,acc.informes');               
-        $this->db->from('seg_dec_usuarios as usu');                                   
-        $this->db->join('seg_dec_accesos as acc','acc.id_role = usu.tipo', 'left');                                                 
-        $this->db->where('usu.username', $username);                      
-        $this->db->where("usu.pass", "AES_ENCRYPT('{$pass}','{$this->key}')",FALSE);
-        $this->db->where('usu.activo', 1); 
-        $query = $this->db->get();                                                                                          
-        if ($query->num_rows()>0)                                                                                                                             
-        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-             return $query->row();                             
-        }                                                                                                                                                                                                                                                                                                                 
-        else
-        {                                                                                                                                                                                 
-            return FALSE;            
-        }                                                                    
-    }    
-    */  
-	
 	public function acceso($username,$pass)
     {                                                                            							               
         $this->db->select('usu.user_uuid,usu.nombre,usu.tipo,acc.users,acc.preinscritos,acc.inscritos,acc.casos_cerrados,acc.casos_inconclusos,acc.informes,acc.graficas');               
@@ -69,10 +47,10 @@ class Users_model extends CI_Model
             return FALSE;            
         }                                                      
     }                                                                                                                                                                                                                   
-                                                       
+                                                                             
     public function show_users($start,$limit,$sidx,$sord)
-    {                                                                                                                                                                                                                                                  
-        $this->db->select('u.user_uuid,u.nombre,u.notificacion,u.activo,ur.rol');               
+    {                                                                                                                                                                                                                                                                             
+        $this->db->select('u.user_uuid,u.username,u.notificacion,u.activo,ur.rol');               
         $this->db->from('seg_dec_usuarios as u');                                                                                                                                                                               
         $this->db->join('seg_dec_usuarios_roles as ur','ur.id_tipo = u.tipo', 'left');
         $this->db->order_by($sidx,$sord);   
@@ -116,14 +94,14 @@ class Users_model extends CI_Model
         }                   
     }    
 
-    public function get_programas($id_discipline,$program_type)
-    {                                                                                                                                                                              
-        $this->db->select('id_program,program_name'); 
-        $this->db->where('id_discipline',$id_discipline); 
-        $this->db->where('program_type',$program_type);             
+    public function get_programas($id_discipline)
+    {                                                                                                                                                                                                                           
+        $this->db->select('id_program,program_type,program_name'); 
+        $this->db->where('id_discipline',$id_discipline);
+        $this->db->or_where('id_discipline_alterna',$id_discipline);             
         $query = $this->db->get('seg_dec_programas');
-        if ($query->num_rows()>0)                                                                                                                                           
-        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+        if ($query->num_rows()>0)                                                                                                                                                                       
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
              return $query->result();                             
         }                                                                                                                                                                                                                                                                                                                     
         else
@@ -163,7 +141,7 @@ class Users_model extends CI_Model
 
     public function search_users($search,$start,$limit,$sidx,$sord)
     {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-        $query = $this->db->query("select user_uuid,nombre,notificacion,activo,rol 
+        $query = $this->db->query("select user_uuid,username,notificacion,activo,rol 
                                   from seg_dec_usuarios 
                                   left join seg_dec_usuarios_roles on seg_dec_usuarios_roles.id_tipo=seg_dec_usuarios.tipo 
                                   ".$search."                       
@@ -302,7 +280,7 @@ class Users_model extends CI_Model
         {                                                                                                                                            
             return FALSE;            
         }                                                                                        
-    }           
+    }                   
 
     public function get_usuarios_programas($user_uuid)
     {              
@@ -325,8 +303,8 @@ class Users_model extends CI_Model
     }
 
     public function get_nombre_user($user_uuid)
-    {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-        $this->db->select('nombre');
+    {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+        $this->db->select('username');
         $this->db->from('seg_dec_usuarios');                
         $this->db->where('user_uuid',$user_uuid); 
         $query = $this->db->get();
@@ -338,7 +316,7 @@ class Users_model extends CI_Model
         {                                                                                                                                         
             return FALSE;            
         }                                                                                                       
-    }
+    }               
 
     public function checar_existe($user_uuid)
     {                                                                             
@@ -393,8 +371,8 @@ class Users_model extends CI_Model
     }                                                                                                                                                                                     
 
     public function excel($sidx,$sord)
-    {                                                                                                                                                                                                                                                                                                          
-        $this->db->select('u.nombre,u.notificacion,u.activo,ur.rol');               
+    {                                                                                                                                                                                                                                                                                                                                        
+        $this->db->select('u.username,u.notificacion,u.activo,ur.rol');               
         $this->db->from('seg_dec_usuarios as u');                                                                                                                                                                               
         $this->db->join('seg_dec_usuarios_roles as ur','ur.id_tipo = u.tipo', 'left');
         $this->db->order_by($sidx,$sord);                                                                                                                                                                                         
@@ -410,8 +388,8 @@ class Users_model extends CI_Model
     }                                      
 
     public function excel_search($search,$sidx,$sord)
-    {                                                                                                                                                                                                                                                                                                          
-         $query = $this->db->query("select user_uuid,nombre,notificacion,activo,rol 
+    {                                                                                                                                                                                                                                                                                                                                
+         $query = $this->db->query("select user_uuid,username,notificacion,activo,rol 
                                   from seg_dec_usuarios 
                                   left join seg_dec_usuarios_roles on seg_dec_usuarios_roles.id_tipo=seg_dec_usuarios.tipo 
                                   ".$search."                       

@@ -33,8 +33,8 @@
 	<div class="cont_left">
 		<div id="m_notificacion"><input type="checkbox" name="notificacion" value="1"><label>Este usuario recibirá notificaciones vía correo electrónico</label></div>
 		<div>																																
-			<input type="hidden" id="programas" name="programas">
-		</div>																
+			<input type="text" id="programas" name="programas">
+		</div>																										
 		<div id="filtro_users">
 		<p>
 			<label>Disciplinas: *</label>				
@@ -44,14 +44,8 @@
 				<option value="<?php echo $disciplina->id_discipline; ?>"  <?php echo set_select('id_discipline', $disciplina->id_discipline); ?>><?php echo $disciplina->discipline; ?></option>												
 				<?php } ?>																																																								
 			<select/>
-		</p>
-		<p>
-			<label>Tipo de programa: *</label>								
-			<select name="program_type" id="program_type">																																													
-				<option value="0">Selecciona el tipo de programa</option>																																																																																																																
-			<select/>
-		</p>
-		<p>
+		</p>								
+		<p>												
 			<label>Programas: *</label>								
 			<select name="id_program" id="id_program">																																													
 				<option value="0">Selecciona un programa</option>																																																																			
