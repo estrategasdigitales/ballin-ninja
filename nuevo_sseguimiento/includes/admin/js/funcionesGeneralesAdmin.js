@@ -9,7 +9,7 @@ $(document).bind('cbox_closed', function(){
   if(controller=="preinscritos"){                         
     $("#list_preinscritos").trigger("reloadGrid");
   }                                   
-  
+
   if(controller=="inscritos"){                         
     $("#list_inscritos").trigger("reloadGrid");
   }   
@@ -142,7 +142,7 @@ var filtro = {
 var users = {                                 
     indice_array:0,                                            
     onReady:function()
-    {                                                                                            
+    {                                                                                                    
       var base_url = $("#base_url").text();
           $("#list").jqGrid({                                        
           url:base_url+'admin/users/jqGrid', 
@@ -225,7 +225,7 @@ var users = {
         $("#form_update_users").on("submit",users.update_users);     
         $("#usuario_programas a").on("click",users.confirm_delete_programa); 
         $("#usuario_programas .new_program").live("click",users.delete_programa_new);
-    },                                          
+    },                                                    
                                                    					                             						 						      
     exportar:function()
     {																							
@@ -249,11 +249,7 @@ var users = {
         e.preventDefault();
         var indice_array = $(this).attr("id"); 
         var programas = $.parseJSON($("#programas").val());
-        console.log(programas[0].id_program);            
         programas.splice(indice_array,1);
-                  
-        console.log(indice_array);  
-        console.log(programas);  
 
         if(programas.length>0){                                                                    
           $("#programas").val(JSON.stringify(programas));
@@ -261,7 +257,7 @@ var users = {
           $("#programas").val(null);  
         }                                                                                                                             
         $(this).parent().remove();            
-    },                                                                                                                                                                                                                                            
+    },                                                                                                                                                                                                                                                       
             
     confirm_delete_programa:function(e)
     {                   
@@ -399,7 +395,7 @@ var users = {
              
             if($("#programas").val()){ 
               var programas = $.parseJSON($("#programas").val());                                                                           
-            }             
+            }                      
 
             if(id_program!=0){ 
                                                                                                         
@@ -422,12 +418,11 @@ var users = {
                 $.each(programas_dis[0],function(index, val){               
                   if(val.value!=0){                                         
                     var li  = $("<li></li>");    
-                    //console.log(users.indice_array);                                                                                                                                                                         
                     var div = $("<div id='"+users.indice_array+"' class='new_program'><a href='#'><img src='"+base_url+"includes/admin/images/delete.png'></a></div>");                                                        
                     programas.push({"id_discipline": id_discipline, "id_program": val.value});                                                                                                                           
                     //programas["indice_"+users.indice_array]={"id_discipline": id_discipline, "id_program": val.value};                                                                                                                           
                     li.append(val.text);                                                               
-                    li.append(div);                                                                                                        
+                    li.append(div);                                                                                                                   
                     num++;                                                                                                                                                                                                                                                                                                                                                                                                                 
                     $("#usuario_programas ul").append(li);
                     users.indice_array = users.indice_array+1; 
