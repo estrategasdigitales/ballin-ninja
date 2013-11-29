@@ -1,30 +1,54 @@
-      /*                         
 $(function() {
       $(document).tooltip();
-}); */
-   
+});     
 
+$(document).bind('cbox_closed', function(){ 
+
+  var controller = $("#controller").text(); 
+
+  if(controller=="preinscritos"){                         
+    $("#list_preinscritos").trigger("reloadGrid");
+  }                                   
+
+  if(controller=="inscritos"){                         
+    $("#list_inscritos").trigger("reloadGrid");
+  }   
+
+  if(controller=="casos_cerrados"){                         
+    $("#list_casos_cerrados").trigger("reloadGrid");
+  }                                                                            
+
+  if(controller=="casos_inconclusos"){                         
+    $("#list_casos_inconclusos").trigger("reloadGrid");
+  }                    
+
+  if(controller=="informes"){                                
+    $("#list_informes").trigger("reloadGrid");
+  }        
+});                                                    
 
 var filtro = {                          
-                    
+                           
   onReady:function()            
   {                                                                                   
       filtro.controller = $("#controller").text();              
       $("#filtro #id_discipline").on("change",filtro.get_tipos_programas); 
       $("#filtro #program_type").on("change",filtro.get_programas);
       $("#filtro #id_program").on("change",filtro.search_programa);
-  },       
+  },                    
 
-
-  
   get_tipos_programas:function()
-  {              
+  {                 
+      if($("#filtro #id_program").val()!=0){
+        $("#filtro #id_program option[value=0]").attr("selected",true);
+      }                                                                                                                                             
+
       if($(this).val()!=0){             
                               
       var url = $("#base_url").text()+"admin/"+filtro.controller+"/get_tipos_programas";
-      var data = "id_discipline="+$(this).val();                                                           
+      var data = "id_discipline="+$(this).val(); 
 
-      $.ajax({                                     
+      $.ajax({                                           
           async:true,              
           type:"POST",       
           dataType:"html",                    
@@ -178,12 +202,12 @@ var users = {
         }).navGrid('#pager',{edit:false,add:false,del:false,excel:true}, 
         {}, //  default settings for edit
         {}, //  default settings for add
-        {},  // delete instead that del:false we need this
+        {}, // delete instead that del:false we need this
         {searchOnEnter:true,closeOnEscape:true}, // search options
         {} /* view parameters*/               
         ).jqGrid('navButtonAdd',
         '#pager',																
-        { 
+        {             
           caption:"Exportar a Excel",
           buttonicon: "ui-icon-bookmark",
           onClickButton: this.exportar, position: "last"
@@ -235,7 +259,7 @@ var users = {
           $("#programas").val(JSON.stringify(programas));
         }else{                                                                                                          
           $("#programas").val(null);  
-        }                                                                                                                      
+        }                                                                                                                             
         $(this).parent().remove();            
     },                                                                                                                                                                                                                                            
             
@@ -600,43 +624,43 @@ var preinscritos = {
               {name:'codigo',index:'codigo',search:false,sortable:true,width:100,align:'left'},  
               {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');		
-                if(cellValue[0]==1){                                   																							
+                if(cellValue[0]==1){                                                                                     																							
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
-                  	if(cellValue[1]){                            																																																						
-                  		cell+="<div title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
-                	}		                			                                                                     																																																														
+                  	if(cellValue[1]){                                                       																																																						
+                  		cell+="<div title='"+$($.parseHTML(cellValue[1])).text()+"' class='comment_i'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                	}                                                                                                                                                                  	           	                			                                                                     																																																														
                 	return cell;											
                 }																					              			                                                     	        								        		        			                                  
                 return '';   								 																					                     
               }},                  						                                          		         				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
               {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');  
-                if(cellValue[0]==1){                                           
+                if(cellValue[0]==1){                                                   
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
-                  	if(cellValue[1]){										                                													   																															
-                  		cell+="<div title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
-                	}                          																																																													
-                	return cell;											
-                }							                        																	                                                     	        								        		        			                                  
+                  	if(cellValue[1]){	                                                                                                                                                                                                         									                                													   																															
+                  		cell+="<div title='"+$($.parseHTML(cellValue[1])).text()+"' class='comment_i'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                	}                                                                                                  																																																													
+                	return cell;										                   	
+                }						                         	                        																	                                                     	        								        		        			                                  
                 return '';                               			                  																			
-              }},            
+              }},                                    
               {name:'envio_decse',index:'envio_decse',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                cellValue = cellValue.split('|');   
-                if(cellValue[0]==1){                                          																	
+                if(cellValue[0]==1){  
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
-                  	if(cellValue[1]){																		      																																								
-                  		cell+="<a href='' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></a>";
-                	}			                                              																																																										
-                	return cell;											
+                  	if(cellValue[1]){ 
+                  		cell+="<div title='"+$($.parseHTML(cellValue[1])).text()+"' class='comment_i'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                	}                		                                                                                   	                                              																																																										
+                	return cell;						               					
                 }																								                                                     	        								        		        			                                  
                 return '';                    
-              }},
+              }},               
               {name:'envio_claves',index:'envio_claves',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
                 if(cellValue[0]==1){                                   																	
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
-                  	if(cellValue[1]){																																																						
-                  		cell+="<div class='comment_i' title='"+cellValue[1]+"' class='tooltip_a'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  	if(cellValue[1]){				            																																																		
+                  		cell+="<div title='"+$($.parseHTML(cellValue[1])).text()+"' class='comment_i'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
                 	}																																																													
                 	return cell;											
                 }																								                                                     	        								        		        			                                  
@@ -646,9 +670,9 @@ var preinscritos = {
                 cellValue = cellValue.split('|');   
                 if(cellValue[0]==1){                                   																	
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
-                  	if(cellValue[1]){																																																										
-                  		cell+="<div class='comment_i' title='"+cellValue[1]+"' class='tooltip_a'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
-                	}							                                   																																																						
+                  	if(cellValue[1]){				                        																																																						
+                  		cell+="<div title='"+$($.parseHTML(cellValue[1])).text()+"' class='comment_i'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                	}							                                               																																																						
                 	return cell;											
                 }																								                                                     	        								        		        			                                  
                 return '';   						                      				
@@ -669,7 +693,7 @@ var preinscritos = {
                     }                                
                  }                        
               },                                                                    
-          ],									                                                                                                                                                                                                                         
+          ],		          							                                                                                                                                                                                                                            
           rowNum:20,    							                        
           width: 970,                                    
           height: 200,                          
@@ -712,9 +736,9 @@ var preinscritos = {
   {																														
     $("#list_preinscritos").jqGrid('excelExport',{url:'excel/'});       
   },                    	           		                      
-		                                                                                                                                                                                                                                                                                                                                                 
+	       	                                                                                                                                                                                                                                                                                                                                                 
   edit:function(e)
-  {
+  {     
     e.preventDefault();
     $.colorbox({href:$(this).attr("href"),iframe:true, width:"850px", height:"90%"});
   }                                                                                                                 			                                                                                                                              
@@ -743,8 +767,8 @@ var inscritos = {
                 if(cellValue[0]==1){                                                                                 
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
-                  }                                                                                                                                               
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                                                          
                   return cell;                      
                 }                                                                                                                                                                                         
                 return '';                                                                                 
@@ -754,8 +778,8 @@ var inscritos = {
                 if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
-                  }                                                                                                                                      
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                                             
                   return cell;                      
                 }                                                                                                                                                                                         
                 return '';                                                                            
@@ -765,7 +789,7 @@ var inscritos = {
                 if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                                   
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
                   }                                                                                                                         
                   return cell;                      
                 }                                                                                                                                                                                         
@@ -776,7 +800,7 @@ var inscritos = {
                 if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
                   }                                                                                                                                              
                   return cell;                      
                 }                                                                                                                                                                                         
@@ -787,7 +811,7 @@ var inscritos = {
                 if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                                   
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
                   }                                                                                                                         
                   return cell;                      
                 }                                                                                                                                                                                         
@@ -882,19 +906,19 @@ var casos_cerrados = {
                 if(cellValue[0]==1){                                                                                 
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
-                  }                                                                                                                                     
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                                                                  
                   return cell;                      
                 }                                                                                                                                                                                         
                 return '';                                                                                 
-              }},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+              }},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
               {name:'documentos',index:'documentos',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');   
                 if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
-                  }                                                                                                                         
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                  }                                                                                                                                    
                   return cell;                      
                 }                                                                                                                                                                                         
                 return '';                                                                            
@@ -904,7 +928,7 @@ var casos_cerrados = {
                 if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                                   
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
                   }                                                                                                                         
                   return cell;                      
                 }                                                                                                                                                                                         
@@ -915,7 +939,7 @@ var casos_cerrados = {
                 if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
                   }                                                                                                                         
                   return cell;                      
                 }                                                                                                                                                                                         
@@ -926,7 +950,7 @@ var casos_cerrados = {
                 if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                                   
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
                   }                                                                                                                         
                   return cell;                      
                 }                                                                                                                                                                                         
@@ -1023,7 +1047,7 @@ var casos_inconclusos = {
                 if(cellValue[0]==1){                                                                                        
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
                   }                                                                                                                                     
                   return cell;                      
                 }                                                                                                                                                                                         
@@ -1034,7 +1058,7 @@ var casos_inconclusos = {
                 if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
                   }                                                                                                                         
                   return cell;                      
                 }                                                                                                                                                                                         
@@ -1045,7 +1069,7 @@ var casos_inconclusos = {
                 if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                                   
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
                   }                                                                                                                         
                   return cell;                      
                 }                                                                                                                                                                                         
@@ -1056,7 +1080,7 @@ var casos_inconclusos = {
                 if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
                   }                                                                                                                         
                   return cell;                      
                 }                                                                                                                                                                                         
@@ -1067,7 +1091,7 @@ var casos_inconclusos = {
                 if(cellValue[0]==1){                                                                     
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                                   
-                      cell+="<div class='comment_i' title='"+cellValue[1]+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
+                      cell+="<div class='comment_i' title='"+$($.parseHTML(cellValue[1])).text()+"'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
                   }                                                                                                                         
                   return cell;                      
                 }                                                                                                                                                                                         

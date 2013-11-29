@@ -7,17 +7,17 @@
     <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url('includes/jqGrid/css/ui.jqgrid.css'); ?>" />								 		   		  	  
     <link rel="stylesheet" href="<?php echo base_url('includes/admin/css/colorbox.css'); ?>" media="screen">				                                                                                                                                                             
     <link rel="stylesheet" href="<?php echo base_url('includes/admin/css/estilos.css'); ?>" media="screen">                                                               			  					                                                                 
-	                                                                                      				
-    <script src="<?php echo base_url('includes/art/jquery.js'); ?>"></script>
-    <!--<script src="<?php echo base_url('includes/jqGrid/js/jquery-1.7.2.min.js'); ?>" type="text/javascript"></script>--> 
+	                                                                                                                                                                            				
+    <script src="<?php echo base_url('includes/art/jquery.js'); ?>"></script>       
+    <!--<script src="<?php echo base_url('includes/jqGrid/js/jquery-1.7.2.min.js'); ?>" type="text/javascript"></script>-->
 	<script src="<?php echo base_url('includes/admin/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js'); ?>" type="text/javascript"></script>
     <script src="<?php echo base_url('includes/admin/js/jquery.colorbox.js'); ?>" type="text/javascript"></script>
-    <script src="<?php echo base_url('includes/admin/js/jquery.validate.js'); ?>" type="text/javascript"></script>                                
-    <script src="<?php echo base_url('includes/admin/js/funcionesGeneralesAdmin.js'); ?>" type="text/javascript"></script>
+    <script src="<?php echo base_url('includes/admin/js/jquery.validate.js'); ?>" type="text/javascript"></script>                                                     
+    <script src="<?php echo base_url('includes/jqGrid/js/i18n/grid.locale-es.js'); ?>" type="text/javascript"></script>                                                                                                                                           
     <script src="<?php echo base_url('includes/jqGrid/js/jquery.jqGrid.min.js'); ?>" type="text/javascript"></script> 
-    <script src="<?php echo base_url('includes/jqGrid/js/i18n/grid.locale-es.js'); ?>" type="text/javascript"></script>                                                                                                      
+    <script src="<?php echo base_url('includes/admin/js/funcionesGeneralesAdmin.js'); ?>" type="text/javascript"></script>
 
-    <script>                        
+    <script>                                                                                                                                                                                              
         $(document).ready(function(){
             //Examples of how to assign the ColorBox event to elements
             $(".group1").colorbox({iframe:true, width:"850px", height:"90%"});

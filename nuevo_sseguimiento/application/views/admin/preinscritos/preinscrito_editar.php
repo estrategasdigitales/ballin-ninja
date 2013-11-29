@@ -14,9 +14,9 @@
 	echo isset($msj)?$msj:''; 
 	echo validation_errors(); 
 	?>											
-</div>																									
+</div>																																			
 <?php echo form_open_multipart('admin/preinscritos/update',array('id'=>'form_edit_preinscrito')); ?>
-<div>																																																																					
+<div>																																																																														
 	<div id="datos_programa">
 		<h1>Programa:</h1>
 		<h2><?php echo $program_name; ?></h2>
@@ -118,16 +118,16 @@
 				<div id="estatus_pago_realizado" style="display:none;"><textarea name="comment_pagorealizado"><?php echo $comment_pagorealizado; ?></textarea></div>	
 			</td>
 		</tr>	
-	</table>
-</div>																																																																																				
-<div id="clasificar_aspirante">		
-	<h1>Clasificación del aspirante</h1>
-	<p><input type="checkbox" value="1" name="caso_cerrado"  id="caso_cerrado" <?php echo ($caso_cerrado==1)?"checked":""; ?>><label>Caso cerrado</label></p>										 
-	<p><input type="checkbox" value="1" name="caso_inconcluso"  id="caso_inconcluso" <?php echo ($caso_inconcluso==1)?"checked":""; ?>><label>Caso inconcluso</label></p>										 
-	<p><input type="checkbox" value="1" name="informes"  id="informes" <?php echo ($informes==1)?"checked":""; ?>><label>Informes</label></p>										 
-	<p><input type="checkbox" value="1" name="atendido"  id="atendido" <?php echo ($atendido==1)?"checked":""; ?>><label>Atendido</label></p>										 
-
-	<h2>Comentario general</h2>																
+	</table>	
+</div>																																																																																																		
+<div id="clasificar_aspirante">														
+	<h1>Clasificación del aspirante</h1>																																																																
+	<p><input type="radio" value="caso_cerrado" name="clasificacion" id="caso_cerrado" <?php echo ($caso_cerrado==1)?"checked":""; ?>><label>Caso cerrado</label></p>										 
+	<p><input type="radio" value="caso_inconcluso" name="clasificacion"  id="caso_inconcluso" <?php echo ($caso_inconcluso==1)?"checked":""; ?>><label>Caso inconcluso</label></p>										 
+	<h2>Informes</h2>																																																																																																	
+	<p><input type="checkbox" value="1" name="informes" id="informes" <?php echo ($informes==1)?"checked":""; ?>><label>Informes</label></p>										 
+	<p><input type="checkbox" value="1" name="atendido" id="atendido" <?php echo ($atendido==1)?"checked":""; ?>><label>Atendido</label></p>										 		
+	<h2>Comentario general</h2>																								
 	<p><a href="#" rel="comentarios_comentario_general">Añadir / editar comentario general</a></p>			
 	<div id="comentarios_comentario_general" style="display:none;"><textarea name="comentario_general"><?php echo $comentario_general; ?></textarea></div>
 </div>	

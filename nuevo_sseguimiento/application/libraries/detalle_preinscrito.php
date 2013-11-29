@@ -101,8 +101,9 @@ class Detalle_preinscrito
             $data['documentos'] = $preinscrito->documentos; 
             $data['envio_decse'] = $preinscrito->envio_decse; 
             $data['envio_claves'] = $preinscrito->envio_claves; 
-            $data['pago_realizado'] = $preinscrito->pago_realizado; 
 
+
+            $data['pago_realizado'] = $preinscrito->pago_realizado; 
             $data['caso_cerrado'] = $preinscrito->caso_cerrado; 
             $data['caso_inconcluso'] = $preinscrito->caso_inconcluso;
             $data['informes'] = $preinscrito->informes;
@@ -192,18 +193,28 @@ class Detalle_preinscrito
         $data['envio_claves'] = $this->CI->input->post('envio_claves'); 
         $data['pago_realizado'] = $this->CI->input->post('pago_realizado'); 
 
+                                                                            
         $data['comment_primercontacto'] =  $this->CI->input->post('comment_primercontacto');
         $data['comment_documentos'] =  $this->CI->input->post('comment_documentos');
         $data['comment_decse'] =  $this->CI->input->post('comment_decse');
         $data['comment_envioclaves'] =  $this->CI->input->post('comment_envioclaves');
         $data['comment_pagorealizado'] =  $this->CI->input->post('comment_pagorealizado');
 
-        $data['caso_cerrado'] = $this->CI->input->post('caso_cerrado'); 
-        $data['caso_inconcluso'] = $this->CI->input->post('caso_inconcluso');
-        $data['informes'] = $this->CI->input->post('informes');
+        $clasificacion = $this->CI->input->post('clasificacion'); 
+
+        $data['caso_cerrado']    = 0; 
+        $data['caso_inconcluso'] = 0;
+
+        if($clasificacion == 'caso_cerrado'){
+            $data['caso_cerrado']  = 1;   
+        }        
+
+        if($clasificacion == 'caso_inconcluso'){
+            $data['caso_inconcluso']  = 1;    
+        }                                                                     
+
+        $data['informes'] = $this->CI->input->post('informes');             
         $data['atendido'] = $this->CI->input->post('atendido'); 
-
-
         $data['comentario_general'] = $this->CI->input->post('comentario_general',TRUE);                       
 
         $data['program_name'] = $this->CI->preinscritos_model->get_program_name($data['id_preinscrito'])->program_name;                                                                                                      
@@ -240,7 +251,7 @@ class Detalle_preinscrito
                 $data['comment_update'][] = array('id_comentario'=>$id_comentario,'comentario'=>$data['comment_decse'],'fecha'=>date('Y-m-d'));      
             }else{                  
                 $data['comment_insert'][] = array('id_preinscrito'=>$data['id_preinscrito'],'id_paso'=>3,'comentario'=>$data['comment_decse'],'fecha'=>date('Y-m-d'));      
-            }                                                                       
+            }                                                                                              
 
             if($id_comentario = $this->get_id_comentario($data['id_preinscrito'],4)){
                 $data['comment_update'][] = array('id_comentario'=>$id_comentario,'comentario'=>$data['comment_envioclaves'],'fecha'=>date('Y-m-d'));      

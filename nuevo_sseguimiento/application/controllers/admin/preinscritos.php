@@ -17,7 +17,7 @@ class Preinscritos extends CI_Controller
     }                                       
 
     public function show()
-    {                                                                            
+    {                                                                                                 
         $data['filtro'] = true; 
 
         if($this->accesos->admin()){                                                                                                                 
@@ -129,11 +129,11 @@ class Preinscritos extends CI_Controller
                         
                         if($value->id_paso==2){
                             $pasos['documentos'] = $value->comentario;   
-                        }              
-                        
+                        }                                     
+                                        
                         if($value->id_paso==3){
                             $pasos['envio_decse'] = $value->comentario;   
-                        }                               
+                        }                                                                                                    
                         
                         if($value->id_paso==4){
                             $pasos['envio_claves'] = $value->comentario;  

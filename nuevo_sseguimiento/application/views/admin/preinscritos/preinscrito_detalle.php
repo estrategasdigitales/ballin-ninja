@@ -120,18 +120,19 @@
 			</tr>	
 		</table>																								
 	</div>																																																																																																	
-	<div id="clasificar_aspirante">
-		<h1>Clasificación del aspirante</h1>																													
-		<p><input type="checkbox" name="caso_cerrado"  id="caso_cerrado" <?php echo ($preinscrito->caso_cerrado==1)?"checked":""; ?> disabled="disabled"><label>Caso cerrado</label></p>									 
-		<p><input type="checkbox" name="caso_inconcluso"  id="caso_inconcluso" <?php echo ($preinscrito->caso_inconcluso==1)?"checked":""; ?> disabled="disabled"><label>Caso inconcluso</label></p>									 
-		<p><input type="checkbox" name="informes"  id="informes" <?php echo ($preinscrito->informes==1)?"checked":""; ?> disabled="disabled"><label>Informes</label></p>
+	<div id="clasificar_aspirante">														
+		<h1>Clasificación del aspirante</h1>																				
+		<p><input type="radio" name="clasificacion"  id="caso_cerrado" <?php echo ($preinscrito->caso_cerrado==1)?"checked":""; ?> disabled="disabled"><label>Caso cerrado</label></p>									 
+		<p><input type="radio" name="clasificacion"  id="caso_inconcluso" <?php echo ($preinscrito->caso_inconcluso==1)?"checked":""; ?> disabled="disabled"><label>Caso inconcluso</label></p>									 
+		<h2>Informes</h2>													
+		<p><input type="checkbox" name="clasidicacion"  id="informes" <?php echo ($preinscrito->informes==1)?"checked":""; ?> disabled="disabled"><label>Informes</label></p>
 		<p><input type="checkbox" name="atendido"  id="atendido" <?php echo ($preinscrito->atendido==1)?"checked":""; ?> disabled="disabled"><label>Atendido</label></p>									 
-		<h2>Comentario general</h2>																																							
+		<h2>Comentario general</h2>																																																										
 		<p><a href="#" rel="comentarios_comentario_general">Añadir / editar comentario general</a></p>						
 		<div id="comentarios_comentario_general" style="display:none;">
 			<textarea name="comentario_general"><?php echo $preinscrito->comentario_general; ?></textarea>
-		</div>
-	</div>
+		</div>														
+	</div>									
 	<div class="clear"></div>					
 	<div id="button_editar">																																																																																																																																																																																																																																															
 		<a href="<?php echo base_url("admin/preinscritos/editar/".$preinscrito->id_preinscrito); ?>">editar</a>															

@@ -1,12 +1,11 @@
-<?php
-                    
+<?php                         
 class Informes_model extends CI_Model
-{                                                             
+{                                                                            
     function __construct()
     {                                                                                      
         parent::__construct();
         $this->load->database();
-    }                                                                                                                                                                                                                                               
+    }                                                                                                                                                                                                                                                                                                    
 
     public function total_informes($user_uuid)
     {                                                                                                             
@@ -233,7 +232,6 @@ class Informes_model extends CI_Model
         else
         {                                                                                                                                                                                                            
             return FALSE;            
-        }                                                                                                  
-    }                                                                    
-} 
-?>              
+        }                                                                                                                                 
+    }                                                                                       
+}                 
