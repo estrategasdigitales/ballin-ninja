@@ -13,9 +13,12 @@
 <div id="preinscrito_detalle">					
 	<div id="datos_programa">
 		<h1>Programa:</h1>
-		<h2><?php echo $preinscrito->program_name; ?></h2>
+		<h2><?php echo $preinscrito->program_name; ?>
+			<div id="button_editar2">																																																																																																																																																																																																																																																																																														
+			<a href="<?php echo base_url("admin/preinscritos/editar/".$preinscrito->id_preinscrito); ?>">editar</a>															
+			</div>							
+		</h2>																																	
 	</div>								
-
 	<div id="datos_generales">																																																																														
 		<h1>Datos del interesado:</h1>			
 		<p><strong>Nombre Completo:</strong> <?php echo $preinscrito->nombre.' '.$preinscrito->a_paterno.' '.$preinscrito->a_materno; ?></p>		
@@ -42,8 +45,8 @@
 		<p><strong>Dirección de la empresa: </strong> <?php echo $preinscrito->direccion_empresa; ?></p>
 		<p><strong>Teléfono de la empresa: </strong> <?php echo $preinscrito->telefono_empresa; ?></p>																				 																																			
 	</div>
-	<div id="subir_documentos">				
-		<h1>Documentos :</h1>										
+	<div id="subir_documentos">										
+		<h1>Documentos :</h1>																			
 		<?php
 			 if(!empty($archivos)){
 

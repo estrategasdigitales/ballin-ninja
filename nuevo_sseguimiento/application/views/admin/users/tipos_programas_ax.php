@@ -1,5 +1,5 @@
-		<option value="0">Selecciona el tipo de programa</option>	
-		<?php 																																										
+		<option value="0">Todos los programas</option>	
+		<?php 																																																	
 			foreach($tipos_programas as $tipo_programa)
 			{																													
 		?>				

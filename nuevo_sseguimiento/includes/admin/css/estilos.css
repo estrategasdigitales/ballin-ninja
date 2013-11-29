@@ -417,7 +417,7 @@ div.sep{
 
 #datos_programa{		
 	margin-bottom:15px;	
-	width: 100%;						
+	width: 100%;												
 }	
 
 #datos_generales{	
@@ -467,7 +467,19 @@ div.sep{
 	text-align: center;	
 	margin: 30px auto;	
 	background: #F00;									
-}							
+}																						
+
+#button_editar2{															
+	clear: both;
+	width:70px;																
+	display:inline-block;				
+	text-align: center;	
+	background: #F00;								
+}																																														
+
+#button_editar2 a{		
+	color: white;									
+}				
 
 #button_editar a{		
 	color: white;									
@@ -523,9 +535,4 @@ div.sep{
     background-color:#F00;
     padding:5px;
 	border-radius:5px;
-}																		
-
-
-
-
-														
+}																															

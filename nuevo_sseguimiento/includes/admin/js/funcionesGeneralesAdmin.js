@@ -9,7 +9,7 @@ $(document).bind('cbox_closed', function(){
   if(controller=="preinscritos"){                         
     $("#list_preinscritos").trigger("reloadGrid");
   }                                   
-
+  
   if(controller=="inscritos"){                         
     $("#list_inscritos").trigger("reloadGrid");
   }   

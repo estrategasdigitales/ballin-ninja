@@ -20,7 +20,7 @@
 	<div id="datos_programa">
 		<h1>Programa:</h1>
 		<h2><?php echo $program_name; ?></h2>
-	</div>								 								
+	</div>														 								
 	<div id="datos_generales">						
 		<h1>Datos del interesado:</h1>																														
 		<p><input type="hidden" name="id_preinscrito" value="<?php echo $id_preinscrito; ?>"></p>																																																																																				
@@ -139,7 +139,7 @@
 				<div id="button_cancelar">																																																																																																																																																																																																																																																																																																				
 					<a href="<?php echo base_url("admin/preinscritos/detalle/".$id_preinscrito); ?>">Cancelar</a>												
 				</div>
-			</td>
+			</td>				
 			<td>
 				<input type="submit" name="enviar" id="button_guardar" class="boton_general" value="Guardar">	
 			</td>

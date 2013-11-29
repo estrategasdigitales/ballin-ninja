@@ -205,13 +205,15 @@ class Detalle_preinscrito
         $data['caso_cerrado']    = 0; 
         $data['caso_inconcluso'] = 0;
 
-        if($clasificacion == 'caso_cerrado'){
+        if($clasificacion == 'caso_cerrado')
+        {
             $data['caso_cerrado']  = 1;   
         }        
 
-        if($clasificacion == 'caso_inconcluso'){
+        if($clasificacion == 'caso_inconcluso')
+        {
             $data['caso_inconcluso']  = 1;    
-        }                                                                     
+        }                                                                                                                      
 
         $data['informes'] = $this->CI->input->post('informes');             
         $data['atendido'] = $this->CI->input->post('atendido'); 
