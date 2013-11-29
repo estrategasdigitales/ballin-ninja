@@ -14,7 +14,7 @@
 	<div id="datos_programa">
 		<h1>Programa:</h1>
 		<h2><?php echo $preinscrito->program_name; ?>
-			<div id="button_editar2">																																																																																																																																																																																																																																																																																														
+			<div id="button_editar2">																																																																																																																																																																																																																																																																																															
 			<a href="<?php echo base_url("admin/preinscritos/editar/".$preinscrito->id_preinscrito); ?>">editar</a>															
 			</div>							
 		</h2>																																	

@@ -392,19 +392,20 @@ var users = {
             var id_discipline  = $("#id_discipline option:selected").val();
             var id_program     = $("#id_program option:selected").val();
             var option_program = $("#id_program option:selected").text();
-             
+            
+               
             if($("#programas").val()){ 
               var programas = $.parseJSON($("#programas").val());                                                                           
-            }                      
+            }                           
 
             if(id_program!=0){ 
                                                                                                         
                 if($("#programas").val()){      
                   var programas = $.parseJSON($("#programas").val());  
                   programas.push({"id_discipline": id_discipline, "id_program": id_program})                     
-                }else{
+                }else{    
                   var programas = [{"id_discipline": id_discipline, "id_program": id_program}];                      
-                }                                                             
+                }                                                                
                 li.append(option_program);   
                 li.append(div);                             
                 $("#usuario_programas ul").append(li);
@@ -599,9 +600,9 @@ var users = {
 }   
 
 var preinscritos = {
-				    										
+  				    										
   onReady:function()
-  {                    		 										
+  {        
       var base_url = $("#base_url").text();
       jQuery("#list_preinscritos").jqGrid({                                                  
           url:base_url+'admin/preinscritos/jqGrid', 
