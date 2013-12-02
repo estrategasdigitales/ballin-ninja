@@ -7,7 +7,7 @@ class Users_model extends CI_Model
     {                                                                                  
         parent::__construct();
         $this->load->database();
-    }                                                                                                                                                                                                                
+    }                                                                                                                                                                                                                                       
 
 	public function acceso($username,$pass)
     {                                                                            							               
@@ -180,9 +180,9 @@ class Users_model extends CI_Model
                 
         $programas = $this->array_programas($user_uuid,$data['users_programas']); 
                       
-        if(!empty($programas)){                       
-            
-            $this->db->insert_batch('seg_dec_usuarios_programas', $programas);                                                                                                 
+        if(!empty($programas))
+        {                                                  
+            $this->db->insert_batch('seg_dec_usuarios_programas',$programas);                                                                                                 
         }                                                                                                   
 
         $this->db->trans_complete();
@@ -228,7 +228,7 @@ class Users_model extends CI_Model
     }    
 
     public function update_user($data)
-    {                           
+    {                                         
         $this->db->trans_start();
 
         $this->db->set('tipo',$data['tipo']);                                                                                                                                                                                                                                                                                                               
@@ -244,21 +244,70 @@ class Users_model extends CI_Model
         $this->db->where('user_uuid', $data['user_uuid']);                                      
         $this->db->update('seg_dec_usuarios'); 
 
-        if(!empty($data['programas'])){                                                    
-            $programas = $this->array_programas($data['user_uuid'],$data['programas']);                                
+        if(!empty($data['programas']))
+        {                                                                                                                                                            
+            $programas = $this->array_programas($data['user_uuid'],$data['programas']);                                     
             $this->db->insert_batch('seg_dec_usuarios_programas', $programas);    
-        }                                                                        
+        }                                                                                                                                                                                                                                                                                                                                                                      
 
         $this->db->trans_complete();
         if($this->db->trans_status() === FALSE)
-        {                                                                                                
+        {                                                                                                                       
             return FALSE;
         }else
-        {                                                                                           
+        {                                                                                                                                
             return TRUE; 
-        }                                                                                                                 
-    }     
-                                                                                                                                                                          
+        }                                                                                                                                                                                     
+    }      
+
+    public function array_programas_update($user_uuid,$programas,$users_programas)
+    {                               
+        if(!empty($programas)){                 
+
+            $count_pro = count($programas); 
+            $count_up  = count($users_programas);
+
+            for($a=0;$a<$count_pro;$a++){
+
+                $x = false;                                         
+                $id_program = $programas->id_program[$a];
+
+                for($b=0;$b<$count_up;$b++){
+
+                    if($id_program==$users_programas->id_program[$b]){
+                          $x=true;  
+                    }
+                }
+            }                                                                                                                                                          
+
+            if($x==false){
+                $data[] = array("user_uuid"=>$user_uuid,"id_discipline"=>$users_programas->id_discipline[$b],"id_program"=>$users_programas->id_program[$b]);
+            }                                                                               
+                                                                                                                                                                                                                                                                                                                                    
+            $data = array_values(array_unique($data,SORT_REGULAR));                                                                                                                                                                                       
+        }else{                                                                                                                        
+            $data='';                   
+        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+        return $data;                                                                                                                                                                                                                                                                                                                                                             
+    }                                                                                           
+
+    public function get_user_programas($user_uuid)
+    {                
+        $this->db->select('up.id_program');
+        $this->db->from('seg_dec_usuarios_programas as up');                                         
+        $this->db->where('up.user_uuid',$user_uuid);                                                 
+        $query = $this->db->get();                                                                                                                                                                 
+        if ($query->num_rows()>0)                                                                                         
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+            return $query->result();                             
+        }                                                                                                                                                                                                                                                                                                                                               
+        else
+        {                                                                                                                                                                                
+            return FALSE;            
+        }           
+    }    
+                                                 
+                                                                                                                                                                                                  
     public function get_user_uuid($id)
     {                                                                                                                                                                                                                       
         $this->db->select('user_uuid');

@@ -16,7 +16,7 @@ class Users extends CI_Controller {
         {                                                                                                               
               redirect('admin/no_acceso');             
         }                                                                                                                                                                                   
-    }                                             					        
+    }                                                                                      					        
                                                                                                               		                                 		        												                                                                                                                                                                                                                                                                                                                                                                                                                               
     public function index()
     {                                    
@@ -351,9 +351,9 @@ class Users extends CI_Controller {
     }                                                               
 
     public function update()
-    {                                                                                                                               
+    {                                                                                                                                        
         $this->load->library('form_validation');
-
+                    
         $this->form_validation->set_rules('tipo','Tipo de usuario','required|callback_tipo_usuario_check');                                                                                   
         $this->form_validation->set_rules('username','Usernamme','required');
         $this->form_validation->set_rules('pass','Password','required|matches[repass]'); 
@@ -379,8 +379,8 @@ class Users extends CI_Controller {
         $data['descripcion']   = $this->input->post('descripcion',true);
         $data['notificacion']  = $this->input->post('notificacion',true);
         $programas = $this->input->post('users_programas',true); 
-        $data['programas'] = json_decode($programas);                                     
-                            
+        $data['programas'] = json_decode($programas);      
+                                                                                                                                                                                          
         if($this->form_validation->run() == FALSE)        
         {                                                                                          
             echo json_encode(array("success" => false, "msg" =>msj(validation_errors(),'error')));

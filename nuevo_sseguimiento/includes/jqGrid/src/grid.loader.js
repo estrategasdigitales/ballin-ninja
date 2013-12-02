@@ -3,8 +3,8 @@ function jqGridInclude()
 {
     var pathtojsfiles = "js/"; // need to be ajusted
     // set include to false if you do not want some modules to be included
-    var modules = [
-        { include: true, incfile:'i18n/grid.locale-en.js'}, // jqGrid translation
+    var modules = [                                                                                         
+        { include: true, incfile:'i18n/grid.locale-es.js'}, // jqGrid translation
         { include: true, incfile:'grid.base.js'}, // jqGrid base
         { include: true, incfile:'grid.common.js'}, // jqGrid common for editing
         { include: true, incfile:'grid.formedit.js'}, // jqGrid Form editing
@@ -21,7 +21,7 @@ function jqGridInclude()
         { include: true, incfile:'grid.jqueryui.js'}, //jQuery UI utils
         { include: true, incfile:'grid.filter.js'} // filter Plugin
     ];
-    var filename;
+    var filename;                   
     for(var i=0;i<modules.length; i++)
     {
         if(modules[i].include === true) {

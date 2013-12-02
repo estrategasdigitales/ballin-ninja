@@ -1,5 +1,4 @@
 <?php
-
 class Casos_cerrados_model extends CI_Model
 {                   							                                          
     function __construct()
@@ -400,8 +399,6 @@ class Casos_cerrados_model extends CI_Model
             return $query->result();
         }else{                  
             return FALSE;
-        }                                 
+        }                                               
     }                                                                       		                                                                                                                                                                              
-} 
-
-?>              
+}         

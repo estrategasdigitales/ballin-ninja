@@ -1,6 +1,20 @@
 $(function() {
-      $(document).tooltip();
-});     
+        
+  $(document).tooltip();
+
+  /*
+  $.jgrid.search = {
+    caption: "Search...",
+    Find: "Find",
+    Reset: "Reset",
+    odata : ['equalx', 'not equalx', 'lessx', 'less or equal','greater','greater or equal', 'begins with','does not begin with','is in','is not in','ends with','does not end with','contains','does not contain'],
+    groupOps: [ { op: "AND", text: "all" }, { op: "OR", text: "any" } ],
+    matchText: " match",                          
+    rulesText: " rules"     
+  };                          
+  $.extend($.jgrid.search);
+  */                      
+});                                                                                        
 
 $(document).bind('cbox_closed', function(){ 
 
@@ -150,9 +164,9 @@ var users = {
           mtype : "post",   
           datatype: "json",                             
           colNames:['Usuario','Rol de usuario','Editar','Notificación','Activo','Borrar'], 
-          colModel:[                                                                                                                                               
-              {name:'username',index:'username',width:150,align:'left'},                                                                                                                                                                                                           
-              {name:'rol',index:'rol',width:150,align:'left'},                                                                                                                                                                                                                            
+          colModel:[                                                                                                                                                                                          
+              {name:'username',index:'username',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:150,align:'left'},                                                                                                                                                                                                           
+              {name:'rol',index:'rol',width:150,searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},align:'left'},                                                                                                                                                                                                                            
               {name:'editar',search:false,sortable:false,align:'center',width:50,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
                 return "<a href='"+base_url+"admin/users/edit/" + options.rowId + "'><div class='ui-pg-div ui-inline-edit' onmouseout=\"jQuery(this).removeClass('ui-state-hover')\" onmouseover=\"jQuery(this).addClass('ui-state-hover');\"  style='display:inline-block;cursor:pointer;' title='Modificar fila seleccionada'><span class='ui-icon ui-icon-pencil'></span></div></a>";                            
               }},                                                                                                                                                                                                                                                                                                                                                                                                                                                      
@@ -358,8 +372,7 @@ var users = {
         if($.isEmptyObject(users.programas)==false)
         {                                                                                                                      
           var users_programas =  JSON.stringify(users.programas);       
-        }                                                     
-
+        }                                                             
         data =data+"&users_programas="+users_programas;        
                                  
         $.ajax({                                                 
@@ -386,17 +399,16 @@ var users = {
     },          
               
     update_users:function(e)
-    {                                               
+    {                                                                       
         e.preventDefault();                                
         var url = $("#base_url").text()+"admin/users/update";         
         var data = $(this).serialize();
         var users_programas = '';        
-                                                                                                                                         
+                                                                                
         if($.isEmptyObject(users.programas)==false)
         {                                                                                                                      
           var users_programas =  JSON.stringify(users.programas);       
-        }                                                     
-
+        }                                                                                                 
         data =data+"&users_programas="+users_programas; 
 
         $.ajax({                                                         
@@ -412,40 +424,15 @@ var users = {
                 $("#msj").html(res.msg);   
               }else{                                                                                                                                                                                                             
                 document.location.href=res.redirect;                                        
-              }                                                                                                                                    
+              }                                                                                                                                                   
             },                                                                     
             timeout:4000,             
             error:function(respuesta)
-            {                                           
+            {                                                     
               console.log(respuesta);            
             }                              
         });       
-    },                              
-
-    /*
-    get_tipos_programas_ax:function()
-    {                                                                                               
-        var url = $("#base_url").text()+"admin/users/get_tipos_programas_ax";
-        var data = "id_discipline="+$(this).val();               
-
-        $.ajax({                                                 
-          async:true,              
-          type:"POST",       
-          dataType:"html",                    
-          contentType: "application/x-www-form-urlencoded,multipart/form-data",
-          data:data,                        
-          url:url,                     
-          success:function(respuesta)    
-          {                                                                                                                                            
-            $("#program_type").html(respuesta);         
-          },                                                             
-          timeout:4000,             
-          error:function(respuesta)
-          {                                           
-            console.log(respuesta);            
-          }                              
-        });             
-    },   */                      
+    },                                                                
 
     get_programas:function()
     {                                                                                         
@@ -533,17 +520,17 @@ var preinscritos = {
           datatype: "json",                           
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Código de promoción','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
           colModel:[                                            		                                               						                                                                                                                                                                                                                                                                                                												                                                                       		
-              {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
+              {name:'nombre',index:'nombre',width:130,search:true,searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
                 return "<a href='detalle/" + options.rowId + "' class='group1' name='edit'>"+cellValue+"</a>";                                    
               }},                        		                                                                                                                                                                                           
-              {name:'a_paterno',index:'a_paterno',search:true,sortable:true,width:120,align:'left'}, 
-              {name:'a_materno',index:'a_materno',search:true,sortable:true,width:120,align:'left'},                                                                                                                                                                                                           
-              {name:'program_name',index:'program_name',search:true,sortable:true,width:200,align:'left'},                                                                                                                                                                                                           
+              {name:'a_paterno',index:'a_paterno',search:true,searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},sortable:true,width:120,align:'left'}, 
+              {name:'a_materno',index:'a_materno',search:true,searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},sortable:true,width:120,align:'left'},                                                                                                                                                                                                           
+              {name:'program_name',index:'program_name',search:true,searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},sortable:true,width:200,align:'left'},                                                                                                                                                                                                           
               {name:'fecha_registro',index:'fecha_registro',search:false,sortable:true,width:100,align:'left'},  
               {name:'codigo',index:'codigo',search:false,sortable:true,width:100,align:'left'},  
               {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');		
-                if(cellValue[0]==1){                                                                                     																							
+                if(cellValue[0]==1){                                                                                                     																							
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                   	if(cellValue[1]){                                                       																																																						
                   		cell+="<div title='"+$($.parseHTML(cellValue[1])).text()+"' class='comment_i'><img src='"+base_url+"includes/admin/images/seguimiento/informacion.png'></div>";
@@ -608,7 +595,7 @@ var preinscritos = {
                             var r = $.parseJSON(response.responseText);
                             $("#msj").html(r.message);                   
                             return [r.success, r.message];
-                        }                                                                                                                                                                        
+                        }                                                                                                                                                                                            
                     }                                
                  }                        
               },                                                                    
@@ -647,7 +634,7 @@ var preinscritos = {
         buttonicon: "ui-icon-bookmark",
         onClickButton: preinscritos.exportar, position: "last"
       });           				               													                                                
- 					          			     
+ 		                   	                              		          	         		     
       $("#list_preinscritos a[name=edit]").live("click",preinscritos.edit); 
   },  	                           
                                   
@@ -673,14 +660,14 @@ var inscritos = {
           mtype : "post",     //Ajax request type. It also could be GET
           datatype: "json",   //supported formats XML, JSON or Arrray									
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
-          colModel:[       
-              {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
+          colModel:[                              
+              {name:'nombre',index:'nombre',width:130,search:true,searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
                 return "<a href='detalle/" + options.rowId + "' class='group1' name='edit'>"+cellValue+"</a>";                                    
               }},                      											                                                                                         		                                                                                                                                                                                                                 
-              {name:'a_paterno',index:'a_paterno',width:120,align:'left'}, 
-              {name:'a_materno',index:'a_materno',width:120,align:'left'},      		                                                                                                                                                                                                     
-              {name:'program_name',index:'program_name',width:200,align:'left'},               					                                                                                                                                                                                            
-              {name:'fecha_registro',index:'fecha_registro',width:100,align:'left',search:false},  		       				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+              {name:'a_paterno',index:'a_paterno',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:120,align:'left'}, 
+              {name:'a_materno',index:'a_materno',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:120,align:'left'},      		                                                                                                                                                                                                     
+              {name:'program_name',index:'program_name',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:200,align:'left'},               					                                                                                                                                                                                            
+              {name:'fecha_registro',index:'fecha_registro',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:100,align:'left',search:false},  		       				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
               {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');                                           
                 if(cellValue[0]==1){                                                                                 
@@ -813,15 +800,15 @@ var casos_cerrados = {
           datatype: "json", //supported formats XML, JSON or Arrray 					
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
           colModel:[ 
-              {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
+              {name:'nombre',index:'nombre',width:130,search:true,searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
                 return "<a href='detalle/" + options.rowId + "' class='group1' name='edit'>"+cellValue+"</a>";                                    
               }},                                                        											                                                                                                                                                                                                                                                                                             
-              {name:'a_paterno',index:'a_paterno',width:120,align:'left'}, 
-              {name:'a_materno',index:'a_materno',width:120,align:'left'},                                                                                                                                                                                                           
-              {name:'program_name',index:'program_name',width:200,align:'left'},                                                                                                                                                                                                           
-              {name:'fecha_registro',index:'fecha_registro',width:100,align:'left'},
+              {name:'a_paterno',index:'a_paterno',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:120,align:'left'}, 
+              {name:'a_materno',index:'a_materno',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:120,align:'left'},                                                                                                                                                                                                           
+              {name:'program_name',index:'program_name',width:200,searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},align:'left'},                                                                                                                                                                                                           
+              {name:'fecha_registro',index:'fecha_registro',width:100,searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},align:'left'},              
               {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
-                cellValue = cellValue.split('|');                                           
+                cellValue = cellValue.split('|');                                                          
                 if(cellValue[0]==1){                                                                                 
                   var cell = "<img src='"+base_url+"includes/admin/images/seguimiento/green.png'>";
                     if(cellValue[1]){                                                                                                           
@@ -954,13 +941,13 @@ var casos_inconclusos = {
           datatype: "json", //supported formats XML, JSON or Arrray 											
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Fecha','Primer contacto','Documentos','Enviar a decse','Envío de claves','Pago realizado','Eliminar'],       //Grid column headings
           colModel:[   
-              {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
+              {name:'nombre',index:'nombre',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
                 return "<a href='detalle/" + options.rowId + "' class='group1' name='edit'>"+cellValue+"</a>";                                    
               }},                                                                                                                                                                                                                                                                                                                                                                   
-              {name:'a_paterno',index:'a_paterno',width:120,align:'left'}, 
-              {name:'a_materno',index:'a_materno',width:120,align:'left'},                                                                                                                                                                                                           
-              {name:'program_name',index:'program_name',width:200,align:'left'},                                                                                                                                                                                                           
-              {name:'fecha_registro',index:'fecha_registro',width:100,align:'left'},
+              {name:'a_paterno',index:'a_paterno',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:120,align:'left'}, 
+              {name:'a_materno',index:'a_materno',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:120,align:'left'},                                                                                                                                                                                                           
+              {name:'program_name',index:'program_name',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:200,align:'left'},                                                                                                                                                                                                           
+              {name:'fecha_registro',index:'fecha_registro',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:100,align:'left'},
               {name:'primer_contacto',index:'primer_contacto',search:false,sortable:false,width:100,align:'center',formatter:function(cellValue, options, rowdata, action){ 
                 cellValue = cellValue.split('|');                                           
                 if(cellValue[0]==1){                                                                                        
@@ -1052,7 +1039,7 @@ var casos_inconclusos = {
                 msj.empty();           
               },5000);                                                                                        
             }                                                                                                                                     
-          }                                                                                                                                                                                                                                                
+          }                                                                                                                                                                                                                                                            
       }).navGrid('#pager_casos_inconclusos',{edit:false,add:false,del:false},
       {}, //  default settings for edit
       {}, //  default settings for add
@@ -1093,12 +1080,12 @@ var informes = {
           datatype: "json", //supported formats XML, JSON or Arrray                       
           colNames:['Nombre','Apellido paterno','Apellido materno','Programa de interes','Atendido','Eliminar'],       //Grid column headings
           colModel:[                                                                                                                                                                                                                                                                                                                                                          
-              {name:'nombre',index:'nombre',width:130,search:true,sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
+              {name:'nombre',index:'nombre',width:130,search:true,searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},sortable:true,align:'left',width:120,formatter:function(cellValue, options, rowdata, action){                                                                                                                                                                                                         
                 return "<a href='informes_contacto/" + options.rowId + "' class='group1' name='edit'>"+cellValue+"</a>";                                    
               }},                                                                
-              {name:'paterno',index:'paterno',width:120,align:'left'}, 
-              {name:'materno',index:'materno',width:120,align:'left'},                                                                                                                                                                                                           
-              {name:'program_name',index:'program_name',width:200,align:'left'},                                                                                                                                                                                                           
+              {name:'paterno',index:'paterno',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:120,align:'left'}, 
+              {name:'materno',index:'materno',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:120,align:'left'},                                                                                                                                                                                                           
+              {name:'program_name',index:'program_name',searchoptions:{sopt:['eq','ne','lt','le','gt','ge','bw','ew','cn','nc']},width:200,align:'left'},                                                                                                                                                                                                           
               {name:'atendido',index:'atendido',edittype:'select',align:'center',formatter:'select', editoptions:{value:"0:No;1:Si"},search:false,sortable:false,width:60},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
               {name:'eliminar',search:false,width:60,fixed:true,sortable:false,resize:false,formatter:'actions',formatoptions:{
                     keys: true,                                                                                                                                             
@@ -1163,8 +1150,8 @@ var informes = {
   {       
     e.preventDefault();
     $.colorbox({href:$(this).attr("href"),iframe:true, width:"850px", height:"90%"});
-  }                          				                
-}              
+  }                                 				                
+}                               
                                                                                                                                               
 $(document).ready(function(){ 
     filtro.onReady();                

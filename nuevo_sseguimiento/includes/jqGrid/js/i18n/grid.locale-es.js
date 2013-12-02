@@ -10,7 +10,7 @@
 **/
 $.jgrid = $.jgrid || {};
 $.extend($.jgrid,{
-	defaults : {
+	defaults : {		
 		recordtext: "Mostrando {0} - {1} de {2}",
 	    emptyrecords: "Sin registros que mostrar",
 		loadtext: "Cargando...",
@@ -18,11 +18,11 @@ $.extend($.jgrid,{
 	},
 	search : {
 	    caption: "Búsqueda...",
-	    Find: "Buscar",
-	    Reset: "Limpiar",
-	    odata : ['igual ', 'no igual a', 'menor que', 'menor o igual que','mayor que','mayor o igual a', 'empiece por','no empiece por','está en','no está en','termina por','no termina por','contiene','no contiene'],
-	    groupOps: [	{ op: "AND", text: "todo" },	{ op: "OR",  text: "cualquier" }	],
-		matchText: " match",
+	    Find: "Buscar",							
+	    Reset: "Limpiar",										
+	    odata : ['igual', 'no igual a', 'menor que', 'menor o igual que','mayor que','mayor o igual a', 'empiece por','no empiece por','está en','no está en','termina por','no termina por','contiene','no contiene'],
+	    groupOps: [	{ op: "AND", text: "todo" },	{ op: "OR",  text: "cualquier" }	],				
+		matchText: " match",				
 		rulesText: " reglas"
 	},
 	edit : {
