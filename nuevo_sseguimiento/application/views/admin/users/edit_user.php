@@ -48,13 +48,7 @@
 				<option value="<?php echo $disciplina->id_discipline; ?>"  <?php echo set_select('id_discipline', $disciplina->id_discipline); ?>><?php echo $disciplina->discipline; ?></option>												
 				<?php } ?>																																																												
 			<select/>
-		</p>
-		<p>
-			<label>Tipo de programa: *</label>								
-			<select name="program_type" id="program_type">																																													
-				<option value="0">Selecciona el tipo de programa</option>																																																																																																																
-			<select/>
-		</p>
+		</p>									
 		<p>
 			<label>Programas: *</label>								
 			<select name="id_program" id="id_program">																																													

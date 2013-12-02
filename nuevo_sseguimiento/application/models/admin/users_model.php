@@ -178,11 +178,12 @@ class Users_model extends CI_Model
                                                                 
         $user_uuid = $this->get_user_uuid($this->db->insert_id()); 
                 
-        $programas = $this->array_programas($user_uuid,$data['programas']); 
+        $programas = $this->array_programas($user_uuid,$data['users_programas']); 
                       
         if(!empty($programas)){                       
+            
             $this->db->insert_batch('seg_dec_usuarios_programas', $programas);                                                                                                 
-        }                                                      
+        }                                                                                                   
 
         $this->db->trans_complete();
         if($this->db->trans_status() === FALSE)
@@ -198,11 +199,13 @@ class Users_model extends CI_Model
     {                    
         if(!empty($programas)){                                                                                                                                                                                                                                                                         
             foreach($programas as $key => $value){
-                        $data[] =array("user_uuid"=>$user_uuid,"id_discipline"=>$value->id_discipline,"id_program"=>$value->id_program);
-            }                          
-        }else{                            
+                                                                                                                    
+                        $data[] = array("user_uuid"=>$user_uuid,"id_discipline"=>$value->id_discipline,"id_program"=>$value->id_program);
+            }                                                                                                                                                                                                                                                                                                                    
+        $data = array_values(array_unique($data,SORT_REGULAR));                                                                                                                                                                                       
+        }else{                                                                                                              
             $data='';                   
-        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
         return $data;                                                                                                                                                                                                                                                                                                                                                             
     }                                         
 

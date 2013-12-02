@@ -60,7 +60,7 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	$query->bindParam(':correo',$correo);	
 	$query->bindParam(':acepta_aviso',$acepta_aviso);	
 
-	$query->execute();											 	
+	$query->execute();													 	
 																									
 	/*CONSTRUCCION DEL MENSAJE PARA ENVIAR EN EL MAIL*/
 	$mensaje = '';						
@@ -115,7 +115,7 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 			$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$usuario['pass']."</strong>";
 			mail($to_coord_b, $mail_title, $mensaje_coord, $headers);															
 		}														
-	}													 																																													
+	}																								 																																													
 	//mail('pvazquezdiaz@gmail.com', $mail_title, $mensaje_coord, $headers);
 ?>									
 

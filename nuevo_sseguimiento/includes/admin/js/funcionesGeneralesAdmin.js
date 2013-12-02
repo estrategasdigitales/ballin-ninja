@@ -138,11 +138,12 @@ var filtro = {
   }
 
 }                                    
-
+                      
 var users = {                                 
-    indice_array:0,                                            
-    onReady:function()
-    {                                                                                                    
+    indice_array:0,  
+    programas:new Object(),                                                                        
+    onReady:function()                                                                    
+    {                                                                                                       
       var base_url = $("#base_url").text();
           $("#list").jqGrid({                                        
           url:base_url+'admin/users/jqGrid', 
@@ -211,7 +212,7 @@ var users = {
           caption:"Exportar a Excel",
           buttonicon: "ui-icon-bookmark",
           onClickButton: this.exportar, position: "last"
-        });	                                      												
+        });	                                            												
 																															
         $("#exportar").on("click",users.exportar);
         $("#list input[name=chk_notificacion]").live("click",users.update_notificacion);  
@@ -233,30 +234,27 @@ var users = {
     },              						     				         					
 
     tipo_usuario:function()
-    {                                   
+    {                                                  
       if($(this).val()==1)
-      {                                                
+      {                                                                                                                                        
         $("#agregar_programas").attr("disabled",true);
-        $("#usuario_programas ul").empty();     
-        $("#programas").val(null);                                                         
-      }else{                                                                    
+        $("#usuario_programas ul").empty();
+        users.programas = new Object();
+        users.indice_array = 0;                                                                               
+      }else{                                                                                                                                    
         $("#agregar_programas").attr("disabled",false);
-      }                                                                       
+      }                                                                                      
     },                                                                                                                                                          
-                  
+                              
     delete_programa_new:function(e)
     {                                                                                                                                           
         e.preventDefault();
-        var indice_array = $(this).attr("id"); 
-        var programas = $.parseJSON($("#programas").val());
-        programas.splice(indice_array,1);
-
-        if(programas.length>0){                                                                    
-          $("#programas").val(JSON.stringify(programas));
-        }else{                                                                                                          
-          $("#programas").val(null);  
-        }                                                                                                                             
-        $(this).parent().remove();            
+        var indice_array = $(this).attr("id");                                                                                                     
+        if(delete(users.programas[indice_array])){
+          $(this).parent().remove();                        
+        }else{                                                                                                         
+          alert("error al eliminar el programa");
+        }                              
     },                                                                                                                                                                                                                                                       
             
     confirm_delete_programa:function(e)
@@ -307,146 +305,63 @@ var users = {
         });                            
     },                                                                                                           
 
-    /*
     agregar_programas:function()
-    {                                                                                      
+    {                                                                                            
           if($("#id_discipline").val()!=0)
           {                                                                 
             var base_url = $("#base_url").text()                                                                                                                
-            var li  = $("<li></li>");                                                                                                    
-            var div = $("<div id='"+users.indice_array+"' class='new_program'><a href='#'><img src='"+base_url+"includes/admin/images/delete.png'></a></div>");         
 
             var id_discipline  = $("#id_discipline option:selected").val();
             var id_program     = $("#id_program option:selected").val();
             var option_program = $("#id_program option:selected").text();
-
-            var programas_dis = $("#id_program");
-            //console.log(programas_dis);
-            //console.log(programas_dis[0].length);                     
-            //console.log(programas_dis[0].options[1].value);  
-                                                                           
-            if($("#programas").val())
-            {                              
-              var programas = $.parseJSON($("#programas").val());  
-                                                                                                                                                                       
-              if(id_program!=0){                                                
-                programas.push({"id_discipline": id_discipline, "id_program": id_program})                     
-                li.append(option_program);  
-                li.append(div);              
-                $("#usuario_programas ul").append(li);
-              }else{
-
-                $.each($("#id_program"), function(index, val) {
-
-                   console.log(index);    
-                   console.log(val);              
-                });                           
-              }  
-
-            }else{       
-
-              if(id_program!=0){ 
-
-                var programas = [{"id_discipline": id_discipline, "id_program": id_program}];                      
-                li.append(option_program);   
-                li.append(div);                             
-                $("#usuario_programas ul").append(li);
-
-              }else{        
-
-                $.each(programas_dis[0], function(index, val) {               
-                  console.log(val.value);       
-                  console.log(val.text); 
-                  var li  = $("<li></li>");                                                                                                                                                              
-                  var div = $("<div id='"+users.indice_array+"' class='new_program'><a href='#'><img src='"+base_url+"includes/admin/images/delete.png'></a></div>");         
-                  if(!$("#programas").val()){
-                    var programas = [{"id_discipline": id_discipline, "id_program": val.value}]; 
-                  }else{                                                                                  
-                    programas.push({"id_discipline": id_discipline, "id_program": val.value});                     
-                  }                                     
-                  li.append(val.text);  
-                  li.append(div);                                                                                                                                                              
-                  $("#usuario_programas ul").append(li);
-                });                                
-              }                 
-                  
-            }                     
-                                                        
-            users.indice_array=users.indice_array+1;                                  
-            programas = JSON.stringify(programas); 
-            $("#programas").val(programas);                                                                                                                                                                                                     
-            $("#id_discipline option[value=0]").attr("selected",true);
-            $("#program_type option[value=0]").attr("selected",true);
-            $("#id_program option[value=0]").attr("selected",true);
-          }                                                                                                                                                                 
-    },  */                                                
-
-    agregar_programas:function()
-    {                                                                                      
-          if($("#id_discipline").val()!=0)
-          {                                                                 
-            var base_url = $("#base_url").text()                                                                                                                
-            var li  = $("<li></li>");                                                                                                    
-            var div = $("<div id='"+users.indice_array+"' class='new_program'><a href='#'><img src='"+base_url+"includes/admin/images/delete.png'></a></div>");         
-
-            var id_discipline  = $("#id_discipline option:selected").val();
-            var id_program     = $("#id_program option:selected").val();
-            var option_program = $("#id_program option:selected").text();
-            
-               
-            if($("#programas").val()){ 
-              var programas = $.parseJSON($("#programas").val());                                                                           
-            }                           
-
+                                                                    
             if(id_program!=0){ 
-                                                                                                        
-                if($("#programas").val()){      
-                  var programas = $.parseJSON($("#programas").val());  
-                  programas.push({"id_discipline": id_discipline, "id_program": id_program})                     
-                }else{    
-                  var programas = [{"id_discipline": id_discipline, "id_program": id_program}];                      
-                }                                                                
+                                                                                                                                                                          
+                var li  = $("<li></li>");                         
+                var div = $("<div id='indice_"+users.indice_array+"' class='new_program'><a href='#'><img src='"+base_url+"includes/admin/images/delete.png'></a></div>");                                                        
+                users.programas["indice_"+users.indice_array]={"id_discipline": id_discipline, "id_program": id_program};                                                                                     
                 li.append(option_program);   
-                li.append(div);                             
-                $("#usuario_programas ul").append(li);
-                users.indice_array = users.indice_array+1;
+                li.append(div);                          
+                $("#usuario_programas ul").append(li);        
+                users.indice_array = users.indice_array+1;  
+            }else{  
 
-            }else{                              
-
-                var programas_dis = $("#id_program");
-                var num = 0;                                                                      
-                var programas = new Array();                                                                                        
+                var programas_dis = $("#id_program");                                                                   
                 $.each(programas_dis[0],function(index, val){               
-                  if(val.value!=0){                                         
-                    var li  = $("<li></li>");    
-                    var div = $("<div id='"+users.indice_array+"' class='new_program'><a href='#'><img src='"+base_url+"includes/admin/images/delete.png'></a></div>");                                                        
-                    programas.push({"id_discipline": id_discipline, "id_program": val.value});                                                                                                                           
-                    //programas["indice_"+users.indice_array]={"id_discipline": id_discipline, "id_program": val.value};                                                                                                                           
-                    li.append(val.text);                                                               
-                    li.append(div);                                                                                                                   
-                    num++;                                                                                                                                                                                                                                                                                                                                                                                                                 
+                  if(val.value!=0){                                                                                                                                                        
+                    var li  = $("<li></li>");                         
+                    var div = $("<div id='indice_"+users.indice_array+"' class='new_program'><a href='#'><img src='"+base_url+"includes/admin/images/delete.png'></a></div>");                                                        
+                    users.programas["indice_"+users.indice_array]={"id_discipline": id_discipline, "id_program": val.value};                                                                                                                           
+                                                                                                               
+                    li.append(val.text);                                                                                           
+                    li.append(div);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
                     $("#usuario_programas ul").append(li);
                     users.indice_array = users.indice_array+1; 
-                  }                                                                                                                             
-                });                                                                                                                       
-            }            
-
-            console.log(programas['id_program'].indexOf("2"));
-                                                                                    
-            programas = JSON.stringify(programas);                                                                                                                                                                  
-            $("#programas").val(bar);                                                                                                                                                                                                                                 
+                  }                                                                                                                                                       
+                });                                                                                                                          
+            }             
+            /*                                                                                                                                                                                                                                      
             $("#id_discipline option[value=0]").attr("selected",true);
             $("#program_type option[value=0]").attr("selected",true);
             $("#id_program option[value=0]").attr("selected",true);
+            */                
           }                                                                                                                                                                 
-    },                                           
+    },                            
 
     add_users:function(e)
-    {                                                       
-        e.preventDefault();                         
+    {                                                               
+        e.preventDefault();                                 
         var url = $("#base_url").text()+"admin/users/add";         
-        var data = $(this).serialize();       
-        
+        var data = $(this).serialize(); 
+        var users_programas = '';        
+                                                                                
+        if($.isEmptyObject(users.programas)==false)
+        {                                                                                                                      
+          var users_programas =  JSON.stringify(users.programas);       
+        }                                                     
+
+        data =data+"&users_programas="+users_programas;        
+                                 
         $.ajax({                                                 
             async:true,              
             type:"POST",            
@@ -460,21 +375,29 @@ var users = {
                 $("#msj").html(res.msg);   
               }else{                                                                                                                                                                                                          
                 document.location.href=res.redirect;                                        
-              }                                                                                                                   
+              }                                                                                                                                       
             },                                                             
             timeout:4000,             
             error:function(respuesta)
             {                                           
               console.log(respuesta.responseText);            
             }                                                                                
-        });              
-    },    
+        });                             
+    },          
               
     update_users:function(e)
     {                                               
         e.preventDefault();                                
         var url = $("#base_url").text()+"admin/users/update";         
         var data = $(this).serialize();
+        var users_programas = '';        
+                                                                                                                                         
+        if($.isEmptyObject(users.programas)==false)
+        {                                                                                                                      
+          var users_programas =  JSON.stringify(users.programas);       
+        }                                                     
+
+        data =data+"&users_programas="+users_programas; 
 
         $.ajax({                                                         
             async:true,              

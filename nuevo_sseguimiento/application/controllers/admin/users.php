@@ -130,7 +130,7 @@ class Users extends CI_Controller {
             {                                       
                 echo json_encode(array('success'=>true,'message'=>msj('El registro se eliminó correctamente','message')));
             }                                                                       
-        }                                                                                                                                                                                                                       
+        }                                                                                                                                                                                                                                               
     }                                              
 
     public function get_programas()
@@ -141,7 +141,7 @@ class Users extends CI_Controller {
                                                                
         $id_discipline = $this->input->post('id_discipline',true); 
         $data['programas'] = $this->users_model->get_programas($id_discipline);
-                                                                                   
+                                                                                                          
         if(!empty($data['programas']))
         {     
             $response  = '';                                                                 
@@ -216,7 +216,7 @@ class Users extends CI_Controller {
     public function add()
     {                                                                       
         $this->load->library('form_validation');  
-                                                                                                                                                       
+                                                                                                                                                                                 
         $this->form_validation->set_rules('tipo','Tipo de usuario','required|callback_tipo_usuario_check');                                                                                   
         $this->form_validation->set_rules('username','Username','required|callback_login_check');       
         $this->form_validation->set_rules('pass','Password','required|matches[repass]');                           
@@ -227,12 +227,12 @@ class Users extends CI_Controller {
         $this->form_validation->set_rules('descripcion','Descripción','required');                                       
         $this->form_validation->set_rules('email_1','Correo electronico principal','required|valid_email|callback_email_check['.$this->input->post('email_2').']');         
         $this->form_validation->set_rules('email_2','Correo electronico secundario','valid_email');                          
-        $this->form_validation->set_rules('notificacion','Notificación');           
-        $this->form_validation->set_rules('programas','Agregar Programas','callback_programas_val['.$this->input->post('tipo').']');
-                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+        $this->form_validation->set_rules('notificacion','Notificación');                                                 
+        $this->form_validation->set_rules('users_programas','Agregar Programas','callback_programas_val['.$this->input->post('tipo').']');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
         $data['tipos']       = $this->users_model->users_roles(); 
         $data['disciplinas'] = $this->users_model->get_disciplinas();                                    
-                        
+
         if($this->form_validation->run() == FALSE)        
         {                                                                             
             if(!$this->input->post()){       
@@ -253,9 +253,9 @@ class Users extends CI_Controller {
             $data['email_2']   = $this->input->post('email_2',true);
             $data['descripcion']   = $this->input->post('descripcion',true);
             $data['notificacion']  = $this->input->post('notificacion',true);
-            $programas = $this->input->post('programas',true); 
-            $data['programas'] = json_decode($programas);                         
-                                
+            $programas = $this->input->post('users_programas',true);                                               
+            $data['users_programas'] = json_decode($programas);   
+                                    
             if($user_uuid = $this->users_model->add_user($data))
             {                                                                                                                                                                                     
                 $this->session->set_flashdata('msj',msj('El registro se agregó correctamente.','message'));                            
@@ -269,8 +269,8 @@ class Users extends CI_Controller {
         $id_usuario_programa = $this->input->post('id_usuario_programa'); 
 
         if($this->users_model->delete_usuario_programa($id_usuario_programa))
-        {                          
-            echo json_encode(array('success'=>true,'msg'=>'El programa se eliminó correctamente'));
+        {                                                                                                                
+            echo json_encode(array('success'=>true,'msg'=>msj('El programa se eliminó correctamente','message')));
         }                                          
     }                                          
                                                     
@@ -287,7 +287,7 @@ class Users extends CI_Controller {
     }   
 
     public function programas_val($str,$tipo_usuario)
-    {                                                                                                  
+    {                                                                                                                          
         if($str==false && $tipo_usuario!=1)
         {                                                                                                                                                                                                                            
             $this->form_validation->set_message('programas_val', 'Debes agregar programas al usuario.');
@@ -378,8 +378,8 @@ class Users extends CI_Controller {
         $data['email_2']   = $this->input->post('email_2',true);
         $data['descripcion']   = $this->input->post('descripcion',true);
         $data['notificacion']  = $this->input->post('notificacion',true);
-        $programas = $this->input->post('programas',true); 
-        $data['programas'] = json_decode($programas);
+        $programas = $this->input->post('users_programas',true); 
+        $data['programas'] = json_decode($programas);                                     
                             
         if($this->form_validation->run() == FALSE)        
         {                                                                                          

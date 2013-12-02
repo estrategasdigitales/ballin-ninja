@@ -33,8 +33,8 @@
 	<div class="cont_left">
 		<div id="m_notificacion"><input type="checkbox" name="notificacion" value="1"><label>Este usuario recibirá notificaciones vía correo electrónico</label></div>
 		<div>																																
-			<input type="text" id="programas" name="programas">
-		</div>																										
+			<input type="hidden" id="programas" name="programas">
+		</div>																															
 		<div id="filtro_users">
 		<p>
 			<label>Disciplinas: *</label>				
