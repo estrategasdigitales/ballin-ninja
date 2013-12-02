@@ -130,7 +130,7 @@
 	<h2>Comentario general</h2>																								
 	<p><a href="#" rel="comentarios_comentario_general">Añadir / editar comentario general</a></p>			
 	<div id="comentarios_comentario_general" style="display:none;"><textarea name="comentario_general"><?php echo $comentario_general; ?></textarea></div>
-</div>	
+</div>					
 <div class="clear"></div>	
 <div id="editar_preinscrito">
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">

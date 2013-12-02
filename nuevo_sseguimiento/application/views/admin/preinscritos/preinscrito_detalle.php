@@ -72,8 +72,8 @@
 				</td>
 				<td valign="top">
 					<a href="#" name="estatus" rel="estatus_primer_contacto"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
-					<div id="estatus_primer_contacto" style="display:none;">
-						<textarea name="comentarios_primer_contacto"><?php echo $comment_primercontacto; ?></textarea>																
+					<div id="estatus_primer_contacto" style="display:none;">						
+						<textarea name="comentarios_primer_contacto" disabled="disabled"><?php echo $comment_primercontacto; ?></textarea>																
 					</div>																																														
 				</td>
 			</tr>
@@ -84,7 +84,7 @@
 				<td valign="top" class="division_pasos">
 					<a href="#" name="estatus" rel="estatus_documentos"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
 					<div id="estatus_documentos" style="display:none;">
-						<textarea name="comentarios_documentos"><?php echo $comment_documentos; ?></textarea>												
+						<textarea name="comentarios_documentos" disabled="disabled"><?php echo $comment_documentos; ?></textarea>												
 					</div>	
 				</td>
 			</tr>		
@@ -95,7 +95,7 @@
 				<td valign="top" class="division_pasos">
 					<a href="#" name="estatus" rel="estatus_envio_decse"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
 					<div id="estatus_envio_decse" style="display:none;">
-						<textarea name="comentarios_envio_decse"><?php echo $comment_decse; ?></textarea>
+						<textarea name="comentarios_envio_decse" disabled="disabled"><?php echo $comment_decse; ?></textarea>
 					</div>	
 				</td>
 			</tr>
@@ -106,7 +106,7 @@
 				<td valign="top" class="division_pasos">
 					<a href="#" name="estatus" rel="estatus_envio_claves"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
 					<div id="estatus_envio_claves" style="display:none;">
-						<textarea  name="comentarios_envio_claves"><?php echo $comment_envioclaves; ?></textarea>
+						<textarea  name="comentarios_envio_claves" disabled="disabled"><?php echo $comment_envioclaves; ?></textarea>
 					</div>	
 				</td>
 			</tr>
@@ -117,11 +117,11 @@
 				<td valign="top" class="division_pasos">
 					<a href="#" name="estatus" rel="estatus_pago_realizado"><?php echo img(array('src'=>'includes/admin/images/seguimiento/comentario.png')); ?> Agregar comentario</a>		
 					<div id="estatus_pago_realizado" style="display:none;">
-						<textarea name="comentarios_pago_realizado"><?php echo $comment_pagorealizado; ?></textarea>
-					</div>	
+						<textarea name="comentarios_pago_realizado" disabled="disabled"><?php echo $comment_pagorealizado; ?></textarea>
+					</div>													
 				</td>
 			</tr>	
-		</table>																								
+		</table>																												
 	</div>																																																																																																	
 	<div id="clasificar_aspirante">														
 		<h1>Clasificación del aspirante</h1>																				
@@ -133,7 +133,7 @@
 		<h2>Comentario general</h2>																																																										
 		<p><a href="#" rel="comentarios_comentario_general">Añadir / editar comentario general</a></p>						
 		<div id="comentarios_comentario_general" style="display:none;">
-			<textarea name="comentario_general"><?php echo $preinscrito->comentario_general; ?></textarea>
+			<textarea name="comentario_general" disabled="disabled"><?php echo $preinscrito->comentario_general; ?></textarea>
 		</div>														
 	</div>									
 	<div class="clear"></div>					
