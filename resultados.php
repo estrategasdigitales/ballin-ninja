@@ -96,19 +96,19 @@ $hoy = date('Ymd');
 
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_programas_izq = "SELECT site_programs.id_discipline, site_programs.id_program, site_programs.imagen, site_programs.program_name AS programa, site_fechas_ini.fecha AS fecha_inicio FROM site_programs, site_fechas_ini WHERE site_programs.id_program=site_fechas_ini.id_program AND site_fechas_ini.publicado=1 ORDER BY RAND() LIMIT 2";
+$query_programas_izq = "SELECT seg_dec_programas.id_discipline, seg_dec_programas.id_program, seg_dec_programas.imagen, seg_dec_programas.program_name AS programa, site_fechas_ini.fecha AS fecha_inicio FROM seg_dec_programas, site_fechas_ini WHERE seg_dec_programas.id_program=site_fechas_ini.id_program AND site_fechas_ini.publicado=1 ORDER BY RAND() LIMIT 2";
 $programas_izq = mysql_query($query_programas_izq, $otono2011) or die(mysql_error());
 $row_programas_izq = mysql_fetch_assoc($programas_izq);
 $totalRows_programas_izq = mysql_num_rows($programas_izq);
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_programas_der = "SELECT site_fechas_idiomas.id_program AS id_program_idioma, site_fechas_idiomas.nivel, site_fechas_idiomas.inicio, (select site_programs.imagen FROM site_programs WHERE site_fechas_idiomas.id_program=site_programs.id_program) AS imagen_idioma FROM site_fechas_idiomas, site_programs WHERE site_fechas_idiomas.inicio > ".$hoy." ORDER BY RAND() LIMIT 2";
+$query_programas_der = "SELECT site_fechas_idiomas.id_program AS id_program_idioma, site_fechas_idiomas.nivel, site_fechas_idiomas.inicio, (select seg_dec_programas.imagen FROM seg_dec_programas WHERE site_fechas_idiomas.id_program=seg_dec_programas.id_program) AS imagen_idioma FROM site_fechas_idiomas, seg_dec_programas WHERE site_fechas_idiomas.inicio > ".$hoy." ORDER BY RAND() LIMIT 2";
 $programas_der = mysql_query($query_programas_der, $otono2011) or die(mysql_error());
 $row_programas_der = mysql_fetch_assoc($programas_der);
 $totalRows_programas_der = mysql_num_rows($programas_der);
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_programas_izqb = "SELECT site_programs.id_discipline, site_programs.id_program, site_programs.imagen, site_programs.program_name AS programa, site_fechas_ini.fecha AS fecha_inicio FROM site_programs, site_fechas_ini WHERE site_programs.id_program=site_fechas_ini.id_program AND site_fechas_ini.publicado=1 ORDER BY RAND() LIMIT 3";
+$query_programas_izqb = "SELECT seg_dec_programas.id_discipline, seg_dec_programas.id_program, seg_dec_programas.imagen, seg_dec_programas.program_name AS programa, site_fechas_ini.fecha AS fecha_inicio FROM seg_dec_programas, site_fechas_ini WHERE seg_dec_programas.id_program=site_fechas_ini.id_program AND site_fechas_ini.publicado=1 ORDER BY RAND() LIMIT 3";
 $programas_izqb = mysql_query($query_programas_izqb, $otono2011) or die(mysql_error());
 $row_programas_izqb = mysql_fetch_assoc($programas_izqb);
 $totalRows_programas_izqb = mysql_num_rows($programas_izqb);
@@ -147,27 +147,27 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 mysql_select_db($database_otono2011, $otono2011);
 if($_POST['search'] == "a"){
 	$query_search ="SELECT
-	  site_programs.*,
-	  disciplines.discipline,
+	  seg_dec_programas.*,
+	  seg_dec_disciplinas.discipline,
 	  site_fechas_ini1.fecha,
 	  site_fechas_ini1.periodo
 	FROM
 	  site_fechas_ini site_fechas_ini1 INNER JOIN
-	  site_programs ON site_programs.id_program =
+	  seg_dec_programas ON seg_dec_programas.id_program =
 	    site_fechas_ini1.id_program INNER JOIN
-	  disciplines ON site_programs.id_discipline =
-	    disciplines.id_discipline
+	  seg_dec_disciplinas ON seg_dec_programas.id_discipline =
+	    seg_dec_disciplinas.id_discipline
 	Where
 	  discipline LIKE '%".$_POST['sArea']."%' 
 	  AND fecha BETWEEN '".$_POST['datepickerI']."' AND '".$_POST['datepickerF']."' 
 	  AND cost_inscripcion IS NOT NULL 
-	  AND site_programs.cancelado = 0 
-	  AND site_programs.periodo = 'o' 
+	  AND seg_dec_programas.cancelado = 0 
+	  AND seg_dec_programas.periodo = 'o' 
 	  ORDER BY program_name ASC LIMIT 0,20";
 
 }else{
 	$buscar=sanear_string($_POST['buscar']);
-	$query_search = "SELECT * FROM site_programs WHERE program_name LIKE '%".$buscar."%' OR description LIKE '%".$buscar."%' OR id_discipline IN (SELECT id_discipline FROM disciplines WHERE discipline LIKE '%".$buscar."%') AND cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_name ASC LIMIT 0,20";
+	$query_search = "SELECT * FROM seg_dec_programas WHERE program_name LIKE '%".$buscar."%' OR description LIKE '%".$buscar."%' OR id_discipline IN (SELECT id_discipline FROM seg_dec_disciplinas WHERE discipline LIKE '%".$buscar."%') AND cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_name ASC LIMIT 0,20";
 
 }
 
@@ -650,7 +650,7 @@ $(document).mouseup(function (e)
             	<h1>Cursos y diplomados</h1>
 				<p>&nbsp;</p>
 				<? do{ ?>
-					<p><a style="cursor:pointer;" onclick="javascript:parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<? echo $row_search['id_discipline']; ?>&id_program=<? echo $row_search['id_program']; ?>&titulo=<? echo $row_search['program_name']; ?>'"><strong><? echo $row_search['program_name']; ?></strong></a><br/><? echo WordLimiter($row_search['description'],20); ?></p>
+					<p><a style="cursor:pointer;" onclick="javascript:parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<? echo $row_search['id_discipline']; ?>&id_program=<? echo $row_search['id_program']; ?>&titulo=<? echo $row_search['program_name']; ?>'"><strong><? echo $row_search['program_name']; ?></strong></a><br/><? echo WordLimiter($row_search['description'],20,$word_count); ?></p>
 					<p>&nbsp;</p>
 				<? }while($row_search = mysql_fetch_assoc($search)); ?>
 				<p>&nbsp;</p>

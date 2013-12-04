@@ -226,8 +226,8 @@
 			$mail_title = "DEC - Preinscripción";
 
 			//mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);	
-			mail("guillermojoel.huerta@gmail.com", $mail_title, $mensaje, $headers);	
-																														
+			mail("guillermojoel.huerta.com", $mail_title, $mensaje, $headers);	
+																						
 			//mensaje para usuarios encargados del programa		
 			$mensaje_coord = '';	
 			if(!empty($usuarios_programas)){	
@@ -247,7 +247,7 @@
 					$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$usuario['username']."</strong>";
 					$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$usuario['pass']."</strong>";
 					mail($to_coord_b, $mail_title, $mensaje_coord, $headers);
-				}											
+				}
 			}																															
 
 			$to_coord = "Ibero";				
@@ -272,9 +272,7 @@
 			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";	
 			$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";
 			
-			//mail('webmaster@dec-uia.com','Error en preinscripción', $error_var, $headers);
-			mail('guillermojoel.huerta@gmail.com','Error en preinscripción', $error_var, $headers);
-						
+			mail('webmaster@dec-uia.com','Error en preinscripción', $error_var, $headers);
 									
 			header('Location:preinscripcion_fallida.php');
 		}																																		

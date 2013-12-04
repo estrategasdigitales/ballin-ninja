@@ -467,6 +467,9 @@ s.parentNode.insertBefore(ga, s);
 <div style="width:25%; float:left; margin-left:18px; margin-top:18px">
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
+         <!--<tr>
+      		  <td align="center"><a onclick="parent.location=''" href="#"><img src="imagenes/banner_chiquito_cierre_trivia.png" height="300" width="180"></a></td>
+          </tr>-->
           <tr>          
           <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
           </tr>
@@ -532,7 +535,7 @@ s.parentNode.insertBefore(ga, s);
           </p>
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
-          Lomas de Santa Fe, México, C.P. 01219, Distrito Federal. <br>
+          Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
           </address></td>

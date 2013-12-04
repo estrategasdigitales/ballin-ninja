@@ -326,7 +326,7 @@ s.parentNode.insertBefore(ga, s);
   </div>
   <div id= "contenedor_irregular_index" >
     <div id= "type4" class="cuadro_articulos_secciones" style="border:0px;width:819px;padding:0px">
-      <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(m_clausura_extras.jpg);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
+      <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/banner_tianguis_cierre.jpg);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
     				      
     </div>
   <div style="margin-left:24px">
@@ -335,19 +335,19 @@ s.parentNode.insertBefore(ga, s);
     <form name="buscador" action="resultados.php" method="post">
       <label for="buscar"></label>
         <img src="imagenes/piquito_rojo_buscador.png">
-        <input name="buscar" placeholder="¿Qué tema buscas?" type="text" id="buscar" style="margin:0 0 0 14px; width:150px; height:11px; padding:1px; border:1px solid #999999; font-size:11px;"  />
+        <input name="buscar" placeholder="Â¿QuÃ© tema buscas?" type="text" id="buscar" style="margin:0 0 0 14px; width:150px; height:11px; padding:1px; border:1px solid #999999; font-size:11px;"  />
         <input name="search" type="submit" id="search" value="n" style="color:#D1D1D1; font-size:1px; width:49px; height:16px; background:url(imagenes/boton_buscar.jpg) top center no-repeat; border:none; margin: 10px 0px 0px 129px;" />
         <br />
       <table width="180" border="0" cellspacing="0" cellpadding="0" style="margin:10px 0 0 12px;">
           <thead>
             <tr colspan="3" style="text-align:left; height:20px;font-size:11px;">
-              <th width="20px" colspan="3">Búsqueda Avanzada (opcional)</th>
+              <th width="20px" colspan="3">BÃºsqueda Avanzada (opcional)</th>
             </tr>
           </thead>
           <tr>
               <td colspan="3">
                  <select name="sArea" id="sArea" style="margin:0px; width:167px; height:15px; border:1px solid #999999; line-height:0; font-size:11px;">
-              <option disabled="disabled" value="0" selected="selected" >¿Qu&eacute; &aacute;rea te interesa?</option>
+              <option disabled="disabled" value="0" selected="selected" >Â¿Qu&eacute; &aacute;rea te interesa?</option>
               <option value="arquitectura">Arquitectura</option>
               <option value="arte">Arte</option>
               <option value="asuncion">Asunci&oacute;on Quer&eacute;taro</option>
@@ -358,7 +358,7 @@ s.parentNode.insertBefore(ga, s);
               <option value="religiosas">Ciencias Religiosas</option>
               <option value="comunicacion">Comunicaci&oacute;n</option>
               <option value="desarrollo">Desarrollo Humano</option>
-              <option value="diseño">Dise&ntilde;o</option>
+              <option value="diseÃ±o">Dise&ntilde;o</option>
               <option value="gastronomia">Gastronom&iacute;a</option>
               <option value="humanidades">Humanidades</option>
               <option value="ibero online">Ibero Online</option>
@@ -376,7 +376,7 @@ s.parentNode.insertBefore(ga, s);
             </tr>
             <tr>
               <td colspan="3" height="30px" valign="bottom">
-                ¿Cu&aacute;ndo quieres comenzar?
+                Â¿Cu&aacute;ndo quieres comenzar?
               </td>
             </tr>
             <tr>
@@ -407,95 +407,7 @@ s.parentNode.insertBefore(ga, s);
   </div>
 
     <div id= "type4" class="rectangulo_abajo_secciones" style="border:1px">
-      <div class="textos"><!-- InstanceBeginEditable name="contenido" -->
-        <br>
-        <p><strong>&quot;N</strong><strong>O VIVIR APRISA&quot;</strong></p>
-
-<p><strong>Ceremonia de Clausura, Primavera 2013</strong></p>
-
-<p>&nbsp;</p>
-
-<p>Tras un semestre lleno de &eacute;xitos y experiencias enriquecedoras, el pasado viernes 31 de mayo celebramos la Ceremonia de Clausura del periodo Primavera 2013.</p>
-
-<p>El Auditorio Jos&eacute; S&aacute;nchez Villase&ntilde;or luci&oacute; pleno de rostros de satisfacci&oacute;n que no eran m&aacute;s que la muestra de que la determinaci&oacute;n y el empe&ntilde;o son una buena alianza para continuar el camino hacia la realizaci&oacute;n.</p>
-
-<p>&nbsp;</p>
-
-<p>Durante la ceremonia, el Arq. Jos&eacute; Luis Cort&eacute;s, Director de Educaci&oacute;n Continua invit&oacute; a los presentes a &ldquo;no vivir aprisa&rdquo;, concluyendo su discurso con un aforismo del escritor jesuita Baltasar Graci&aacute;n que comparti&oacute; a manera de felicitaci&oacute;n: &ldquo;El saber repartir las cosas es saberlas gozar. A muchos les sobra la vida y se les acaba la felicidad; malogran los contentos, que no los gozan, y querr&iacute;an despu&eacute;s volver atr&aacute;s cuando se hallan tan delante&rdquo;.</p>
-
-<p>&nbsp;</p>
-
-<p>En el pres&iacute;dium tambi&eacute;n participaron el Dr. Javier Prado Gal&aacute;n, Vicerrector acad&eacute;mico, &nbsp;Arq. Luis de Villafranca Andrade, Subdirector acad&eacute;mico de Educaci&oacute;n Continua y como invitado de honor el Mtro. Jos&eacute; Antonio Ib&aacute;&ntilde;ez, Coordinador del Programa en Derechos Humanos.</p>
-
-<p>&nbsp;</p>
-
-<p>&ldquo;Es mucho el saber y poco el vivir, y no se vive si no se sabe&rdquo;, de este modo el Dr. Prado Gal&aacute;n concluy&oacute; la ceremonia.</p>
-<br />
-<br />
-<p style="margin:25px 0px 0px 256px;" ><a style="color: #EF353C; font-weight: bold;" target="_blank" href="https://www.facebook.com/media/set/?set=a.10151948746509829.1073741829.281228424828&type=1&l=12252eaac7">Ver Fotos</a></p>
-
-        
-       <!-- <form action="guardar2.php" method="post" width="175px" name="Formulario" onsubmit="return validar();">
-		    <table width="95%" border="0" align="center" cellpadding="8" cellspacing="0">
-                  <tr>
-                    <td align="center" colspan="3">
-                    <span style="color:red;font-weight: bold;font-size: 14px;">Reg&iacute;strate para asegurar tu lugar en la promoci&oacute;n </span> 
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>*Nombre(s):</td>
-                    <td>*Apellido Paterno:</td>
-                    <td>*E-mail:</td>
-                  </tr>
-                  <tr>
-                    <td><input type="text" name="Nombre" size="20" required></td>
-                    <td><input type="text" name="Apellido" size="20" required></td>
-                    <td><input class="campo" type="email" size="20" required name="email" id="email"></td>
-                  </tr>      
-                  <tr>
-                    <td align="right" colspan="3"><input type="submit" name="nombre" value="Finaliza tu Registro"></td>
-                  </tr>
-        </table>
-        <br>
-        <table>
-          <tr>
-            <td>
-              &nbsp;&nbsp;&nbsp;<b>BASES  DE LA PROMOCI&Oacute;N</b>
-              <ul>
-              <li>Descuento no acumulable con otras promociones. </li>
-              <li>Promoci&oacute;n v&aacute;lida del 12 al 15 de marzo de 2013.  </li>
-              <li>No aplica descuento para quienes ya est&eacute;n inscritos . </li>
-              <li>Aplica sobre el costo total del programa. </li>
-              <li>V&aacute;lido para todos los programas primavera 2013. </li>
-            </td>
-          </tr>
-        </table>
-        <br>
-        <table width="95%">
-          <tr>
-            <td align="center">
-              <span>No olvides leer el <a style="color:red" href="http://www.dec-uia.com/otono_2011/politicas_privacidad.php">Aviso de Privacidad</a></span>
-            </td>
-          </tr>
-        </table>
-		  	</form> -->
-		  <!-- InstanceEndEditable -->
-       <table width="93%" border="0" align="center" cellpadding="5" cellspacing="10">
-          <tr>
-            <td><!-- AddThis Button BEGIN -->
-              
-              <div class="addthis_toolbox addthis_default_style"
-            addthis:url="articulos.php?id_discipline=<? echo $_GET['id_discipline']; ?>"
-            addthis:title="<?php echo $row_temp['discipline'].' - '.$row_disciplines['title'];?>"> <a class="addthis_counter addthis_pill_style"></a> </div>
-              <script type="text/javascript">
-          var addthis_config = {"data_track_clickback":true};
-          </script> 
-              <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=pvazquezdiaz"></script> 
-              <!-- AddThis Button END --></td>
-          </tr>
-        </table>
-      </div>
-      
+      <div class="textos" style="margin-left: 21px;height: 652px;"><!-- InstanceBeginEditable name="contenido" --></div>
     </div>
     <div style="width:25%; float:left; margin-left:18px; margin-top:18px">
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -561,11 +473,11 @@ s.parentNode.insertBefore(ga, s);
         </tr>
       <tr align="center" valign="middle">
         <td colspan="2"><p><strong>&copy; Universidad Iberoamericana Ciudad
-            de México. </strong><br>
+            de MÃ©xico. </strong><br>
           </p>
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
-          Lomas de Santa Fe, México, C.P. 01219, Distrito Federal. <br>
+          Lomas de Santa Fe, MÃ©xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
           </address></td>

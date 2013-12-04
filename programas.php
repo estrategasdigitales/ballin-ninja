@@ -41,13 +41,13 @@ $id_discipline = mysql_real_escape_string($_GET['id_discipline']);
 //TALLERES
 /*
 mysql_select_db($database_otono2011, $otono2011);
-$query_progs_talleres = "SELECT * FROM site_programs WHERE program_type = 'taller' AND cancelado = 0 AND id_discipline = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'p') ORDER BY idioma ASC, program_name ASC";
+$query_progs_talleres = "SELECT * FROM seg_dec_programas WHERE program_type = 'taller' AND cancelado = 0 AND id_discipline = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'p') ORDER BY idioma ASC, program_name ASC";
 $progs_talleres = mysql_query($query_progs_talleres, $otono2011) or die(mysql_error());
 $row_progs_talleres = mysql_fetch_assoc($progs_talleres);
 $totalRows_progs_talleres = mysql_num_rows($progs_talleres);
 */
 mysql_select_db($database_otono2011, $otono2011);
-$query_programa = "SELECT * FROM site_programs WHERE cancelado = 0 AND id_program = ".$id_program;
+$query_programa = "SELECT * FROM seg_dec_programas WHERE cancelado = 0 AND id_program = ".$id_program;
 $programa = mysql_query($query_programa, $otono2011) or die(mysql_error());
 $row_programa = mysql_fetch_assoc($programa);
 $totalRows_programa = mysql_num_rows($programa);
@@ -57,7 +57,7 @@ $fecha_ini = mysql_query($query_fecha_ini, $otono2011) or die(mysql_error());
 //$row_fecha_ini = mysql_fetch_assoc($fecha_ini);
 $totalRows_fecha_ini = mysql_num_rows($fecha_ini);
 
-$query_temp = "SELECT discipline FROM disciplines WHERE id_discipline = ".$id_discipline;
+$query_temp = "SELECT discipline FROM seg_dec_disciplinas WHERE id_discipline = ".$id_discipline;
 $temp = mysql_query($query_temp, $otono2011) or die(mysql_error());
 $row_temp = mysql_fetch_assoc($temp);
 $totalRows_temp = mysql_num_rows($temp);

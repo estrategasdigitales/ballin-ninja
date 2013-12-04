@@ -354,7 +354,7 @@ s.parentNode.insertBefore(ga, s);
 						  <?php
 						echo "Ir al ";
 						mysql_select_db($database_otono2011, $otono2011);
-						$query_progs = sprintf("SELECT program_type, id_discipline, program_name, id_encargado FROM site_programs WHERE id_program = %s", GetSQLValueString($row_weekly_article['id_program'] , "int"));
+						$query_progs = sprintf("SELECT program_type, id_discipline, program_name, id_encargado FROM seg_dec_programas WHERE id_program = %s", GetSQLValueString($row_weekly_article['id_program'] , "int"));
 						$prog_tipo = mysql_query($query_progs, $otono2011) or die(mysql_error());
 						$row_prog_tipo = mysql_fetch_assoc($prog_tipo);
 						echo $row_prog_tipo['program_type']; ?>

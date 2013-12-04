@@ -782,8 +782,8 @@ s.parentNode.insertBefore(ga, s);
   <div id= "contenedor_irregular_index" >
     <div id= "type4" class="cuadro_articulos_secciones" style="border:0px;width:816px;padding:0px">
     
-    <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/m_preincripcion.jpg);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
-    <!--<div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/banner_tianguis_cierre.jpg);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
+    <!--<div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/m_preincripcion.jpg);margin-left:26px;position:relative; float:left; z-index:12;">--> <!-- InstanceBeginEditable name="header" -->
+    <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/banner_tianguis_cierre.jpg);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
     </div>
     <div style="margin-left:24px">
 	<div style="width:69%;float:left;margin-left:0px">
@@ -995,9 +995,16 @@ el c&oacute;digo comienza con PSV-)</span></td>
 					<td align="right" valign="top">* Nombre(s)</td>
 					<td valign="top"><label for="nombre"></label>
 						<input name="nombre" type="text" id="nombre" onchange="populate_rfc_name()" size="30" /><br />
-						*Recuerda que tu diploma quedar&aacute; con el mismo nombre que ingreses aqu&iacute;
-					</td>
+						*Recuerda que tu diploma quedar&aacute; con el mismo nombre que ingreses aqu&iacute;</td>
 				</tr>
+				<!--<tr>
+					<td align="right" valign="top"><span style="color:#ff0000;">C&oacute;digo de Promo Tianguis IBERO</td>
+					<td valign="top"><label for="codigo_promo"></label>
+						<input name="codigo_promo" type="texto" id="codigo_promo" size="10" style="float:left;"/>
+						<span>(Este c&oacute;digo se te env&iacute;a una vez confirmada tu asistencia al evento)</span></td>
+				</tr>-->
+
+
 				<tr>
 					<td align="right" valign="top">* Fecha de nacimiento</td>
 					<td valign="top"><table width="211" border="0" cellspacing="0" cellpadding="0">
@@ -1453,9 +1460,11 @@ No</td>
     <div style="width:25%; float:left; margin-left:22px; margin-top:18px; margin-left:18px">
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
-          <!--<tr>
-      		  <td align="center"><a onclick="parent.location=''" href="#"><img src="imagenes/banner_chiquito_cierre_trivia.png" height="300" width="180"></a></td>
-          </tr>-->
+          <tr>
+            <td align="center">
+            	<a onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'" href="#">
+            		<img src="imagenes/banner_chiquito_cierre_trivia.png" height="300" width="180"></a></td>
+          </tr>
           <tr>          
           <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/catalogo.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
             </tr>
@@ -1541,3 +1550,4 @@ No</td>
 </script>
 </body>
 <!-- InstanceEnd --></html>
+

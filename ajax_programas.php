@@ -22,133 +22,7 @@ if($_GET['id_discipline'] != 0 && $_GET['id_discipline'] != 1 && $_GET['id_disci
 	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
 	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
 
-}/*else if($_GET['id_discipline'] == 2){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 2 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 2 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 3){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 3 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 3 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 4){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 4 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 4 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 5){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 5 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 5 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 6){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 6 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 6 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 7){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 7 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 7 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 8){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 8 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 8 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 9){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 9 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 9 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 10){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 10 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 10 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 11){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 11 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 11 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-		
-}else if($_GET['id_discipline'] == 12){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 12 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 12 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 13){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 13 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 13 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 14){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 14 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 14 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 15){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 15 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 15 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 16){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 16 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 16 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 17){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 17 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 17 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 18){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 18 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 18 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-
-}else if($_GET['id_discipline'] == 20){
-	
-	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE id_discipline = 20 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$query_programas_alternativa = "SELECT id_program, program_type, program_name, id_discipline_alterna FROM site_programs WHERE id_discipline_alterna = 20 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE fecha >= '2013-06-01'  AND cancelado = '0') ORDER BY program_type DESC, program_name ASC";
-	$programas_alternativa = mysql_query($query_programas_alternativa, $otono2011) or die(mysql_error());
-	$row_programas_alternativa = mysql_fetch_assoc($programas_alternativa);
-	
-}*/else{
+}else{
 	
 	$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE cancelado = 0 AND periodo = 'o'  ORDER BY program_type DESC, program_name ASC";
 }
@@ -196,7 +70,7 @@ $response .= '
 					if($tipo != $tipo_ant){$response .= '<option disabled="disabled">-----PROGRAMAS COMPARTIDOS---</option>';}
 					$response .= '<option value="'.$row_programas_alternativa['id_program'].'">'.utf8_encode($row_programas_alternativa['program_name']).'</option>';
 					$tipo_ant = $tipo;
-				}				
+				}
 				if(($row_programas_alternativa['id_discipline_alterna']==2) && ($row_programas_alternativa['id_discipline_alterna']==2)){
 					$tipo = $row_programas_alternativa['program_type'];
 					if($tipo != $tipo_ant){$response .= '<option disabled="disabled">-----PROGRAMAS COMPARTIDOS---</option>';}

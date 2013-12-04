@@ -41,7 +41,7 @@ $id_discipline = mysql_real_escape_string($_GET['id_discipline']);
 //TALLERES
 /*
 mysql_select_db($database_otono2011, $otono2011);
-$query_progs_talleres = "SELECT * FROM site_programs WHERE program_type = 'taller' AND cancelado = 0 AND cancelado = 0 AND id_discipline = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'p') ORDER BY idioma ASC, program_name ASC";
+$query_progs_talleres = "SELECT * FROM seg_dec_programas WHERE program_type = 'taller' AND cancelado = 0 AND cancelado = 0 AND id_discipline = ".$_GET['id_discipline']." AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'p') ORDER BY idioma ASC, program_name ASC";
 $progs_talleres = mysql_query($query_progs_talleres, $otono2011) or die(mysql_error());
 $row_progs_talleres = mysql_fetch_assoc($progs_talleres);
 $totalRows_progs_talleres = mysql_num_rows($progs_talleres);
@@ -72,7 +72,7 @@ $totalRows_progs_talleres = mysql_num_rows($progs_talleres);
 	$totalRows_disciplines = mysql_num_rows($disciplines);
 }*/
 
-$query_temp = "SELECT discipline FROM disciplines WHERE id_discipline = ".$id_discipline;
+$query_temp = "SELECT discipline FROM seg_dec_disciplinas WHERE id_discipline = ".$id_discipline;
 $temp = mysql_query($query_temp, $otono2011) or die(mysql_error());
 $row_temp = mysql_fetch_assoc($temp);
 $totalRows_temp = mysql_num_rows($temp);
@@ -349,7 +349,7 @@ s.parentNode.insertBefore(ga, s);
             <p align="justify">
                 <?php
 					mysql_select_db($database_otono2011, $otono2011);
-					$query_progs = sprintf("SELECT program_type, id_discipline, program_name, id_encargado, idioma FROM site_programs WHERE id_program = %s", 
+					$query_progs = sprintf("SELECT program_type, id_discipline, program_name, id_encargado, idioma FROM seg_dec_programas WHERE id_program = %s", 
 						GetSQLValueString($row_disciplines['id_program'] , "int"));
 					$prog_tipo = mysql_query($query_progs, $otono2011) or die(mysql_error());
 					$row_prog_tipo = mysql_fetch_assoc($prog_tipo);
@@ -424,6 +424,9 @@ s.parentNode.insertBefore(ga, s);
 <div style="width:25%; float:left; margin-left:43px; margin-top:18px">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
+      	  <!--<tr>
+      		  <td align="center"><a onclick="parent.location=''" href="#"><img src="imagenes/banner_chiquito_cierre_trivia.png" height="300" width="180"></a></td>
+          </tr>-->
           <tr>          
           <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
           </tr>

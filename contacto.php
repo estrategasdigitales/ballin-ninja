@@ -55,6 +55,12 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	$nombre_area = $row_diplos_names['discipline'];
 	$nombre_programa = $row_diplos_names['program_type']." - ".$row_diplos_names['program_name'];
 	
+	//Información de procedencia
+
+	$url = $_SERVER['PHP_SELF'];
+	$ip = $_SERVER['REMOTE_ADDR'];
+	$navegador = $_SERVER['HTTP_USER_AGENT'];
+
 	//Información Personal
 	$email = $_POST['correo'];
 	$a_paterno = $_POST['a_paterno'];
@@ -70,7 +76,10 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	a_paterno,
 	a_materno,
 	nombre,
-	correo)
+	correo,
+	ip,
+	navegador,
+	url_origen)
 	VALUES (
 	'$id_discipline',
 	'$id_program',
@@ -79,7 +88,10 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	'$a_paterno',
 	'$a_materno',
 	'$nombre',
-	'$correo'
+	'$correo',
+	'$ip',
+	'$navegador',
+	'url'
 	)";
 	
 	  
@@ -598,6 +610,9 @@ s.parentNode.insertBefore(ga, s);
     <div style="width:25%; float:left; margin-left:18px; margin-top:18px">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
+          <!--<tr>
+      		  <td align="center"><a onclick="parent.location=''" href="#"><img src="imagenes/banner_chiquito_cierre_trivia.png" height="300" width="180"></a></td>
+          </tr>-->
           <tr>          
           <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
           </tr>

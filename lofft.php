@@ -36,13 +36,13 @@ if (isset($_GET['id_discipline'])) {
   $colname_progs_diplos = $_GET['id_discipline'];
 }
 mysql_select_db($database_otono2011, $otono2011);
-$query_progs_diplos = sprintf("SELECT * FROM site_programs WHERE program_type = 'diplomado' AND cancelado = 0 AND periodo = 'o' AND id_discipline = %s ORDER BY program_name ASC", GetSQLValueString($colname_progs_diplos, "int"));
+$query_progs_diplos = sprintf("SELECT * FROM seg_dec_programas WHERE program_type = 'diplomado' AND cancelado = 0 AND periodo = 'o' AND id_discipline = %s ORDER BY program_name ASC", GetSQLValueString($colname_progs_diplos, "int"));
 $progs_diplos = mysql_query($query_progs_diplos, $otono2011) or die(mysql_error());
 $row_progs_diplos = mysql_fetch_assoc($progs_diplos);
 $totalRows_progs_diplos = mysql_num_rows($progs_diplos);
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_progs_diplos_2 = "SELECT * FROM site_programs WHERE program_type = 'diplomado' AND cancelado = 0 AND periodo = 'o' AND id_discipline_alterna  != 'NULL' ORDER BY program_name ASC";
+$query_progs_diplos_2 = "SELECT * FROM seg_dec_programas WHERE program_type = 'diplomado' AND cancelado = 0 AND periodo = 'o' AND id_discipline_alterna  != 'NULL' ORDER BY program_name ASC";
 $progs_diplos_2 = mysql_query($query_progs_diplos_2, $otono2011) or die(mysql_error());
 $row_progs_diplos_2 = mysql_fetch_assoc($progs_diplos_2);
 $totalRows_progs_diplos_2 = mysql_num_rows($progs_diplos_2);
@@ -53,19 +53,19 @@ if (isset($_GET['id_discipline'])) {
 }
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_progs_cursos = sprintf("SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND periodo = 'o' AND id_discipline = %s ORDER BY idioma ASC, program_name ASC", GetSQLValueString($colname_progs_cursos, "int"));
+$query_progs_cursos = sprintf("SELECT * FROM seg_dec_programas WHERE program_type = 'curso' AND cancelado = 0 AND periodo = 'o' AND id_discipline = %s ORDER BY idioma ASC, program_name ASC", GetSQLValueString($colname_progs_cursos, "int"));
 $progs_cursos = mysql_query($query_progs_cursos, $otono2011) or die(mysql_error());
 $row_progs_cursos = mysql_fetch_assoc($progs_cursos);
 $totalRows_progs_cursos = mysql_num_rows($progs_cursos);
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_progs_cursos_2 = "SELECT * FROM site_programs WHERE program_type = 'curso' AND cancelado = 0 AND periodo = 'o' AND id_discipline_alterna != 'NULL' ORDER BY idioma ASC, program_name ASC";
+$query_progs_cursos_2 = "SELECT * FROM seg_dec_programas WHERE program_type = 'curso' AND cancelado = 0 AND periodo = 'o' AND id_discipline_alterna != 'NULL' ORDER BY idioma ASC, program_name ASC";
 $progs_cursos_2 = mysql_query($query_progs_cursos_2, $otono2011) or die(mysql_error());
 $row_progs_cursos_2 = mysql_fetch_assoc($progs_cursos_2);
 $totalRows_progs_cursos_2 = mysql_num_rows($progs_cursos_2);
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_programa = "SELECT * FROM site_programs WHERE cancelado = 0 AND id_program = ".$_GET['id_program'];
+$query_programa = "SELECT * FROM seg_dec_programas WHERE cancelado = 0 AND id_program = ".$_GET['id_program'];
 $programa = mysql_query($query_programa, $otono2011) or die(mysql_error());
 $row_programa = mysql_fetch_assoc($programa);
 $totalRows_programa = mysql_num_rows($programa);
@@ -78,7 +78,7 @@ $totalRows_fecha_ini = mysql_num_rows($fecha_ini);
 
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_temp = "SELECT discipline FROM disciplines WHERE id_discipline = ".$_GET['id_discipline'];
+$query_temp = "SELECT discipline FROM seg_dec_disciplinas WHERE id_discipline = ".$_GET['id_discipline'];
 $temp = mysql_query($query_temp, $otono2011) or die(mysql_error());
 $row_temp = mysql_fetch_assoc($temp);
 $totalRows_temp = mysql_num_rows($temp);

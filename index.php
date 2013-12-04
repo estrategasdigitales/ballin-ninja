@@ -6,39 +6,39 @@ if(preg_match('/msie [2-7]/i', $_SERVER['HTTP_USER_AGENT'])) {
 require_once('Connections/otono2011.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
-	function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-	{
-	  if (PHP_VERSION < 6) {
-	    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-	  }
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
 
-	  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
 
-	  switch ($theType) {
-	    case "text":
-	      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-	      break;    
-	    case "long":
-	    case "int":
-	      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-	      break;
-	    case "double":
-	      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-	      break;
-	    case "date":
-	      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-	      break;
-	    case "defined":
-	      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-	      break;
-	  }
-	  return $theValue;
-	}
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
 }
 
 	if(!isset($_GET['tipo'])){
 		$_GET['tipo'] = "";
-	}			
+	}
 
 	$comentarios=$_GET["tipo"];
 	if($comentarios==1){
@@ -64,7 +64,10 @@ $media_articles = mysql_query($query_media_articles, $otono2011) or die(mysql_er
 //$row_media_articles = mysql_fetch_assoc($media_articles);
 //$totalRows_media_articles = mysql_num_rows($media_articles);
 */
+
+
 mysql_select_db($database_otono2011, $otono2011);
+mysql_query("SET NAMES utf8");
 $query_weekly_article = "SELECT * FROM weekly_articles ORDER BY `date` DESC LIMIT 0, 1";
 $weekly_article = mysql_query($query_weekly_article, $otono2011) or die(mysql_error());
 $row_weekly_article = mysql_fetch_assoc($weekly_article);
@@ -135,7 +138,7 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 <!DOCTYPE html>
 <html><!-- InstanceBegin template="/Templates/index.dwt.php" codeOutsideHTMLIsLocked="false" -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Direcci&oacute;n de Educaci&oacute;n Continua | UIA</title>
 <!-- InstanceEndEditable -->
@@ -678,7 +681,7 @@ a.prev span, a.next span {
                             </tr>
                             <tr>
                               <td><p><?php echo WordLimiter($row_community_opinions_top3['opinion'], 35, $word_count); ?><br />
-                                  <a onclick="parent.location='http://www.diplomados.uia.mx/community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"> <span class="avisos_mas">&gt; leer más</span></a></p></td>
+                                  <a onclick="parent.location='http://www.diplomados.uia.mx/community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"> <span class="avisos_mas">&gt; leer m&aacute;s</span></a></p></td>
                             </tr>
                             <tr>
                               <td>&nbsp;</td>
@@ -717,7 +720,7 @@ a.prev span, a.next span {
                             </tr>
                             <tr>
                               <td><p><?php echo WordLimiter($row_community_opinions_top3['opinion'], 35, $word_count); ?><br />
-                                  <a onclick="parent.location='community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"><span class="avisos_mas">&gt; leer más</span></a></p></td>
+                                  <a onclick="parent.location='community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"><span class="avisos_mas">&gt; leer m&aacute;s</span></a></p></td>
                             </tr>
                             <tr>
                               <td>&nbsp;</td>
@@ -757,7 +760,7 @@ a.prev span, a.next span {
                             </tr>
                             <tr>
                               <td><p><?php echo WordLimiter($row_community_opinions_top3['opinion'], 35, $word_count); ?><br />
-                                  <a onclick="parent.location='community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"><span class="avisos_mas">&gt; leer más</span></a></p></td>
+                                  <a onclick="parent.location='community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"><span class="avisos_mas">&gt; leer m&aacute;s</span></a></p></td>
                             </tr>
                             <tr>
                               <td>&nbsp;</td>
@@ -794,6 +797,9 @@ a.prev span, a.next span {
  <div style="width:25%; float:left; margin-left:37px; margin-top:18px">
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
+        	<!--<tr>
+      		  <td align="center"><a onclick="parent.location=''" href="#"><img src="imagenes/banner_chiquito_cierre_trivia.png" height="300" width="180"></a></td>
+          </tr>-->
 	        <tr>          
 	        <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
 	        </tr>
@@ -825,14 +831,7 @@ a.prev span, a.next span {
                   </tr>
                 </tbody></table>
               </form></td>
-          </tr>
-          <tr>
-          	<td  align="right" valign="top" >&nbsp;</td>
-          	</tr>
-          <tr>
-          	<td align="center"><a href=" http://www.dec-uia.com/trivia2013/getbases.php?origin=ly5nhowK25"><img src="imagenes/d_banner_chiquito.jpg" height="300" width="180"></a></td>
-          </tr>
-              
+          </tr>              
               <!--table width="80%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td>
@@ -868,7 +867,7 @@ a.prev span, a.next span {
           </p>
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
-          Lomas de Santa Fe, México, C.P. 01219, Distrito Federal. <br>
+          Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
           </address></td>

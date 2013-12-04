@@ -1,369 +1,380 @@
 <?php require_once('Connections/otono2011.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
+	if (!function_exists("GetSQLValueString")) {
+		function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+		{
+			if (PHP_VERSION < 6) {
+				$theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+			}
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+			$theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
 
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
+			switch ($theType) {
+				case "text":
+					$theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+					break;    
+				case "long":
+					break;
+				case "int":
+					$theValue = ($theValue != "") ? intval($theValue) : "NULL";
+					break;
+				case "double":
+					$theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+					break;
+				case "date":
+					$theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+					break;
+				case "defined":
+					$theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+					break;
+			}
+			return $theValue;
+		}
+	}
 
-if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
-	//La validación se realizò en el cliente, al llegar aquí ya solo se prepara y envía el mail
-//Informaciòn del Programa	
-/*if($_POST['fechas_ini']!=NULL){
-	$fecha_temp = explode(',',$_POST['fechas_ini']);
-	$id_program = $_POST['id_program'];
-	$fecha_ini = $fecha_temp[1];
-}else{
-	$fecha_ini = $_POST['fechas_ini'];
-	$id_program = $_POST['id_program'];
-}
+	if((isset($_POST['send_form'])) && ($_POST['send_form']==1))
+	{
 
-if($_POST['horario_idioma']!=NULL){
-	$idioma_temp = explode(',',$_POST['horario_idioma']);
-	$id_program = $_POST['id_program'];
-	$nivel_idioma = $idioma_temp[1];
-	$horario_idioma = $idioma_temp[2];
-}else{
-	$id_program = $_POST['id_program'];
-}*/
+		$id_program = $_POST['id_program']; //identificador del programa seleccionado
+		$fecha_registro = date('Y-m-d H:i:s'); // fecha y hora del registro
 
-$id_program = $_POST['id_program'];
-$fecha_registro = date('Y-m-d H:i:s');
+		//Consultamos la informaciÃ³n relacionada con el curso a traves de si identificador
+		mysql_select_db($database_otono2011, $otono2011);
+		$query_diplos_names = "SELECT a.program_name, a.id_discipline_alterna, a.id_discipline_alterna_2, a.id_discipline, b.discipline, a.program_type 
+								FROM seg_dec_programas a, seg_dec_disciplinas b
+								WHERE a.id_discipline = b.id_discipline 
+								AND a.id_program = '".$id_program."'";
+		$diplos_names = mysql_query($query_diplos_names, $otono2011) or die(mysql_error());
+		$row_diplos_names = mysql_fetch_assoc($diplos_names);
 
-mysql_select_db($database_otono2011, $otono2011);
-$query_diplos_names = "SELECT *, (SELECT discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS discipline, (SELECT id_discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS id_discipline FROM site_programs WHERE id_program = '".$id_program."'";
-$diplos_names = mysql_query($query_diplos_names, $otono2011) or die(mysql_error());
-$row_diplos_names = mysql_fetch_assoc($diplos_names);
-//$totalRows_diplos_names = mysql_num_rows($diplos_names);
+		$id_discipline = $row_diplos_names['id_discipline']; //Identificador de la disciplina principal asociada al programa
+		$tipo_programa = $row_diplos_names['program_type']; //Tipo de programa
 
+		if(isset($tipo_programa) && $tipo_programa == "programahp")
+		{
+			//traemos la informaciÃ³n de eva toledo y daniel guerrero si se trata de un programa hp
+			mysql_select_db($database_otono2011, $otono2011);
+			$query_coord_mails = "SELECT * 
+								FROM seg_dec_usuarios 
+								WHERE user_uuid IN(21,41) ".// AquÃ­ ponemos los identificadores de los usuarios del sistema de seguimiento.
+								"AND id_access = 3";
+		}						
+		else
+		{
+			//Consultamos la informaciÃ³n de los coordinadores, asistentes u otros usuarios del sistema de seguimiento relacionados a la disciplina principal del programa 
+			mysql_select_db($database_otono2011, $otono2011);
+			$query_coord_mails = "SELECT * 
+									FROM seg_dec_usuarios 
+									WHERE user_uuid IN(
+										SELECT user_uuid 
+										FROM seg_dec_usuarios_programas 
+										WHERE id_discipline = $id_discipline
+										) AND id_access = 3";
+		}
+		
+		$coord_mails = mysql_query($query_coord_mails, $otono2011) or die(mysql_error());
 
-$id_discipline = $row_diplos_names['id_discipline'];
+		$row_coord_mails = mysql_fetch_assoc($coord_mails); //Lista de usuarios a los que se les harÃ¡ llegar una notificaciÃ³n
+		$totalRows_coord_mails = mysql_num_rows($coord_mails);
 
-mysql_select_db($database_otono2011, $otono2011);
-$query_coord_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $id_discipline) AND id_access = 3";
-$coord_mails = mysql_query($query_coord_mails, $otono2011) or die(mysql_error());
-$row_coord_mails = mysql_fetch_assoc($coord_mails);
-$totalRows_coord_mails = mysql_num_rows($coord_mails);
+		$nombre_area = $row_diplos_names['discipline'];
+		$nombre_programa = $row_diplos_names['program_type']." - ".$row_diplos_names['program_name'];
 
-//Informacion del curso seleccionado
-
-$nombre_area = $row_diplos_names['discipline'];
-$nombre_programa = $row_diplos_names['program_type']." - ".$row_diplos_names['program_name'];
-
-if($_POST['como_se_entero']==NULL){
-	$como_se_entero = $_POST['otromedio'];
-}else{
-	$como_se_entero = $_POST['como_se_entero'];
-}
-
-//Información Personal
-$email = $_POST['correo'];
-$a_paterno = $_POST['a_paterno'];
-$a_materno = $_POST['a_materno'];
-$nombre = $_POST['nombre'];
-$calle_numero = $_POST['calle_numero'];
-$colonia = $_POST['colonia'];
-$del_mpo = $_POST['del_mpo'];
-$cp = $_POST['cp'];
-$ciudad = $_POST['ciudad'];
-$estado = $_POST['estado'];
-$rfc = $_POST['rfc'].$_POST['rfc2'].$_POST['rfc3'];
-$telefono = $_POST['telefono'];
-$celular = $_POST['celular'];
-$correo = $_POST['correo'];
-$nacionalidad = $_POST['nacionalidad'];
-
-//Información Académica
-
-$grado_academico = $_POST['grado_academico'];
-$institucion_estudios = $_POST['institucion_estudios'];
-$porque_la_ibero = $_POST['porque_la_ibero'];
-$exalumno = $_POST['exalumno'];
-
-//Informacion Laboral
-
-$empresa=$_POST['empresa'];
-$puesto=$_POST['puesto'];
-$direccion_empresa=$_POST['direccion_empresa'];
-$telefono_empresa=$_POST['telefono_empresa'];
+		if($_POST['como_se_entero']==NULL){
+			$como_se_entero = $_POST['otromedio'];
+		}else{
+			$como_se_entero = $_POST['como_se_entero'];
+		}
 
 
-$insertSQL = "INSERT INTO sp_preinscritos (
-id_discipline,
-id_program,
-fecha_registro,
-como_se_entero,
-a_paterno,
-a_materno,
-nombre,
-calle_numero,
-colonia,
-del_mpo,
-cp,
-ciudad,
-estado,
-rfc,
-telefono,
-celular,
-correo,
-nacionalidad,
-grado_academico,
-institucion_estudios,
-exalumno,
-porque_la_ibero,
-empresa,
-puesto,
-direccion_empresa,
-telefono_empresa)
-VALUES (
-'$id_discipline',
-'$id_program',
-'$fecha_registro',
-'$como_se_entero',
-'$a_paterno',
-'$a_materno',
-'$nombre',
-'$calle_numero',
-'$colonia',
-'$del_mpo',
-'$cp',
-'$ciudad',
-'$estado',
-'$rfc',
-'$telefono',
-'$celular',
-'$correo',
-'$nacionalidad',
-'$grado_academico',
-'$institucion_estudios',
-'$exalumno',
-'$porque_la_ibero',
-'$empresa',
-'$puesto',
-'$direccion_empresa',
-'$telefono_empresa'
-)";
+		$url = $_SERVER['PHP_SELF'];
+		$ip = $_SERVER['REMOTE_ADDR'];
+		$navegador = $_SERVER['HTTP_USER_AGENT'];
 
-  
-mysql_select_db($database_otono2011, $otono2011);
+		$codigo_promo = $_POST['codigo_promo'];
+		//InformaciÃ³n Personal
+		$email = $_POST['correo'];
+		$a_paterno = $_POST['a_paterno'];
+		$a_materno = $_POST['a_materno'];
+		$nombre = $_POST['nombre'];
+		$anioN = $_POST['anio_nac'];
+		$diaN = $_POST['dia_nac'];
+		$mesN = $_POST['mes_nac'];
+		$calle_numero = $_POST['calle_numero'];
+		$colonia = $_POST['colonia'];
+		$del_mpo = $_POST['del_mpo'];
+		$cp = $_POST['cp'];
+		$ciudad = $_POST['ciudad'];
+		$estado = $_POST['estado'];
+		$rfc = $_POST['rfc'].$_POST['rfc2'].$_POST['rfc3'];
+		$telefono = $_POST['telefono'];
+		$celular = $_POST['celular'];
+		$correo = $_POST['correo'];
+		$nacionalidad = $_POST['nacionalidad'];
+		$fechaNac = $anioN."-".$mesN."-".$diaN;
 
-try{
-	
-	$Result1 = mysql_query($insertSQL, $otono2011) or die(mysql_error());
-	
+		//InformaciÃ³n AcadÃ©mica
+
+		$grado_academico = $_POST['grado_academico'];
+		$institucion_estudios = $_POST['institucion_estudios'];
+		$porque_la_ibero = $_POST['porque_la_ibero'];
+		$exalumno = $_POST['exalumno'];
+
+		//Informacion Laboral
+
+		$empresa=$_POST['empresa'];
+		$puesto=$_POST['puesto'];
+		$direccion_empresa=$_POST['direccion_empresa'];
+		$telefono_empresa=$_POST['telefono_empresa'];
+
+
+		$insertSQL = "INSERT INTO sp_preinscritos (
+		id_discipline,
+		id_program,
+		fecha_registro,
+		como_se_entero,
+		a_paterno,
+		a_materno,
+		nombre,
+		nacimiento,
+		calle_numero,
+		colonia,
+		del_mpo,
+		cp,
+		ciudad,
+		estado,
+		rfc,
+		telefono,
+		celular,
+		correo,
+		nacionalidad,
+		grado_academico,
+		institucion_estudios,
+		exalumno,
+		porque_la_ibero,
+		empresa,
+		puesto,
+		direccion_empresa,
+		telefono_empresa, codigo, ip, navegador, url_origen)
+		VALUES (
+		'$id_discipline',
+		'$id_program',
+		'$fecha_registro',
+		'$como_se_entero',
+		'$a_paterno',
+		'$a_materno',
+		'$nombre',
+		'$fechaNac',
+		'$calle_numero',
+		'$colonia',
+		'$del_mpo',
+		'$cp',
+		'$ciudad',
+		'$estado',
+		'$rfc',
+		'$telefono',
+		'$celular',
+		'$correo',
+		'$nacionalidad',
+		'$grado_academico',
+		'$institucion_estudios',
+		'$exalumno',
+		'$porque_la_ibero',
+		'$empresa',
+		'$puesto',
+		'$direccion_empresa',
+		'$telefono_empresa',
+		'$codigo_promo',
+		'$ip',
+		'$navegador',
+		'$url'
+		)";
+
+		  
+		mysql_select_db($database_otono2011, $otono2011);
+
+		try{
+			
+			$Result1 = mysql_query($insertSQL, $otono2011) or die(mysql_error());
+			
+			mysql_select_db($database_otono2011, $otono2011);
+			$query_last_p = "SELECT id_preinscrito FROM sp_preinscritos ORDER BY id_preinscrito DESC";
+			$last_p = mysql_query($query_last_p, $otono2011) or die(mysql_error());
+			$row_last_p = mysql_fetch_assoc($last_p);
+			$insertSQL = "INSERT INTO sp_pasos_status (id_preinscrito) VALUES (".$row_last_p['id_preinscrito'].")";
+			$Result1 = mysql_query($insertSQL, $otono2011) or die(mysql_error());
+			
+			/*CONSTRUCCION DEL MENSJAE PARA ENVIAR EN EL MAIL*/
+
+			$mensaje="<strong>&Aacute;rea:</strong> ".$nombre_area."<br />";
+			$mensaje.="<strong>Nombre del programa:</strong> ".$nombre_programa."<br />";
+			$mensaje.="<strong>Se enterÃ³ del programa atravÃ©s de:</strong><br />";
+
+			if($how != NULL)
+			{
+				$mensaje.= $how."<br />";
+			}
+
+			if($otro_medio != NULL) 
+			{
+				$mensaje.="Otro medio: ".$otro_medio."<br />";
+			}
+
+			$mensaje.="<br /><strong>InformaciÃ³n Personal:</strong><br /><br />";
+			$mensaje.="<strong>A. Paterno:</strong> ".$a_paterno."<br />";
+			$mensaje.="<strong>A. Materno:</strong> ".$a_materno."<br />";
+			$mensaje.="<strong>Nombre:</strong> ".$nombre."<br />";
+			$mensaje.="<strong>Fecha de nacimiento:</strong> ".$_POST['dia_nac']."-".$_POST['mes_nac']."-".$_POST['anio_nac']."<br />";
+			$mensaje.="<strong>Domicilio:</strong> ".$calle_numero."<br />";
+			$mensaje.="<strong>Colonia:</strong> ".$colonia."<br />";
+			$mensaje.="<strong>Del./Mpo./PoblaciÃ³n:</strong> ".$del_mpo."<br />";
+			$mensaje.="<strong>C.P.:</strong> ".$cp."<br />";
+			$mensaje.="<strong>Ciudad:</strong> ".$ciudad."<br />";
+			$mensaje.="<strong>Estado:</strong> ".$estado."<br />";
+			$mensaje.="<strong>RFC:</strong> ".$rfc."<br />";
+			$mensaje.="<strong>Tel. casa:</strong> ".$telefono."<br />";
+			$mensaje.="<strong>Cel:</strong> ".$celular."<br />";
+			$mensaje.="<strong>Email:</strong> ".$correo."<br />";
+			$mensaje.="<strong>Nacionalidad:</strong> ".$nacionalidad."<br />";
+
+			$mensaje.="<br /><strong>InformaciÃ³n AcadÃ©mica:</strong><br /><br />";
+			$mensaje.="<strong>Grado acadÃ©mico:</strong> ".$grado_academico."<br />";
+			$mensaje.="<strong>InstituciÃ³n de estudios:</strong> ".$institucion_estudios."<br />";
+			$mensaje.="<strong>PorquÃ© eligiÃ³ a la Ibero:</strong> ".$porque_la_ibero."<br />";
+			$mensaje.="<strong>Ex Alumno UIA:</strong> ".$exalumno."<br />";
+
+			$mensaje.="<br /><strong>InformaciÃ³n Laboral:</strong><br /><br />";
+			$mensaje.="<strong>Empresa:</strong> ".$empresa."<br />";
+			$mensaje.="<strong>TelÃ©fono:</strong> ".$telefono_empresa."<br />";
+			$mensaje.="<strong>Fax:</strong> ".$direccion_empresa."<br /><br /><br />";
+
+			$headers = "From: " . strip_tags($email) . "\r\n";
+			$headers .= "MIME-Version: 1.0\r\n";
+			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";	
+			$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";				
+
+			//echo "ANTES: " . $mensaje;
+
+			$mensaje = str_replace("Ã¡", "&aacute;", $mensaje);
+			$mensaje = str_replace("Ã©", "&eacute;", $mensaje);
+			$mensaje = str_replace("Ã­", "&iacute;", $mensaje);
+			$mensaje = str_replace("Ã³", "&oacute;", $mensaje);
+			$mensaje = str_replace("Ãº", "&uacute;", $mensaje);
+			$mensaje = str_replace("Ã±", "&ntilde;", $mensaje);
+			$mensaje = str_replace("Ã‘", "&Ntilde;", $mensaje);
+
+			//echo "DESPUES: " . $mensaje;
+
+			$mail_title = "DEC - PreinscripciÃ³n";
+
+			mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);
+
+			do {
+			$to_coord_b = $row_coord_mails['email_b'];
+			$mensaje_coord .= "<br /><br />";
+			$mensaje_coord = "Tienes un nuevo <strong>preinscrito</strong> en el <strong>".$nombre_programa."</strong>";
+			$mensaje_coord .= "<br /><br />";
+			$mensaje_coord .= "Su nombre:<strong>".$nombre."&nbsp;".$a_paterno."</strong><br /><br />";
+			$mensaje_coord .= "Su correo electr&oacute;nico:<strong>".$correo."</strong><br /><br />";
+			$mensaje_coord .= "Para darle seguimiento visita la siguiente liga:";
+			$mensaje_coord .= "<br /><br />";
+			$mensaje_coord .= "<a href='http://www.dec-uia.com/s_preiniscritos/' target='_blank'>http://www.dec-uia.com/s_preiniscritos/</a>";
+			$mensaje_coord .= "<br /><br />donde podr&aacute;s llevar paso a paso el proceso de inscripci&oacute;n y tener un f&aacute;cil acceso a la informaci&oacute;n del usuario.";
+			$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord_mails['username']."</strong>";
+			$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_mails['password']."</strong>";
+			//mail($to_coord, $mail_title, $mensaje_coord, $headers);
+			mail($to_coord_b, $mail_title, $mensaje_coord, $headers);
+
+			}while($row_coord_mails = mysql_fetch_assoc($coord_mails));
+
+			if(isset($row_diplos_names['id_discipline_alterna']) && $row_diplos_names['id_discipline_alterna'] != NULL)
+			{
+				$disciplina_alterna = $row_diplos_names['id_discipline_alterna'];
+
+				mysql_select_db($database_otono2011, $otono2011);
+				$query_coord_alt_mails = "SELECT * 
+											FROM seg_dec_usuarios 
+											WHERE user_uuid 
+											IN(
+												SELECT user_uuid 
+												FROM seg_dec_usuarios_programas 
+												WHERE id_discipline = $disciplina_alterna
+												) 
+											AND id_access !=1 
+											AND id_access !=2";
+				$coord_alt_mails = mysql_query($query_coord_alt_mails, $otono2011) or die(mysql_error());
+				$row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails);
+				$totalRows_coord_alt_mails = mysql_num_rows($coord_alt_mails);
+
+				do {
+					$to_coord_b_alt = $row_coord_alt_mails['email_b'];
+					$mensaje_coord .= "<br /><br />";
+					$mensaje_coord = "Tienes un nuevo <strong>preinscrito</strong> en el <strong>".$nombre_programa."</strong>";
+					$mensaje_coord .= "<br /><br />";
+					$mensaje_coord .= "Su nombre:<strong>".$nombre."&nbsp;".$a_paterno."</strong><br /><br />";
+					$mensaje_coord .= "Su correo electr&oacute;nico:<strong>".$correo."</strong><br /><br />";
+					$mensaje_coord .= "Para darle seguimiento visita la siguiente liga:";
+					$mensaje_coord .= "<br /><br />";
+					$mensaje_coord .= "<a href='http://www.dec-uia.com/s_preiniscritos/' target='_blank'>http://www.dec-uia.com/s_preiniscritos/</a>";
+					$mensaje_coord .= "<br /><br />donde podr&aacute;s llevar paso a paso el proceso de inscripci&oacute;n y tener un f&aacute;cil acceso a la informaci&oacute;n del usuario.";
+					$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord__alt_mails['username']."</strong>";
+					$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$row_coord_alt_mails['password']."</strong>";
+					mail($to_coord_b_alt, $mail_title, $mensaje_coord, $headers);
+
+				}while($row_coord_alt_mails = mysql_fetch_assoc($coord_alt_mails));
+			}
+
+			$mensaje_user = 'Tu preinscripciÃ³n al '.$nombre_programa.' ha sido recibida';
+			$mensaje_user .= '<br /><br />En breve nos comunicaremos contigo.';
+			$mensaje_user .= '<br /><br />Gracias.';
+			$mensaje_user .= '<br /><br />';
+			$mensaje_user .= '<br /><br />Direcci&oacute;n de Educaci&oacute;n Continua - Universidad Iberoamericana Campus Santa Fe.';
+			$headers = "From: " . strip_tags($to_coord) . "\r\n";
+			$headers .= "MIME-Version: 1.0\r\n";
+			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+			mail($email, 'Te has preinscrito exitosamente.', $mensaje_user, $headers);
+
+			header('Location:preinscripcion_exitosa_P.php?reg_news='.$_POST['reg_news'].'&email='.$_POST['email']);
+			//para mandar el mail en texto plano.
+
+		} catch (Exception $e){
+			
+			$error_var = 'ExcepciÃ³n capturada: '.  $e->getMessage(). "\n";
+			$headers = "From: webmaster@dec-uia.com\r\n";
+			$headers .= "MIME-Version: 1.0\r\n";
+			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";	
+			$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";
+			
+			mail('webmaster@dec-uia.com','Error en preinscripciÃ³n', $error_var, $headers);
+			
+			header('Location:preinscripcion_fallida.php');
+			
+		}
+
+	}
+
 	mysql_select_db($database_otono2011, $otono2011);
-	$query_last_p = "SELECT id_preinscrito FROM sp_preinscritos ORDER BY id_preinscrito DESC";
-	$last_p = mysql_query($query_last_p, $otono2011) or die(mysql_error());
-	$row_last_p = mysql_fetch_assoc($last_p);
-	
-	$insertSQL = "INSERT INTO sp_pasos_status (id_preinscrito) VALUES (".$row_last_p['id_preinscrito'].")";
-	
-	$Result1 = mysql_query($insertSQL, $otono2011) or die(mysql_error());
-	
-	/*CONSTRUCCION DEL MENSJAE PARA ENVIAR EN EL MAIL*/
+	$query_disciplines_names = "SELECT * FROM seg_dec_disciplinas WHERE id_discipline != 22 AND id_discipline != 19 ORDER BY discipline ASC";
+	$disciplines_names = mysql_query($query_disciplines_names, $otono2011) or die(mysql_error());
+	$row_disciplines_names = mysql_fetch_assoc($disciplines_names);
+	//$totalRows_disciplines_names = mysql_num_rows($disciplines_names);
 
-$mensaje="<strong>&Aacute;rea:</strong> ".$nombre_area."<br />";
-$mensaje.="<strong>Nombre del programa:</strong> ".$nombre_programa."<br />";
-$mensaje.="<strong>Se enteró del programa através de:</strong><br />";
-
-if($how != NULL)
-{
-	$mensaje.= $how."<br />";
-}
-
-if($otro_medio != NULL) 
-{
-	$mensaje.="Otro medio: ".$otro_medio."<br />";
-}
-
-$mensaje.="<br /><strong>Información Personal:</strong><br /><br />";
-$mensaje.="<strong>A. Paterno:</strong> ".$a_paterno."<br />";
-$mensaje.="<strong>A. Materno:</strong> ".$a_materno."<br />";
-$mensaje.="<strong>Nombre:</strong> ".$nombre."<br />";
-$mensaje.="<strong>Fecha de nacimiento:</strong> ".$_POST['dia_nac']."-".$_POST['mes_nac']."-".$_POST['anio_nac']."<br />";
-$mensaje.="<strong>Domicilio:</strong> ".$calle_numero."<br />";
-$mensaje.="<strong>Colonia:</strong> ".$colonia."<br />";
-$mensaje.="<strong>Del./Mpo./Población:</strong> ".$del_mpo."<br />";
-$mensaje.="<strong>C.P.:</strong> ".$cp."<br />";
-$mensaje.="<strong>Ciudad:</strong> ".$ciudad."<br />";
-$mensaje.="<strong>Estado:</strong> ".$estado."<br />";
-$mensaje.="<strong>RFC:</strong> ".$rfc."<br />";
-$mensaje.="<strong>Tel. casa:</strong> ".$telefono."<br />";
-$mensaje.="<strong>Cel:</strong> ".$celular."<br />";
-$mensaje.="<strong>Email:</strong> ".$correo."<br />";
-$mensaje.="<strong>Nacionalidad:</strong> ".$nacionalidad."<br />";
-
-$mensaje.="<br /><strong>Información Académica:</strong><br /><br />";
-$mensaje.="<strong>Grado académico:</strong> ".$grado_academico."<br />";
-$mensaje.="<strong>Institución de estudios:</strong> ".$institucion_estudios."<br />";
-$mensaje.="<strong>Porqué eligió a la Ibero:</strong> ".$porque_la_ibero."<br />";
-$mensaje.="<strong>Ex Alumno UIA:</strong> ".$exalumno."<br />";
-
-$mensaje.="<br /><strong>Información Laboral:</strong><br /><br />";
-$mensaje.="<strong>Empresa:</strong> ".$empresa."<br />";
-$mensaje.="<strong>Teléfono:</strong> ".$telefono_empresa."<br />";
-$mensaje.="<strong>Fax:</strong> ".$direccion_empresa."<br /><br /><br />";
-
-$headers = "From: " . strip_tags($email) . "\r\n";
-$headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";	
-$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";				
-
-//echo "ANTES: " . $mensaje;
-
-$mensaje = str_replace("á", "&aacute;", $mensaje);
-$mensaje = str_replace("é", "&eacute;", $mensaje);
-$mensaje = str_replace("í", "&iacute;", $mensaje);
-$mensaje = str_replace("ó", "&oacute;", $mensaje);
-$mensaje = str_replace("ú", "&uacute;", $mensaje);
-$mensaje = str_replace("ñ", "&ntilde;", $mensaje);
-$mensaje = str_replace("Ñ", "&Ntilde;", $mensaje);
-
-//echo "DESPUES: " . $mensaje;
-
-$mail_title = "DEC - Preinscripción";
-					
-mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);
-//mail("erika.medina@uia.mx", $mail_title, $mensaje, $headers);
-//mail("jorge@estrategasdigitales.com", $mail_title, $mensaje, $headers);
-//mail("jlaa2774@hotmail.com", utf8_decode($mail_title), $mensaje, $headers);
-do {
-	//$to_coord = $row_coord_mails['email'];
-	$to_coord_b = $row_coord_mails['email_b'];
-	$mensaje_coord .= "<br /><br />";
-	$mensaje_coord = "Tienes un nuevo preinscrito en el <strong>".$nombre_programa."</strong>";
-	$mensaje_coord .= "<br /><br />";
-	$mensaje_coord .= "Para darle seguimiento visita la siguiente liga:";
-	$mensaje_coord .= "<br /><br />";
-	$mensaje_coord .= "<a href='http://www.dec-uia.com/s_seguimiento/' target='_blank'>http://www.dec-uia.com/s_seguimiento/</a>";
-	$mensaje_coord .= "<br /><br />donde podrás llevar paso a paso el proceso de inscripción y tener un fácil acceso a la información del usuario.";
-	$mensaje_coord .= "<br /><br />Tu nombre de usuario es: <strong>".$row_coord_mails['username']."</strong>";
-	$mensaje_coord .= "<br /><br />Tu contraseña: <strong>".$row_coord_mails['password']."</strong>";
-	//mail($to_coord, $mail_title, $mensaje_coord, $headers);
-	mail($to_coord_b, $mail_title, $mensaje_coord, $headers);
-	
-}while($row_coord_mails = mysql_fetch_assoc($coord_mails));
-
-//mail('pvazquezdiaz@gmail.com', $mail_title, $mensaje_coord, $headers);
-
-$mensaje_user = 'Tu preinscripción al '.$nombre_programa.' ha sido recibida';
-$mensaje_user .= '<br /><br />En breve nos comunicaremos contigo.';
-$mensaje_user .= '<br /><br />Gracias.';
-$mensaje_user .= '<br /><br />';
-$mensaje_user .= '<br /><br />Dirección de Educación Continua - Universidad Iberoamericana Campus Santa Fe.';
-$headers = "From: " . strip_tags($to_coord) . "\r\n";
-$headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-mail($email, 'Te has preinscrito exitosamente.', $mensaje_user, $headers);
-
-header('Location: preinscripcion_exitosa_P.php?reg_news='.$_POST['reg_news'].'&email='.$_POST['email']);
-//para mandar el mail en texto plano.
-
-
-} catch (Exception $e){
-	
-	$error_var = 'Excepción capturada: '.  $e->getMessage(). "\n";
-	$headers = "From: webmaster@dec-uia.com\r\n";
-	$headers .= "MIME-Version: 1.0\r\n";
-	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";	
-	$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";
-	
-	mail('webmaster@dec-uia.com','Error en preinscripción', $error_var, $headers);
-	
-	header('Location: preinscripcion_fallida.php');
-	
-}
-
-}
-
-mysql_select_db($database_otono2011, $otono2011);
-$query_disciplines_names = "SELECT * FROM disciplines WHERE id_discipline != 22 AND id_discipline != 19 ORDER BY discipline ASC";
-$disciplines_names = mysql_query($query_disciplines_names, $otono2011) or die(mysql_error());
-$row_disciplines_names = mysql_fetch_assoc($disciplines_names);
-//$totalRows_disciplines_names = mysql_num_rows($disciplines_names);
-
-mysql_select_db($database_otono2011, $otono2011);
-$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_type DESC, program_name ASC";
-$programas = mysql_query($query_programas, $otono2011) or die(mysql_error());
-$row_programas = mysql_fetch_assoc($programas);
-
-/*if($_GET['discipline']==NULL || $_GET['discipline']==0){
 	mysql_select_db($database_otono2011, $otono2011);
-	$query_diplos_names = "SELECT * FROM site_programs WHERE program_type ='diplomado' AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_name ASC";
-	$diplos_names = mysql_query($query_diplos_names, $otono2011) or die(mysql_error());
-	$row_diplos_names = mysql_fetch_assoc($diplos_names);
-	$totalRows_diplos_names = mysql_num_rows($diplos_names);
-	
-	mysql_select_db($database_otono2011, $otono2011);
-	$query_cursos_names = "SELECT * FROM site_programs WHERE program_type ='curso' AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_name ASC";
-	$cursos_names = mysql_query($query_cursos_names, $otono2011) or die(mysql_error());
-	$row_cursos_names = mysql_fetch_assoc($cursos_names);
-	$totalRows_cursos_names = mysql_num_rows($cursos_names);
-}else{
-	$area = $_GET['discipline'];
-	mysql_select_db($database_otono2011, $otono2011);
-	$query_diplos_names = "SELECT * FROM site_programs WHERE id_discipline = $area AND program_type ='diplomado' AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_name ASC";
-	$diplos_names = mysql_query($query_diplos_names, $otono2011) or die(mysql_error());
-	$row_diplos_names = mysql_fetch_assoc($diplos_names);
-	$totalRows_diplos_names = mysql_num_rows($diplos_names);
-	
-	mysql_select_db($database_otono2011, $otono2011);
-	$query_diplos_names_2 = "SELECT * FROM site_programs WHERE id_discipline_alterna != 'NULL' AND program_type ='diplomado' AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_name ASC";
-	$diplos_names_2 = mysql_query($query_diplos_names_2, $otono2011) or die(mysql_error());
-	$row_diplos_names_2 = mysql_fetch_assoc($diplos_names_2);
-	$totalRows_diplos_names_2 = mysql_num_rows($diplos_names_2);
-	
-	mysql_select_db($database_otono2011, $otono2011);
-	$query_cursos_names = "SELECT * FROM site_programs WHERE id_discipline = $area AND program_type ='curso' AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_name ASC";
-	$cursos_names = mysql_query($query_cursos_names, $otono2011) or die(mysql_error());
-	$row_cursos_names = mysql_fetch_assoc($cursos_names);
-	$totalRows_cursos_names = mysql_num_rows($cursos_names);
-	
-	mysql_select_db($database_otono2011, $otono2011);
-	$query_cursos_names_2 = "SELECT * FROM site_programs WHERE id_discipline_alterna != 'NULL' AND program_type ='curso' AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_name ASC";
-	$cursos_names_2 = mysql_query($query_cursos_names_2, $otono2011) or die(mysql_error());
-	$row_cursos_names_2 = mysql_fetch_assoc($cursos_names_2);
-	$totalRows_cursos_names_2 = mysql_num_rows($cursos_names_2);
-}*/
-
-mysql_select_db($database_otono2011, $otono2011);
-$query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
-$ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
-$row_ad = mysql_fetch_assoc($ad);
-$totalRows_ad = mysql_num_rows($ad);
+	$query_programas = "SELECT id_program, program_type, program_name FROM seg_dec_programas WHERE cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_type DESC, program_name ASC";
+	$programas = mysql_query($query_programas, $otono2011) or die(mysql_error());
+	$row_programas = mysql_fetch_assoc($programas);
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/secciones.dwt.php" codeOutsideHTMLIsLocked="false" -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Untitled Document</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.js"></script>
+<link rel="stylesheet" href="Scripts/jquery-ui.css" type="text/css" media="all" />
+<script type="text/javascript" src="Scripts/jquery.js"></script>
+<script type="text/javascript" src="Scripts/menu2.js"></script>
+<script src="Scripts/jquery-ui.js"></script>
 <script>
 var anio_f=00;
 var mes_f=00;
@@ -382,7 +393,7 @@ function populate_year(mes){
 	if(($('select#dia_nac').val()==29)&&(mes==02)){
 		$('select#anio_nac').html('<option value="08">2008</option><option value="04">2004</option><option value="00">2000</option><option value="96">1996</option><option value="92">1992</option><option value="88">1988</option><option value="84">1984</option><option value="80">1980</option><option value="76">1976</option><option value="72">1972</option><option value="68">1968</option><option value="64">1964</option><option value="60">1960</option><option value="56">1956</option><option value="52">1952</option><option value="48">1948</option><option value="44">1944</option><option value="40">1940</option><option value="36">1936</option><option value="32">1932</option><option value="28">1928</option><option value="24">1924</option><option value="20">1920</option><option value="16">1916</option><option value="12">1912</option><option value="08">1908</option><option value="04">1904</option><option value="00">1900</option>');
 	}else{
-		$('select#anio_nac').html('<option selected="selected" disabled="disabled">- Año -</option><option value="11">2011</option><option value="10">2010</option><option value="09">2009</option><option value="08">2008</option><option value="07">2007</option><option value="06">2006</option><option value="05">2005</option><option value="04">2004</option><option value="03">2003</option><option value="02">2002</option><option value="01">2001</option><option value="00">2000</option><option value="99">1999</option><option value="98">1998</option><option value="97">1997</option><option value="96">1996</option><option value="95">1995</option><option value="94">1994</option><option value="93">1993</option><option value="92">1992</option><option value="91">1991</option><option value="90">1990</option><option value="89">1989</option><option value="88">1988</option><option value="87">1987</option><option value="86">1986</option><option value="85">1985</option><option value="84">1984</option><option value="83">1983</option><option value="82">1982</option><option value="81">1981</option><option value="80">1980</option><option value="79">1979</option><option value="78">1978</option><option value="77">1977</option><option value="76">1976</option><option value="75">1975</option><option value="74">1974</option><option value="73">1973</option><option value="72">1972</option><option value="71">1971</option><option value="70">1970</option><option value="69">1969</option><option value="68">1968</option><option value="67">1967</option><option value="66">1966</option><option value="65">1965</option><option value="64">1964</option><option value="63">1963</option><option value="62">1962</option><option value="61">1961</option><option value="60">1960</option><option value="59">1959</option><option value="58">1958</option><option value="57">1957</option><option value="56">1956</option><option value="55">1955</option><option value="54">1954</option><option value="53">1953</option><option value="52">1952</option><option value="51">1951</option><option value="50">1950</option><option value="49">1949</option><option value="48">1948</option><option value="47">1947</option><option value="46">1946</option><option value="45">1945</option><option value="44">1944</option><option value="43">1943</option><option value="42">1942</option><option value="41">1941</option><option value="40">1940</option><option value="39">1939</option><option value="38">1938</option><option value="37">1937</option><option value="36">1936</option><option value="35">1935</option><option value="34">1934</option><option value="33">1933</option><option value="32">1932</option><option value="31">1931</option><option value="30">1930</option><option value="29">1929</option><option value="28">1928</option><option value="27">1927</option><option value="26">1926</option><option value="25">1925</option><option value="24">1924</option><option value="23">1923</option><option value="22">1922</option><option value="21">1921</option><option value="20">1920</option><option value="19">1919</option><option value="18">1918</option><option value="17">1917</option><option value="16">1916</option><option value="15">1915</option><option value="14">1914</option><option value="13">1913</option><option value="12">1912</option><option value="11">1911</option><option value="10">1910</option><option value="09">1909</option><option value="08">1908</option><option value="07">1907</option><option value="06">1906</option><option value="05">1905</option><option value="04">1904</option><option value="03">1903</option><option value="02">1902</option><option value="01">1901</option><option value="00">1900</option>');
+		$('select#anio_nac').html('<option selected="selected" disabled="disabled">- A&ntilde;o -</option><option value="11">2011</option><option value="10">2010</option><option value="09">2009</option><option value="08">2008</option><option value="07">2007</option><option value="06">2006</option><option value="05">2005</option><option value="04">2004</option><option value="03">2003</option><option value="02">2002</option><option value="01">2001</option><option value="00">2000</option><option value="99">1999</option><option value="98">1998</option><option value="97">1997</option><option value="96">1996</option><option value="95">1995</option><option value="94">1994</option><option value="93">1993</option><option value="92">1992</option><option value="91">1991</option><option value="90">1990</option><option value="89">1989</option><option value="88">1988</option><option value="87">1987</option><option value="86">1986</option><option value="85">1985</option><option value="84">1984</option><option value="83">1983</option><option value="82">1982</option><option value="81">1981</option><option value="80">1980</option><option value="79">1979</option><option value="78">1978</option><option value="77">1977</option><option value="76">1976</option><option value="75">1975</option><option value="74">1974</option><option value="73">1973</option><option value="72">1972</option><option value="71">1971</option><option value="70">1970</option><option value="69">1969</option><option value="68">1968</option><option value="67">1967</option><option value="66">1966</option><option value="65">1965</option><option value="64">1964</option><option value="63">1963</option><option value="62">1962</option><option value="61">1961</option><option value="60">1960</option><option value="59">1959</option><option value="58">1958</option><option value="57">1957</option><option value="56">1956</option><option value="55">1955</option><option value="54">1954</option><option value="53">1953</option><option value="52">1952</option><option value="51">1951</option><option value="50">1950</option><option value="49">1949</option><option value="48">1948</option><option value="47">1947</option><option value="46">1946</option><option value="45">1945</option><option value="44">1944</option><option value="43">1943</option><option value="42">1942</option><option value="41">1941</option><option value="40">1940</option><option value="39">1939</option><option value="38">1938</option><option value="37">1937</option><option value="36">1936</option><option value="35">1935</option><option value="34">1934</option><option value="33">1933</option><option value="32">1932</option><option value="31">1931</option><option value="30">1930</option><option value="29">1929</option><option value="28">1928</option><option value="27">1927</option><option value="26">1926</option><option value="25">1925</option><option value="24">1924</option><option value="23">1923</option><option value="22">1922</option><option value="21">1921</option><option value="20">1920</option><option value="19">1919</option><option value="18">1918</option><option value="17">1917</option><option value="16">1916</option><option value="15">1915</option><option value="14">1914</option><option value="13">1913</option><option value="12">1912</option><option value="11">1911</option><option value="10">1910</option><option value="09">1909</option><option value="08">1908</option><option value="07">1907</option><option value="06">1906</option><option value="05">1905</option><option value="04">1904</option><option value="03">1903</option><option value="02">1902</option><option value="01">1901</option><option value="00">1900</option>');
 	}
 	mes_f=mes;
 }
@@ -394,12 +405,12 @@ function populate_rfc_name(){
 	
 	//alert(rfc_siglas);
 	
-	rfc_siglas = rfc_siglas.replace('Á', 'A');
-	rfc_siglas = rfc_siglas.replace('É', 'E');
-	rfc_siglas = rfc_siglas.replace('Í', 'I');
-	rfc_siglas = rfc_siglas.replace('Ó', 'O');
-	rfc_siglas = rfc_siglas.replace('Ú', 'U');
-	rfc_siglas = rfc_siglas.replace('Ñ', 'N');
+	rfc_siglas = rfc_siglas.replace('\u00C1', 'A');
+	rfc_siglas = rfc_siglas.replace('\u00C9', 'E');
+	rfc_siglas = rfc_siglas.replace('\u00CD', 'I');
+	rfc_siglas = rfc_siglas.replace('\u00D3', 'O');
+	rfc_siglas = rfc_siglas.replace('\u00DA', 'U');
+	rfc_siglas = rfc_siglas.replace('\u00D1', 'N');
 	//alert(rfc_siglas);
 	$('input#rfc').attr('value',rfc_siglas);
 }
@@ -429,7 +440,7 @@ function validate(){
 			 //--
 		 }else{
 			 if($('input#otromedio').val()==''){
-				requiredFieldsAlertMsg += "* ¿Cómo se enteró?\n";
+				requiredFieldsAlertMsg += "* \u00BFC\u00f3mo se enter\u00f3?\n";
 				cont++;
 			}
 		}
@@ -447,7 +458,7 @@ function validate(){
 			cont++;
 		}
 		if($('input#calle_numero').val()==''){
-			requiredFieldsAlertMsg += "* Calle y número\n";
+			requiredFieldsAlertMsg += "* Calle y n\u00famero\n";
 			cont++;
 		}
 		if($('input#colonia').val()==''){
@@ -455,11 +466,11 @@ function validate(){
 			cont++;
 		}
 		if($('input#del_mpo').val()==''){
-			requiredFieldsAlertMsg += "* Delegación o  municipio\n";
+			requiredFieldsAlertMsg += "* Delegaci\u00f3n o  municipio\n";
 			cont++;
 		}
 		if($('input#cp').val()==''){
-			requiredFieldsAlertMsg += "* Código postal\n";
+			requiredFieldsAlertMsg += "* C\u00f3digo postal\n";
 			cont++;
 		}
 		if($('input#ciudad').val()==''){
@@ -479,7 +490,7 @@ function validate(){
 		}
 		
 		if($('input#telefono').val()==''){
-			requiredFieldsAlertMsg += "* Teléfono\n";
+			requiredFieldsAlertMsg += "* Tel\u00e9fono\n";
 			cont++;
 		}
 		if($('input#correo').val()==''){
@@ -492,7 +503,7 @@ function validate(){
 				//NADA
 			}
 			else{
-				requiredFieldsAlertMsg += '* La dirección de correo no es válida\n';
+				requiredFieldsAlertMsg += '* La direcci\u00f3n de correo no es v\u00e1lida\n';
 				cont++;
 			}
 		}
@@ -502,21 +513,21 @@ function validate(){
 		}
 		
 		if($('input#institucion_estudios').val()==''){
-			requiredFieldsAlertMsg += "* Institución de estudios\n";
+			requiredFieldsAlertMsg += "* Instituci\u00f3n de estudios\n";
 			cont++;
 		}
 		
 		if ($('input[name=grado_academico]:radio').is(':checked')) {
 			 //--
 		 }else{
-			requiredFieldsAlertMsg += "* Nivel académico\n";
+			requiredFieldsAlertMsg += "* Nivel acad\u00e9;mico\n";
 			cont++;
 		}
 		
 		if ($('input[name=exalumno]:radio').is(':checked')) {
 			 //--
 		 }else{
-			requiredFieldsAlertMsg += "* ¿Ex alumno UIA?\n";
+			requiredFieldsAlertMsg += "* \u00BFEx alumno UIA?\n";
 			cont++;
 		}
 		//EMRPESA
@@ -529,11 +540,11 @@ function validate(){
 			cont++;
 		}
 		if($('#direccion_empresa').val()==''){
-			requiredFieldsAlertMsg += "* Dirección de la empresa\n";
+			requiredFieldsAlertMsg += "* Direcci\u00f3n de la empresa\n";
 			cont++;
 		}
 		if($('input#telefono_empresa').val()==''){
-			requiredFieldsAlertMsg += "* Teléfono de la empresa\n";
+			requiredFieldsAlertMsg += "* Tel\u00e9fono de la empresa\n";
 			cont++;
 		}
 		
@@ -547,7 +558,7 @@ function validate(){
 			document.forms.form_news_2.submit();
 		}
 	   
-	   return confirm('Los datos proporcionados serán utilizados unicamente para continuar con tu proceso de inscripción. Da clic en "Aceptar" si los datos son correctos, de lo contrario da clic en "Cancelar". Gracias.');
+	   return confirm('Los datos proporcionados ser\u00e1n utilizados unicamente para continuar con tu proceso de inscripci\u00f3n. Da clic en "Aceptar" si los datos son correctos, de lo contrario da clic en "Cancelar". Gracias.');
 
 	}		
 }
@@ -722,265 +733,198 @@ s.parentNode.insertBefore(ga, s);
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <iframe id="helperIframe" src='http://www.diplomados.uia.mx/helper.html#1000' height='0' width='0' frameborder='0'></iframe>
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<?php switch($_GET['id_discipline']){
-		 case 1:
-		 $imagen = 'arquitectura';
-		 $header = 'verde';
-		 $descargable = 'arquitectura';
-		 break;
-		 case 2:
-		 $imagen = 'arte';
-		 $header = 'verde';
-		 $descargable = 'arte';
-		 break;
-		 case 3:
-		 $imagen = 'diseno';
-		 $header = 'verde';
-		 $descargable = 'diseno';
-		 break;
-		 case 4:
-		 $imagen = 'comunicacion';
-		 $header = 'gris';
-		 $descargable = 'comunicacion';
-		 break;
-		 case 5:
-		 $imagen = 'desarrollohumano';
-		 $header = 'gris';
-		 $descargable = 'dh';
-		 break;
-		 case 6:
-		 $imagen = 'salud';
-		 $header = 'gris';
-		 $descargable = 'salud';
-		 break;
-		 case 7:
-		 $imagen = 'politica';
-		 $header = 'gris';
-		 $descargable = 'politica';
-		 break;
-		 case 8:
-		 $imagen = 'negocios';
-		 $header = 'turquesa';
-		 $descargable = 'negocios';
-		 break;
-		 case 9:
-		 $imagen = 'tecnologia';
-		 $header = 'turquesa';
-		 $descargable = 'tecnologia';
-		 break;
-		 case 10:
-		 $imagen = 'humanidades';
-		 $header = 'morado';
-		 $descargable = 'humanidades';
-		 break;
-		 case 11:
-		 $imagen = 'gastronomia';
-		 $header = 'amarillo';
-		 $descargable = 'gastronomia';
-		 break;
-		 case 12:
-		 $imagen = 'prepaAbierta';
-		 $header = 'rojo';
-		 $descargable = 'prepa';
-		 break;
-		 case 13:
-		 $imagen = 'xochitla';
-		 $header = 'vc';
-		 $descargable = 'xochitla';
-		 break;
-		 case 14:
-		 $imagen = 'idiomas';
-		 $header = 'rosa';
-		 $descargable = 'idiomas';
-		 break;
-		 case 15:
-		 $imagen = 'online';
-		 $header = 'azul';
-		 $descargable = 'online';
-		 break;
-		 case 16:
-		 $imagen = 'atencionIntgralEmpresas';
-		 $header = 'vc';
-		 $descargable = 'empresas';
-		 break;
-		 case 17:
-		 $imagen = 'atencionSectorPub';
-		 $header = 'naranja';
-		 $descargable = 'sP';
-		 break;
-		 case 18:
-		 $imagen = 'creliogiosas';
-		 $header = 'morado';
-		 $descargable = 'cR';
-		 break;
-		 case 19:
-		 $imagen = 'casabarragan';
-		 $header = 'verde';
-		 $descargable = 'casa_barragan';
-		 break; 
-		  case 20:
-		 $imagen = 'lofft';
-		 $header = 'rojo';
-		 $descargable = 'casa_barragan';
-		 break;
-		 case 23:
-		 $imagen = 'harvard';
-		 $header = 'vino';
-		 $descargable = 'hv';
-		 break;
-	  }?>
 <div id="container">
   <div id="header" style="margin-top:16px">
     <div id="logos"> <a href="http://uia.mx/" target="_blank"><img src="imagenes/logo_UIA.jpg" alt="logo" width="100" height="78" border="0" class="logo"/></a><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'"><img src="imagenes/logo_DEC.jpg" alt="DEC" width="90" height="78" border="0" /></a></div>
     <div id="primavera" style="margin-bottom:8px"></div>
-    <div id="menu" style="float:none;width:1016px;text-align:center">
+    <div id="menu" style="float:none;width:1016px">
     <a href="https://twitter.com/DiplomadosIbero" target="_blank"><div style="float:right;height:24px;width:33px;background-image: url(imagenes/twitter.png);border-left:3px;margin-left:11px;margin-right:13px"></div></a>
     <a href="http://www.facebook.com/diplomados.uia" target="_blank"><div style="float:right; height:24px;width:12px;background-image: url(imagenes/facebook.png);margin-left:10px"></div></a>
-      <ul>
-        <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'">Inicio</a></li>
+      <ul style="margin-left:187px">
+           <li ><a style="font-size:11px" href="#" onclick="parent.location='http://www.diplomados.uia.mx/index.php'">Inicio</a></li>
         <li>|</li>
-        <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/nosotros.php'">Nosotros</a></li>
+        <li><a style="font-size:11px" font-size='11px' href="#" onclick="parent.location='http://www.diplomados.uia.mx/nosotros.php'">Nosotros</a></li>
         <li>|</li>
-        <li><a href="http://enlinea.uia.mx/tes_dec/dec_login.cfm" target="_blank">Servicios en l&iacute;nea</a></li>
+        <li><!--a href="http://enlinea.uia.mx/tes_dec/dec_login.cfm" target="_blank"--><a style="font-size:11px" href="#" id="servicios_en_linea">Servicios y Pagos en l&iacute;nea</a></li>
         <li>|</li>
-        <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'">Promociones</a></li>
+        <li><a style="font-size:11px" font-size='11px' href="#" onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'">Promociones</a></li>
         <li>|</li>
-        <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Preinscripci&oacute;n</a></li>
+        <li><a style="font-size:11px" href="#" onclick="parent.location='http://www.diplomados.uia.mx/preinscripcion.php'">Preinscripci&oacute;n</a></li>
         <li>|</li>
-        <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/directorio.php'">Directorio</a></li>
+        <li><a style="font-size:11px" href="#" onclick="parent.location='http://www.diplomados.uia.mx/directorio.php'">Directorio</a></li>
         <li>|</li>
-        <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/contacto.php'">Informes</a></li>
+        <li><a style="font-size:11px" href="#" onclick="parent.location='http://www.diplomados.uia.mx/contacto.php'">Informes</a></li>
       </ul>
      </div>
     <div class="bannersuperior2" style="width:706px"></div>
+    <br />
     <div id="slide_menu" style="display:none; width:190px; background: url(imagenes/sombrita_submenu.png) repeat-y; background-color:#D6D7D9; position:relative; left:189px; top:19px; z-index:1000; margin-bottom:-1000px">
 
      </div>
   </div>
   <div id="separador"></div>
+      <div id="slide_servicios" style="display: none; width:131px; height:140px; padding-top:10px; background-color: #FFF; z-index: 1007; margin-top:-162px; position:relative; top:148px; left:372px; border:solid 1px #EFEFEF; float:left;">
+<ul style="list-style:none; padding-left:16px; width:110px;">
+<li style="padding-bottom:10px;"><a href="http://enlinea.uia.mx/tes_dec/dec_login.cfm" target="_blank">Servicios en l&iacute;nea</a></li>
+<li style="padding-bottom:10px;"><a href="https://enlinea.uia.mx/sit/SitActividadesEsp.cfm" target="_blank">Pago de traducciones</a></li>
+<li style="padding-bottom:10px;"><a href="temarios/politcas_cobranza.pdf" target="_blank">Pol&iacute;ticas cobranza</a></li>
+<li style="padding-bottom:10px;"><a href="tutorial_pagos.php">Tutorial pagos en l&iacute;nea</a></li></ul>
+  </div>
   <div id="menu_generos_interior_index">
     <div class="roundedBox_interior_index" id="type1"> 
       <!-- esquinas -->
             <!-- esquinas -->
       <div id="menu_desplega_index">
-        <div id="menu_areas">
-          <p class="header_disciplinas">Oferta Académica </p>
-          <ul>
-            <li> <a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=1'">Arquitectura </a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=2'"> Arte</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=3'"> Diseño</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=7'">Pol&iacute;tica
-              y Derecho</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=5'">Desarrollo
-              Humano</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=6'">Salud</a></li>
-            <!--<li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=4'">Comunicaci&oacute;n</a></li>-->
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=8'">Negocios</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=9'">Tecnolog&iacute;a</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=10'">Humanidades</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=18&id_program=323'">Ciencias
-              Religiosas</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=11'">Gastronom&iacute;a</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=12'">Preparatoria
-              Abierta</a></li>
-          </ul>
-               <h4>Programas impartidos <br />
-                por Harvard University</h4>
-          <ul>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=23'">Oferta Académica</a></li>
-          </ul>
-          <h4>Centros de Atención Especializada</h4>
-          <ul>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=14'">Idiomas</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=15'">Ibero Online</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=16'">Atenci&oacute;n Integral
-              a Empresas</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=17'">Atenci&oacute;n Integral al Sector P&uacute;blico</a></li>
-          </ul>
-          <h4>Sedes Externas</h4>
-          <ul>
-           <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=20&id_program=195'">Sede sur: Estudio Lofft</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=13'">Xochitla</a></li>
-           <!-- <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=21&id_program=196'">Asunci&oacute;n Quer&eacute;taro</a></li>
-           
-            <!--<li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=22&id_program=92'">Atrio Espacio Cultural</a></li>-->
-          </ul>
-          <h4><br />
-          </h4>
-          <ul class="cobranzas">
-            <li><a href="https://enlinea.uia.mx/sit/SitActividadesEsp.cfm " target="_blank">Pago
-              de traducciones</a></li>
-            <li><a href="http://www.dec-uia.com/otono_2012/temarios/politcas_cobranza.pdf" target="_blank"> Pol&iacute;ticas
-              cobranza</a></li>
-            <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/tutorial_pagos.php'"> Tutorial pagos en l&iacute;nea </a></li>
-          </ul>
-        </div>
+      	<?php include('menu_disciplines.php'); ?>
       </div>
     </div>
   </div>
   <div id= "contenedor_irregular_index" >
     <div id= "type4" class="cuadro_articulos_secciones" style="border:0px;width:816px;padding:0px">
-      <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/banner_preinscripcion.png);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
-    				      
+    
+    <div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/m_preincripcion.jpg);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
+    <!--<div id="caja" style="width:788px; border:1px;height:265px;background-image: url(imagenes/banner_tianguis_cierre.jpg);margin-left:26px;position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
     </div>
+    <div style="margin-left:24px">
+	<div style="width:69%;float:left;margin-left:0px">
+	    <div id="slide_search" style="border: 1px solid #E0E0E0; display:none; position:relative; margin-top:-202px; top:625px; left:-39px; width:192px; height:200px; background-color:#FFF; z-index:1000;">
+				<form name="buscador" action="resultados.php" method="post">
+					<label for="buscar"></label>
+				    <img src="imagenes/piquito_rojo_buscador.png">
+				    <input name="buscar" placeholder="Â¿QuÃ© tema buscas?" type="text" id="buscar" style="margin:0 0 0 14px; width:150px; height:11px; padding:1px; border:1px solid #999999; font-size:11px;"  />
+				    <input name="search" type="submit" id="search" value="n" style="color:#D1D1D1; font-size:1px; width:49px; height:16px; background:url(imagenes/boton_buscar.jpg) top center no-repeat; border:none; margin: 10px 0px 0px 129px;" />
+				    <br />
+					<table width="180" border="0" cellspacing="0" cellpadding="0" style="margin:10px 0 0 12px;">
+				    	<thead>
+				    		<tr colspan="3" style="text-align:left; height:20px;font-size:11px;">
+				    			<th width="20px" colspan="3">BÃºsqueda Avanzada (opcional)</th>
+				    		</tr>
+				    	</thead>
+				    	<tr>
+				        	<td colspan="3">
+				        		 <select name="sArea" id="sArea" style="margin:0px; width:138px; height:15px; border:1px solid #999999; line-height:0; font-size:11px;">
+									<option disabled="disabled" value="0" selected="selected" >Â¿Qu&eacute; &aacute;rea te interesa?</option>
+									<option value="arquitectura">Arquitectura</option>
+									<option value="arte">Arte</option>
+									<option value="asuncion">Asunci&oacute;on Quer&eacute;taro</option>
+									<option value="integral a empresas">Atenci&oacute;n Integral a Empresas</option>
+									<option value="sector publico">Atenci&oacute;n Integral al Sector P&uacute;blico</option>
+									<option value="atrio">Atrio Espacio Cultural</option>
+									<option value="barragan">Casa Barrag&aacute;n</option>
+									<option value="religiosas">Ciencias Religiosas</option>
+									<option value="comunicacion">Comunicaci&oacute;n</option>
+									<option value="desarrollo">Desarrollo Humano</option>
+									<option value="diseÃ±o">DiseÃ±o</option>
+									<option value="gastronomia">Gastronom&iacute;a</option>
+									<option value="humanidades">Humanidades</option>
+									<option value="ibero online">Ibero Online</option>
+									<option value="idiomas">Idiomas</option>
+									<option value="lofft">Lofft</option>
+									<option value="negocios">Negocios</option>
+									<option value="politica">Pol&iacute;tica y Derecho</option>
+									<option value="preparatoria">Preparatoria Abierta</option>
+									<option value="educacion ejecutiva">Programas de Educaci&oacute;n Ejecutiva</option>
+									<option value="salud">Salud</option>
+									<option value="tecnologia">Tencolog&iacute;a</option>
+									<option value="xochitla">Xochitla</option>
+								</select>
+							</td>
+				        </tr>
+				        <tr>
+				        	<td colspan="3" height="30px" valign="bottom">
+					        	Â¿Cu&aacute;ndo quieres comenzar?
+					        </td>
+				        </tr>
+				        <tr>
+				        	<td colspan="3" style="font-size:9px;">
+					        	Escoge una fecha precisa o un periodo
+					        </td>
+				        </tr>
+				        
+				        <tr style="margin-top:10px;"valign="middle">
+				        	<td width="63px">
+				        		<input type="text" id="datepickerI" name="datepickerI" style="margin:0px; width:55px; height:11px; padding:1px; border:1px solid #999999; line-height:0; font-size:11px;"/>	
+				        		<img src="imagenes/calendario.jpg">
+				        	</td>
+				            <td  width="63px">
+				            	<input type="text" id="datepickerF" name="datepickerF" style="margin:0px; width:55px; height:11px; padding:1px; border:1px solid #999999; line-height:0; font-size:11px;"/>
+				            	<img src="imagenes/calendario.jpg">
+				            </td>
+				        </tr>
+				        <tr>
+				        	<td colspan="3" style="text-align:right;">
+				          		<input name="search" type="submit" id="search" value="a" style="color:#D1D1D1; font-size:1px; width:49px; height:16px; background:url(imagenes/boton_buscar.jpg) top center no-repeat; border:none; margin: 15px;" />
+				 			</td>
+						</tr>
+				   </table>
+			    </form>
+			</div>
+	</div>
+	</div>
+
     <div id= "type4" class="rectangulo_abajo_secciones" style="border:0px">
       <div class="textos"><!-- InstanceBeginEditable name="contenido" -->
 		  	<table width="95%" border="0" align="center" cellpadding="10" cellspacing="0">
 		  		<tr>
-		  			<td width="71%" height="50" valign="bottom"><p>Formato
-		        de Preinscripci&oacute;n</p></td>
-	  			  <td width="25%" align="right" valign="top"></td>
-		  			<td width="4%" rowspan="2">&nbsp;</td>
-	  			</tr>
-		  		<tr>
-		  			<td colspan="2"><p>A trav&eacute;s de este formulario podr&aacute;s iniciar tu proceso de inscripci&oacute;n desde la comodidad de tu casa y/o oficina. Una vez llenado el formato, te contactaremos a la brevedad para darte los pasos a seguir y quedar inscrito en el programa de tu inter&eacute;s.</p></td>
-	  			</tr>
-		  		<tr>
+		  			
 		  			<td colspan="3">
 					<table width="100%" border="0" align="left" cellpadding="2">
 <tr>
 	<td width="90%" height="30" align="left" valign="middle" class="titulos_diplo"><strong>Preinscripci&oacute;n</strong></td>
 </tr>
 <tr>
+	<td><p><font color="red">IMPORTANTE</font></p>
+	<p>Completa este Formulario si deseas iniciar tu proceso de inscripci&oacute;n.</p>
+	<p>Si s&oacute;lo deseas <b>Informes</b> haz clic <a href=# onclick=parent.location="http://www.diplomados.uia.mx/contacto.php">aqu&iacute;</a></p></td>
+</tr>
+<tr>
 	<td height="30" align="left" valign="middle">
 	
 		<form name="registro" id="registro" action="preinscripcion.php" method="post" onsubmit="return validate();">
 			<table width="500" border="0" cellspacing="0" cellpadding="5">
+				
 				<tr>
 					<td colspan="2" valign="top">
 						<label for="id_discipline"></label>
 							<select onchange="load_programs(this.value);" name="id_discipline" id="id_discipline">
-								<option value="0" selected="selected">Todas las &aacute;reas</option>
-								<? do { ?>
-									<option value="<? echo $row_disciplines_names['id_discipline']; ?>"><? echo $row_disciplines_names['discipline']; ?></option>
-								<? } while($row_disciplines_names = mysql_fetch_assoc($disciplines_names)); ?>
-						</select></td>
-					</tr>
+								<option value="0" selected="selected">Selecciona un &aacute;rea</option>
+								<?php do { ?>
+									<option value="<?php echo $row_disciplines_names['id_discipline']; ?>"><?php echo $row_disciplines_names['discipline']; ?></option>
+								<?php } while($row_disciplines_names = mysql_fetch_assoc($disciplines_names)); ?>
+						</select>
+					</td>
+				</tr>
+				
+
 				<tr>
 					<td colspan="2" valign="top" id="td_programas">
 					
+						
+						<!-- Esto no sirve de nada, todo el HTML se trae via AJAX Request y se inserta en td_programs 
+
 						<select name="id_program" id="id_program" style="width:540px; max-width:540px;">
 							<option value="0" selected="selected" disabled="disabled">Selecciona un programa</option>
-							<? 
-							$tipo_ant = 'diplomado';
+							<?php 
+							$tipo_ant = 'cursos';
 							do{
 								$tipo = $row_programas['program_type'];
-								if($tipo != $tipo_ant){echo '<option disabled="disabled">-----CURSOS---</option>';}
+								if($tipo != $tipo_ant){echo '<option disabled="disabled">-----'.$tipo.'---</option>';}
 								echo '<option value="'.$row_programas['id_program'].'">'.$row_programas['program_name'].'</option>';
 								$tipo_ant = $tipo;
-							} while($row_programas = mysql_fetch_assoc($programas)); ?>
-							
-						</select>
-					
+							} while($row_programas = mysql_fetch_assoc($programas)); 
+							if($num_rows = mysql_num_rows($query) > 0){
+							}?>
+						</select>-- >
 					</td>
-					</tr>
+				</tr>
+				
 				<tr>
 					<td width="148" align="right" valign="top">&iquest;C&oacute;mo se enter&oacute; del programa?</td>
 					<td width="332" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
 						<tr>
 							<td width="50%"><p>
 								<label>
-									<input type="radio" name="como_se_entero" value="Catálogo" id="como_se_entero_0" onchange="clear_otromedio();" />
+									<input type="radio" name="como_se_entero" value="CatÃ¡logo" id="como_se_entero_0" onchange="clear_otromedio();" />
 									Cat&aacute;logo</label>
 							</p></td>
 							<td width="50%"><p>
@@ -992,7 +936,7 @@ s.parentNode.insertBefore(ga, s);
 						<tr>
 							<td width="50%"><p>
 								<label>
-									<input type="radio" name="como_se_entero" value="Periódico" id="como_se_entero_2" onchange="clear_otromedio();" />
+									<input type="radio" name="como_se_entero" value="PeriÃ³dico" id="como_se_entero_2" onchange="clear_otromedio();" />
 									Peri&oacute;dico</label>
 							</p></td>
 							<td width="50%"><p>
@@ -1004,7 +948,7 @@ s.parentNode.insertBefore(ga, s);
 						<tr>
 							<td width="50%"><p>
 								<label>
-									<input type="radio" name="como_se_entero" value="Recomendación" id="como_se_entero_4" onchange="clear_otromedio();" />
+									<input type="radio" name="como_se_entero" value="RecomendaciÃ³n" id="como_se_entero_4" onchange="clear_otromedio();" />
 									Recomendaci&oacute;n</label>
 							</p></td>
 							<td width="50%"><p>
@@ -1022,9 +966,21 @@ s.parentNode.insertBefore(ga, s);
 						</tr>
 					</table></td>
 				</tr>
+				
+
+
+				<!--<tr>
+					<td align="right" valign="top"><span style="color:#ff0000;">C&oacute;digo de Promo San Valent&iacute;n</td>
+					<td valign="top"><label for="codigo_promo"></label> -->
+						<!--<input name="codigo_promo" type="hidden" id="codigo_promo" size="10" style="float:left;"/>-->
+						<!--<span>(Debes registraste previamente, 
+el c&oacute;digo comienza con PSV-)</span></td>
+				</tr>-->
+				
+
 				<tr>
 					<td colspan="2" align="center"><strong>Informaci&oacute;n personal</strong></td>
-					</tr>
+				</tr>
 				<tr>
 					<td align="right" valign="top">* A. Paterno</td>
 					<td valign="top"><label for="a_paterno"></label>
@@ -1047,37 +1003,9 @@ s.parentNode.insertBefore(ga, s);
 						<tr>
 							<td width="75" align="center"><select name="dia_nac" id="dia_nac" onchange="populate_month(this.value); unpopulate_rfc();">
 								<option selected="selected" disabled="disabled">- D&iacute;a -</option>
-								<option value="01">1</option>
-								<option value="02">2</option>
-								<option value="03">3</option>
-								<option value="04">4</option>
-								<option value="05">5</option>
-								<option value="06">6</option>
-								<option value="07">7</option>
-								<option value="08">8</option>
-								<option value="09">9</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-								<option value="13">13</option>
-								<option value="14">14</option>
-								<option value="15">15</option>
-								<option value="16">16</option>
-								<option value="17">17</option>
-								<option value="18">18</option>
-								<option value="19">19</option>
-								<option value="20">20</option>
-								<option value="21">21</option>
-								<option value="22">22</option>
-								<option value="23">23</option>
-								<option value="24">24</option>
-								<option value="25">25</option>
-								<option value="26">26</option>
-								<option value="27">27</option>
-								<option value="28">28</option>
-								<option value="29">29</option>
-								<option value="30">30</option>
-								<option value="31">31</option>
+								<?php for($i=1; $i<=31; $i++){?>
+								<option value="<?php if(strlen($i) == 1){echo '0'.$i;}else{echo $i;} ?>"><?php echo $i; ?></option>
+								<?php } ?>
 							</select></td>
 							<td width="67" align="center"><select name="mes_nac" id="mes_nac" onchange="populate_year(this.value); unpopulate_rfc();">
 							</select></td>
@@ -1489,7 +1417,7 @@ No</td>
 					<td colspan="2" align="center"><input type="submit" name="enviar" id="enviar" value="Enviar" /></td>
 					</tr>
 				<tr>
-					<td colspan="2" align="center"><a href="politicas_privacidad.php" target="_blank" style="color:#ff0000;"><strong>He leido y acepto el Aviso de Privacidad</strong></a></td>
+					<td colspan="2" align="center"><a href=# onclick=parent.location="politicas_privacidad.php" target="_blank" style="color:#ff0000;"><input type="checkbox" name="option2" value="Butter" checked disabled><strong> He leido y acepto el Aviso de Privacidad</strong></a></td>
 					</tr>
 			</table>
 			<input type="hidden" name="send_form" id="send_form" value="1" />
@@ -1508,8 +1436,8 @@ No</td>
             <td><!-- AddThis Button BEGIN -->
               
               <div class="addthis_toolbox addthis_default_style"
-						addthis:url="http://www.diplomados.uia.mx/articulos.php?id_discipline=<? echo $_GET['id_discipline']; ?>"
-						addthis:title="<?php echo $row_temp['discipline'].' - '.$row_disciplines['title'];?>"> <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_counter addthis_pill_style"></a> </div>
+						addthis:url="articulos.php?id_discipline=<?php echo $_GET['id_discipline']; ?>"
+						addthis:title="<?php echo $row_temp['discipline'].' - '.$row_disciplines['title'];?>"> <a class="addthis_counter addthis_pill_style"></a> </div>
               <script type="text/javascript">
 					var addthis_config = {"data_track_clickback":true};
 					</script> 
@@ -1518,11 +1446,15 @@ No</td>
           </tr>
         </table>
       </div>
+
       </div>
 
-    <div style="width:25%; float:left; margin-left:22px; margin-top:18px; margin-left:16px">
+    <div style="width:25%; float:left; margin-left:22px; margin-top:18px; margin-left:18px">
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
+          <!--<tr>
+      		  <td align="center"><a onclick="parent.location=''" href="#"><img src="imagenes/banner_chiquito_cierre_trivia.png" height="300" width="180"></a></td>
+          </tr>-->
           <tr>          
           <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/catalogo.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
             </tr>
@@ -1555,21 +1487,7 @@ No</td>
                 </tbody></table>
               </form></td>
           </tr>
-              
-              <!--table width="80%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td>
-      <form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post">
-      Suscr&iacute;bete e nuestro bolet&iacute;n<br /><br />
-        <input type="hidden" name="list" value="newsDEC" />
-       Correo:<input name="email" type="text" id="email" value="" size="15" /><br />
-        <input type="hidden" name="f" id="f_s" value="subscribe" checked="checked" />
-        <input type="hidden" name="f"  id="f_u"  value="unsubscribe"  />
-      <input type="submit" value="Aceptar" class="processing" />
-      </form> 
-          </td>
-        </tr>
-      </table--></td>
+              </td>
           </tr>
         </tbody>
       </table>
@@ -1580,15 +1498,15 @@ No</td>
  <div id="footer" style="float:left;width:810px">
     <table border="0" cellpadding="0" cellspacing="0" >
       <tr>
-        <td width="810"><a onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=14'" href="#"><img src="imagenes/banners/idiomas_otono.jpg" alt="Dos" width="804" height="142" border="0" /></a></td>
+        <td width="810"><a onclick="parent.location='http://www.diplomados.uia.mx/articulos.php?id_discipline=20'" href="#"><img src="imagenes/banners/idiomas_otono.jpg" alt="Dos" width="804" height="142" border="0" /></a></td>
         </tr>
       <tr align="center" valign="middle">
         <td colspan="2"><p><strong>&copy; Universidad Iberoamericana Ciudad
-            de México. </strong><br>
+            de M&eacute;xico. </strong><br>
           </p>
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
-          Lomas de Santa Fe, México, C.P. 01219, Distrito Federal. <br>
+          Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
           </address></td>
@@ -1601,6 +1519,25 @@ No</td>
   <area shape="rect" coords="49,104,76,133" href="https://www.facebook.com/diplomados.uia" target="_blank" />
   <area shape="rect" coords="77,103,109,134" href="http://twitter.com/DiplomadosIbero" target="_blank" />
 </map>
+<script>
+
+  $('#servicios_en_linea').click(function(){
+
+
+    $('#slide_servicios').toggle()
+
+  })
+
+  $(document).mouseup(function (e)
+{
+    var container = $("div#slide_servicios");
+
+    if (container.has(e.target).length === 0)
+    {
+        container.hide();
+    }
+});
+</script>
 </body>
 <!-- InstanceEnd --></html>
 

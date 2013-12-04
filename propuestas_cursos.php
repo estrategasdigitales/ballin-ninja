@@ -430,6 +430,9 @@ Si</td>
     <div style="width:25%; float:left; margin-left:18px; margin-top:18px">
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
+          <!--<tr>
+            <td align="center"><a onclick="parent.location='#'" href="#"><img src="imagenes/banner_chiquito_trivia_juego.jpg" height="300" width="180"></a></td>
+          </tr>-->
           <tr>        	
         	<td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
           	</tr>

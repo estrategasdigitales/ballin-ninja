@@ -538,9 +538,9 @@ s.parentNode.insertBefore(ga, s);
 		<tr>
 			<td width="17%" rowspan="2" valign="top"><a onclick="parent.location='articulos2.php?id_discipline=<?php echo $_GET['id_discipline'];?>&amp;id_article=<?php echo $row_disciplines['id_article']; ?>'">
 				<?php if($row_disciplines['source'] == "discipline_articles"){ ?>
-				<img src="imagenes/uploads/discipline_articles/thumbnails/<?php echo $row_disciplines['thumbnail'];?>" width="120" height="114" border="0" style="cursor:pointer" />
+				<img src="../imagenes/uploads/discipline_articles/thumbnails/<?php echo $row_disciplines['thumbnail'];?>" width="120" height="114" border="0" style="cursor:pointer" />
 				<?php } else { ?>
-				<img src="imagenes/uploads/weekly_articles/thumbnails/<?php echo $row_disciplines['thumbnail'];?>" width="120" height="114" border="0" style="cursor:pointer" />
+				<img src="../imagenes/uploads/weekly_articles/thumbnails/<?php echo $row_disciplines['thumbnail'];?>" width="120" height="114" border="0" style="cursor:pointer" />
 				<?php } ?>
 			</a></td>
 			<td width="2%" rowspan="2" valign="top">&nbsp;</td>
