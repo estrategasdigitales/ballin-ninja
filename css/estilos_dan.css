@@ -669,7 +669,7 @@ div#newsletter {
 	padding: 10px;
 	width: 343px;
 	height: 391px;
-}
+}				
 
 /** tablas **/
 
@@ -683,3 +683,112 @@ div#newsletter {
 .tablas td {
 	border: 1px solid #666;
 }
+
+#pleca_gris{												
+	background-image: url(../imagenes/programas/pleca_gris.jpg);																																													
+}
+		
+#titulo_programas{
+	font-family:,Helvetica,Arial,Verdana,sans-serif;
+	font-weight: bold;
+	font-size: 13px;																	
+	color: #FFFFFF;		
+	margin-left:25px;										 
+}													
+																				
+#programas_proximos{		
+	margin-top: 5px;																																																																																																											
+	background-image: url(../imagenes/programas/cuadro_contenido.png);
+	width:550px;																																	
+	height:200px;																							
+}																																				
+																											
+.cont_programas{		
+	display:block;																																								
+	margin:25px auto;		
+	line-height: 13px;
+	padding: 5px;
+	height:120px;																																													
+}																																																																																																																				
+																																					
+.fecha_ini{		
+	font-family:,Helvetica,Arial,Verdana,sans-serif;
+	font-weight: bold;		
+	font-size: 11px;														
+	width: 95px;																			
+	display:inline-block; 
+	margin-left: 20px;																																																																	
+}																																
+													
+.name_program{																
+	display:inline-block;
+	width: 350px;	
+	border-left:1px solid;		
+	padding-top:5px;				
+	padding-left: 5px;						
+}								
+						
+#mas_programas{		
+	font-family:,Helvetica,Arial,Verdana,sans-serif;	
+	font-weight: normal;								
+	font-size: 11px;		
+	margin-left:50px;
+	float:right;									
+	margin-right: 45px;
+	margin-top:-20px;																																								 																											
+}																
+							
+#pleca_gris_mas{												
+	background-image: url(../imagenes/programas/pleca_gris.jpg);
+	height: 25px;																																																	
+}																	
+						
+#titulo_programas_mas{			
+	font-family:,Helvetica,Arial,Verdana,sans-serif;
+	font-weight: bold;
+	font-size: 16px;																									
+	color: #FFFFFF;		
+	margin-left:25px;
+	padding-top:4px;																							 
+}			
+																														
+.cont_programas_0{						
+	background-color: #FFFFFF;
+	height: auto;
+	padding: 6px;																
+}																															
+													
+.cont_programas_1{		
+	background-color: #F7F8F8;
+	height: auto;
+	padding: 6px;											
+}																										
+		
+.fecha_ini_mas{		
+	font-family:,Helvetica,Arial,Verdana,sans-serif;
+	font-weight: bold;		
+	font-size: 14px;														
+	width: 120px;										
+	display:inline-block; 
+	color:#EF356B;	
+	padding-left:25px;																																																														
+}																																																																																																								
+										
+.name_program_mas{								
+	display:inline-block;
+	width: 350px;	
+	height: auto;														
+}															
+						
+.program_type{				
+	text-transform: capitalize; 		
+	display: block;	
+	color: #EF356B;												
+}					
+										 
+.nuevo{														
+	color:#EF356B;
+	display: inline;		
+}					
+		
+																		

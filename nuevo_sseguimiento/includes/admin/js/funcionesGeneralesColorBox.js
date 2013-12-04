@@ -7,7 +7,7 @@ var colorBox = {
     $("#estatus_proceso a").on("click",colorBox.mostrar_text_area);
     $("#comentarios,#clasificar_aspirante a").on("click",colorBox.mostrar_text_area);
   },                                                                                                                                                                                             
-          
+
   agregar_input_file:function(e)
   {                                         
   	e.preventDefault();	
@@ -17,7 +17,7 @@ var colorBox = {
 	  div.append(file);            
     div.append(doc_type);                                               
     $("#subir_documentos").append(div);                   
-    colorBox.indice_file++;                                           				  			
+    colorBox.indice_file++;                                           			  			
   },                                                                   
 
   mostrar_text_area:function(e)

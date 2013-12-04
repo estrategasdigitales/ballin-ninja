@@ -1,50 +1,55 @@
 <?php 
 if(preg_match('/msie [2-7]/i', $_SERVER['HTTP_USER_AGENT'])) {
        header('Location: Scripts/ie_detect/update_browser.html');
-}
-
+}								
+																				
 require_once('Connections/otono2011.php'); ?>
-<?php
-if (!function_exists("GetSQLValueString")) {
-	function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+<?php 	
+						
+													
+	if (!function_exists("GetSQLValueString")) 
 	{
-	  if (PHP_VERSION < 6) {
-	    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-	  }
+		function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+		{
+		  if (PHP_VERSION < 6) {
+		    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+		  }
 
-	  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+		  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
 
-	  switch ($theType) {
-	    case "text":
-	      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-	      break;    
-	    case "long":
-	    case "int":
-	      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-	      break;
-	    case "double":
-	      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-	      break;
-	    case "date":
-	      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-	      break;
-	    case "defined":
-	      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-	      break;
-	  }
-	  return $theValue;
-	}
-}
+		  switch ($theType) {
+		    case "text":
+		      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+		      break;    
+		    case "long":
+		    case "int":
+		      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+		      break;
+		    case "double":
+		      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+		      break;
+		    case "date":
+		      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+		      break;
+		    case "defined":
+		      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+		      break;
+		  }
+		  return $theValue;
+		}
+	}								
 
-	if(!isset($_GET['tipo'])){
+	if(!isset($_GET['tipo']))
+	{
 		$_GET['tipo'] = "";
 	}			
 
 	$comentarios=$_GET["tipo"];
-	if($comentarios==1){
+	if($comentarios==1){			
 		registro_red($comentarios);
 	}
 
+							
 	function registro_red($comentarios){
 		$fecha=date("Y-m-d H:i:s");
 		$base_datos="decuiaco_site";
@@ -57,80 +62,74 @@ if (!function_exists("GetSQLValueString")) {
 		$result=mysql_query($sql);
 		header('Location: http://www.diplomados.uia.mx/index.php');
 	}
-/*
-mysql_select_db($database_otono2011, $otono2011);
-$query_media_articles = "SELECT id_article, title FROM media_articles ORDER BY date DESC LIMIT 0, 4";
-$media_articles = mysql_query($query_media_articles, $otono2011) or die(mysql_error());
-//$row_media_articles = mysql_fetch_assoc($media_articles);
-//$totalRows_media_articles = mysql_num_rows($media_articles);
-*/
-mysql_select_db($database_otono2011, $otono2011);
-$query_weekly_article = "SELECT * FROM weekly_articles ORDER BY `date` DESC LIMIT 0, 1";
-$weekly_article = mysql_query($query_weekly_article, $otono2011) or die(mysql_error());
-$row_weekly_article = mysql_fetch_assoc($weekly_article);
-$totalRows_weekly_article = mysql_num_rows($weekly_article);
+								
+	mysql_select_db($database_otono2011, $otono2011);
+	$query_weekly_article = "SELECT * FROM weekly_articles ORDER BY `date` DESC LIMIT 0, 1";
+	$weekly_article = mysql_query($query_weekly_article, $otono2011) or die(mysql_error());
+	$row_weekly_article = mysql_fetch_assoc($weekly_article);
+	$totalRows_weekly_article = mysql_num_rows($weekly_article);
 
-$hoy = date('Ymd');
+	$hoy = date('Ymd');
 
 
-mysql_select_db($database_otono2011, $otono2011);
-$query_programas_izq = "SELECT site_programs.id_discipline, site_programs.id_program, site_programs.imagen, site_programs.program_name AS programa, site_fechas_ini.fecha AS fecha_inicio FROM site_programs, site_fechas_ini WHERE site_programs.id_program=site_fechas_ini.id_program AND site_fechas_ini.publicado=1 ORDER BY RAND() LIMIT 2";
-$programas_izq = mysql_query($query_programas_izq, $otono2011) or die(mysql_error());
-$row_programas_izq = mysql_fetch_assoc($programas_izq);
-$totalRows_programas_izq = mysql_num_rows($programas_izq);
+	mysql_select_db($database_otono2011, $otono2011);
+	$query_programas_izq = "SELECT site_programs.id_discipline, site_programs.id_program, site_programs.imagen, site_programs.program_name AS programa, site_fechas_ini.fecha AS fecha_inicio FROM site_programs, site_fechas_ini WHERE site_programs.id_program=site_fechas_ini.id_program AND site_fechas_ini.publicado=1 ORDER BY RAND() LIMIT 2";
+	$programas_izq = mysql_query($query_programas_izq, $otono2011) or die(mysql_error());
+	$row_programas_izq = mysql_fetch_assoc($programas_izq);
+	$totalRows_programas_izq = mysql_num_rows($programas_izq);
 
-mysql_select_db($database_otono2011, $otono2011);
-$query_programas_der = "SELECT site_fechas_idiomas.id_program AS id_program_idioma, site_fechas_idiomas.nivel, site_fechas_idiomas.inicio, (select site_programs.imagen FROM site_programs WHERE site_fechas_idiomas.id_program=site_programs.id_program) AS imagen_idioma FROM site_fechas_idiomas, site_programs WHERE site_fechas_idiomas.inicio > ".$hoy." ORDER BY RAND() LIMIT 2";
-$programas_der = mysql_query($query_programas_der, $otono2011) or die(mysql_error());
-$row_programas_der = mysql_fetch_assoc($programas_der);
-$totalRows_programas_der = mysql_num_rows($programas_der);
+	mysql_select_db($database_otono2011, $otono2011);
+	$query_programas_der = "SELECT site_fechas_idiomas.id_program AS id_program_idioma, site_fechas_idiomas.nivel, site_fechas_idiomas.inicio, (select site_programs.imagen FROM site_programs WHERE site_fechas_idiomas.id_program=site_programs.id_program) AS imagen_idioma FROM site_fechas_idiomas, site_programs WHERE site_fechas_idiomas.inicio > ".$hoy." ORDER BY RAND() LIMIT 2";
+	$programas_der = mysql_query($query_programas_der, $otono2011) or die(mysql_error());
+	$row_programas_der = mysql_fetch_assoc($programas_der);
+	$totalRows_programas_der = mysql_num_rows($programas_der);
 
-mysql_select_db($database_otono2011, $otono2011);
-$query_programas_izqb = "SELECT site_programs.id_discipline, site_programs.id_program, site_programs.imagen, site_programs.program_name AS programa, site_fechas_ini.fecha AS fecha_inicio FROM site_programs, site_fechas_ini WHERE site_programs.id_program=site_fechas_ini.id_program AND site_fechas_ini.publicado=1 ORDER BY RAND() LIMIT 3";
-$programas_izqb = mysql_query($query_programas_izqb, $otono2011) or die(mysql_error());
-$row_programas_izqb = mysql_fetch_assoc($programas_izqb);
-$totalRows_programas_izqb = mysql_num_rows($programas_izqb);
+	mysql_select_db($database_otono2011, $otono2011);
+	$query_programas_izqb = "SELECT site_programs.id_discipline, site_programs.id_program, site_programs.imagen, site_programs.program_name AS programa, site_fechas_ini.fecha AS fecha_inicio FROM site_programs, site_fechas_ini WHERE site_programs.id_program=site_fechas_ini.id_program AND site_fechas_ini.publicado=1 ORDER BY RAND() LIMIT 3";
+	$programas_izqb = mysql_query($query_programas_izqb, $otono2011) or die(mysql_error());
+	$row_programas_izqb = mysql_fetch_assoc($programas_izqb);
+	$totalRows_programas_izqb = mysql_num_rows($programas_izqb);
 
-mysql_select_db($database_otono2011, $otono2011);
-$query_carrusel = "SELECT * FROM carrusel_index WHERE `visible`='SI' ORDER BY `orden` ASC";
-$carrusel = mysql_query($query_carrusel, $otono2011) or die(mysql_error());
+	mysql_select_db($database_otono2011, $otono2011);
+	$query_carrusel = "SELECT * FROM carrusel_index WHERE `visible`='SI' ORDER BY `orden` ASC";
+	$carrusel = mysql_query($query_carrusel, $otono2011) or die(mysql_error());
 
-mysql_select_db($database_otono2011, $otono2011);
-$query_community_opinions_top3 = "SELECT * FROM community_opinions ORDER BY `date` DESC LIMIT 0, 5";
-$community_opinions_top3 = mysql_query($query_community_opinions_top3, $otono2011) or die(mysql_error());
-//$row_community_opinions_top3 = mysql_fetch_assoc($community_opinions_top3);
-//$totalRows_community_opinions_top3 = mysql_num_rows($community_opinions_top3);
-/*
-mysql_select_db($database_otono2011, $otono2011);
-$query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
-$ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
-$row_ad = mysql_fetch_assoc($ad);
-$totalRows_ad = mysql_num_rows($ad);
-*/
-function WordLimiter($text,$limit,$word_count){
-	$limit = $limit - $word_count;
-	$explode = explode(' ',$text);
-	$string  = '';
-	$dots = '...';
-	if(count($explode) <= $limit){
-		$dots = '';
+	mysql_select_db($database_otono2011, $otono2011);
+	$query_community_opinions_top3 = "SELECT * FROM community_opinions ORDER BY `date` DESC LIMIT 0, 5";
+	$community_opinions_top3 = mysql_query($query_community_opinions_top3, $otono2011) or die(mysql_error());
+			
+
+
+	function WordLimiter($text,$limit,$word_count)
+	{						
+		$limit = $limit - $word_count;
+		$explode = explode(' ',$text);
+		$string  = '';
+		$dots = '...';
+
+		if(count($explode) <= $limit){
+			$dots = '';
 		}
-	for($i=0;$i<$limit;$i++){
-		$string .= $explode[$i]." ";
+
+		for($i=0;$i<$limit;$i++){
+			$string .= $explode[$i]." ";
+		}
+
+		if($dots){
+			$string = substr($string, 0, strlen($string));
+		}		
+		return $string.$dots;
 	}
-	if ($dots) {
-		$string = substr($string, 0, strlen($string));
-		}
-	return $string.$dots;
-}
 
-$word_count = 0;
-function count_words($str) 
-{
-	$no = count(explode(" ",$str));
-	return $no;
-}
-setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
+	$word_count = 0;
+
+	function count_words($str) 
+	{
+		$no = count(explode(" ",$str));
+		return $no;
+	}						
+
+	setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 ?>
 <!DOCTYPE html>
 <html><!-- InstanceBegin template="/Templates/index.dwt.php" codeOutsideHTMLIsLocked="false" -->
@@ -211,6 +210,7 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 
 <script type="text/javascript">
 
+			
 	var lastHeight = 0;
 
 	function resizeHelperIframe()
@@ -410,7 +410,7 @@ a.prev span, a.next span {
   </div>
 <div id="espacio" style="width:5%;float:left"> 
 
-</div>
+</div>	
   <div id= "contenedor_irregular_index">
     <div class="bannersuperior" style="margin-bottom:0px"><!-- InstanceBeginEditable name="weekly_articles" -->
     <?php /*$random=rand(1,2); ?>
@@ -442,7 +442,7 @@ a.prev span, a.next span {
 						if($row_programas_der != NULL){
 						?>
           
-         <td><h2>Próximos programas a iniciar</h2>
+         <td><h2>PrÃ³ximos programas a iniciar</h2>
              <ul>
              <?php do { ?>
               <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=14&id_program=<?php echo $row_programas_der['id_program_idioma']; ?>'"><?php echo ucfirst(strtolower($row_programas_der['nivel'])); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_der['inicio'])); ?></span></li>
@@ -456,7 +456,7 @@ a.prev span, a.next span {
       </table>
       <?php }else{ ?>
       
-      <td><h2>Próximos programas a iniciar</h2>
+      <td><h2>PrÃ³ximos programas a iniciar</h2>
              <ul>
              <?php do { ?>
              
@@ -473,7 +473,7 @@ a.prev span, a.next span {
 						if($row_programas_der != NULL){
 					?>
           
-         <td><h2>Próximos programas a iniciar</h2>
+         <td><h2>PrÃ³ximos programas a iniciar</h2>
              <ul>
              <?php do { ?>
               <li><a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=<?php echo $row_programas_izq['id_discipline'];?>&id_program=<?php echo $row_programas_izq['id_program']; ?>'"><?php echo WordLimiter($row_programas_izq['programa'], 6); ?></a> <span class="contenido_diploRojo">/</span> <span class="contenido_diploRojo"> <?php echo strftime("%d de %B", strtotime($row_programas_izq['fecha_inicio'])); ?></span></li>
@@ -486,7 +486,7 @@ a.prev span, a.next span {
 							}else{ 
 							?>
               
-              <td><h2>Próximos programas a iniciar</h2>
+              <td><h2>PrÃ³ximos programas a iniciar</h2>
              <ul>
              <?php do {
 							 ?>
@@ -496,8 +496,8 @@ a.prev span, a.next span {
 							
 							}} ?>
               
-             <!--li><span class="contenido_diploRojo">24 de marzo</span> / Espacio Público y Ciudades Seguras </li>
-             <li><span class="contenido_diploRojo">24 de marzo</span> / Espacio Público y Ciudades Seguras </li-->
+             <!--li><span class="contenido_diploRojo">24 de marzo</span> / Espacio PÃºblico y Ciudades Seguras </li>
+             <li><span class="contenido_diploRojo">24 de marzo</span> / Espacio PÃºblico y Ciudades Seguras </li-->
             </ul></td>
         </tr>
       </table> */ ?>
@@ -505,7 +505,7 @@ a.prev span, a.next span {
     <div id="slide_menu" style="display:none; width:190px; background: url(imagenes/sombrita_submenu.png) repeat-y; background-color:#D6D7D9; position:relative; left:-11px; z-index:1000; margin-bottom:-2000px; padding-bottom: 10px;">
 
   	</div>
-  	 
+ 
 	<div style="margin-left:29px">
    		<div class="textos" style="margin-left:0px;top:0px;height:295px;width:1500px;margin-bottom:9px;float:left">
 			<div class="html_carousel" style="float:left;margin-left:0px;">
@@ -553,34 +553,33 @@ a.prev span, a.next span {
 						<a href="#" onclick="parent.location='http://www.diplomados.uia.mx/programas.php?id_discipline=2&id_program=415'">
 							<img src="imagenes/carrusel/carrusel2.jpg" alt="carousel 3" width="775" height="300" />
 							<div style="width:172px">
-								<h4 align="center">No hay imágenes inocentes</h4>
+								<h4 align="center">No hay imÃ¡genes inocentes</h4>
 								<hr id="linea1" style="margin-left:10px">
-								<p align="center">Curso Análisis y creación de la imagen pictórica</p>
+								<p align="center">Curso AnÃ¡lisis y creaciÃ³n de la imagen pictÃ³rica</p>
 							</div-->
 						</a>
 					</div>
 				<div class="clearfix"></div>
             </div>
-		</div>
-
+		</div>																												
         <div style="width:69%;float:left;margin-left:0px">
         	 <div id="slide_search" style="border: 1px solid #E0E0E0; display:none; position:relative; margin-top:-202px; top:580px; left:-39px; width:192px; height:200px; background-color:#FFF; z-index:1000;">
 				<form name="buscador" action="resultados.php" method="post">
 					<label for="buscar"></label>
 				    <img src="imagenes/piquito_rojo_buscador.png">
-				    <input name="buscar" placeholder="¿Qué tema buscas?" type="text" id="buscar" style="margin:0 0 0 14px; width:150px; height:11px; padding:1px; border:1px solid #999999; font-size:11px;"  />
+				    <input name="buscar" placeholder="Â¿QuÃ© tema buscas?" type="text" id="buscar" style="margin:0 0 0 14px; width:150px; height:11px; padding:1px; border:1px solid #999999; font-size:11px;"  />
 				    <input name="search" type="submit" id="search" value="n" style="color:#D1D1D1; font-size:1px; width:49px; height:16px; background:url(imagenes/boton_buscar.jpg) top center no-repeat; border:none; margin: 10px 0px 0px 129px;" />
 				    <br />
 					<table width="180" border="0" cellspacing="0" cellpadding="0" style="margin:10px 0 0 12px;">
 				    	<thead>
 				    		<tr colspan="3" style="text-align:left; height:20px;font-size:11px;">
-				    			<th width="20px" colspan="3">Búsqueda Avanzada (opcional)</th>
+				    			<th width="20px" colspan="3">BÃºsqueda Avanzada (opcional)</th>
 				    		</tr>
 				    	</thead>
 				    	<tr>
 				        	<td colspan="3">
 				        		 <select name="sArea" id="sArea" style="margin:0px; width:167px; height:15px; border:1px solid #999999; line-height:0; font-size:11px;">
-									<option disabled="disabled" value="0" selected="selected" >¿Qu&eacute; &aacute;rea te interesa?</option>
+									<option disabled="disabled" value="0" selected="selected" >Â¿Qu&eacute; &aacute;rea te interesa?</option>
 									<option value="arquitectura">Arquitectura</option>
 									<option value="arte">Arte</option>
 									<option value="asuncion">Asunci&oacute;on Quer&eacute;taro</option>
@@ -591,7 +590,7 @@ a.prev span, a.next span {
 									<option value="religiosas">Ciencias Religiosas</option>
 									<option value="comunicacion">Comunicaci&oacute;n</option>
 									<option value="desarrollo">Desarrollo Humano</option>
-									<option value="diseño">Diseño</option>
+									<option value="diseÃ±o">DiseÃ±o</option>
 									<option value="gastronomia">Gastronom&iacute;a</option>
 									<option value="humanidades">Humanidades</option>
 									<option value="ibero online">Ibero Online</option>
@@ -609,7 +608,7 @@ a.prev span, a.next span {
 				        </tr>
 				        <tr>
 				        	<td colspan="3" height="30px" valign="bottom">
-					        	¿Cu&aacute;ndo quieres comenzar?
+					        	Â¿Cu&aacute;ndo quieres comenzar?
 					        </td>
 				        </tr>
 				        <tr>
@@ -636,8 +635,41 @@ a.prev span, a.next span {
 				   </table>
 			    </form>
 			  </div>
+			  <?php  	
+
+			  	mysql_query("SET lc_time_names = 'es_ES'");
+				mysql_select_db($database_otono2011, $otono2011);																												
+				$query_prog = "SELECT sp.program_name,sp.id_program,sp.program_new,date_format(sf.fecha,'%d') as dia,date_format(sf.fecha,'%M') as mes FROM site_programs as sp INNER JOIN site_fechas_ini as sf ON sp.id_program = sf.id_program where sp.program_new=1 ORDER BY RAND() limit 6";
+				$prog = mysql_query($query_prog, $otono2011) or die(mysql_error());													
+				$row_prog = mysql_fetch_assoc($prog);				
+				$totalRows_prog = mysql_num_rows($prog);					
+
+				?>						
+				<div id="programas_proximos">																																														
+					<div id="pleca_gris"><div id="titulo_programas">Programas pr&oacute;ximos a abrir</div></div>
+						<div class="cont_programas">				
+					<?php while($row_prog = mysql_fetch_assoc($prog))
+						  {													
+					?>			
+							<div class="fecha_ini">					 										
+								<?php echo $row_prog['dia']; ?> de 	<?php echo $row_prog['mes']; ?>													
+							</div>																																															
+							<div class="name_program">
+								<?php echo $row_prog['program_name']; ?>
+								<?php 
+									if($row_prog['program_new']==1){
+								?>																							
+									<div class="nuevo">Nuevo</div>						
+								<?php			
+									}												
+								?>			
+							</div>																																		
+					<?php } ?>	
+						</div>																																																									
+					<div id="mas_programas"><a href="mas_programas_2013.php"><img src="imagenes/programas/boton_ver_mas.jpg"/></a></div>																						
+				</div>																																		
             <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                <!--tr>
+                <!--tr>		
              		<td height="55" align="left" valign="bottom">
                 		<img style="outline:none; border:none;" valign="bottom" src="imagenes/comunidad_ibero_opina.png" usemap="#planetmap">
                   		<<img src="imagenes/comunidad_ibero_participa.png" border="0" style="margin-bottom:4px; margin-right:15px; cursor:pointer;" onclick="parent.location='http://www.diplomados.uia.mx/participa.php';" /></td>	
@@ -678,7 +710,7 @@ a.prev span, a.next span {
                             </tr>
                             <tr>
                               <td><p><?php echo WordLimiter($row_community_opinions_top3['opinion'], 35, $word_count); ?><br />
-                                  <a onclick="parent.location='http://www.diplomados.uia.mx/community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"> <span class="avisos_mas">&gt; leer más</span></a></p></td>
+                                  <a onclick="parent.location='http://www.diplomados.uia.mx/community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"> <span class="avisos_mas">&gt; leer mÃ¡s</span></a></p></td>
                             </tr>
                             <tr>
                               <td>&nbsp;</td>
@@ -717,7 +749,7 @@ a.prev span, a.next span {
                             </tr>
                             <tr>
                               <td><p><?php echo WordLimiter($row_community_opinions_top3['opinion'], 35, $word_count); ?><br />
-                                  <a onclick="parent.location='community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"><span class="avisos_mas">&gt; leer más</span></a></p></td>
+                                  <a onclick="parent.location='community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"><span class="avisos_mas">&gt; leer mÃ¡s</span></a></p></td>
                             </tr>
                             <tr>
                               <td>&nbsp;</td>
@@ -757,7 +789,7 @@ a.prev span, a.next span {
                             </tr>
                             <tr>
                               <td><p><?php echo WordLimiter($row_community_opinions_top3['opinion'], 35, $word_count); ?><br />
-                                  <a onclick="parent.location='community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"><span class="avisos_mas">&gt; leer más</span></a></p></td>
+                                  <a onclick="parent.location='community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"><span class="avisos_mas">&gt; leer mÃ¡s</span></a></p></td>
                             </tr>
                             <tr>
                               <td>&nbsp;</td>
@@ -855,7 +887,7 @@ a.prev span, a.next span {
     </tr>
         </table>
    
-  </div>
+  </div>		
 </div>
   <div id="footer" style="float:left;width:810px">
     <table border="0" cellpadding="0" cellspacing="0" >
@@ -864,11 +896,11 @@ a.prev span, a.next span {
         </tr>
       <tr align="center" valign="middle">
         <td colspan="2"><p><strong>&copy; Universidad Iberoamericana Ciudad
-            de México. </strong><br>
+            de MÃ©xico. </strong><br>
           </p>
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
-          Lomas de Santa Fe, México, C.P. 01219, Distrito Federal. <br>
+          Lomas de Santa Fe, MÃ©xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
           </address></td>
@@ -899,5 +931,5 @@ a.prev span, a.next span {
     }
 });
 </script>
-</body>
-<!-- InstanceEnd --></html>
+</body>									
+<!-- InstanceEnd --></html>			
