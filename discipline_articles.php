@@ -40,11 +40,11 @@ $startRow_all = $pageNum_all * $maxRows_all;
 
 mysql_select_db($database_otono2011, $otono2011);
 $selectSQL = sprintf("
-SELECT 'discipline_articles' as source, id_article, (select discipline from disciplines where disciplines.id_discipline = discipline_articles.id_discipline) as discipline, type, title, volume, picture, thumbnail, content, date FROM discipline_articles WHERE id_discipline=%s /*ORDER BY date DESC*/
+SELECT 'discipline_articles' as source, id_article, (select discipline from seg_dec_disciplinas where seg_dec_disciplinas.id_discipline = discipline_articles.id_discipline) as discipline, type, title, volume, picture, thumbnail, content, date FROM discipline_articles WHERE id_discipline=%s /*ORDER BY date DESC*/
 
 UNION
 
-SELECT 'weekly_articles' as source, id_article, (select discipline from disciplines where disciplines.id_discipline = weekly_articles.id_discipline) as discipline, 1 as type, title, 'N/A' as volume, picture, thumbnail, content, date FROM weekly_articles WHERE type = 3 AND id_discipline=%s
+SELECT 'weekly_articles' as source, id_article, (select discipline from seg_dec_disciplinas where seg_dec_disciplinas.id_discipline = weekly_articles.id_discipline) as discipline, 1 as type, title, 'N/A' as volume, picture, thumbnail, content, date FROM weekly_articles WHERE type = 3 AND id_discipline=%s
 
 ORDER BY date DESC
 ",

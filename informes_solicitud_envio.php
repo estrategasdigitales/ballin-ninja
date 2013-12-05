@@ -44,7 +44,7 @@ $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 if($_POST['area_programa']==0){
 	
 	mysql_select_db($database_otono2011, $otono2011);
-	$query_diplos_names = "SELECT * FROM site_programs WHERE id_program = ".$_POST['nombre_programa'];
+	$query_diplos_names = "SELECT * FROM seg_dec_programas WHERE id_program = ".$_POST['nombre_programa'];
 	$diplos_names = mysql_query($query_diplos_names, $otono2011) or die(mysql_error());
 	$row_diplos_names = mysql_fetch_assoc($diplos_names);
 	$totalRows_diplos_names = mysql_num_rows($diplos_names);
@@ -52,13 +52,13 @@ if($_POST['area_programa']==0){
 	$area_programa = $row_diplos_names['id_discipline'];
 	
 	mysql_select_db($database_otono2011, $otono2011);
-	$query_disciplines_names = "SELECT * FROM disciplines WHERE id_discipline = $area_programa";
+	$query_disciplines_names = "SELECT * FROM seg_dec_disciplinas WHERE id_discipline = $area_programa";
 	$disciplines_names = mysql_query($query_disciplines_names, $otono2011) or die(mysql_error());
 	$row_disciplines_names = mysql_fetch_assoc($disciplines_names);
 	$totalRows_disciplines_names = mysql_num_rows($disciplines_names);
 	
 	mysql_select_db($database_otono2011, $otono2011);
-	$query_coord_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $area_programa) AND id_access = 3";
+	$query_coord_mails = "SELECT * FROM seg_dec_usuarios WHERE id_user IN(SELECT id_user FROM seg_dec_usuarios_programas WHERE id_discipline = $area_programa) AND tipo = 3";
 	$coord_mails = mysql_query($query_coord_mails, $otono2011) or die(mysql_error());
 	$row_coord_mails = mysql_fetch_assoc($coord_mails);
 	$totalRows_coord_mails = mysql_num_rows($coord_mails);
@@ -94,7 +94,7 @@ if($_POST['area_programa']==0){
 	
 }else{
 	mysql_select_db($database_otono2011, $otono2011);
-	$query_diplos_names = "SELECT * FROM site_programs WHERE id_program = ".$_POST['nombre_programa'];
+	$query_diplos_names = "SELECT * FROM seg_dec_programas WHERE id_program = ".$_POST['nombre_programa'];
 	$diplos_names = mysql_query($query_diplos_names, $otono2011) or die(mysql_error());
 	$row_diplos_names = mysql_fetch_assoc($diplos_names);
 	$totalRows_diplos_names = mysql_num_rows($diplos_names);
@@ -102,13 +102,13 @@ if($_POST['area_programa']==0){
 	$area_programa = $_POST['area_programa'];
 	
 	mysql_select_db($database_otono2011, $otono2011);
-	$query_disciplines_names = "SELECT * FROM disciplines WHERE id_discipline = $area_programa";
+	$query_disciplines_names = "SELECT * FROM seg_dec_disciplinas WHERE id_discipline = $area_programa";
 	$disciplines_names = mysql_query($query_disciplines_names, $otono2011) or die(mysql_error());
 	$row_disciplines_names = mysql_fetch_assoc($disciplines_names);
 	$totalRows_disciplines_names = mysql_num_rows($disciplines_names);
 	
 	mysql_select_db($database_otono2011, $otono2011);
-	$query_coord_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $area_programa) AND id_access = 3";
+	$query_coord_mails = "SELECT * FROM seg_dec_usuarios WHERE id_user IN(SELECT id_user FROM seg_dec_usuarios_programas WHERE id_discipline = $area_programa) AND tipo = 3";
 	$coord_mails = mysql_query($query_coord_mails, $otono2011) or die(mysql_error());
 	$row_coord_mails = mysql_fetch_assoc($coord_mails);
 	$totalRows_coord_mails = mysql_num_rows($coord_mails);
