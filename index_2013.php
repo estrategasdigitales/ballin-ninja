@@ -641,11 +641,12 @@ a.prev span, a.next span {
 				$fecha1 = date('Y-m-d',$fecha1);
 
 				$fecha2 = strtotime('+15 day',strtotime($fecha1));
-				$fecha2 = date('Y-m-d',$fecha2);																																																																
-																	
+				$fecha2 = date('Y-m-d',$fecha2);																																																																						
+
 			  	mysql_query("SET lc_time_names = 'es_ES'");
 				mysql_select_db($database_otono2011, $otono2011);																												
 				$query_prog = "SELECT sp.program_name,sp.id_program,sp.program_new,date_format(sf.fecha,'%d') as dia,date_format(sf.fecha,'%M') as mes FROM site_programs as sp INNER JOIN site_fechas_ini as sf ON sp.id_program = sf.id_program WHERE sp.program_new=1 AND date_format(sf.fecha,'%Y-%m-%d') BETWEEN '$fecha1' AND '$fecha2' AND sf.cancelado=0 ORDER BY RAND() limit 6";
+																			
 				$prog = mysql_query($query_prog, $otono2011) or die(mysql_error());													
 				$row_prog = mysql_fetch_assoc($prog);													
 				$totalRows_prog = mysql_num_rows($prog);					
