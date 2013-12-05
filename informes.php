@@ -712,11 +712,11 @@ $row_banners = mysql_fetch_assoc($banners);?>
           </tr>
           <tr>
             <td  align="right" valign="top" >&nbsp;</td>
-          </tr>
+          </tr>	
         <tr>
-            <td valign="bottom" height="130" align="center" style="background: url(imagenes/newsletter.jpg) no-repeat scroll center bottom transparent; "><form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
+            <td valign="bottom" height="130" align="center" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat scroll center bottom transparent; "><form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
                 <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">
-                  <tbody><tr>
+                  <tbody><tr>		
                     <td width="62%" height="82"></td>
                     <td width="38%">&nbsp;</td>
                   </tr>
@@ -725,9 +725,9 @@ $row_banners = mysql_fetch_assoc($banners);?>
                       
                       <input type="hidden" name="list" value="newsDEC">
                       <input type="hidden" name="f" id="f_s" value="subscribe" checked="checked">
-                      <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email"></td>
-                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="Enviar" class="processing" style="font-size:10px; background:#666; border-radius:5px; color:#FFF; width:50px; border:0px slid #FFF; width:50px;"></td>
-                  </tr>
+                      <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email"></td>				
+                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="" class="processing"></td>
+                  </tr>						
                   <tr>
                     <td height="1"></td>
                   </tr>

@@ -421,7 +421,7 @@ a.prev span, a.next span {
 				$totalRows_prog = mysql_num_rows($prog);					
 
 				?>						
-				<div>																																																														
+				<div>																																																																		
 					<div id="pleca_gris_mas"><div id="titulo_programas_mas">Programas pr&oacute;ximos a abrir</div></div>						
 					<?php  														 																			
 						$x = 1;															
@@ -432,7 +432,7 @@ a.prev span, a.next span {
 					?>		<div class="<?php echo $class; ?>">																															
 								<div class="fecha_ini_mas">													 										
 									<?php echo $row_prog['dia']; ?> de 	<?php echo $row_prog['mes']; ?>													
-								</div>																																																																																										
+								</div>																																																																																															
 								<div class="name_program_mas">																													
 									<div class="program_type"><?php echo $row_prog['program_type']; ?></div>
 									<?php echo $row_prog['program_name']; ?>														
@@ -450,17 +450,17 @@ a.prev span, a.next span {
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
 	        <tr>          
-	        <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
+	        <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/descuentos.jpg" width="181px" border="0" /></a></td>
 	        </tr>
           <tr>
-          	<td  align="right" valign="top" >&nbsp;</td>
+          	<td  align="right" valign="top" >&nbsp;</td>	
           	</tr>
           <tr>
-            <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/banner_solicitalo.png" width="181px" height="115" border="0" /></a></td>
+            <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/solicitalo.jpg" width="181px" height="115" border="0" /></a></td>
           </tr>
           
            <tr>
-            <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/banner_newsletter.png) no-repeat bottom transparent; width:191px;">
+            <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat bottom transparent; width:191px;">
             	<form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
                 <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">
                   <tbody><tr>
@@ -472,8 +472,8 @@ a.prev span, a.next span {
                       
                       <input type="hidden" name="list" value="newsDEC">
                       <input type="hidden" name="f" id="f_s" value="subscribe" checked="checked">
-                      <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email" background="none"></td>
-                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="Enviar" class="processing" style="cursor:pointer;font-size:10px; border-radius:1px; color:#FFF; width:55px; border:0px; slid #FFF;"></td>
+                      <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email" background="none"></td>										
+                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="" class="processing" ></td>
                   </tr>
                   <tr>
                     <td height="1"></td>

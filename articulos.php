@@ -334,7 +334,7 @@ s.parentNode.insertBefore(ga, s);
 					  
 					  echo $row_disciplines['content']
 					  ;?>
-              </p>
+              </p>	
               
               
             </td>
@@ -428,18 +428,18 @@ s.parentNode.insertBefore(ga, s);
       		  <td align="center"><a onclick="parent.location=''" href="#"><img src="imagenes/banner_chiquito_cierre_trivia.png" height="300" width="180"></a></td>
           </tr>-->
           <tr>          
-          <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
+          <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/descuentos.jpg" width="181px" border="0" /></a></td>
           </tr>
           <tr>
             <td  align="right" valign="top" >&nbsp;</td>
             </tr>
           <tr>
-            <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/banner_solicitalo.png" width="181px" height="115" border="0" /></a></td>
+            <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/solicitalo.jpg" width="181px" height="115" border="0" /></a></td>
           </tr>
           
-           <tr>
-            <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/banner_newsletter.png) no-repeat bottom transparent; width:191px;">
-              <form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
+           <tr>					
+            <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat bottom transparent; width:191px;">
+              <form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">		
                 <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">
                   <tbody><tr>
                     <td width="62%" height="10"></td>
@@ -451,8 +451,8 @@ s.parentNode.insertBefore(ga, s);
                       <input type="hidden" name="list" value="newsDEC">
                       <input type="hidden" name="f" id="f_s" value="subscribe" checked="checked">
                       <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email" background="none"></td>
-                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="Enviar" class="processing" style="cursor:pointer;font-size:10px; border-radius:1px; color:#FFF; width:55px; border:0px; slid #FFF;"></td>
-                  </tr>
+                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="" class="processing"></td>
+                  </tr>										
                   <tr>
                     <td height="1"></td>
                   </tr>

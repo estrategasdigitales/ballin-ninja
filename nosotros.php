@@ -30,13 +30,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   return $theValue;
 }
 }
-/*
-mysql_select_db($database_otono2011, $otono2011);
-$query_ad = "SELECT * FROM ads ORDER BY `date` DESC LIMIT 0, 1";
-$ad = mysql_query($query_ad, $otono2011) or die(mysql_error());
-$row_ad = mysql_fetch_assoc($ad);
-$totalRows_ad = mysql_num_rows($ad);
-*/
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/secciones.dwt.php" codeOutsideHTMLIsLocked="false" -->
@@ -49,7 +43,7 @@ $totalRows_ad = mysql_num_rows($ad);
 <link href="css/estilos_dan.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="Scripts/jquery-ui.css" type="text/css" media="all" />
 <!------ Google Analytics ------>
-
+		
 <script type="text/javascript" src="Scripts/jquery.js"></script>
 <script type="text/javascript" src="Scripts/menu2.js"></script>
 <script type="text/javascript" src="jquery.carouFredSel-6.1.0.js"></script>
@@ -516,30 +510,30 @@ frameborder='0'></iframe> <!--////////////////////////////////////////////////
       		  <td align="center"><a onclick="parent.location=''" href="#"><img src="imagenes/banner_chiquito_cierre_trivia.png" height="300" width="180"></a></td>
           </tr>-->
           <tr>          
-          <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
+          <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/descuentos.jpg" width="181px" border="0" /></a></td>
           </tr>
           <tr>
             <td  align="right" valign="top" >&nbsp;</td>
-            </tr>
+            </tr>	
           <tr>
-            <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/banner_solicitalo.png" width="181px" height="115" border="0" /></a></td>
+            <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/solicitalo.jpg" width="181px" height="115" border="0" /></a></td>
           </tr>
           
            <tr>
-            <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/banner_newsletter.png) no-repeat bottom transparent; width:191px;">
+            <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat bottom transparent; width:191px;">
               <form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
-                <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">
+                <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">																	
                   <tbody><tr>
                     <td width="62%" height="10"></td>
                     <td width="38%">&nbsp;</td>
-                  </tr>
+                  </tr>				
                   <tr>
                     <td align="right"><!-- begin subscription_form_widget.tmpl -->
                       
                       <input type="hidden" name="list" value="newsDEC">
                       <input type="hidden" name="f" id="f_s" value="subscribe" checked="checked">
-                      <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email" background="none"></td>
-                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="Enviar" class="processing" style="cursor:pointer;font-size:10px; border-radius:1px; color:#FFF; width:55px; border:0px; slid #FFF;"></td>
+                      <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email" background="none"></td>														
+                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="" class="processing"></td>
                   </tr>
                   <tr>
                     <td height="1"></td>

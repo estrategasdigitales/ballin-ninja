@@ -115,9 +115,10 @@ h5 {
 	position:relative;
 	float: left;
 	width:820px;
-	height:46px;
-	background: url(../imagenes/otono_12.jpg) no-repeat right top;
+	height:46px;																																							
+	background: url(../imagenes/ladec/logo_primavera/logo_primavera_2014.jpg) no-repeat right top;
 }
+					
 #menu {
 	float:left;
 	width:820px;
@@ -772,7 +773,7 @@ div#newsletter {
 	display:inline-block; 
 	color:#EF356B;	
 	padding-left:25px;																																																														
-}																																																																																																								
+}																																																																																																										
 										
 .name_program_mas{								
 	display:inline-block;
@@ -789,6 +790,13 @@ div#newsletter {
 .nuevo{														
 	color:#EF356B;
 	display: inline;		
-}					
+}	
+																									
+.processing{								
+	background: url(../imagenes/ladec/banners/banners_laterales/boton_enviar.jpg) no-repeat;
+	cursor:pointer;																				
+    width:38px;		
+    border:0px;																																											
+}			
 		
 																		

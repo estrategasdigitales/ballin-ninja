@@ -204,88 +204,88 @@ s.parentNode.insertBefore(ga, s);
 <iframe id="helperIframe" src='http://www.diplomados.uia.mx/helper.html#1000' height='0' width='0' frameborder='0'></iframe>
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <?php switch($_GET['id_discipline']){
-		 case 1:
-		 $imagen = 'arquitectura';
+		 case 1:										
+		 $imagen = 'ba_arquitectura';
 		 $header = 'verde';
 		 $descargable = 'arquitectura';
 		 break;
 		 case 2:
-		 $imagen = 'arte';
+		 $imagen = 'ba_arte';
 		 $header = 'verde';
 		 $descargable = 'arte';
 		 break;
-		 case 3:
-		 $imagen = 'diseno';
+		 case 3:				
+		 $imagen = 'ba_diseno';
 		 $header = 'verde';
 		 $descargable = 'diseno';
 		 break;
-		 case 4:
-		 $imagen = 'comunicacion';
+		 case 4:						
+		 $imagen = 'ba_comunicacion';
 		 $header = 'gris';
 		 $descargable = 'comunicacion';
 		 break;
-		 case 5:
-		 $imagen = 'desarrollohumano';
+		 case 5:												
+		 $imagen = 'ba_desarrollo_humano';
 		 $header = 'gris';
 		 $descargable = 'dh';
 		 break;
-		 case 6:
-		 $imagen = 'salud';
+		 case 6:						
+		 $imagen = 'ba_salud';
 		 $header = 'gris';
 		 $descargable = 'salud';
 		 break;
 		 case 7:
-		 $imagen = 'politica';
-		 $header = 'gris';
+		 $imagen = 'ba_politica_y_derecho';
+		 $header = 'gris';				
 		 $descargable = 'politica';
 		 break;
 		 case 8:
-		 $imagen = 'negocios';
+		 $imagen = 'ba_negocios';
 		 $header = 'turquesa';
 		 $descargable = 'negocios';
 		 break;
 		 case 9:
-		 $imagen = 'tecnologia';
+		 $imagen = 'ba_tecnologia';
 		 $header = 'turquesa';
 		 $descargable = 'tecnologia';
 		 break;
 		 case 10:
-		 $imagen = 'humanidades';
+		 $imagen = 'ba_humanidades';
 		 $header = 'morado';
 		 $descargable = 'humanidades';
 		 break;
 		 case 11:
-		 $imagen = 'gastronomia';
+		 $imagen = 'ba_gastronomia';
 		 $header = 'amarillo';
 		 $descargable = 'gastronomia';
 		 break;
-		 case 12:
-		 $imagen = 'prepaAbierta';
+		 case 12:		
+		 $imagen = 'ba_prepa';
 		 $header = 'rojo';
 		 $descargable = 'prepa';
 		 break;
 		 case 13:
-		 $imagen = 'xochitla';
+		 $imagen = 'ba_xochitla';
 		 $header = 'vc';
 		 $descargable = 'xochitla';
-		 break;
+		 break;		
 		 case 14:
-		 $imagen = 'idiomas';
+		 $imagen = 'ba_idiomas';
 		 $header = 'rosa';
 		 $descargable = 'idiomas';
 		 break;
 		 case 15:
-		 $imagen = 'online';
+		 $imagen = 'ba_online';
 		 $header = 'azul';
 		 $descargable = 'online';
 		 break;
-		 case 16:
-		 $imagen = 'atencionIntgralEmpresas';
+		 case 16:		
+		 $imagen = 'ba_integral_a_empresas';
 		 $header = 'vc';
 		 $descargable = 'empresas';
 		 break;
 		 case 17:
-		 $imagen = 'atencionSectorPub';
+		 $imagen = 'ba_sector_publico';
 		 $header = 'naranja';
 		 $descargable = 'sP';
 		 break;
@@ -293,14 +293,14 @@ s.parentNode.insertBefore(ga, s);
 		 $imagen = 'creliogiosas';
 		 $header = 'morado';
 		 $descargable = 'cR';
-		 break;
+		 break;								
 		 case 19:
 		 $imagen = 'casabarragan';
 		 $header = 'verde';
 		 $descargable = 'casa_barragan';
-		 break;
-		  case 20:
-		 $imagen = 'lofft';
+		 break;								
+		  case 20:																
+		 $imagen = 'ba_lofft';
 		 $header = 'rojo';
 		 $descargable = 'casa_barragan';
 		 break;
@@ -1284,30 +1284,30 @@ s.parentNode.insertBefore(ga, s);
 
       <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
       <img class="img_seccion" src="imagenes/secciones/online_pjf.png" width="208" height="237" align="right" />
-      <?php }else{ ?>
-      <img class="img_seccion" src="imagenes/secciones/<?php echo $imagen; ?>.png" width="198" height="237" align="right" />
-      <?php } ?></div>
+      <?php }else{ ?>																																																																
+      <img class="img_seccion" src="imagenes/secciones/<?php echo $imagen; ?>.jpg" width="198" height="237" align="right" />
+      <?php } ?></div>										
 
 
 <div style="width:25%; float:left; margin-left:22px; margin-top:18px">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
           <tr>
-          <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
+          <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/descuentos.jpg" width="181px" border="0" /></a></td>
           </tr>
           <tr>
             <td  align="right" valign="top" >&nbsp;</td>
             </tr>
-          <tr>
-            <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/banner_solicitalo.png" width="181px" height="115" border="0" /></a></td>
+          <tr>	
+            <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/solicitalo.jpg" width="181px" height="115" border="0" /></a></td>
           </tr>
 
-           <tr>
-            <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/banner_newsletter.png) no-repeat bottom transparent; width:191px;">
-              <form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
-                <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">
+           <tr>											
+            <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat bottom transparent; width:191px;">
+              <form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">						
+                <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">								
                   <tbody>
-                  	
+                  			
                   	<tr>
                     <td width="62%" height="10"></td>
                     <td width="38%">&nbsp;</td>
@@ -1317,8 +1317,8 @@ s.parentNode.insertBefore(ga, s);
 
                       <input type="hidden" name="list" value="newsDEC">
                       <input type="hidden" name="f" id="f_s" value="subscribe" checked="checked">
-                      <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email" background="none"></td>
-                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="Enviar" class="processing" style="cursor:pointer;font-size:10px; border-radius:1px; color:#FFF; width:55px; border:0px; slid #FFF;"></td>
+                      <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email" background="none"></td>						
+                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="" class="processing"></td>
                   </tr>
                   <tr>
                     <td height="1"></td>
