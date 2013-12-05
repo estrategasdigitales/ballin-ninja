@@ -412,12 +412,19 @@ a.prev span, a.next span {
 	<div style="margin-left:29px">
 																																																									
         <div style="width:69%;float:left;margin-left:0px">
-        	 <?php  						
+        	 <?php  	
+        	 	$fecha_hoy = date("Y-m-d");																																
+			  	$fecha1 = strtotime('+1 day',strtotime($fecha_hoy));
+				$fecha1 = date('Y-m-d',$fecha1);																							
+
+				$fecha2 = strtotime('+15 day',strtotime($fecha1));
+				$fecha2 = date('Y-m-d',$fecha2);																																																																	
+																
 			  	mysql_query("SET lc_time_names = 'es_ES'");
 				mysql_select_db($database_otono2011, $otono2011);																												
-				$query_prog = "SELECT sp.program_name,sp.id_program,sp.program_type,sp.id_discipline,sp.id_program,sp.program_new,date_format(sf.fecha,'%d') as dia,date_format(sf.fecha,'%M') as mes FROM site_programs as sp INNER JOIN site_fechas_ini as sf ON sp.id_program = sf.id_program where sp.program_new=1";
+				$query_prog = "SELECT sp.program_name,sp.id_program,sp.program_type,sp.id_discipline,sp.id_program,sp.program_new,date_format(sf.fecha,'%d') as dia,date_format(sf.fecha,'%M') as mes FROM site_programs as sp INNER JOIN site_fechas_ini as sf ON sp.id_program = sf.id_program where sp.program_new=1 AND date_format(sf.fecha,'%Y-%m-%d') BETWEEN '$fecha1' AND '$fecha2' AND sf.cancelado=0";
 				$prog = mysql_query($query_prog, $otono2011) or die(mysql_error());											
-				$row_prog = mysql_fetch_assoc($prog);										
+				$row_prog = mysql_fetch_assoc($prog);																						
 				$totalRows_prog = mysql_num_rows($prog);					
 
 				?>						
