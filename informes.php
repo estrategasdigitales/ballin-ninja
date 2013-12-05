@@ -37,7 +37,7 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	$fecha_registro = date('Y-m-d H:i:s');
 	
 	mysql_select_db($database_otono2011, $otono2011);
-	$query_diplos_names = "SELECT *, (SELECT discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS discipline, (SELECT id_discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS id_discipline FROM site_programs WHERE id_program = '".$id_program."'";
+	$query_diplos_names = "SELECT *, (SELECT discipline FROM seg_dec_disciplinas WHERE seg_dec_disciplinas.id_discipline = seg_dec_programas.id_discipline) AS discipline, (SELECT id_discipline FROM seg_dec_disciplinas WHERE seg_dec_disciplinas.id_discipline = seg_dec_programas.id_discipline) AS id_discipline FROM seg_dec_programas WHERE id_program = '".$id_program."'";
 	$diplos_names = mysql_query($query_diplos_names, $otono2011) or die(mysql_error());
 	$row_diplos_names = mysql_fetch_assoc($diplos_names);
 	//$totalRows_diplos_names = mysql_num_rows($diplos_names);
@@ -45,7 +45,7 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	$id_discipline = $row_diplos_names['id_discipline'];
 	
 	mysql_select_db($database_otono2011, $otono2011);
-	$query_coord_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $id_discipline) AND id_access = 3";
+	$query_coord_mails = "SELECT * FROM seg_dec_usuarios WHERE id_user IN(SELECT id_user FROM seg_dec_usuarios_programas WHERE id_discipline = $id_discipline) AND tipo = 3";
 	$coord_mails = mysql_query($query_coord_mails, $otono2011) or die(mysql_error());
 	$row_coord_mails = mysql_fetch_assoc($coord_mails);
 	$totalRows_coord_mails = mysql_num_rows($coord_mails);
@@ -159,13 +159,13 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 }
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_disciplines_names = "SELECT * FROM disciplines WHERE id_discipline != 22 AND id_discipline != 19 ORDER BY discipline ASC";
+$query_disciplines_names = "SELECT * FROM seg_dec_disciplinas WHERE id_discipline != 22 AND id_discipline != 19 ORDER BY discipline ASC";
 $disciplines_names = mysql_query($query_disciplines_names, $otono2011) or die(mysql_error());
 $row_disciplines_names = mysql_fetch_assoc($disciplines_names);
 //$totalRows_disciplines_names = mysql_num_rows($disciplines_names);
 
 //mysql_select_db($database_otono2011, $otono2011);
-$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_type DESC, program_name ASC";
+$query_programas = "SELECT id_program, program_type, program_name FROM seg_dec_programas WHERE cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_type DESC, program_name ASC";
 $programas = mysql_query($query_programas, $otono2011) or die(mysql_error());
 $row_programas = mysql_fetch_assoc($programas);
 
