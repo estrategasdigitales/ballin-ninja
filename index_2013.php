@@ -830,7 +830,7 @@ a.prev span, a.next span {
  
 
  <div style="width:25%; float:left; margin-left:37px; margin-top:18px">
-      <table width="181px" border="0" cellspacing="0" cellpadding="0">
+      <table width="181px" border="0" cellspacing="0" cellpadding="0"  align="center">
         <tbody>
 	        <tr>          
 	        <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/descuentos.jpg" width="181px" border="0" /></a></td>
@@ -842,9 +842,11 @@ a.prev span, a.next span {
             <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/solicitalo.jpg" width="181px" height="115" border="0" /></a></td>
           </tr>												
            <tr>
-<tr>		
+
+			<tr>		
           	<td  align="right" valign="top" >&nbsp;</td>
-          	</tr>		   
+          	</tr>	
+          		
             <td valign="bottom" width="181px" height="115" align="left" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat bottom transparent; width:181px;">
             	<form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">																																																																																	
                 <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">															

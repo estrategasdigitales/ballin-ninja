@@ -1417,7 +1417,7 @@ No</td>
         <td colspan="2"><p><strong>&copy; Universidad Iberoamericana Ciudad
             de M&eacute;xico. </strong><br>
           </p>
-          <address>
+          <address> 
           Prol. Paseo de la Reforma 880, edificio G, P.B.
           Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00

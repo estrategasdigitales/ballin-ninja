@@ -1290,8 +1290,8 @@ s.parentNode.insertBefore(ga, s);
 
 
 <div style="width:25%; float:left; margin-left:22px; margin-top:18px">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tbody>
+<table width="181px" border="0" cellspacing="0" cellpadding="0" align="center">
+        <tbody>										
           <tr>
           <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/descuentos.jpg" width="181px" border="0" /></a></td>
           </tr>
@@ -1301,6 +1301,10 @@ s.parentNode.insertBefore(ga, s);
           <tr>	
             <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/solicitalo.jpg" width="181px" height="115" border="0" /></a></td>
           </tr>
+
+		  <tr>
+            <td  align="right" valign="top" >&nbsp;</td>
+          </tr>				
 
            <tr>											
             <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat bottom transparent; width:191px;">
@@ -1354,14 +1358,14 @@ s.parentNode.insertBefore(ga, s);
          </tr>
       <tr align="center" valign="middle">
         <td><p><strong>&copy; Universidad Iberoamericana Ciudad
-            de México. </strong><br>
-          </p>
+            de M&eacute;xico. </strong><br>
+          </p>																						
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
-          Lomas de Santa Fe, México, C.P. 01219, Distrito Federal. <br>
-          Tel. (55) 59.50.40.00
+          Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>
+          Tel. (55) 59.50.40.00 
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
-          </address></td>
+          </address></td>				
       </tr>
     </table>
   </div>
