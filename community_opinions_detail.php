@@ -506,36 +506,40 @@ s.parentNode.insertBefore(ga, s);
         
   </div>
   <div style="width:25%; float:left; margin-left:18px; margin-top:18px">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <table width="181px" border="0" cellspacing="0" cellpadding="0" align="center">
         <tbody>
         <!--<tr>
       		  <td align="center"><a onclick="parent.location=''" href="#"><img src="imagenes/banner_chiquito_cierre_trivia.png" height="300" width="180"></a></td>
           </tr>-->
-          <tr>        	
-        	<td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/banner_descuentos.png" width="181px" border="0" /></a></td>
+          <tr>       		 	
+        	<td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/descuentos.jpg" width="181px" border="0" /></a></td>
           	</tr>
           <tr>
           	<td  align="right" valign="top" >&nbsp;</td>
           	</tr>
           <tr>
-            <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/banner_solicitalo.png" width="181px" height="115" border="0" /></a></td>
+            <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/solicitalo.jpg" width="181px" height="115" border="0" /></a></td>
+          </tr>
+
+          <tr>							
+          	<td  align="right" valign="top" >&nbsp;</td>
           </tr>
           
            <tr>
-            <td valign="bottom" width="191px" height="120" align="left" style="background: url(imagenes/banner_newsletter.png) no-repeat bottom transparent; width:191px;">
+            <td valign="bottom" width="191px" height="120" align="left" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat bottom transparent; width:191px;">
             	<form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
-                <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">
-                  <tbody><tr>
+                <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">		
+                  <tbody><tr>				
                     <td width="62%" height="10"></td>
                     <td width="38%">&nbsp;</td>
-                  </tr>
+                  </tr>						
                   <tr>
                     <td align="right"><!-- begin subscription_form_widget.tmpl -->
                       
-                      <input type="hidden" name="list" value="newsDEC">
+                      <input type="hidden" name="list" value="newsDEC">						
                       <input type="hidden" name="f" id="f_s" value="subscribe" checked="checked">
-                      <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email" background="none"></td>
-                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="Enviar" class="processing" style="cursor:pointer;font-size:10px; border-radius:1px; color:#FFF; width:55px; border:0px; slid #FFF;"></td>
+                      <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email" background="none"></td>																				
+                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="" class="processing"></td>
                   </tr>
                   <tr>
                     <td height="1"></td>
@@ -572,11 +576,11 @@ s.parentNode.insertBefore(ga, s);
         </tr>
       <tr align="center" valign="middle">
         <td colspan="2"><p><strong>&copy; Universidad Iberoamericana Ciudad
-            de México. </strong><br>
-          </p>
+            de M&eacute;xico. </strong><br>
+          </p>													
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
-          Lomas de Santa Fe, México, C.P. 01219, Distrito Federal. <br>
+          Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
           </address></td>
