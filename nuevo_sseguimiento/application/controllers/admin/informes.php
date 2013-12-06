@@ -127,6 +127,15 @@ class Informes extends CI_Controller {
         $this->load->view('admin/informes/informes_contacto',$data);     
     }
 
+    public function delete_informes()
+    {                                            
+        $id = $this->input->post('id',true); 
+        if($this->informes_model->delete_informes($id))
+        {                                                   
+            echo json_encode(array('success'=>true,'message'=>msj('El registro se eliminó correctamente','message')));  
+        }                   
+    }
+
     public function update_contacto()
     {                                                                                                              
         $data['comentario_encargado'] = $this->input->post('comentario_encargado',true);

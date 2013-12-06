@@ -210,7 +210,7 @@
 			$headers .= "MIME-Version: 1.0\r\n";
 			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";	
 			$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";				
-
+										
 			//echo "ANTES: " . $mensaje;
 
 			$mensaje = str_replace("á", "&aacute;", $mensaje);
@@ -225,8 +225,7 @@
 
 			$mail_title = "DEC - Preinscripción";
 
-			//mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);	
-			mail("guillermojoel.huerta.com", $mail_title, $mensaje, $headers);	
+			mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);	
 																						
 			//mensaje para usuarios encargados del programa		
 			$mensaje_coord = '';	
@@ -265,7 +264,7 @@
 			//para mandar el mail en texto plano.												
 
 		}catch(Exception $e)
-		{						
+		{											
 			$error_var = 'Excepción capturada: '.  $e->getMessage(). "\n";
 			$headers = "From: webmaster@dec-uia.com\r\n";
 			$headers .= "MIME-Version: 1.0\r\n";
@@ -273,7 +272,7 @@
 			$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";
 			
 			mail('webmaster@dec-uia.com','Error en preinscripción', $error_var, $headers);
-									
+																			
 			header('Location:preinscripcion_fallida.php');
 		}																																		
 	}																																													

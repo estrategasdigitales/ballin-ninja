@@ -68,7 +68,12 @@ class Informes_model extends CI_Model
         {                                                                                                                                                                                                              
             return FALSE;            
         }                                                  
-    }                                                                      
+    }  
+
+    public function delete_informes($id)
+    {                                                                                                                           
+        return $this->db->delete('seg_dec_contacto',array('id'=>$id));                  
+    }                                                                                                                    
 
     public function total_search_informes($where,$user_uuid)
     {                                                                                                                                                                                                                                                                                                                    

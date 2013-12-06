@@ -80,7 +80,7 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	$headers .= "MIME-Version: 1.0\r\n";
 	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";	
 	$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";				
-	
+			
 	//echo "ANTES: " . $mensaje;
 											
 	$mensaje = str_replace("á", "&aacute;", $mensaje);
@@ -95,8 +95,7 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	
 	$mail_title = "DEC - Solicitud de informes";
 																											
-	//mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);
-	mail("guillermojoel.huerta@gmail.com", $mail_title, $mensaje, $headers);
+	mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);
 
 	$mensaje_coord = '';	
 	if(!empty($usuarios_programas)){
@@ -115,7 +114,7 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 			$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$usuario['pass']."</strong>";
 			mail($to_coord_b, $mail_title, $mensaje_coord, $headers);															
 		}														
-	}													 																																													
+	}																	 																																													
 	//mail('pvazquezdiaz@gmail.com', $mail_title, $mensaje_coord, $headers);
 ?>									
 
