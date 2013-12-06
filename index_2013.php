@@ -635,23 +635,18 @@ a.prev span, a.next span {
 				   </table>
 			    </form>
 			  </div>
-			  <?php  													
-			  	$fecha_hoy = date("Y-m-d");																																
-			  	$fecha1 = strtotime('+1 day',strtotime($fecha_hoy));
-				$fecha1 = date('Y-m-d',$fecha1);
-
-				$fecha2 = strtotime('+15 day',strtotime($fecha1));
-				$fecha2 = date('Y-m-d',$fecha2);																																																																						
+			  <?php  	
 
 			  	mysql_query("SET lc_time_names = 'es_ES'");
 				mysql_select_db($database_otono2011, $otono2011);																												
-				$query_prog = "SELECT sp.program_name,sp.id_program,sp.program_new,date_format(sf.fecha,'%d') as dia,date_format(sf.fecha,'%M') as mes FROM site_programs as sp INNER JOIN site_fechas_ini as sf ON sp.id_program = sf.id_program WHERE sp.program_new=1 AND date_format(sf.fecha,'%Y-%m-%d') BETWEEN '$fecha1' AND '$fecha2' AND sf.cancelado=0 ORDER BY RAND() limit 6";
-																			
+				$query_prog = "SELECT sp.program_name,sp.id_program,sp.program_new,date_format(sf.fecha,'%d') as dia,date_format(sf.fecha,'%M') as mes FROM site_programs as sp INNER JOIN site_fechas_ini as sf ON sp.id_program = sf.id_program where sp.program_new=1 ORDER BY RAND() limit 6";
 				$prog = mysql_query($query_prog, $otono2011) or die(mysql_error());													
-				$row_prog = mysql_fetch_assoc($prog);													
+				$row_prog = mysql_fetch_assoc($prog);				
 				$totalRows_prog = mysql_num_rows($prog);					
 
-				?>						
+				?>
+				<!-- Programas proximos a abrir.
+				
 				<div id="programas_proximos">																																														
 					<div id="pleca_gris"><div id="titulo_programas">Programas pr&oacute;ximos a abrir</div></div>
 						<div class="cont_programas">				
@@ -674,7 +669,11 @@ a.prev span, a.next span {
 					<?php } ?>	
 						</div>																																																									
 					<div id="mas_programas"><a href="mas_programas_2013.php"><img src="imagenes/programas/boton_ver_mas.jpg"/></a></div>																						
-				</div>																																		
+				</div>	
+				-->
+				
+				
+				
             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                 <!--tr>		
              		<td height="55" align="left" valign="bottom">
@@ -717,7 +716,7 @@ a.prev span, a.next span {
                             </tr>
                             <tr>
                               <td><p><?php echo WordLimiter($row_community_opinions_top3['opinion'], 35, $word_count); ?><br />
-                                  <a onclick="parent.location='http://www.diplomados.uia.mx/community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"> <span class="avisos_mas">&gt; leer más</span></a></p></td>
+                                  <a onclick="parent.location='http://www.diplomados.uia.mx/community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"> <span class="avisos_mas">&gt; leer m&aacute;s</span></a></p></td>
                             </tr>
                             <tr>
                               <td>&nbsp;</td>
@@ -756,7 +755,7 @@ a.prev span, a.next span {
                             </tr>
                             <tr>
                               <td><p><?php echo WordLimiter($row_community_opinions_top3['opinion'], 35, $word_count); ?><br />
-                                  <a onclick="parent.location='community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"><span class="avisos_mas">&gt; leer más</span></a></p></td>
+                                  <a onclick="parent.location='community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"><span class="avisos_mas">&gt; leer m&aacute;s</span></a></p></td>
                             </tr>
                             <tr>
                               <td>&nbsp;</td>
@@ -796,7 +795,7 @@ a.prev span, a.next span {
                             </tr>
                             <tr>
                               <td><p><?php echo WordLimiter($row_community_opinions_top3['opinion'], 35, $word_count); ?><br />
-                                  <a onclick="parent.location='community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"><span class="avisos_mas">&gt; leer más</span></a></p></td>
+                                  <a onclick="parent.location='community_opinions_detail.php?id_opinion=<?php echo $row_community_opinions_top3['id_opinion']; ?>'" style="cursor:pointer;"><span class="avisos_mas">&gt; leer m&aacute;s</span></a></p></td>
                             </tr>
                             <tr>
                               <td>&nbsp;</td>
@@ -831,7 +830,7 @@ a.prev span, a.next span {
  
 
  <div style="width:25%; float:left; margin-left:37px; margin-top:18px">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <table width="181px" border="0" cellspacing="0" cellpadding="0">
         <tbody>
 	        <tr>          
 	        <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/descuentos.jpg" width="181px" border="0" /></a></td>
@@ -842,8 +841,11 @@ a.prev span, a.next span {
           <tr>
             <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/solicitalo.jpg" width="181px" height="115" border="0" /></a></td>
           </tr>												
-           <tr>						
-            <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat bottom transparent; width:191px;">
+           <tr>
+<tr>		
+          	<td  align="right" valign="top" >&nbsp;</td>
+          	</tr>		   
+            <td valign="bottom" width="181px" height="115" align="left" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat bottom transparent; width:181px;">
             	<form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">																																																																																	
                 <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">															
                   <tbody><tr>														
@@ -867,10 +869,12 @@ a.prev span, a.next span {
           <tr>
           	<td  align="right" valign="top" >&nbsp;</td>
           	</tr>			
-          <tr>
+          <!--
+		  <tr>
           	<td align="center"><a href=" http://www.dec-uia.com/trivia2013/getbases.php?origin=ly5nhowK25"><img src="imagenes/d_banner_chiquito.jpg" height="300" width="180"></a></td>
           </tr>
-              
+          -->
+		  
               <!--table width="80%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td>
@@ -902,11 +906,11 @@ a.prev span, a.next span {
         </tr>
       <tr align="center" valign="middle">
         <td colspan="2"><p><strong>&copy; Universidad Iberoamericana Ciudad
-            de México. </strong><br>
+            de M&eacute;xico. </strong><br>
           </p>
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
-          Lomas de Santa Fe, México, C.P. 01219, Distrito Federal. <br>
+          Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
           </address></td>

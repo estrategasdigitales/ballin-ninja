@@ -887,6 +887,8 @@ s.parentNode.insertBefore(ga, s);
 						<input name="nombre" type="text" id="nombre" onchange="populate_rfc_name()" size="30" /><br />
 						*Recuerda que tu diploma quedar&aacute; con el mismo nombre que ingreses aqu&iacute;</td>
 				</tr>
+				
+				<!--
 				<tr>
 					<td align="right" valign="top"><span style="color:#ff0000;">C&oacute;digo de Promo Tianguis IBERO</td>
 					<td valign="top"><label for="codigo_promo"></label>
@@ -894,7 +896,7 @@ s.parentNode.insertBefore(ga, s);
 						<span>(Este c&oacute;digo se te env&iacute;a una vez confirmada tu asistencia al evento)</span>
 					</td>
 				</tr>
-				
+				-->
 				
 
 				<tr>
@@ -1350,14 +1352,18 @@ No</td>
       </div>
 
     <div style="width:25%; float:left; margin-left:22px; margin-top:18px; margin-left:18px">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <table width="181px" border="0" cellspacing="0" cellpadding="0" align="center">
         <tbody>
-          <tr>
+          
+		  <!--
+		  <tr>
             <td align="center">
             	<a onclick="parent.location='http://www.diplomados.uia.mx/extras.php'" href="#">
             		<img src="imagenes/banner_chiquito_cierre_trivia.png" height="300" width="180"></a></td>
           </tr>
-          <tr>          
+          -->
+		  
+		  <tr>          
           <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/catalogo.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/descuentos.jpg" width="181px" border="0" /></a></td>
             </tr>
           <tr>
@@ -1366,7 +1372,11 @@ No</td>
           <tr>						
             <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/solicitalo.jpg" width="181px" height="115" border="0" /></a></td>
           </tr>
-          						
+          	
+			<tr>
+            <td  align="right" valign="top" >&nbsp;</td>
+            </tr>
+			
            <tr>						
             <td valign="bottom" width="191px" height="120" align="left" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat bottom transparent; width:191px;">
               <form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
@@ -1387,7 +1397,8 @@ No</td>
                     <td height="1"></td>
                   </tr>
                 </tbody></table>
-              </form></td>
+              </form>
+			  </td>
           </tr>
               </td>
           </tr>
