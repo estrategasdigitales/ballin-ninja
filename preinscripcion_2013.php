@@ -19,50 +19,51 @@
 			$como_se_entero = utf8_decode($_POST['como_se_entero']);
 		}																																																																													
 
-		$id_discipline = $_POST['id_discipline'];
-		$id_program	   = $_POST['id_program'];	
+		$id_discipline = isset($_POST['id_discipline'])?$_POST['id_discipline']:'';
+		$id_program	   = isset($_POST['id_program'])?$_POST['id_program']:'';
+					
 
 		$url 	   	   = $_SERVER['PHP_SELF'];
 		$ip 	   	   = $_SERVER['REMOTE_ADDR'];
 		$navegador 	   = $_SERVER['HTTP_USER_AGENT'];
 
-		$codigo_promo = $_POST['codigo_promo'];
-		//Información Personal 								
-		$email 		  = $_POST['correo'];
-		$a_paterno 	  = $_POST['a_paterno'];						
-		$a_materno 	  = $_POST['a_materno'];
-		$nombre 	  = $_POST['nombre'];
-		$anioN 		  = $_POST['anio_nac'];
-		$diaN 		  = $_POST['dia_nac'];
-		$mesN 	      = $_POST['mes_nac'];
-		$calle_numero = $_POST['calle_numero'];
-		$colonia 	  = $_POST['colonia'];
-		$del_mpo 	  = $_POST['del_mpo'];
-		$cp 		  = $_POST['cp'];		
-		$ciudad 	  = $_POST['ciudad'];
-		$estado 	  = $_POST['estado'];
+		$codigo_promo = isset($_POST['codigo_promo'])?$_POST['codigo_promo']:'';
+		//Información Personal 														
+		$email 		  = isset($_POST['correo'])?$_POST['correo']:'';
+		$a_paterno 	  = isset($_POST['a_paterno'])?$_POST['a_paterno']:'';						
+		$a_materno 	  = isset($_POST['a_materno'])?$_POST['a_materno']:'';
+		$nombre 	  = isset($_POST['nombre'])?$_POST['nombre']:'';
+		$anioN 		  = isset($_POST['anio_nac'])?$_POST['anio_nac']:'';
+		$diaN 		  = isset($_POST['dia_nac'])?$_POST['dia_nac']:'';
+		$mesN 	      = isset($_POST['mes_nac'])?$_POST['mes_nac']:'';
+		$calle_numero = isset($_POST['calle_numero'])?$_POST['calle_numero']:'';
+		$colonia 	  = isset($_POST['colonia'])?$_POST['colonia']:'';
+		$del_mpo 	  = isset($_POST['del_mpo'])?$_POST['del_mpo']:'';
+		$cp 		  = isset($_POST['cp'])?$_POST['cp']:'';		
+		$ciudad 	  = isset($_POST['ciudad'])?$_POST['ciudad']:'';
+		$estado 	  = isset($_POST['estado'])?$_POST['estado']:'';
 		$rfc 		  = $_POST['rfc'].$_POST['rfc2'].$_POST['rfc3'];
-		$telefono 	  = $_POST['telefono'];
-		$celular 	  = $_POST['celular'];
-		$correo 	  = $_POST['correo'];
-		$nacionalidad = $_POST['nacionalidad'];
+		$telefono 	  = isset($_POST['telefono'])?$_POST['telefono']:'';
+		$celular 	  = isset($_POST['celular'])?$_POST['celular']:'';
+		$correo 	  = isset($_POST['correo'])?$_POST['correo']:'';
+		$nacionalidad = isset($_POST['nacionalidad'])?$_POST['nacionalidad']:'';
 		$fechaNac 	  = $anioN."-".$mesN."-".$diaN;
 
 		//Información Académica
 
-		$grado_academico 	  = $_POST['grado_academico'];
-		$institucion_estudios = $_POST['institucion_estudios'];
-		$porque_la_ibero 	  = $_POST['porque_la_ibero'];
-		$exalumno 			  = $_POST['exalumno'];
+		$grado_academico 	  = isset($_POST['grado_academico'])?$_POST['grado_academico']:'';
+		$institucion_estudios = isset($_POST['institucion_estudios'])?$_POST['institucion_estudios']:'';
+		$porque_la_ibero 	  = isset($_POST['porque_la_ibero'])?$_POST['porque_la_ibero']:'';
+		$exalumno 			  = isset($_POST['exalumno'])?$_POST['exalumno']:'';
 
 		//Informacion Laboral
 
-		$empresa 		   = $_POST['empresa'];
-		$puesto 		   = $_POST['puesto'];
-		$direccion_empresa = $_POST['direccion_empresa'];
-		$telefono_empresa  = $_POST['telefono_empresa'];
-			
+		$empresa 		   = isset($_POST['empresa'])?$_POST['empresa']:"N/A";
+		$puesto 		   = isset($_POST['puesto'])?$_POST['puesto']:"N/A";
+		$direccion_empresa = isset($_POST['direccion_empresa'])?$_POST['direccion_empresa']:'';
+		$telefono_empresa  = isset($_POST['telefono_empresa'])?$_POST['telefono_empresa']:'';
 															
+																																										
 		$insertSQL = "INSERT INTO seg_dec_preinscritos(
 		id_discipline,
 		id_program,
@@ -170,7 +171,7 @@
 		$key = 'sistema_seguimiento';																																																																											
 		$usuarios_programas = $db->query("SELECT u.email_1,u.email_2,u.username,AES_DECRYPT(u.pass,'{$key}') AS pass FROM seg_dec_usuarios AS u INNER JOIN seg_dec_usuarios_programas AS up ON up.user_uuid = u.user_uuid WHERE up.id_discipline=".$id_discipline." AND up.id_program=".$id_program." AND u.notificacion='1' and u.activo='1'");																																																																																			
 		$usuarios_programas = $usuarios_programas->fetchAll(PDO::FETCH_ASSOC);
-			
+	
 		try{																					
 			/*CONSTRUCCION DEL MENSAJE PARA ENVIAR EN EL MAIL*/
 																		
@@ -336,19 +337,30 @@ function unpopulate_rfc(){
 }
 </script>
 <script>
+
+																											
+						
+
+
+
 function validate(){
 	   
 	   //___ NUEVO CODIGO ---
 	   
 	    var requiredFieldsAlertMsg = "Los siguientes campos son requeridos:\n\n";
 		var cont = 0;
-		  
-		  if($('select#id_program').val()==0){
+																																																						
+		if($('#id_discipline').val()==0){				
+			  requiredFieldsAlertMsg += "* Disciplina\n";
+				cont++;
+		}						
+							
+		if($('#id_program').val()==0){
 			  requiredFieldsAlertMsg += "* Programa\n";
 				cont++;
-		  }
-		 
-		 if ($('input[name=como_se_entero]:radio').is(':checked')) {
+		}													
+		 																			
+		if($('input[name=como_se_entero]:radio').is(':checked')) {
 			 //--
 		 }else{
 			 if($('input#otromedio').val()==''){
@@ -798,7 +810,7 @@ s.parentNode.insertBefore(ga, s);
 				
 				<tr>		
 					<td colspan="2" valign="top">
-						<label for="id_discipline"></label>
+						<label for="id_discipline"></label>										
 							<select onchange="load_programs(this.value);" name="id_discipline" id="id_discipline">
 								<option value="0" selected="selected">Selecciona un &aacute;rea</option>
 								<?php	$disciplinas =	$db->query('SELECT id_discipline,discipline from seg_dec_disciplinas'); 

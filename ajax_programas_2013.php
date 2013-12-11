@@ -7,19 +7,19 @@
 	    $db = new PDO("mysql:host=$host;dbname=$dbname","$username","$password",array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));																																													
 	}catch(PDOException $e){															
 		echo "Error !!: " . $e->getMessage() . "<br/>";
-		die();																																									
-	}																																																																																				
+		die();																																																	
+	}																																																																																												
 
 	$stmt = $db->prepare("SELECT id_program,program_name,program_type from seg_dec_programas where (id_discipline='".$id_discipline."' OR id_discipline_alterna='".$id_discipline."')"); 
     $stmt->execute();																																																							
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);					
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);													
     $response .= '<select name="id_program" id="id_program" style="width:540px; max-width:540px;">
-		<option value="0" selected="selected" disabled="disabled">Selecciona un programa</option>';
+		<option value="0" selected="selected">Selecciona un programa</option>';
 
 	    foreach($result as $value){								  						
 	    	if($value['program_type']=='programahp'){
 	    		$programahp[]= '<option value="'.$value['id_program'].'">'.utf8_encode($value['program_name']).'</option>'; 
-	    	}						
+	    	}										
 
 	    	if($value['program_type']=='diplomado'){
 	    		$diplomado[]= '<option value="'.$value['id_program'].'">'.utf8_encode($value['program_name']).'</option>'; 
