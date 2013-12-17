@@ -359,7 +359,7 @@ class Users_model extends CI_Model
         $this->db->select('username');
         $this->db->from('seg_dec_usuarios');                
         $this->db->where('user_uuid',$user_uuid); 
-        $query = $this->db->get();
+        $query = $this->db->get();                      
         if ($query->num_rows()>0)                                                                                         
         {                                                                                                                                                                                                                                                                                                                                                                                                                                                        
              return $query->row();                             

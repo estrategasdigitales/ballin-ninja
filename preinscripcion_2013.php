@@ -1,11 +1,13 @@
 <?php require_once('Connections/nov2013.php');
 																												
 	try{																																																																																											
-	    $db = new PDO("mysql:host=$host;dbname=$dbname","$username","$password",array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));																																													
+	    //$db = new PDO("mysql:host=$host;dbname=$dbname","$username","$password",array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));																																													
+		$db = new PDO("mysql:host=$host;dbname=$dbname","$username","$password");
+		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);								
 	}catch(PDOException $e){															
 		echo "Error !!: " . $e->getMessage() . "<br/>";
 		die();																																									
-	}																													
+	}																																										
 
 	if((isset($_POST['send_form'])) && ($_POST['send_form']==1))
 	{ 
@@ -62,8 +64,8 @@
 		$puesto 		   = isset($_POST['puesto'])?$_POST['puesto']:"N/A";
 		$direccion_empresa = isset($_POST['direccion_empresa'])?$_POST['direccion_empresa']:'';
 		$telefono_empresa  = isset($_POST['telefono_empresa'])?$_POST['telefono_empresa']:'';
-															
-																																										
+																										
+																																																										
 		$insertSQL = "INSERT INTO seg_dec_preinscritos(
 		id_discipline,
 		id_program,
@@ -91,7 +93,11 @@
 		empresa,
 		puesto,
 		direccion_empresa,
-		telefono_empresa, codigo, ip, navegador, url_origen)
+		telefono_empresa, 
+		codigo, 
+		ip, 
+		navegador, 
+		url_origen)
 		VALUES (
 		:id_discipline,
 		:id_program,
@@ -158,13 +164,17 @@
 		$query->bindParam(':codigo_promo',$codigo_promo);
 		$query->bindParam(':ip',$ip);
 		$query->bindParam(':navegador',$navegador);
-		$query->bindParam(':url',$url);				
+		$query->bindParam(':url',$url);		
+																						
+				/*						
+		echo print_r($query);							
+		die();	*/																																																													
 
 		$query->execute();																																																																							
 		$db->query("INSERT INTO seg_dec_pasos_status(id_preinscrito)VALUES(".$db->lastInsertId().")");	
 
 		//nombre del programa y disciplina
-		$programas = $db->query("SELECT pro.program_name,dis.discipline FROM seg_dec_programas as pro INNER JOIN seg_dec_disciplinas as dis ON pro.id_discipline = dis.id_discipline WHERE pro.id_program=".$id_program." AND (pro.id_discipline=".$id_discipline." OR pro.id_discipline_alterna=".$id_discipline." )");																																																																																			
+		$programas = $db->query("SELECT pro.program_name,dis.discipline FROM seg_dec_programas as pro INNER JOIN seg_dec_disciplinas as dis ON pro.id_discipline = dis.id_discipline WHERE pro.id_program=".$id_program." AND (pro.id_discipline=".$id_discipline." OR pro.id_discipline_alterna=".$id_discipline.")");																																																																																			
 		$programas = $programas->fetchAll(PDO::FETCH_CLASS);																																			
 																																					
 		//usuarios asignados al programa	

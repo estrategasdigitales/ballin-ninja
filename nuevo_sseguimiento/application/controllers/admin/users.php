@@ -90,13 +90,13 @@ class Users extends CI_Controller {
     {       
         $user_uuid = $this->input->post('user_uuid');
         $value     = $this->input->post('value');
-        $user = $this->users_model->get_nombre_user($user_uuid);
-                                           
+        $user      = $this->users_model->get_nombre_user($user_uuid);
+                                                                               
         if($this->users_model->update_notificacion($user_uuid,$value))
-        {                                                                                                                                                                                           
-            $msj = ($value == 1)?'El usuario '.$user->nombre.' recibirá notificaciones.':'El usuario '.$user->nombre.' dejará de recibir notificaciones.';                                                                                                                          
+        {                                                                                                                                                                                                        
+            $msj = ($value == 1)?'El usuario '.$user->username.' recibirá notificaciones.':'El usuario '.$user->username.' dejará de recibir notificaciones.';                                                                                                                          
             echo json_encode(array('success'=>true,'message'=>msj($msj,'message')));   
-        }                                                                                                            
+        }                                                                                                                                                                                                  
     }                                                                             
 
     public function update_activo()
