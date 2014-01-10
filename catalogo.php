@@ -255,6 +255,9 @@ body {
   </div>
 </div>
 </div>
+
+
+
   <div id= "contenedor_irregular" style="float:left; margin-left:36px; width:795px;border:0px;margin-top:21px" >
     <div>
       <div style="position:relative; float:left; z-index:12;"> <!-- InstanceBeginEditable name="header" -->
@@ -262,6 +265,8 @@ body {
           <tr>
             <td align="center">
             <div>
+				<div data-configid="3466234/6028331" style="width: 780px; height: 500px;" class="issuuembed"></div><script type="text/javascript" src="//e.issuu.com/embed.js" async="true"></script>
+<!--			
                 <object style="width:780px;height:500px" >
                   <param name="movie" value="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf?mode=mini&amp;embedBackground=%23000000&amp;backgroundColor=%23222222&amp;documentId=130603185935-e1300bc8dc275df97a69f4fba05c78ae" />
                   <param name="allowfullscreen" value="true"/>
@@ -269,14 +274,15 @@ body {
                   <param name="wmode" value="transparent"/>
                   <embed src="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf" type="application/x-shockwave-flash" allowfullscreen="true" menu="false" wmode="transparent" style="width:780px;height:500px" flashvars="mode=mini&amp;backgroundColor=%23222222&amp;documentId=130603185935-e1300bc8dc275df97a69f4fba05c78ae" />
                 </object>  
-                <div style="width:780px;text-align:left;">
-                  <h2 style="text-align:center;"><a href="http://issuu.com/diplomados-ibero/docs/catalogo_por_pagina/1?e=3466234/2950957" target="_blank">Abrir publicación</a></h2>
+-->             
+				<div style="width:780px;text-align:left;">
+                  <h2 style="text-align:center;"><a href="http://issuu.com/diplomados-ibero/docs/catalogo_primavera_2014" target="_blank">Abrir publicación</a></h2>
                 </div>
               </div>
               </td>
           </tr>
           <tr>
-            <td align="center"><a href="temarios/otono_2013.pdf" target="_blank"><img src="imagenes/descargar_catalogo.png" alt="Descargar c&aacute;talogo" width="204" height="48" border="0" /></a></td>
+            <td align="center"><a href="http://dec-uia.com/landing_catalogo/" target="_blank"><img src="imagenes/descargar_catalogo.png" alt="Descargar c&aacute;talogo" width="204" height="48" border="0" /></a></td>
            </tr>
         </table>
         <!-- InstanceEndEditable --> </div>
@@ -294,11 +300,11 @@ body {
          </tr>
       <tr align="center" valign="middle">
         <td><p><strong>&copy; Universidad Iberoamericana Ciudad
-            de México. </strong><br>
+            de M&eacute;xico. </strong><br>
           </p>
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
-          Lomas de Santa Fe, México, C.P. 01219, Distrito Federal. <br>
+          Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
           </address></td>

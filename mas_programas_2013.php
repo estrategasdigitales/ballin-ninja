@@ -412,21 +412,15 @@ a.prev span, a.next span {
 	<div style="margin-left:29px">
 																																																									
         <div style="width:69%;float:left;margin-left:0px">
-        	 <?php  	
-        	 	$fecha_hoy = date("Y-m-d");																																
-			  	$fecha1 = strtotime('+1 day',strtotime($fecha_hoy));
-				$fecha1 = date('Y-m-d',$fecha1);																							
-
-				$fecha2 = strtotime('+15 day',strtotime($fecha1));
-				$fecha2 = date('Y-m-d',$fecha2);																																																																	
-
+        	 <?php  						
 			  	mysql_query("SET lc_time_names = 'es_ES'");
 				mysql_select_db($database_otono2011, $otono2011);																												
-				$query_prog = "SELECT sp.program_name,sp.id_program,sp.program_type,sp.id_discipline,sp.id_program,sp.program_new,date_format(sf.fecha,'%d') as dia,date_format(sf.fecha,'%M') as mes FROM site_programs as sp INNER JOIN site_fechas_ini as sf ON sp.id_program = sf.id_program where sp.program_new=1 AND date_format(sf.fecha,'%Y-%m-%d') BETWEEN '$fecha1' AND '$fecha2' AND sf.cancelado=0";
+				$query_prog = "SELECT sp.program_name,sp.id_program,sp.program_type,sp.id_discipline,sp.id_program,sp.program_new,date_format(sf.fecha,'%d') as dia,date_format(sf.fecha,'%M') as mes FROM site_programs as sp INNER JOIN site_fechas_ini as sf ON sp.id_program = sf.id_program where sp.program_new=1";
 				$prog = mysql_query($query_prog, $otono2011) or die(mysql_error());											
-				$row_prog = mysql_fetch_assoc($prog);																						
+				$row_prog = mysql_fetch_assoc($prog);										
 				$totalRows_prog = mysql_num_rows($prog);					
-				?>												
+
+				?>						
 				<div>																																																																		
 					<div id="pleca_gris_mas"><div id="titulo_programas_mas">Programas pr&oacute;ximos a abrir</div></div>						
 					<?php  														 																			
@@ -453,7 +447,7 @@ a.prev span, a.next span {
        	</div>
             
  <div style="width:25%; float:left; margin-left:37px; margin-top:18px">
-      <table width="181px" border="0" cellspacing="0" cellpadding="0"  align="center">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
 	        <tr>          
 	        <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/descuentos.jpg" width="181px" border="0" /></a></td>
@@ -464,11 +458,7 @@ a.prev span, a.next span {
           <tr>
             <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/solicitalo.jpg" width="181px" height="115" border="0" /></a></td>
           </tr>
-
-          <tr>
-            <td  align="right" valign="top" >&nbsp;</td>
-            </tr>
-          				
+          
            <tr>
             <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat bottom transparent; width:191px;">
             	<form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
@@ -530,7 +520,7 @@ a.prev span, a.next span {
       <tr align="center" valign="middle">
         <td colspan="2"><p><strong>&copy; Universidad Iberoamericana Ciudad
             de M&eacute;xico. </strong><br>
-          </p>																
+          </p>
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
           Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>

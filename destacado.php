@@ -428,7 +428,7 @@ s.parentNode.insertBefore(ga, s);
 								<p style="text-align:justify;line-height: 140%">“Tenemos motivos para celebrar”
 								 Gracias a nuestros alumnos por su empeño y dedicación  
 								“La evolución del ser humano nunca termina, es un proceso inacabado y siempre somos perfectibles, es por ello que la decisión de hacer un diplomado en la Ibero corresponde a ese ánimo interior de crecer, lo cual implica dedicación, sacrificio y disciplina”.
-								De este modo el Dr. José Morales Orozco, S. J., Rector de la Ibero Ciudad de México, felicitó a los alumnos de la Dirección de Educación Continua que concluyeron su diplomado durante este otoño 2012.
+								De este modo el Dr. José Morales Orozco, S. J., Rector de la Ibero Ciudad de M&eacute;xico, felicitó a los alumnos de la Dirección de Educación Continua que concluyeron su diplomado durante este otoño 2012.
 								Durante la ceremonia, que se llevó a cabo el viernes 7 diciembre en el auditorio José Sánchez Villaseñor, el Rector agregó que el sello distintivo de la Ibero es, además de ayudar a trascender con éxito profesional y personal, lograr que los conocimientos sean puestos al servicio de la comunidad y del país.
 								En el presídium también participaron el Mtro. José Luis Cortés Delgado, Director de Educación Continua; Mtro. Luis de Villafranca Andrade, Subdirector académico; Rena Fonseca, Directora de la Executive Education and International Programs de Harvard University Graduate School of Design, y el Arq. Ricard Fayós Molet, Director Académico de la Universidad Politécnica de Cataluña como invitado de honor.</p>
 								</td>
@@ -517,11 +517,11 @@ s.parentNode.insertBefore(ga, s);
          </tr>
       <tr align="center" valign="middle">
         <td><p><strong>&copy; Universidad Iberoamericana Ciudad
-            de México. </strong><br>
+            de M&eacute;xico. </strong><br>
           </p>
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
-          Lomas de Santa Fe, México, C.P. 01219, Distrito Federal. <br>
+          Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
           </address></td>

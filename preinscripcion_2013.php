@@ -1,13 +1,11 @@
 <?php require_once('Connections/nov2013.php');
 																												
 	try{																																																																																											
-	    //$db = new PDO("mysql:host=$host;dbname=$dbname","$username","$password",array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));																																													
-		$db = new PDO("mysql:host=$host;dbname=$dbname","$username","$password");
-		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);								
+	    $db = new PDO("mysql:host=$host;dbname=$dbname","$username","$password",array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));																																													
 	}catch(PDOException $e){															
 		echo "Error !!: " . $e->getMessage() . "<br/>";
 		die();																																									
-	}																																										
+	}																													
 
 	if((isset($_POST['send_form'])) && ($_POST['send_form']==1))
 	{ 
@@ -21,51 +19,50 @@
 			$como_se_entero = utf8_decode($_POST['como_se_entero']);
 		}																																																																													
 
-		$id_discipline = isset($_POST['id_discipline'])?$_POST['id_discipline']:'';
-		$id_program	   = isset($_POST['id_program'])?$_POST['id_program']:'';
-					
+		$id_discipline = $_POST['id_discipline'];
+		$id_program	   = $_POST['id_program'];	
 
 		$url 	   	   = $_SERVER['PHP_SELF'];
 		$ip 	   	   = $_SERVER['REMOTE_ADDR'];
 		$navegador 	   = $_SERVER['HTTP_USER_AGENT'];
 
-		$codigo_promo = isset($_POST['codigo_promo'])?$_POST['codigo_promo']:'';
-		//Información Personal 														
-		$email 		  = isset($_POST['correo'])?$_POST['correo']:'';
-		$a_paterno 	  = isset($_POST['a_paterno'])?$_POST['a_paterno']:'';						
-		$a_materno 	  = isset($_POST['a_materno'])?$_POST['a_materno']:'';
-		$nombre 	  = isset($_POST['nombre'])?$_POST['nombre']:'';
-		$anioN 		  = isset($_POST['anio_nac'])?$_POST['anio_nac']:'';
-		$diaN 		  = isset($_POST['dia_nac'])?$_POST['dia_nac']:'';
-		$mesN 	      = isset($_POST['mes_nac'])?$_POST['mes_nac']:'';
-		$calle_numero = isset($_POST['calle_numero'])?$_POST['calle_numero']:'';
-		$colonia 	  = isset($_POST['colonia'])?$_POST['colonia']:'';
-		$del_mpo 	  = isset($_POST['del_mpo'])?$_POST['del_mpo']:'';
-		$cp 		  = isset($_POST['cp'])?$_POST['cp']:'';		
-		$ciudad 	  = isset($_POST['ciudad'])?$_POST['ciudad']:'';
-		$estado 	  = isset($_POST['estado'])?$_POST['estado']:'';
+		$codigo_promo = $_POST['codigo_promo'];
+		//Información Personal 								
+		$email 		  = $_POST['correo'];
+		$a_paterno 	  = $_POST['a_paterno'];						
+		$a_materno 	  = $_POST['a_materno'];
+		$nombre 	  = $_POST['nombre'];
+		$anioN 		  = $_POST['anio_nac'];
+		$diaN 		  = $_POST['dia_nac'];
+		$mesN 	      = $_POST['mes_nac'];
+		$calle_numero = $_POST['calle_numero'];
+		$colonia 	  = $_POST['colonia'];
+		$del_mpo 	  = $_POST['del_mpo'];
+		$cp 		  = $_POST['cp'];		
+		$ciudad 	  = $_POST['ciudad'];
+		$estado 	  = $_POST['estado'];
 		$rfc 		  = $_POST['rfc'].$_POST['rfc2'].$_POST['rfc3'];
-		$telefono 	  = isset($_POST['telefono'])?$_POST['telefono']:'';
-		$celular 	  = isset($_POST['celular'])?$_POST['celular']:'';
-		$correo 	  = isset($_POST['correo'])?$_POST['correo']:'';
-		$nacionalidad = isset($_POST['nacionalidad'])?$_POST['nacionalidad']:'';
+		$telefono 	  = $_POST['telefono'];
+		$celular 	  = $_POST['celular'];
+		$correo 	  = $_POST['correo'];
+		$nacionalidad = $_POST['nacionalidad'];
 		$fechaNac 	  = $anioN."-".$mesN."-".$diaN;
 
 		//Información Académica
 
-		$grado_academico 	  = isset($_POST['grado_academico'])?$_POST['grado_academico']:'';
-		$institucion_estudios = isset($_POST['institucion_estudios'])?$_POST['institucion_estudios']:'';
-		$porque_la_ibero 	  = isset($_POST['porque_la_ibero'])?$_POST['porque_la_ibero']:'';
-		$exalumno 			  = isset($_POST['exalumno'])?$_POST['exalumno']:'';
+		$grado_academico 	  = $_POST['grado_academico'];
+		$institucion_estudios = $_POST['institucion_estudios'];
+		$porque_la_ibero 	  = $_POST['porque_la_ibero'];
+		$exalumno 			  = $_POST['exalumno'];
 
 		//Informacion Laboral
 
-		$empresa 		   = isset($_POST['empresa'])?$_POST['empresa']:"N/A";
-		$puesto 		   = isset($_POST['puesto'])?$_POST['puesto']:"N/A";
-		$direccion_empresa = isset($_POST['direccion_empresa'])?$_POST['direccion_empresa']:'';
-		$telefono_empresa  = isset($_POST['telefono_empresa'])?$_POST['telefono_empresa']:'';
-																										
-																																																										
+		$empresa 		   = $_POST['empresa'];
+		$puesto 		   = $_POST['puesto'];
+		$direccion_empresa = $_POST['direccion_empresa'];
+		$telefono_empresa  = $_POST['telefono_empresa'];
+			
+															
 		$insertSQL = "INSERT INTO seg_dec_preinscritos(
 		id_discipline,
 		id_program,
@@ -93,11 +90,7 @@
 		empresa,
 		puesto,
 		direccion_empresa,
-		telefono_empresa, 
-		codigo, 
-		ip, 
-		navegador, 
-		url_origen)
+		telefono_empresa, codigo, ip, navegador, url_origen)
 		VALUES (
 		:id_discipline,
 		:id_program,
@@ -164,24 +157,20 @@
 		$query->bindParam(':codigo_promo',$codigo_promo);
 		$query->bindParam(':ip',$ip);
 		$query->bindParam(':navegador',$navegador);
-		$query->bindParam(':url',$url);		
-																						
-				/*						
-		echo print_r($query);							
-		die();	*/																																																													
+		$query->bindParam(':url',$url);				
 
 		$query->execute();																																																																							
 		$db->query("INSERT INTO seg_dec_pasos_status(id_preinscrito)VALUES(".$db->lastInsertId().")");	
 
 		//nombre del programa y disciplina
-		$programas = $db->query("SELECT pro.program_name,dis.discipline FROM seg_dec_programas as pro INNER JOIN seg_dec_disciplinas as dis ON pro.id_discipline = dis.id_discipline WHERE pro.id_program=".$id_program." AND (pro.id_discipline=".$id_discipline." OR pro.id_discipline_alterna=".$id_discipline.")");																																																																																			
+		$programas = $db->query("SELECT pro.program_name,dis.discipline FROM seg_dec_programas as pro INNER JOIN seg_dec_disciplinas as dis ON pro.id_discipline = dis.id_discipline WHERE pro.id_program=".$id_program." AND (pro.id_discipline=".$id_discipline." OR pro.id_discipline_alterna=".$id_discipline." )");																																																																																			
 		$programas = $programas->fetchAll(PDO::FETCH_CLASS);																																			
 																																					
 		//usuarios asignados al programa	
 		$key = 'sistema_seguimiento';																																																																											
 		$usuarios_programas = $db->query("SELECT u.email_1,u.email_2,u.username,AES_DECRYPT(u.pass,'{$key}') AS pass FROM seg_dec_usuarios AS u INNER JOIN seg_dec_usuarios_programas AS up ON up.user_uuid = u.user_uuid WHERE up.id_discipline=".$id_discipline." AND up.id_program=".$id_program." AND u.notificacion='1' and u.activo='1'");																																																																																			
 		$usuarios_programas = $usuarios_programas->fetchAll(PDO::FETCH_ASSOC);
-	
+			
 		try{																					
 			/*CONSTRUCCION DEL MENSAJE PARA ENVIAR EN EL MAIL*/
 																		
@@ -221,7 +210,7 @@
 			$headers .= "MIME-Version: 1.0\r\n";
 			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";	
 			$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";				
-										
+
 			//echo "ANTES: " . $mensaje;
 
 			$mensaje = str_replace("á", "&aacute;", $mensaje);
@@ -236,7 +225,8 @@
 
 			$mail_title = "DEC - Preinscripción";
 
-			mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);	
+			//mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);	
+			mail("guillermojoel.huerta.com", $mail_title, $mensaje, $headers);	
 																						
 			//mensaje para usuarios encargados del programa		
 			$mensaje_coord = '';	
@@ -275,7 +265,7 @@
 			//para mandar el mail en texto plano.												
 
 		}catch(Exception $e)
-		{											
+		{						
 			$error_var = 'Excepción capturada: '.  $e->getMessage(). "\n";
 			$headers = "From: webmaster@dec-uia.com\r\n";
 			$headers .= "MIME-Version: 1.0\r\n";
@@ -283,7 +273,7 @@
 			$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";
 			
 			mail('webmaster@dec-uia.com','Error en preinscripción', $error_var, $headers);
-																			
+									
 			header('Location:preinscripcion_fallida.php');
 		}																																		
 	}																																													
@@ -347,30 +337,19 @@ function unpopulate_rfc(){
 }
 </script>
 <script>
-
-																											
-						
-
-
-
 function validate(){
 	   
 	   //___ NUEVO CODIGO ---
 	   
 	    var requiredFieldsAlertMsg = "Los siguientes campos son requeridos:\n\n";
 		var cont = 0;
-																																																						
-		if($('#id_discipline').val()==0){				
-			  requiredFieldsAlertMsg += "* Disciplina\n";
-				cont++;
-		}						
-							
-		if($('#id_program').val()==0){
+		  
+		  if($('select#id_program').val()==0){
 			  requiredFieldsAlertMsg += "* Programa\n";
 				cont++;
-		}													
-		 																			
-		if($('input[name=como_se_entero]:radio').is(':checked')) {
+		  }
+		 
+		 if ($('input[name=como_se_entero]:radio').is(':checked')) {
 			 //--
 		 }else{
 			 if($('input#otromedio').val()==''){
@@ -820,7 +799,7 @@ s.parentNode.insertBefore(ga, s);
 				
 				<tr>		
 					<td colspan="2" valign="top">
-						<label for="id_discipline"></label>										
+						<label for="id_discipline"></label>
 							<select onchange="load_programs(this.value);" name="id_discipline" id="id_discipline">
 								<option value="0" selected="selected">Selecciona un &aacute;rea</option>
 								<?php	$disciplinas =	$db->query('SELECT id_discipline,discipline from seg_dec_disciplinas'); 
@@ -1438,7 +1417,7 @@ No</td>
         <td colspan="2"><p><strong>&copy; Universidad Iberoamericana Ciudad
             de M&eacute;xico. </strong><br>
           </p>
-          <address> 
+          <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
           Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00

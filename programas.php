@@ -1279,19 +1279,25 @@ s.parentNode.insertBefore(ga, s);
       </div>
 
     </div>
-    <div id= "type4" class="rectangulo_irregular" style="margin-left:17px;">
+    <div id= "type4" class="rectangulo_irregular" style="margin-left:11px;">
 
 
       <?php if($_GET['id_discipline'] == 15 && $_GET['id_program'] == 401){ ?>
       <img class="img_seccion" src="imagenes/secciones/online_pjf.png" width="208" height="237" align="right" />
       <?php }else{ ?>																																																																
-      <img class="img_seccion" src="imagenes/secciones/<?php echo $imagen; ?>.jpg" width="198" height="237" align="right" />
+      <img class="img_seccion" src="imagenes/secciones/<?php echo $imagen; ?>.jpg" width="181" align="right" />
       <?php } ?></div>										
 
 
 <div style="width:25%; float:left; margin-left:22px; margin-top:18px">
 <table width="181px" border="0" cellspacing="0" cellpadding="0" align="center">
-        <tbody>										
+        <tbody>
+			<tr>          
+	        <td align="center"><a href="http://dec-uia.com/landing_catalogo/" target="_blank"><img src="imagenes/ladec/banners/banners_laterales/banner_lateral_catalogo.jpg" width="181px" border="0" /></a></td>
+	        </tr>
+			<tr>		
+          	<td  align="right" valign="top" >&nbsp;</td>
+          	</tr>
           <tr>
           <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/descuentos.jpg" width="181px" border="0" /></a></td>
           </tr>

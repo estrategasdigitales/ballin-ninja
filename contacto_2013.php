@@ -1,5 +1,5 @@
-<?php require_once('Connections/nov2013.php');
-																		
+<?php require_once('../Connections/nov2013.php');
+										
 try{																																																																																											
     $db = new PDO("mysql:host=$host;dbname=$dbname","$username","$password",array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));																																													
 }catch(PDOException $e){															
@@ -80,7 +80,7 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	$headers .= "MIME-Version: 1.0\r\n";
 	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";	
 	$headers .= 'Cc: webmaster@dec-uia.com' . "\r\n";				
-			
+	
 	//echo "ANTES: " . $mensaje;
 											
 	$mensaje = str_replace("á", "&aacute;", $mensaje);
@@ -95,7 +95,8 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	
 	$mail_title = "DEC - Solicitud de informes";
 																											
-	mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);
+	//mail("dec.ibero@gmail.com", $mail_title, $mensaje, $headers);
+	mail("guillermojoel.huerta@gmail.com", $mail_title, $mensaje, $headers);
 
 	$mensaje_coord = '';	
 	if(!empty($usuarios_programas)){
@@ -114,7 +115,7 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 			$mensaje_coord .= "<br /><br />Tu contrase&ntilde;a: <strong>".$usuario['pass']."</strong>";
 			mail($to_coord_b, $mail_title, $mensaje_coord, $headers);															
 		}														
-	}																	 																																													
+	}													 																																													
 	//mail('pvazquezdiaz@gmail.com', $mail_title, $mensaje_coord, $headers);
 ?>									
 
@@ -529,7 +530,7 @@ s.parentNode.insertBefore(ga, s);
 <!--FINALIZA FORMA DE INFORMES-->
 					</td>
 	  			</tr>
-	  		</table>		
+	  		</table>
 		  <!-- InstanceEndEditable -->
         <table width="93%" border="0" align="center" cellpadding="5" cellspacing="10">
           <tr>
@@ -544,12 +545,12 @@ s.parentNode.insertBefore(ga, s);
               <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=pvazquezdiaz"></script> 
               <!-- AddThis Button END --></td>
           </tr>
-        </table>										
+        </table>
       </div>
       </div>
     <div style="width:25%; float:left; margin-left:18px; margin-top:18px">
-            <table width="181px" border="0" cellspacing="0" cellpadding="0" align="center">
-        <tbody>																											
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
           <tr>          
           <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/descuentos.jpg" width="181px" border="0" /></a></td>
           </tr>
@@ -558,11 +559,7 @@ s.parentNode.insertBefore(ga, s);
             </tr>
           <tr>		
             <td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/propuestas_cursos.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/solicitalo.jpg" width="181px" height="115" border="0" /></a></td>
-          </tr>		
-
-          <tr>		
-          	<td  align="right" valign="top" >&nbsp;</td>
-          </tr>														
+          </tr>																
           		
            <tr>
             <td valign="bottom" width="191px" height="118" align="left" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat bottom transparent; width:191px;">
@@ -616,11 +613,11 @@ s.parentNode.insertBefore(ga, s);
       <tr align="center" valign="middle">
         <td colspan="2"><p><strong>&copy; Universidad Iberoamericana Ciudad
             de M&eacute;xico. </strong><br>
-          </p>												
+          </p>
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
           Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>
-          Tel. (55) 59.50.40.00  	    										 									  
+          Tel. (55) 59.50.40.00
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
           </address></td>
       </tr>

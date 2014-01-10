@@ -385,7 +385,7 @@ s.parentNode.insertBefore(ga, s);
           </tr>
           <tr>
             <td><p><?php echo substr($row_all_weekly_articles_details['content'], 0, 300); ?>...<a style="cursor: pointer;" onclick="parent.location='http://www.diplomados.uia.mx/weekly_articles_detail.php?id_article=<?php echo $row_all_weekly_articles_details['id_article'] ?>'"><br />
-                  <span class="avisos_mas" style="cursor:pointer"> &gt; leer más</span></a></p></td>
+                  <span class="avisos_mas" style="cursor:pointer"> &gt; leer m&aacute;s</span></a></p></td>
           </tr>
           <tr>
             <td height="10"></td>
@@ -436,11 +436,11 @@ s.parentNode.insertBefore(ga, s);
       </tr>
       <tr align="center" valign="middle">
         <td colspan="2"><p><strong>&copy; Universidad Iberoamericana Ciudad
-            de México. </strong><br>
+            de M&eacute;xico. </strong><br>
           </p>
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
-          Lomas de Santa Fe, México, C.P. 01219, Distrito Federal. <br>
+          Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
           </address></td>

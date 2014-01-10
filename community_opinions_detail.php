@@ -511,6 +511,12 @@ s.parentNode.insertBefore(ga, s);
         <!--<tr>
       		  <td align="center"><a onclick="parent.location=''" href="#"><img src="imagenes/banner_chiquito_cierre_trivia.png" height="300" width="180"></a></td>
           </tr>-->
+		  <tr>          
+	        <td align="center"><a href="http://dec-uia.com/landing_catalogo/" target="_blank"><img src="imagenes/ladec/banners/banners_laterales/banner_lateral_catalogo.jpg" width="181px" border="0" /></a></td>
+	        </tr>
+			<tr>		
+          	<td  align="right" valign="top" >&nbsp;</td>
+          	</tr>
           <tr>       		 	
         	<td align="center"><a onclick="parent.location='http://www.diplomados.uia.mx/promociones.php'" href="#"><img src="imagenes/ladec/banners/banners_laterales/descuentos.jpg" width="181px" border="0" /></a></td>
           	</tr>

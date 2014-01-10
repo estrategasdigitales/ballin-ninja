@@ -37,7 +37,7 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	$fecha_registro = date('Y-m-d H:i:s');
 	
 	mysql_select_db($database_otono2011, $otono2011);
-	$query_diplos_names = "SELECT *, (SELECT discipline FROM seg_dec_disciplinas WHERE seg_dec_disciplinas.id_discipline = seg_dec_programas.id_discipline) AS discipline, (SELECT id_discipline FROM seg_dec_disciplinas WHERE seg_dec_disciplinas.id_discipline = seg_dec_programas.id_discipline) AS id_discipline FROM seg_dec_programas WHERE id_program = '".$id_program."'";
+	$query_diplos_names = "SELECT *, (SELECT discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS discipline, (SELECT id_discipline FROM disciplines WHERE disciplines.id_discipline = site_programs.id_discipline) AS id_discipline FROM site_programs WHERE id_program = '".$id_program."'";
 	$diplos_names = mysql_query($query_diplos_names, $otono2011) or die(mysql_error());
 	$row_diplos_names = mysql_fetch_assoc($diplos_names);
 	//$totalRows_diplos_names = mysql_num_rows($diplos_names);
@@ -45,7 +45,7 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 	$id_discipline = $row_diplos_names['id_discipline'];
 	
 	mysql_select_db($database_otono2011, $otono2011);
-	$query_coord_mails = "SELECT * FROM seg_dec_usuarios WHERE id_user IN(SELECT id_user FROM seg_dec_usuarios_programas WHERE id_discipline = $id_discipline) AND tipo = 3";
+	$query_coord_mails = "SELECT * FROM ss_users WHERE id_user IN(SELECT id_user FROM ss_users_disciplines WHERE id_discipline = $id_discipline) AND id_access = 3";
 	$coord_mails = mysql_query($query_coord_mails, $otono2011) or die(mysql_error());
 	$row_coord_mails = mysql_fetch_assoc($coord_mails);
 	$totalRows_coord_mails = mysql_num_rows($coord_mails);
@@ -159,13 +159,13 @@ if((isset($_POST['send_form'])) && ($_POST['send_form']==1)){
 }
 
 mysql_select_db($database_otono2011, $otono2011);
-$query_disciplines_names = "SELECT * FROM seg_dec_disciplinas WHERE id_discipline != 22 AND id_discipline != 19 ORDER BY discipline ASC";
+$query_disciplines_names = "SELECT * FROM disciplines WHERE id_discipline != 22 AND id_discipline != 19 ORDER BY discipline ASC";
 $disciplines_names = mysql_query($query_disciplines_names, $otono2011) or die(mysql_error());
 $row_disciplines_names = mysql_fetch_assoc($disciplines_names);
 //$totalRows_disciplines_names = mysql_num_rows($disciplines_names);
 
 //mysql_select_db($database_otono2011, $otono2011);
-$query_programas = "SELECT id_program, program_type, program_name FROM seg_dec_programas WHERE cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_type DESC, program_name ASC";
+$query_programas = "SELECT id_program, program_type, program_name FROM site_programs WHERE cancelado = 0 AND id_program IN (SELECT id_program FROM site_fechas_ini WHERE periodo = 'o') ORDER BY program_type DESC, program_name ASC";
 $programas = mysql_query($query_programas, $otono2011) or die(mysql_error());
 $row_programas = mysql_fetch_assoc($programas);
 
@@ -712,11 +712,11 @@ $row_banners = mysql_fetch_assoc($banners);?>
           </tr>
           <tr>
             <td  align="right" valign="top" >&nbsp;</td>
-          </tr>	
+          </tr>
         <tr>
-            <td valign="bottom" height="130" align="center" style="background: url(imagenes/ladec/banners/banners_laterales/newsletter.jpg) no-repeat scroll center bottom transparent; "><form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
+            <td valign="bottom" height="130" align="center" style="background: url(imagenes/newsletter.jpg) no-repeat scroll center bottom transparent; "><form action="http://www.dec-uia.com/cgi-bin/dada/mail.cgi" method="post" target="_blank" name="form_news" id="form_news">
                 <table width="170" border="0" align="center" cellpadding="5" cellspacing="0">
-                  <tbody><tr>		
+                  <tbody><tr>
                     <td width="62%" height="82"></td>
                     <td width="38%">&nbsp;</td>
                   </tr>
@@ -725,9 +725,9 @@ $row_banners = mysql_fetch_assoc($banners);?>
                       
                       <input type="hidden" name="list" value="newsDEC">
                       <input type="hidden" name="f" id="f_s" value="subscribe" checked="checked">
-                      <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email"></td>				
-                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="" class="processing"></td>
-                  </tr>						
+                      <input name="email" type="text" id="email" value="" size="15" class="news_input" placeholder="email"></td>
+                    <td align="center"><input onClick="_gaq.push(['_trackEvent', 'Newsletter', 'Click', 'Registro al newsletter']);" type="submit" value="Enviar" class="processing" style="font-size:10px; background:#666; border-radius:5px; color:#FFF; width:50px; border:0px slid #FFF; width:50px;"></td>
+                  </tr>
                   <tr>
                     <td height="1"></td>
                   </tr>
@@ -746,11 +746,11 @@ $row_banners = mysql_fetch_assoc($banners);?>
       </tr>
       <tr align="center" valign="middle">
         <td colspan="2"><p><strong>&copy; Universidad Iberoamericana Ciudad
-            de México. </strong><br>
+            de M&eacute;xico. </strong><br>
           </p>
           <address>
           Prol. Paseo de la Reforma 880, edificio G, P.B.
-          Lomas de Santa Fe, México, C.P. 01219, Distrito Federal. <br>
+          Lomas de Santa Fe, M&eacute;xico, C.P. 01219, Distrito Federal. <br>
           Tel. (55) 59.50.40.00
           y 91.77.44.00 Lada nacional sin costo: 01 800 627 7615
           </address> </td>
